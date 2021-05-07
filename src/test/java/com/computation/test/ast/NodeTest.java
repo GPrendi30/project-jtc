@@ -1,8 +1,7 @@
-package com.computation.test;
+package com.computation.test.ast;
 
 import com.computation.ast.*;
 import org.junit.Test;
-
 import static org.junit.Assert.*;
 
 

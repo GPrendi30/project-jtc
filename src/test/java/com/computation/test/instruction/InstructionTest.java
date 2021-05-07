@@ -1,4 +1,4 @@
-package com.computation.test;
+package com.computation.instruction.test;
 
 import com.computation.instruction.*;
 import com.computation.program.OperandStack;

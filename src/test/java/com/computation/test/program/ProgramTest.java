@@ -1,4 +1,4 @@
-package com.computation.test;
+package com.computation.program.test;
 
 import com.computation.instruction.BIPUSH;
 import com.computation.instruction.Instruction;

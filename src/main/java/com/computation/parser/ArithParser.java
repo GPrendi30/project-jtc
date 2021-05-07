@@ -1,6 +1,15 @@
 package com.computation.parser;
 
-import com.computation.ast.*;
+//node imports
+import com.computation.ast.Addition;
+import com.computation.ast.Division;
+import com.computation.ast.Literal;
+import com.computation.ast.Multiplication;
+import com.computation.ast.Negation;
+import com.computation.ast.Node;
+import com.computation.ast.Subtraction;
+import com.computation.ast.Variable;
+
 import com.computation.lexer.LexicalAnalyzer;
 import com.computation.lexer.TokenType;
 
@@ -127,13 +136,12 @@ public final class ArithParser implements Parser {
 
             if (lexer.getCurrentToken().getType() == TokenType.STAR) {
                 isMul = true;
-                lexer.fetchNextToken();
             }  else if (lexer.getCurrentToken().getType() == TokenType.SLASH) {
                 isMul = false;
-                lexer.fetchNextToken();
             }  else {
                 break;
             }
+            lexer.fetchNextToken();
 
             final Node right = parseFactor();
             if (isMul) {
@@ -165,23 +173,11 @@ public final class ArithParser implements Parser {
     private Node parseFactor() {
         if (lexer.getCurrentToken().getType() == TokenType.LITERAL) {
             return new Literal(Integer.parseInt(lexer.getCurrentToken().getText()));
-
         } else if (lexer.getCurrentToken().getType() == TokenType.IDENTIFIER) {
             return new Variable(lexer.getCurrentToken().getText());
-
         } else if (lexer.getCurrentToken().getType() == TokenType.OPEN_PAREN) {
             lexer.fetchNextToken();
             return parseExpression();
-
-        } else if (lexer.getCurrentToken().getType() == TokenType.CLOSED_PAREN) {
-            lexer.fetchNextToken();
-            if (lexer.getCurrentToken().getType() == TokenType.PLUS
-                    || lexer.getCurrentToken().getType() == TokenType.MINUS) {
-                return parseExpression();
-            } else if (lexer.getCurrentToken().getType() == TokenType.STAR
-                    || lexer.getCurrentToken().getType() == TokenType.SLASH) {
-                return parseTerm();
-            }
         }
         return null;
     }

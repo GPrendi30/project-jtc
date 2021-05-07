@@ -43,7 +43,7 @@ public class RegExTokenFactory extends TokenFactory {
      * Get the position at which we last tried to find a token.
      * @return The start position of the last call to find(...)
      */
-    protected int getTokenStartPosition() {
+    public int getTokenStartPosition() {
         return matcher.start();
     }
 
@@ -51,7 +51,7 @@ public class RegExTokenFactory extends TokenFactory {
      * The text of the token.
      * @return The text of the token we found.
      */
-    protected String getTokenText() {
+    public String getTokenText() {
         return matcher.group();
     }
 

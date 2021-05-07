@@ -49,7 +49,7 @@ public class StringTokenFactory extends TokenFactory {
      * Get the position at which we last tried to find a token.
      * @return The start position of the last call to find(...)
      */
-    protected int getTokenStartPosition() {
+    public int getTokenStartPosition() {
         return startFrom;
     }
 

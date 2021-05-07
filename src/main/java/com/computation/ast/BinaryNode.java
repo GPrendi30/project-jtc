@@ -1,7 +1,8 @@
 package com.computation.ast;
 
-import com.computation.program.Program;
 import com.computation.instruction.Instruction;
+import com.computation.program.Program;
+
 
 public class BinaryNode extends Node {
     private final Node leftChild;
