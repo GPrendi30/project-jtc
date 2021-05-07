@@ -9,14 +9,14 @@
 Our project is to build a Spreadsheet capable of having a table of modifiable cells where you can evaluate formulas and expressions. We would like to introduce a GUI and a CLI.
 
 ### Milestone
-* [] Implement the labs
-* [] Have a table with cells
-* [] Complete the Model
-* [] Have a working CLI
-* [] Have a working GUI
-* [] _Add new features_
-  * [] repl
-  * [] CSV with formulas
+* [ ] Implement the labs
+* [ ] Have a table with cells
+* [ ] Complete the Model
+* [ ] Have a working CLI
+* [ ] Have a working GUI
+* [ ] _Add new features (optional)_
+  * [ ] repl
+  * [ ] CSV with formulas
 
 ### Architecture
 MVC (Model View Controller)
