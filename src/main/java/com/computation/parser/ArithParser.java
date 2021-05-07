@@ -1,7 +1,8 @@
 package com.computation.parser;
 
 import com.computation.ast.*;
-import com.computation.lexer.*;
+import com.computation.lexer.LexicalAnalyzer;
+import com.computation.lexer.TokenType;
 
 /**
  * A Parser for our Arith language

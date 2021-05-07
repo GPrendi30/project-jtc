@@ -1,4 +1,5 @@
 package com.computation.program;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,7 +17,7 @@ public class VariableTable {
      * Create a new empty variable table.
      */
     public VariableTable() {
-        variables = new HashMap<String,Integer>();
+        variables = new HashMap<>();
     }
     
     /**

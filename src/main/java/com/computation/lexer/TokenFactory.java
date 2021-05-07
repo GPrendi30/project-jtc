@@ -1,4 +1,5 @@
 package com.computation.lexer;
+
 /**
  * A TokenFactory can produce Tokens.
  */

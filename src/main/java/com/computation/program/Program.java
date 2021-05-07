@@ -1,5 +1,7 @@
 package com.computation.program;
+
 import com.computation.instruction.Instruction;
+
 import java.util.ArrayList;
 
 /**
@@ -15,7 +17,7 @@ public class Program {
      * Create a new empty program.
      */
     public Program() {
-        this.code = new ArrayList<Instruction>();
+        this.code = new ArrayList<>();
     }
 
     /**

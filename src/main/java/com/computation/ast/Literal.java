@@ -1,6 +1,7 @@
 package com.computation.ast;
-import com.computation.program.*;
+
 import com.computation.instruction.BIPUSH;
+import com.computation.program.Program;
 
 /**
  * A Literal is an AST node that 

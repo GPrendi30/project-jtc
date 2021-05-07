@@ -1,5 +1,8 @@
 package com.computation.instruction;
-import com.computation.program.*;
+
+import com.computation.program.OperandStack;
+import com.computation.program.Storage;
+
 /**
  * ISUB subtracts the top value from the second-to-top value
  * of the OperandStack,

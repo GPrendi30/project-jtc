@@ -1,4 +1,5 @@
 package com.computation.lexer;
+
 //---
 /**
  * A factory for tokens of type identifier.

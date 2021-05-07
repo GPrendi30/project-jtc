@@ -1,4 +1,5 @@
 package com.computation.lexer;
+
 /**
  * A special kind of RegExTokenFactory that produces tokens
  * that are integer literals.

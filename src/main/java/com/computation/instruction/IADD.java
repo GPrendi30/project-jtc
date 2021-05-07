@@ -1,5 +1,8 @@
 package com.computation.instruction;
-import com.computation.program.*;
+
+import com.computation.program.OperandStack;
+import com.computation.program.Storage;
+
 /**
  * IADD adds the top two values from the OperandStack
  * and pushes the result back to the OperandStack.

@@ -1,5 +1,8 @@
 package com.computation.instruction;
-import com.computation.program.*;
+
+import com.computation.program.OperandStack;
+import com.computation.program.Storage;
+
 public class IMUL extends Instruction {
     
     @Override

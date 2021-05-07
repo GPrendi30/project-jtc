@@ -1,5 +1,7 @@
 package com.computation.lexer;
+
 import java.util.Arrays;
+
 /**
  * A LexicalAnalyzer breaks a String into Tokens.
  * 

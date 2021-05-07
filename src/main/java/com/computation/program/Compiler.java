@@ -1,5 +1,7 @@
 package com.computation.program;
+
 import com.computation.ast.Node;
+
 /**
  * A Compiler converts an AST into a compiled Program.
  */

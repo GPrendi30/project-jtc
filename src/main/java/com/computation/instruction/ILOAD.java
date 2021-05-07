@@ -1,5 +1,8 @@
 package com.computation.instruction;
-import com.computation.program.*;
+
+import com.computation.program.OperandStack;
+import com.computation.program.Storage;
+import com.computation.program.VariableTable;
 
 public class ILOAD extends Instruction {
 

@@ -1,11 +1,11 @@
 package com.computation.program;
+
 /**
  * The "memory" to use during program execution.
  * In our little language, the memory consists
  * of a table of variables and 
  * an operand stack to hold intermediate values.
  */
-@SuppressWarnings("unused")
 public class Storage {
     
     private final OperandStack stack;

@@ -1,5 +1,7 @@
 package com.computation.ast;
-import com.computation.program.*;
+
+import com.computation.program.Program;
+
 /**
  * An abstract syntax tree (AST) node.
  */

@@ -1,6 +1,7 @@
 package com.computation.ast;
+
 import com.computation.instruction.ILOAD;
-import com.computation.program.*;
+import com.computation.program.Program;
 
 public class Variable extends Node {
     

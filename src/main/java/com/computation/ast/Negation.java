@@ -1,6 +1,7 @@
 package com.computation.ast;
+
 import com.computation.instruction.INEG;
-import com.computation.program.*;
+import com.computation.program.Program;
 
 /**
  * An integer negation (e.g., -5, or -x).
