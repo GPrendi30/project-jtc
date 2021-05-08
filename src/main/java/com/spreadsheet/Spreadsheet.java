@@ -1,7 +1,5 @@
 package com.spreadsheet;
 
-
-
 import com.spreadsheet.cell.Cell;
 import com.spreadsheet.table.Table;
 
