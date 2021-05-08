@@ -1,0 +1,27 @@
+/*
+    public static void main(String[] args) {
+        Spreadsheet s = new Spreadsheet();
+        s.printCurrentSheet();
+        s.selectCell(4,2);
+        s.updateCurrentCell("2");
+        s.selectCell(1,2);
+        s.updateCurrentCell("5");
+        Cell c = new TableCell(3, 3, "(B4+B1)");
+        s.currentSheet.add(c);
+        s.printCurrentSheet();
+        Program pr = new Program();
+        s.currentSheet.update(3, 3, c.evaluate(pr, s.currentSheet.getVariableTable()));
+        s.selectCell(5,5);
+        s.updateCurrentCell("=sum(B3:B6)");
+        s.printCurrentSheet();
+        s.selectSheet("Sheet 1");
+        s.printCurrentSheet();
+        s.addNewSheet("Geli");
+        s.addNewSheet("Oski");
+        s.selectSheet("Oski");
+        s.printCurrentSheet();
+        for (int i = 0; i < 12; i ++) {
+            s.addNewSheet(null);
+        }
+        s.printCurrentSheet();
+    } */

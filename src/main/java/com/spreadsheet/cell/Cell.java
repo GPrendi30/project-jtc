@@ -1,35 +1,47 @@
 package com.spreadsheet.cell;
 
+import com.computation.program.Program;
+import com.computation.program.VariableTable;
+
 public class Cell {
 
-    final static String alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    protected String cellLocation;
+    private final CellLocation location;
+    private boolean selectable;
 
-    public cell(int x, int y) {
-        this.cellLocation = calcLocation(x, y);
+    public Cell(final int x,final int y) {
+        location = new CellLocation(x, y);
+        selectable = false;
     }
 
-    public Type getType() {
-        return Type.INVALID;
+    public CellType getType() {
+        return CellType.INVALID;
     }
 
     public String getText() {
         // maybe change name to toString()
-        return "?";
+        return null;
     }
 
-    public String getLocation() {
-        return this.cellLocation;
+    public void makeSelectable() {
+        selectable = true;
     }
 
-    public void calcLocation(int x, int y) {
-        if (x == 0) {
-            this.cellLocation = "" + y;
-            return;
-        } else if (y == 0) {
-            this.cellLocation = Cell.alpha.substring(x-1, x);
-            return;
-        }       
-        this.cellLocation = Cell.alpha.substring(x-1, x) + y;
+    public boolean isSelectable() {
+        return selectable;
     }
+
+    public void updateContent(final String content) {
+        // to be overridden.
+    }
+
+
+    public String evaluate(final Program pr,final VariableTable vt) {
+        return null;
+    }
+
+
+    public CellLocation getLocation() {
+        return this.location;
+    }
+
 }

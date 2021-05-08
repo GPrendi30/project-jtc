@@ -1,6 +1,7 @@
 package com.computation.parser;
 
 //node imports
+
 import com.computation.ast.Addition;
 import com.computation.ast.Division;
 import com.computation.ast.Literal;
@@ -9,7 +10,6 @@ import com.computation.ast.Negation;
 import com.computation.ast.Node;
 import com.computation.ast.Subtraction;
 import com.computation.ast.Variable;
-
 import com.computation.lexer.LexicalAnalyzer;
 import com.computation.lexer.TokenType;
 

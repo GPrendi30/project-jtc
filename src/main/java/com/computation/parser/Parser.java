@@ -13,6 +13,6 @@ public interface Parser {
      * @param sourceCode The source code of the program
      * @return the AST of the program
      */
-    public abstract Node parse(String sourceCode);
+    abstract Node parse(String sourceCode);
     
 }
