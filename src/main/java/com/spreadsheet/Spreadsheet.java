@@ -7,6 +7,10 @@ import java.util.HashMap;
 
 public class Spreadsheet {
 
+    /* TODO add import export for csv, and other formats.
+       TODO add tests for packages: com.spreadsheet, com.spreadsheet.cell, com.spreadsheet.table
+       TODO add controller, add cli, polish model
+    */
     private static final int DEFAULT_TABLE_X;
     private static final int DEFAULT_TABLE_Y;
     private static int openSheets;
