@@ -52,9 +52,8 @@ public class Spreadsheet {
     }
 
 
-
     public void selectCell(final int x, final int y) {
-        currentCell = currentSheet.get(x,y);
+        currentCell = currentSheet.get(x, y);
     }
 
     public void updateCurrentCell(final String content) {
@@ -94,6 +93,5 @@ public class Spreadsheet {
     public static void incrementOpenSheets() {
         openSheets++;
     }
-
 
 }
