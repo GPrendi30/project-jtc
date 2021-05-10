@@ -22,6 +22,10 @@ public class Cell {
         return null;
     }
 
+    public static int[] parseLocation(String loc) {
+        return CellLocation.parse(loc);
+    }
+
     public void makeSelectable() {
         selectable = true;
     }

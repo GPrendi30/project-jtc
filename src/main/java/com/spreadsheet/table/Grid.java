@@ -123,7 +123,8 @@ public class Grid {
                     System.out.print("|");
                 }
                 // printing the cell
-                System.out.print(" " + get(x, y).getText() + " |");
+                String g = get(x, y).getText();
+                System.out.printf(" %1$s10 |", g);
             }
             System.out.println();
 

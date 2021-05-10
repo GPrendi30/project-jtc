@@ -1,5 +1,5 @@
 package com.spreadsheet.cell;
 
 public enum CellType {
-    INT, INVALID, FORMULA
+    INT, INVALID, FORMULA, STRING
 }

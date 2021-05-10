@@ -3,7 +3,12 @@ package com.spreadsheet;
 import com.spreadsheet.cell.Cell;
 import com.spreadsheet.table.Table;
 
+import javax.swing.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Scanner;
 
 public class Spreadsheet {
 
@@ -23,11 +28,11 @@ public class Spreadsheet {
 
     private Table currentSheet;
     private Cell currentCell;
-    private final HashMap<String, Table> sheets;
+    private final LinkedHashMap<String, Table> sheets;
 
 
     public Spreadsheet() {
-        sheets = new HashMap<>();
+        sheets = new LinkedHashMap<>();
         final Table t = new Table(DEFAULT_TABLE_X, DEFAULT_TABLE_Y); // default values;
         t.updateTableName("Sheet 1");
         sheets.put(t.getTableName(), t); // first sheet;
@@ -58,7 +63,6 @@ public class Spreadsheet {
 
     public void updateCurrentCell(final String content) {
         currentSheet.updateCell(currentCell, content);
-        currentSheet.addFormula(currentCell);
     }
 
     public Cell getCurrentCell() {
@@ -67,10 +71,16 @@ public class Spreadsheet {
 
     public void selectSheet(final String sheetName) {
         currentSheet = sheets.get(sheetName);
+        selectCell(0,0);
     }
 
     public void printCurrentSheet() {
         currentSheet.print();
+        this.printSheetNames();
+        currentSheet.printFormulas();
+    }
+
+    private void printSheetNames(){
         for (final Table t : sheets.values()) {
             String tName = t.getTableName();
             if (tName.equals(currentSheet.getTableName())) {
@@ -79,7 +89,51 @@ public class Spreadsheet {
             System.out.print("          \\ " + tName + " /            ");
         }
         System.out.println();
-        currentSheet.printFormulas();
+    }
+
+    public void importCsv(String path) {
+        Scanner sc = null;
+        try {
+            sc = new Scanner(new File(path));
+        } catch (FileNotFoundException exception) {
+            exception.printStackTrace();
+        }
+        sc.useDelimiter("\n");
+        int y = 1;
+        int x = 1;
+        while (sc.hasNext())  //returns a boolean value
+        {
+            String m = sc.next();
+            String[] l = m.split(",");
+            for (String v : l) {
+
+                selectCell(x,y);
+                if (y < l.length) {
+                    y++;
+                } else {
+                    x++;
+                    y = 1;
+                }
+
+                if (x > currentSheet.sizeX()) {
+                    currentSheet.grow("Vertically", 2 * currentSheet.sizeX());
+                }
+
+                if (y > currentSheet.sizeY()) {
+                    currentSheet.grow("Horizontally", 2 * currentSheet.sizeY());
+                }
+
+                updateCurrentCell(v);
+
+            }
+        }
+        sc.close();
+    }
+
+
+
+    public void grow(String dir, int size) {
+        currentSheet.grow(dir, size);
     }
 
     public static int getOpenSheets() {

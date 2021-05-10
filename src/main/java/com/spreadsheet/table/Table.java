@@ -32,6 +32,15 @@ public class Table {
         variableTable = new VariableTable();
     }
 
+    public int sizeX() {
+        return table.sizeX();
+    }
+
+    public int sizeY() {
+        return table.sizeY();
+    }
+
+
     public String getTableName() {
         return tableName;
     }
@@ -45,9 +54,8 @@ public class Table {
     public void grow(final String direction,final int size) {
         if ("Vertically".equals(direction)) {
             table.growVertically(size);
-            table.growVertically(size);
         } else if ("Horizontally".equals(direction)) {
-            table.growVertically(size);
+            table.growHorizontally(size);
         } else {
             // throw error
         }
@@ -101,7 +109,6 @@ public class Table {
     public String getFormula(final CellLocation c) {
         return formulas.get(c);
     }
-
 
     public void  print() {
         System.out.println(" ###########  "  + tableName + "  ############# ");

@@ -8,7 +8,7 @@ import com.computation.program.VariableTable;
 
 public class TableCell extends Cell {
 
-    private final static Parser PARSER;
+    private static final Parser PARSER;
 
     static {
         PARSER = new ArithParser();
@@ -18,20 +18,20 @@ public class TableCell extends Cell {
 
     public TableCell(final int x, final int y,final String content) {
         super(x, y);
-        this.content = content;
+        updateContent(content);
         makeSelectable();
     }
 
     public TableCell(final int x, final int y) {
         super(x, y);
-        this.content = null;
+        this.content = "";
     }
 
     @Override
     public CellType getType() {
-        return content.startsWith("=") || content.startsWith("(")
+        return content.startsWith("=")
                 ? CellType.FORMULA
-                : CellType.INT;
+                : CellType.STRING;
     }
 
     @Override
@@ -52,7 +52,9 @@ public class TableCell extends Cell {
     }
 
     public void updateContent(final String newContent) {
-        this.content = newContent;
+        this.content = newContent != null
+                ? newContent
+                : "";
     }
 
     public void remove() {
