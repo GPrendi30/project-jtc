@@ -40,6 +40,14 @@ public class SpreadsheetController {
             if (command.startsWith("!QUIT")) {
                 System.out.println("BYE");
                 break;
+            } if (command.startsWith("HELP")) {
+                System.out.println("Here is a list of commands:");
+                System.out.println("Select Cell !() -> () is the string location of the cell \t i.e : B4 C3 C6");
+                System.out.println("Update Cell !() -> () is the new string content of the cell \t i.e : 5 C3+C7 =(C5+C9)");
+                System.out.println("Print Cell !() -> () is the string location of the cell \t i.e : B5 C3 C9");
+                System.out.println("Add new sheet !() -> () is the name of the new sheet");
+                System.out.println("Print -> Prints the spreadsheet");
+                continue;
             }
 
             controller.executeCommand(command);
@@ -56,24 +64,34 @@ public class SpreadsheetController {
             model.addNewSheet(sheetName);
 
         } else if (command.startsWith("Select Cell")) {
-            int x;
-            int y;
-            int[] loc = Cell.parseLocation(arrCommands[arrCommands.length - 1]);
-            x = loc[0];
-            y = loc[1];
-            model.selectCell(x,y);
+            selectCell(arrCommands[arrCommands.length - 1]);
+        } else if (command.startsWith("Print Cell")) {
+            String location = arrCommands[arrCommands.length - 1];
+            System.out.printf("Content at cell %1s : %2s \n", location, getCell(location));
         } else if (command.startsWith("Update Cell")) {
             model.updateCurrentCell(arrCommands[arrCommands.length - 1]);
-
         } else if (command.startsWith("Select Sheet")) {
             model.selectSheet(arrCommands[arrCommands.length - 1]);
-
         } else if (command.startsWith("Print")) {
             view.printSpreadSheet(model);
         } else {
             System.out.println("Command not found");
         }
 
+    }
+
+    public void selectCell(final String location) {
+        int x;
+        int y;
+        int[] loc = Cell.parseLocation(location);
+        x = loc[0];
+        y = loc[1];
+        model.selectCell(x,y);
+    }
+
+    public String getCell(final String location) {
+        selectCell(location);
+        return model.getCurrentCell().getText();
     }
 
     public void addNewSheet(final String newTableName) {

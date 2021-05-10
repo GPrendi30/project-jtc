@@ -124,7 +124,7 @@ public class Grid {
                 }
                 // printing the cell
                 String g = get(x, y).getText();
-                System.out.printf(" %1$s10 |", g);
+                System.out.printf(" %1s |", g);
             }
             System.out.println();
 
