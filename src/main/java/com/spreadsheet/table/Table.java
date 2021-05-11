@@ -70,7 +70,8 @@ public class Table {
     }
 
     public void add(final Cell c) {
-        c.updateContent(c.evaluate(PROGRAM, variableTable));
+        //c.updateContent(c.evaluate(PROGRAM, variableTable));
+        c.evaluate(PROGRAM, variableTable);
         table.put(c);
         addFormula(c);
         addToVariableTable(c);
@@ -117,10 +118,11 @@ public class Table {
 
     public void printFormulas() {
         final Iterator<CellLocation> cellLocationIterator = formulas.keySet().iterator();
-        System.out.println("    FORMULAE TABLE");
+        System.out.println(" \n\n|     FORMULAE TABLE      |");
+        System.out.println("---------------------------");
         for (final String c : formulas.values())
         {
-            System.out.println("-----------------------");
+            System.out.println("----------------------------");
             System.out.println(" | " + cellLocationIterator.next() + " : " + c + " | ");
 
         }

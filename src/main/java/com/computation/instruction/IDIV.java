@@ -8,7 +8,12 @@ public class IDIV extends Instruction {
     @Override
     public void execute(final Storage storage) {
         final OperandStack stack = storage.getOperandStack();
-        stack.push(stack.pop() / stack.pop());
+        final int l = stack.pop();
+        final int r = stack.pop();
+        if (r == 0) {
+            throw new java.lang.ArithmeticException("/ by zero");
+        }
+        stack.push(r / l);
     }
     
     @Override

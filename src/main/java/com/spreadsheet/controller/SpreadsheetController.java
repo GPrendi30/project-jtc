@@ -26,10 +26,9 @@ public class SpreadsheetController {
 
     public static void main(String[] args) {
 
-        Spreadsheet s = new Spreadsheet();
-        SpreadsheetView sv = new SpreadsheetView();
-        SpreadsheetController controller = new SpreadsheetController(s, sv);
-        boolean cont = true;
+        final Spreadsheet s = new Spreadsheet();
+        final SpreadsheetView sv = new SpreadsheetView();
+        final SpreadsheetController controller = new SpreadsheetController(s, sv);
         System.out.println("Input Command");
         //System.out.println(s.getCurrentCell().getText());
 
@@ -46,6 +45,7 @@ public class SpreadsheetController {
                 System.out.println("Update Cell !() -> () is the new string content of the cell \t i.e : 5 C3+C7 =(C5+C9)");
                 System.out.println("Print Cell !() -> () is the string location of the cell \t i.e : B5 C3 C9");
                 System.out.println("Add new sheet !() -> () is the name of the new sheet");
+                System.out.println("Select sheet !() -> () is the name of the sheet");
                 System.out.println("Print -> Prints the spreadsheet");
                 continue;
             }
@@ -70,7 +70,7 @@ public class SpreadsheetController {
             System.out.printf("Content at cell %1s : %2s \n", location, getCell(location));
         } else if (command.startsWith("Update Cell")) {
             model.updateCurrentCell(arrCommands[arrCommands.length - 1]);
-        } else if (command.startsWith("Select Sheet")) {
+        } else if (command.startsWith("Select sheet")) {
             model.selectSheet(arrCommands[arrCommands.length - 1]);
         } else if (command.startsWith("Print")) {
             view.printSpreadSheet(model);

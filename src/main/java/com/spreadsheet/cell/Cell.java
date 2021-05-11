@@ -39,8 +39,8 @@ public class Cell {
     }
 
 
-    public String evaluate(final Program pr,final VariableTable vt) {
-        return null;
+    public void evaluate(final Program pr,final VariableTable vt) {
+        return;
     }
 
 

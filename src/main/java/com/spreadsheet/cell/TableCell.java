@@ -31,17 +31,19 @@ public class TableCell extends Cell {
     public CellType getType() {
         return content.startsWith("=")
                 ? CellType.FORMULA
-                : CellType.STRING;
+                : CellType.INT;
     }
 
     @Override
-    public String evaluate(final Program pr,final VariableTable vt) {
+    public void evaluate(final Program pr,final VariableTable vt) {
         try {
             final Node result = PARSER.parse(getText());
             result.compile(pr);
-            return "" + pr.execute(vt);
+            content = "" + pr.execute(vt);
         } catch (Exception exception) {
-            return "!NIL";
+            exception.printStackTrace();
+            content = "!NIL";
+            //throw exception;
         }
     }
 

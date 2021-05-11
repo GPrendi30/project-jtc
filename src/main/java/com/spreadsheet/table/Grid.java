@@ -9,7 +9,6 @@ import com.spreadsheet.cell.TopCell;
 import java.util.HashMap;
 
 public class Grid {
-
     private final HashMap<String, HashMap<Integer, Cell>> table;
     private int xDim;
     private int yDim;
@@ -124,7 +123,7 @@ public class Grid {
                 }
                 // printing the cell
                 String g = get(x, y).getText();
-                System.out.printf(" %1s |", g);
+                System.out.printf(" %10s |", g);
             }
             System.out.println();
 

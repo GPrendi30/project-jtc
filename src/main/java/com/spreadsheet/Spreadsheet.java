@@ -3,10 +3,8 @@ package com.spreadsheet;
 import com.spreadsheet.cell.Cell;
 import com.spreadsheet.table.Table;
 
-import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Scanner;
 
