@@ -10,9 +10,6 @@ public class IDIV extends Instruction {
         final OperandStack stack = storage.getOperandStack();
         final int l = stack.pop();
         final int r = stack.pop();
-        if (r == 0) {
-            throw new java.lang.ArithmeticException("/ by zero");
-        }
         stack.push(r / l);
     }
     
