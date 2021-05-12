@@ -1,4 +1,4 @@
-package com.spreadsheet.table;
+package com.spreadsheet.sheet;
 
 import com.spreadsheet.cell.Cell;
 import com.spreadsheet.cell.CellLocation;
@@ -9,12 +9,12 @@ import com.spreadsheet.cell.TopCell;
 import java.util.HashMap;
 
 public class Grid {
-    private final HashMap<String, HashMap<Integer, Cell>> table;
+    private final HashMap<String, HashMap<Integer, Cell>> matrix;
     private int xDim;
     private int yDim;
 
     public Grid(final int x,final int y) {
-        table = new HashMap<>();
+        matrix = new HashMap<>();
         xDim = x;
         yDim = y;
         initGrid();
@@ -33,9 +33,9 @@ public class Grid {
         final String column = newCell.getLocation().getColumn();
         final int row = newCell.getLocation().getRow();
 
-        if (table.containsKey(column)) {
+        if (matrix.containsKey(column)) {
             // get columns from the table
-            currCol = table.get(column);
+            currCol = matrix.get(column);
 
             // if key already exists in the columns
             if (currCol.containsKey(row)) {
@@ -50,14 +50,14 @@ public class Grid {
             // if table doesn't contain the row
             currCol = new HashMap<>();
             currCol.put(row, newCell);
-            table.put(column, currCol);
+            matrix.put(column, currCol);
         }
     }
 
     public Cell get(final int row,final int column) {
         final String col = new CellLocation(row, column).getColumn();
-        return table.containsKey(col)
-                ? table.get(col).get(row)
+        return matrix.containsKey(col)
+                ? matrix.get(col).get(row)
                 : null;
     }
 

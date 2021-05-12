@@ -1,4 +1,4 @@
-package com.spreadsheet.table;
+package com.spreadsheet.sheet;
 
 import com.computation.program.Program;
 import com.computation.program.VariableTable;
@@ -9,7 +9,7 @@ import com.spreadsheet.cell.CellType;
 import java.util.HashMap;
 import java.util.Iterator;
 
-public class Table {
+public class Sheet {
     private static final Program PROGRAM = new Program();
 
     private String tableName;
@@ -18,14 +18,14 @@ public class Table {
     private final VariableTable variableTable;
 
 
-    public Table(final int x,final int y) {
+    public Sheet(final int x, final int y) {
         tableName = "Table";
         table = new Grid(x, y);
         formulas = new HashMap<>();
         variableTable = new VariableTable();
     }
 
-    public Table(final int x, final int y, final String tableName) {
+    public Sheet(final int x, final int y, final String tableName) {
         this.tableName = tableName;
         table = new Grid(x, y);
         formulas = new HashMap<>();

@@ -1,7 +1,7 @@
 package com.spreadsheet;
 
 import com.spreadsheet.cell.Cell;
-import com.spreadsheet.table.Table;
+import com.spreadsheet.sheet.Sheet;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -24,14 +24,14 @@ public class Spreadsheet {
         openSheets = 0;
     }
 
-    private Table currentSheet;
+    private Sheet currentSheet;
     private Cell currentCell;
-    private final LinkedHashMap<String, Table> sheets;
+    private final LinkedHashMap<String, Sheet> sheets;
 
 
     public Spreadsheet() {
         sheets = new LinkedHashMap<>();
-        final Table t = new Table(DEFAULT_TABLE_X, DEFAULT_TABLE_Y); // default values;
+        final Sheet t = new Sheet(DEFAULT_TABLE_X, DEFAULT_TABLE_Y); // default values;
         t.updateTableName("Sheet 1");
         sheets.put(t.getTableName(), t); // first sheet;
         incrementOpenSheets();
@@ -44,7 +44,7 @@ public class Spreadsheet {
             return;
         }
 
-        final Table t = new Table(DEFAULT_TABLE_X, DEFAULT_TABLE_Y, tableName);
+        final Sheet t = new Sheet(DEFAULT_TABLE_X, DEFAULT_TABLE_Y, tableName);
         incrementOpenSheets();
         if (tableName == null || tableName.length() == 0) {
             t.updateTableName("Sheet " + openSheets);
@@ -79,7 +79,7 @@ public class Spreadsheet {
     }
 
     private void printSheetNames(){
-        for (final Table t : sheets.values()) {
+        for (final Sheet t : sheets.values()) {
             String tName = t.getTableName();
             if (tName.equals(currentSheet.getTableName())) {
                 tName += "*";
