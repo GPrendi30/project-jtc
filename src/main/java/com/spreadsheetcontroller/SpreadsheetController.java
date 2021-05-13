@@ -1,9 +1,9 @@
-package com.spreadsheet.controller;
+package com.spreadsheetController;
 
 
 import com.spreadsheet.Spreadsheet;
 import com.spreadsheet.cell.Cell;
-import com.spreadsheet.view.SpreadsheetView;
+import com.spreadsheetview.cli.SpreadsheetView;
 
 import java.util.Scanner;
 

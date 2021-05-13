@@ -1,4 +1,4 @@
-package com.spreadsheet.view;
+package com.spreadsheetView.cli;
 
 import com.spreadsheet.Spreadsheet;
 
