@@ -123,11 +123,11 @@ public class InstructionTest {
         OperandStack os = new OperandStack();
         VariableTable vt = new VariableTable();
         Storage s = new Storage(os, vt);
-        os.push(1);
+        os.push(6);
         os.push(3);
         Instruction i = new IDIV();
         i.execute(s);
-        assertEquals(3, os.pop());
+        assertEquals(2, os.pop());
     }
 
     @Test
