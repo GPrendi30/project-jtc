@@ -28,7 +28,9 @@ public class Spreadsheet {
     private Cell currentCell;
     private final LinkedHashMap<String, Sheet> sheets;
 
-
+    /**
+     * Creates a new Spreadsheet.
+     */
     public Spreadsheet() {
         sheets = new LinkedHashMap<>();
         final Sheet t = new Sheet(DEFAULT_TABLE_X, DEFAULT_TABLE_Y); // default values;
@@ -38,6 +40,10 @@ public class Spreadsheet {
         selectSheet("Sheet 1");
     }
 
+    /**
+     * Adds a new Sheet with a given name.
+     * @param tableName a String tableName.
+     */
     public void addNewSheet(final String tableName) {
         if (openSheets >= 10) {
             setOpenSheets(10);
@@ -55,30 +61,51 @@ public class Spreadsheet {
     }
 
 
+    /**
+     * Selects cell at the given coordinates.
+     * @param x the x coordinate
+     * @param y the y coordinate
+     */
+
     public void selectCell(final int x, final int y) {
         currentCell = currentSheet.get(x, y);
     }
 
+    /**
+     * Updates content of the current Cell.
+     * @param content a String, new content of the cell.
+     */
     public void updateCurrentCell(final String content) {
         currentSheet.updateCell(currentCell, content);
     }
 
+    /**
+     * Returns current Cell.
+     * @return a Cell: currentCell
+     */
     public Cell getCurrentCell() {
         return currentCell;
     }
 
+    /**
+     * Selects a sheet with the given name.
+     * @param sheetName a String sheetName.
+     */
     public void selectSheet(final String sheetName) {
         currentSheet = sheets.get(sheetName);
         selectCell(0,0);
     }
 
+    /**
+     * Prints currentSheet.
+     */
     public void printCurrentSheet() {
         currentSheet.print();
         this.printSheetNames();
         currentSheet.printFormulas();
     }
 
-    private void printSheetNames(){
+    private void printSheetNames() {
         for (final Sheet t : sheets.values()) {
             String tName = t.getTableName();
             if (tName.equals(currentSheet.getTableName())) {
@@ -89,7 +116,11 @@ public class Spreadsheet {
         System.out.println();
     }
 
-    public void importCsv(String path) {
+    /**
+     * Imports the content of the csv file from a path.
+     * @param path a String representation of a path.
+     */
+    public void importCsv(final String path) {
         Scanner sc = null;
         try {
             sc = new Scanner(new File(path));
@@ -101,9 +132,9 @@ public class Spreadsheet {
         int x = 1;
         while (sc.hasNext())  //returns a boolean value
         {
-            String m = sc.next();
-            String[] l = m.split(",");
-            for (String v : l) {
+            final String m = sc.next();
+            final String[] l = m.split(",");
+            for (final String v : l) {
 
                 selectCell(x,y);
                 if (y < l.length) {
@@ -129,19 +160,34 @@ public class Spreadsheet {
     }
 
 
-
-    public void grow(String dir, int size) {
+    /**
+     * Dynamically grow the sheet.
+     * @param dir String direction
+     * @param size int size in that direction.
+     */
+    public void grow(final String dir,final int size) {
         currentSheet.grow(dir, size);
     }
 
+    /**
+     * Gets the number of the open sheets currently.
+     * @return current openSheets.
+     */
     public static int getOpenSheets() {
         return openSheets;
     }
 
+    /**
+     * Sets the number of openSheets.
+     * @param i the number of the openSheets.
+     */
     private void setOpenSheets(final int i) {
         openSheets = i;
     }
 
+    /**
+     * Increments openSheets by 1.
+     */
     public static void incrementOpenSheets() {
         openSheets++;
     }

@@ -1,4 +1,4 @@
-package com.spreadsheetController;
+package com.spreadsheetcontroller;
 
 
 import com.spreadsheet.Spreadsheet;
@@ -10,21 +10,24 @@ import java.util.Scanner;
 
 public class SpreadsheetController {
 
-    private static final  String DEFAULT_SHEET_NAME;
-
-    static {
-        DEFAULT_SHEET_NAME = "Sheet 1";
-    }
-
     private final Spreadsheet model;
     private final SpreadsheetView view;
 
-    public SpreadsheetController(Spreadsheet s, SpreadsheetView sv) {
+    /**
+     * Creates a new SpreadsheetController.
+     * @param s a SpreadSheet.
+     * @param sv a SpreadSheetView.
+     */
+    public SpreadsheetController(final Spreadsheet s, final SpreadsheetView sv) {
         model = s;
         view = sv;
     }
 
-    public static void main(String[] args) {
+    /**
+     * Main function.
+     * @param args any args that you want.
+     */
+    public static void main(final String[] args) {
 
         final Spreadsheet s = new Spreadsheet();
         final SpreadsheetView sv = new SpreadsheetView();
@@ -33,17 +36,20 @@ public class SpreadsheetController {
         //System.out.println(s.getCurrentCell().getText());
 
         while (true) {
-            Scanner sc = new Scanner(System.in);
-            String command = sc.nextLine();
+            final Scanner sc = new Scanner(System.in);
+            final String command = sc.nextLine();
 
             if (command.startsWith("!QUIT")) {
                 System.out.println("BYE");
                 break;
-            } if (command.startsWith("HELP")) {
+            } else if (command.startsWith("HELP")) {
                 System.out.println("Here is a list of commands:");
-                System.out.println("Select Cell !() -> () is the string location of the cell \t i.e : B4 C3 C6");
-                System.out.println("Update Cell !() -> () is the new string content of the cell \t i.e : 5 C3+C7 =(C5+C9)");
-                System.out.println("Print Cell !() -> () is the string location of the cell \t i.e : B5 C3 C9");
+                System.out.println("Select Cell !() -> () is the string location of the cell \t"
+                        + "i.e : B4 C3 C6");
+                System.out.println("Update Cell !() -> () is the new string content of the cell \t"
+                        + "i.e : 5 C3+C7 =(C5+C9)");
+                System.out.println("Print Cell !() -> () is the string location of the cell \t"
+                        + "i.e : B5 C3 C9");
                 System.out.println("Add new sheet !() -> () is the name of the new sheet");
                 System.out.println("Select sheet !() -> () is the name of the sheet");
                 System.out.println("Print -> Prints the spreadsheet");
@@ -55,6 +61,10 @@ public class SpreadsheetController {
 
     }
 
+    /**
+     * Executes a command given by the user.
+     * @param command a String
+     */
     public void executeCommand(final String command) {
 
         final String[] arrCommands = command.split("!");
@@ -66,7 +76,7 @@ public class SpreadsheetController {
         } else if (command.startsWith("Select Cell")) {
             selectCell(arrCommands[arrCommands.length - 1]);
         } else if (command.startsWith("Print Cell")) {
-            String location = arrCommands[arrCommands.length - 1];
+            final String location = arrCommands[arrCommands.length - 1];
             System.out.printf("Content at cell %1s : %2s \n", location, getCell(location));
         } else if (command.startsWith("Update Cell")) {
             model.updateCurrentCell(arrCommands[arrCommands.length - 1]);
@@ -80,41 +90,65 @@ public class SpreadsheetController {
 
     }
 
+    /**
+     * Selects a cell from a given location.
+     * @param location a String cell location.
+     */
     public void selectCell(final String location) {
         int x;
         int y;
-        int[] loc = Cell.parseLocation(location);
+        final int[] loc = Cell.parseLocation(location);
         x = loc[0];
         y = loc[1];
         model.selectCell(x,y);
     }
 
+    /**
+     * Gets a cell's content from the location.
+     * @param location a String
+     * @return the content of the cell.
+     */
     public String getCell(final String location) {
         selectCell(location);
         return model.getCurrentCell().getText();
     }
 
+    /**
+     * Adds a new Sheet.
+     * @param newTableName a String.
+     */
     public void addNewSheet(final String newTableName) {
         model.addNewSheet(newTableName);
     }
 
-    public void selectCell(final int x, final int y) {
-        model.selectCell(x,y);
-    }
-
+    /**
+     * Select a sheet based on the name.
+     * @param sheetName the String name of a sheet.
+     */
     public void selectSheet(final String sheetName) {
         model.selectSheet(sheetName);
     }
 
+    /**
+     * Updates the content of the currentCell.
+     * @param content a String, new content.
+     */
     public void updateCurrentCell(final String content) {
         model.updateCurrentCell(content);
     }
 
+    /**
+     * Gets the content of the current cell.
+     * @return content of the Cell.
+     */
     public String getCurrentCell() {
         return model.getCurrentCell().getText();
     }
 
 
+    /**
+     * Updates the view.
+     */
     public void updateView() {
         view.printSpreadSheet(model);
     }

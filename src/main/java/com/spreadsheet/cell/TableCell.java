@@ -16,12 +16,23 @@ public class TableCell extends Cell {
 
     protected String content;
 
+    /**
+     *  Creates a new TableCell with content.
+     * @param x the x coordinates
+     * @param y the y coordinates
+     * @param content the content of the cell
+     */
     public TableCell(final int x, final int y,final String content) {
         super(x, y);
         updateContent(content);
         makeSelectable();
     }
 
+    /**
+     * Creates a new TableCell with no content.
+     * @param x the x coordinates
+     * @param y the y coordinates
+     */
     public TableCell(final int x, final int y) {
         super(x, y);
         this.content = "";
@@ -47,18 +58,17 @@ public class TableCell extends Cell {
         }
     }
 
+    @Override
     public String getText() {
-        return content != null
-                ? content
-                : null;
+        return content;
     }
 
+    @Override
     public void updateContent(final String newContent) {
-        this.content = newContent != null
-                ? newContent
-                : "";
+        this.content = newContent;
     }
 
+    @Override
     public void remove() {
         this.content = null;
     }

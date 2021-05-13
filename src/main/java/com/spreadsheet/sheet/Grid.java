@@ -13,6 +13,11 @@ public class Grid {
     private int xDim;
     private int yDim;
 
+    /**
+     * Creates a new Grid with x, y size.
+     * @param x the horizontal size.
+     * @param y the vertical size.
+     */
     public Grid(final int x,final int y) {
         matrix = new HashMap<>();
         xDim = x;
@@ -20,14 +25,26 @@ public class Grid {
         initGrid();
     }
 
+    /**
+     * Returns the size of X dimension.
+     * @return xDim an int.
+     */
     public int sizeX() {
         return xDim;
     }
 
+    /**
+     * Retunrs the size of Y dimension.
+     * @return yDim an int.
+     */
     public int sizeY() {
         return yDim;
     }
 
+    /**
+     * Puts a Cell in the table.
+     * @param newCell a Cell that you want to put in the table.
+     */
     public void put(final Cell newCell) {
         final HashMap<Integer, Cell> currCol;
         final String column = newCell.getLocation().getColumn();
@@ -54,6 +71,12 @@ public class Grid {
         }
     }
 
+    /**
+     * Get a cell from given coordinates.
+     * @param row the x coordinate.
+     * @param column the y coordinate.
+     * @return the Cell at x,y coordinates.
+     */
     public Cell get(final int row,final int column) {
         final String col = new CellLocation(row, column).getColumn();
         return matrix.containsKey(col)
@@ -61,6 +84,10 @@ public class Grid {
                 : null;
     }
 
+    /**
+     * Grows the grid vertically.
+     * @param newSizeX the new Size of x.
+     */
     public void growVertically(final int newSizeX) {
         for (int x = sizeX() + 1; x <= newSizeX; x++) {
             for (int y = 0; y <= sizeY(); y++) {
@@ -76,6 +103,10 @@ public class Grid {
         xDim = newSizeX;
     }
 
+    /**
+     * Grows the grid horizontally.
+     * @param newSizeY the new Size of y.
+     */
     public void growHorizontally(final int newSizeY) {
         for (int x = 0; x <= sizeX(); x++) {
             for (int y = sizeY() + 1; y <= newSizeY; y++) {
@@ -91,6 +122,10 @@ public class Grid {
         yDim = newSizeY;
     }
 
+    /*
+        Initializes the grid, the borders with TopCell and LateralCells,
+        and the others with empty TableCells.
+     */
     private void initGrid() {
         for (int x = 0; x <= sizeX(); x++) {
             for (int y = 0; y <= sizeY(); y++) {
@@ -108,6 +143,9 @@ public class Grid {
         }
     }
 
+    /**
+     * Prints the grid.
+     */
     public void print() {
         for (int x = 0; x <= sizeX(); x++) {
             if (x == 0) {
@@ -122,7 +160,7 @@ public class Grid {
                     System.out.print("|");
                 }
                 // printing the cell
-                String g = get(x, y).getText();
+                final String g = get(x, y).getText();
                 System.out.printf(" %10s |", g);
             }
             System.out.println();

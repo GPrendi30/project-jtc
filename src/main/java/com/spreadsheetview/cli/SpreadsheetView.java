@@ -1,10 +1,14 @@
-package com.spreadsheetView.cli;
+package com.spreadsheetview.cli;
 
 import com.spreadsheet.Spreadsheet;
 
 public class SpreadsheetView {
 
-    public void printSpreadSheet(Spreadsheet s) {
+    /**
+     * Prints spreadsheet.
+     * @param s the spreadsheet.
+     */
+    public void printSpreadSheet(final Spreadsheet s) {
         s.printCurrentSheet();
     }
 
