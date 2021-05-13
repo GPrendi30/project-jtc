@@ -8,6 +8,13 @@
 ### Idea
 Our project is to build a Spreadsheet capable of having a table of modifiable cells where you can evaluate formulas and expressions. We would like to introduce a GUI and a CLI.
 
+### Warning!
+If mvn site fails to build, run: <br>
+<code>bash script/set_JAVA_HOME.sh</code>
+<br> or just run the following command in the command line<br>
+<code>export JAVA_HOME=$(dirname $(dirname $(readlink -f $(which java))))</code>
+
+
 ### Milestones
 * [ ] Implement the labs
 * [ ] Have a table with cells
@@ -49,5 +56,16 @@ _issue_ is a temporary branch that we create to fix an issue. When the issue is 
  ### Maven build tool
  We use _maven_ to check for the test coverage, code correctness and code maturity.
 
- ### TODO
+### Build
+Use our script to build and package the project. <br>
+<code> bash script/build.sh </code> <br>
+Under <b>bin/ </b> you can find the packaged project in a jar file.
+To run: <br>
+<code> java -jar bin/jtc-1.0.jar</code>
+
+### Run
+Use our script to run without building <br>
+<code> bash script/run.sh </code>  <br>
+
+### TODO
  How to run guide.
