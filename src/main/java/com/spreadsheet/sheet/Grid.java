@@ -34,7 +34,7 @@ public class Grid {
     }
 
     /**
-     * Retunrs the size of Y dimension.
+     * Returns the size of Y dimension.
      * @return yDim an int.
      */
     public int sizeY() {
@@ -122,9 +122,9 @@ public class Grid {
         yDim = newSizeY;
     }
 
-    /*
-        Initializes the grid, the borders with TopCell and LateralCells,
-        and the others with empty TableCells.
+    /**
+     * Initializes the grid, the borders with TopCell and LateralCells,
+     * and the others with empty TableCells.
      */
     private void initGrid() {
         for (int x = 0; x <= sizeX(); x++) {
