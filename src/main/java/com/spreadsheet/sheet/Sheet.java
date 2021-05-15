@@ -189,7 +189,7 @@ public class Sheet {
     /**
      * Prints the current Sheet.
      */
-    public void  print() {
+    public void print() {
         System.out.println(" ###########  "  + tableName + "  ############# ");
         table.print();
     }
