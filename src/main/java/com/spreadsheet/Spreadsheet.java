@@ -16,17 +16,16 @@ public class Spreadsheet {
     */
     private static final int DEFAULT_TABLE_X;
     private static final int DEFAULT_TABLE_Y;
-    private static int openSheets;
 
     static {
         DEFAULT_TABLE_X = 15;
         DEFAULT_TABLE_Y = 5;
-        openSheets = 0;
     }
 
     private Sheet currentSheet;
     private Cell currentCell;
     private final LinkedHashMap<String, Sheet> sheets;
+    private int openSheets;
 
     /**
      * Creates a new Spreadsheet.
@@ -36,7 +35,7 @@ public class Spreadsheet {
         final Sheet t = new Sheet(DEFAULT_TABLE_X, DEFAULT_TABLE_Y); // default values;
         t.updateTableName("Sheet 1");
         sheets.put(t.getTableName(), t); // first sheet;
-        incrementOpenSheets();
+        openSheets = 1;
         selectSheet("Sheet 1");
     }
 
@@ -88,6 +87,14 @@ public class Spreadsheet {
     }
 
     /**
+     * Returns current Sheet.
+     * @return a Sheet: currentSheet
+     */
+    public Sheet getCurrentSheet() {
+        return currentSheet;
+    }
+
+    /**
      * Selects a sheet with the given name.
      * @param sheetName a String sheetName.
      */
@@ -95,6 +102,15 @@ public class Spreadsheet {
         currentSheet = sheets.get(sheetName);
         selectCell(0,0);
     }
+
+    /**
+     * Returns the name of the current sheet
+     * @return name of the current sheet
+     */
+    public String getCurrentSheetName() {
+        return currentSheet.getTableName();
+    }
+
 
     /**
      * Prints currentSheet.
@@ -173,7 +189,7 @@ public class Spreadsheet {
      * Gets the number of the open sheets currently.
      * @return current openSheets.
      */
-    public static int getOpenSheets() {
+    public int getOpenSheets() {
         return openSheets;
     }
 
@@ -188,7 +204,7 @@ public class Spreadsheet {
     /**
      * Increments openSheets by 1.
      */
-    public static void incrementOpenSheets() {
+    public void incrementOpenSheets() {
         openSheets++;
     }
 
