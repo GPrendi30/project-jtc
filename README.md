@@ -42,13 +42,13 @@ We'll use the observer pattern for the GUI.
 
 ### Git branches
 ##### _main_
-_main_ is the working branch were everything is correct, tested and cleaned up.
+_main_ is the working branch where everything is correct, tested and cleaned up.
 
 ##### _dev_
 _dev_ is the development branch were we work on adding new stuff.
 
 ##### _issue_
-_issue_ is a temporary branch that we create to fix an issue. When the issue is fixed this branch is merged to _main_.
+_issue_ is a temporary branch that we create to fix an issue. When, the issue is fixed this branch is merged to _main_.
 
  ### Coding conventions
  We are going to develop our project following the [Google Java Style Guide](https://google.github.io/styleguide/javaguide.html).
@@ -59,7 +59,7 @@ _issue_ is a temporary branch that we create to fix an issue. When the issue is 
 ### Build
 Use our script to build and package the project. <br>
 <code> bash script/build.sh </code> <br>
-Under <b>bin/ </b> you can find the packaged project in a jar file.
+Under <a href="./bin/"><b>bin/ </b></a> you can find the packaged project in a jar file.
 To run: <br>
 <code> java -jar bin/jtc-1.0.jar</code>
 

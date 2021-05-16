@@ -20,7 +20,7 @@ public class Spreadsheet {
 
     static {
         DEFAULT_TABLE_X = 15;
-        DEFAULT_TABLE_Y = 15;
+        DEFAULT_TABLE_Y = 5;
         openSheets = 0;
     }
 

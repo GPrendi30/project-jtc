@@ -6,9 +6,6 @@ import com.computation.program.VariableTable;
 
 import org.junit.Test;
 
-import jdk.javadoc.internal.doclets.formats.html.resources.standard_ja;
-import jdk.jfr.Timestamp;
-
 import static org.junit.Assert.*;
 
 public class SheetTest {
@@ -103,15 +100,14 @@ public class SheetTest {
 
     } */
 
-    /* // TEST NOT WORKING
+
     @Test
     public void testAddFormula() {
         Sheet s = new Sheet(5, 6);
-        Cell c = new TableCell(3,3);
-        c.updateContent("=5+3");
+        Cell c = new TableCell(3,3, "=5+3");
         s.add(c);
         assertEquals(s.getFormula(c.getLocation()), c.getText()); 
-    } */
+    }
     
     // TODO: testGet
 

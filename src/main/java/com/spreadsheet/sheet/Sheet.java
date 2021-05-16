@@ -115,9 +115,11 @@ public class Sheet {
      */
     public void add(final Cell c) {
         //c.updateContent(c.evaluate(PROGRAM, variableTable));
-        c.evaluate(PROGRAM, variableTable);
-        table.put(c);
         addFormula(c);
+        if(!checkIfFormula(c)) {
+            c.evaluate(PROGRAM, variableTable);
+        }
+        table.put(c);
         addToVariableTable(c);
     }
 
