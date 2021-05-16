@@ -4,8 +4,6 @@ import com.spreadsheet.cell.*;
 import com.spreadsheet.sheet.*;
 import org.junit.Test;
 
-import jdk.jfr.Timestamp;
-
 import static org.junit.Assert.*;
 
 public class SpreadsheetTest {

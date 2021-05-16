@@ -78,7 +78,7 @@ public class CellTest {
     public void testTableCell() {
         Cell c = new TableCell(3,3, "Cell 3,3");
         assertEquals("Cell 3,3", c.getText());
-        assertEquals(CellType.INT, c.getType());
+        assertEquals(CellType.STRING, c.getType());
         c.updateContent("=Sum(A1+B2)");
         assertEquals("=Sum(A1+B2)", c.getText());
         assertEquals(CellType.FORMULA, c.getType());

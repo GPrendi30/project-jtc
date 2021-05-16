@@ -89,7 +89,7 @@ public class Sheet {
         } else if ("Horizontally".equals(direction)) {
             table.growHorizontally(size);
         } else {
-            System.out.println("Wrong");
+            // throw error
         }
     }
 
@@ -116,7 +116,7 @@ public class Sheet {
     public void add(final Cell c) {
         //c.updateContent(c.evaluate(PROGRAM, variableTable));
         addFormula(c);
-        if(!checkIfFormula(c)) {
+        if (c.getType() == CellType.INT) {
             c.evaluate(PROGRAM, variableTable);
         }
         table.put(c);

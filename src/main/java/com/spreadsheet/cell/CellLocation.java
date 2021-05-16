@@ -17,10 +17,11 @@ public class CellLocation {
      * @param row the x coordinate.
      * @param col the y coordinate.
      */
-    public CellLocation(final int row, final int col) {
-        this.column = col != 0
+    public CellLocation(final int row,final int col) {
+        this.column = (col != 0)
                 ? CellLocation.ALPHA.substring(col - 1, col)
                 : null;
+
         this.row = row;
     }
 

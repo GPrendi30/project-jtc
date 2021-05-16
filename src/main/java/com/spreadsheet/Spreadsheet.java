@@ -5,8 +5,14 @@ import com.spreadsheet.sheet.Sheet;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.LinkedHashMap;
 import java.util.Scanner;
+
 
 public class Spreadsheet {
 
@@ -17,6 +23,7 @@ public class Spreadsheet {
     private static final int DEFAULT_TABLE_X;
     private static final int DEFAULT_TABLE_Y;
 
+
     static {
         DEFAULT_TABLE_X = 15;
         DEFAULT_TABLE_Y = 5;
@@ -24,8 +31,8 @@ public class Spreadsheet {
 
     private Sheet currentSheet;
     private Cell currentCell;
-    private final LinkedHashMap<String, Sheet> sheets;
     private int openSheets;
+    private final LinkedHashMap<String, Sheet> sheets;
 
     /**
      * Creates a new Spreadsheet.
@@ -87,14 +94,6 @@ public class Spreadsheet {
     }
 
     /**
-     * Returns current Sheet.
-     * @return a Sheet: currentSheet
-     */
-    public Sheet getCurrentSheet() {
-        return currentSheet;
-    }
-
-    /**
      * Selects a sheet with the given name.
      * @param sheetName a String sheetName.
      */
@@ -104,13 +103,20 @@ public class Spreadsheet {
     }
 
     /**
-     * Returns the name of the current sheet
+     * Returns the name of the current sheet.
      * @return name of the current sheet
      */
     public String getCurrentSheetName() {
         return currentSheet.getTableName();
     }
 
+    /**
+     * Returns the current sheet.
+     * @return the currentSheet.
+     */
+    public Sheet getCurrentSheet() {
+        return currentSheet;
+    }
 
     /**
      * Prints currentSheet.
@@ -127,7 +133,7 @@ public class Spreadsheet {
             if (tName.equals(currentSheet.getTableName())) {
                 tName += "*";
             }
-            System.out.print("          \\ " + tName + " /            ");
+            System.out.print("          \\ " + tName + " / ");
         }
         System.out.println();
     }
@@ -139,11 +145,14 @@ public class Spreadsheet {
     public void importCsv(final String path) {
         Scanner sc = null;
         try {
-            sc = new Scanner(new File(path));
+            final File csvFile = new File(path);
+            sc = new Scanner(csvFile);
+            this.addNewSheet(csvFile.getName());
         } catch (FileNotFoundException exception) {
             exception.printStackTrace();
         }
-        sc.useDelimiter("\n");
+
+        sc.useDelimiter(System.getProperty("line.separator"));
         int y = 1;
         int x = 1;
         while (sc.hasNext())  //returns a boolean value
@@ -175,6 +184,39 @@ public class Spreadsheet {
         sc.close();
     }
 
+
+    /**
+     * Writes to a csv file
+     * @param path Location where to save the csv file.
+     * @throws IOException throws error if path doesnt exist.
+     */
+    public void exportCsv(final String path) throws IOException {
+        final Path baseDir = Paths.get(path);
+        if (!Files.exists(baseDir)) {
+            // throw exception.
+        }
+
+        final File csvFile = new File(path);
+        if (csvFile.exists()) {
+            //ask for overwrite
+        } else {
+            // create new file.
+            csvFile.createNewFile();
+        }
+
+        final StringBuilder sb = new StringBuilder();
+        for (int x = 1; x <= currentSheet.sizeX(); x++) {
+            for (int y = 1; y <= currentSheet.sizeY(); y++) {
+                Cell c = currentSheet.get(x,y);
+                sb.append(c.getText());
+                sb.append(",");
+            }
+            sb.append(System.getProperty("line.separator"));
+        }
+        final FileWriter writer = new FileWriter(csvFile.getAbsolutePath());
+        writer.write(sb.toString());
+        writer.close();
+    }
 
     /**
      * Dynamically grow the sheet.

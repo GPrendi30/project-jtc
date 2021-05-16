@@ -4,18 +4,18 @@ import com.spreadsheet.Spreadsheet;
 import com.spreadsheet.cell.Cell;
 import com.spreadsheetview.SpreadsheetView;
 
-public class SpreadsheetTUI implements SpreadsheetView {
+public class SpreadsheetTui implements SpreadsheetView {
 
     private final Spreadsheet model;
-    private final REPL repl;
+    private final Repl repl;
 
     /**
      * Creates a new TUI.
      * @param s a Spreadsheet.
      */
-    public SpreadsheetTUI(final Spreadsheet s) {
+    public SpreadsheetTui(final Spreadsheet s) {
         model = s;
-        repl = new REPL(this);
+        repl = new Repl(this);
     }
 
     /**

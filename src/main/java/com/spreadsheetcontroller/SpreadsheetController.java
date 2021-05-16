@@ -3,7 +3,7 @@ package com.spreadsheetcontroller;
 
 import com.spreadsheet.Spreadsheet;
 import com.spreadsheetview.SpreadsheetView;
-import com.spreadsheetview.tui.SpreadsheetTUI;
+import com.spreadsheetview.tui.SpreadsheetTui;
 
 
 public class SpreadsheetController {
@@ -28,7 +28,7 @@ public class SpreadsheetController {
     public static void main(final String[] args) {
 
         final Spreadsheet s = new Spreadsheet();
-        final SpreadsheetTUI tui = new SpreadsheetTUI(s);
+        final SpreadsheetTui tui = new SpreadsheetTui(s);
         final SpreadsheetController controller = new SpreadsheetController(s, tui);
         controller.start();
     }

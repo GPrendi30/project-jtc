@@ -40,9 +40,24 @@ public class TableCell extends Cell {
 
     @Override
     public CellType getType() {
-        return content.startsWith("=")
-                ? CellType.FORMULA
-                : CellType.INT;
+
+        if (content.startsWith("=")) {
+            return CellType.FORMULA;
+        }
+
+        return isDigits(content)
+                ?   CellType.INT
+                :   CellType.STRING;
+    }
+
+    private boolean isDigits(final String content) {
+        for (int i = 0; i < content.length(); i++) {
+            final boolean isLetter = Character.isLetter(content.charAt(i));
+            if (isLetter) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override

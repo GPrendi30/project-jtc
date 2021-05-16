@@ -82,7 +82,7 @@ public class SheetTest {
         s.add(c);
         assertEquals(s.get(3, 3).getText(), c.getText());
         s.update(3, 3, "l");
-        assertEquals(s.get(3, 3).getText(), c.getText());
+        assertEquals(s.get(3, 3).getText(), "l");
     }
 
     @Test

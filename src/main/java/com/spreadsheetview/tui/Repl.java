@@ -2,15 +2,15 @@ package com.spreadsheetview.tui;
 
 import java.util.Scanner;
 
-public class REPL {
+public class Repl {
 
-    private final SpreadsheetTUI spreadsheetTui;
+    private final SpreadsheetTui spreadsheetTui;
 
     /**
      * Creates a new repl for a tui.
      * @param spreadsheetTui a TUI.
      */
-    public REPL(final SpreadsheetTUI spreadsheetTui) {
+    public Repl(final SpreadsheetTui spreadsheetTui) {
         this.spreadsheetTui = spreadsheetTui;
     }
 
