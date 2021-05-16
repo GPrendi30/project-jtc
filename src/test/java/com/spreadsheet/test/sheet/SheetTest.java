@@ -47,10 +47,17 @@ public class SheetTest {
         assertEquals(s.sizeX(), 5);
         assertEquals(s.sizeY(), 6);
 
+        s.grow("Horizontally", 7);
+        assertEquals(s.sizeY(), 7);
+
         s.grow("Vertically", 8);
         assertEquals(s.sizeX(), 8);
 
         s.grow("Horizontally", 10);
+        assertEquals(s.sizeY(), 10);
+
+        s.grow("WRONG", 100);
+        assertEquals(s.sizeX(), 8);
         assertEquals(s.sizeY(), 10);
     }
 
@@ -81,25 +88,14 @@ public class SheetTest {
     @Test
     public void testUpdateCell() {
         Sheet s = new Sheet(5, 6);
-        Cell c = new TableCell(3,3);
-        c.updateContent("g");
-        assertEquals(c.getText(), "g");
+        Cell c = new TableCell(3,3, "5");
+        assertEquals(c.getText(), "5");
         s.add(c);
-    // is it correct that the content of the cell is updated to !NIL ???
-        s.updateCell(c, "2");
-        assertEquals(c.getText(), "!NIL");
+        s.update(3, 3, "2");
+        assertEquals(s.get(3, 3).getText(), "2");
+        s.update(3, 3, "=5+3");
+        assertEquals(s.get(3, 3).getText(), "=5+3");
     }
-    // TODO: testCheckIfFormula
-    /*
-    @Test
-    public void testCheckIfFormula() {
-        Sheet s = new Sheet(5, 6);
-        Cell c = new TableCell(3,3);
-        c.updateContent("g");
-        assertEquals(checkIfFormula(c), false);
-
-    } */
-
 
     @Test
     public void testAddFormula() {
@@ -108,10 +104,4 @@ public class SheetTest {
         s.add(c);
         assertEquals(s.getFormula(c.getLocation()), c.getText()); 
     }
-    
-    // TODO: testGet
-
-    // TODO: testGetFormula
-
-
 }

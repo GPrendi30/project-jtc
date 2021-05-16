@@ -30,6 +30,7 @@ public class GridTest {
         c.updateContent("10");
         g.put(c);
         assertEquals(g.get(1,1).getText(), c.getText());
+        assertNull(g.get(20, 10));
     }
 
     @Test

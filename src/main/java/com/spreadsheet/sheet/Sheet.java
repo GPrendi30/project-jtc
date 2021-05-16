@@ -89,7 +89,7 @@ public class Sheet {
         } else if ("Horizontally".equals(direction)) {
             table.growHorizontally(size);
         } else {
-            // throw error
+            System.out.println("Wrong");
         }
     }
 
