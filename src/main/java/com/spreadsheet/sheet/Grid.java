@@ -142,36 +142,4 @@ public class Grid {
 
         }
     }
-
-    /**
-     * Prints the grid.
-     */
-    public void print() {
-        for (int x = 0; x <= sizeX(); x++) {
-            if (x == 0) {
-                /* table upper border */
-                System.out.println("_______________________________________"
-                        +
-                        "__________________________________________");
-            }
-            for (int y = 0; y <= sizeY(); y++) {
-                // for y in col 0 and 1
-                if (y == 0 || y == 1) {
-                    System.out.print("|");
-                }
-                // printing the cell
-                final String g = get(x, y).getText();
-                System.out.printf(" %10s |", g);
-            }
-            System.out.println();
-
-            // table down border
-            if (x == sizeX()) {
-                System.out.println("__________________________________________"
-                        +
-                        "_______________________________________");
-            }
-
-        }
-    }
 }

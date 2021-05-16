@@ -51,6 +51,9 @@ public class TableCell extends Cell {
     }
 
     private boolean isDigits(final String content) {
+        if (content.length() == 0) {
+            return false;
+        }
         for (int i = 0; i < content.length(); i++) {
             final boolean isLetter = Character.isLetter(content.charAt(i));
             if (isLetter) {

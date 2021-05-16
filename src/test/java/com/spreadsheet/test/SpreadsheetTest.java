@@ -1,8 +1,16 @@
 package com.spreadsheet.test;
+
 import com.spreadsheet.Spreadsheet;
 import com.spreadsheet.cell.*;
 import com.spreadsheet.sheet.*;
+import com.spreadsheetview.tui.SpreadsheetTui;
+import org.junit.Assert;
 import org.junit.Test;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import static org.junit.Assert.*;
 
@@ -33,9 +41,9 @@ public class SpreadsheetTest {
     @Test
     public void testUpdateCurrentCell() {
         Spreadsheet s = new Spreadsheet();
-        s.selectCell(1,1);
-        s.updateCurrentCell("5");
-        assertEquals(s.getCurrentCell().getText(), "5");
+        s.selectCell(1,2);
+        s.updateCurrentCell("4");
+        assertEquals(s.getCurrentCell().getText(), "4");
     }
 
     @Test
@@ -85,8 +93,40 @@ public class SpreadsheetTest {
         assertEquals(s.getOpenSheets(), 2);
     } 
 
-    // TODO add test for importCsv
+    @Test
+    public void testImportCsv() {
+        Spreadsheet s = new Spreadsheet();
+        String projectDir = System.getProperty("user.dir");
+        Path csvPath = Paths.get(projectDir.toString(), "src/test/resources/a.csv");
+        s.importCsv(csvPath.toString());
+        s.selectCell(1,1);
+        assertEquals(s.getCurrentCell().getText(), "2");
+        s.selectCell(2,2);
+        assertEquals(s.getCurrentCell().getText(), "4");
+    }
 
-    // TODO add test for exportCsv
+    @Test
+    public void testExportCsv() throws IOException {
+        String projectDir = System.getProperty("user.dir");
+        Path csvPath = Paths.get(projectDir.toString(), "src/test/resources/b.csv");
+        File csv = new File(csvPath.toString());
+        if (csv.exists()) {
+            csv.delete();
+        }
+        Spreadsheet s = new Spreadsheet();
+        s.selectCell(3,3);
+        s.updateCurrentCell("test");
+        s.selectCell(2,2);
+        s.updateCurrentCell("test2");
+        s.selectCell(1,1);
+        s.updateCurrentCell("test3");
+        s.exportCsv(csvPath.toString());
+    }
+
+    @Test
+    public void testGetSheet() {
+        Spreadsheet s = new Spreadsheet();
+        assertTrue(s.getSheets() instanceof Sheet[]);
+    }
 
 }

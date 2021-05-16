@@ -1,7 +1,5 @@
 package com.spreadsheetview;
 
-import com.spreadsheet.Spreadsheet;
-
 public interface SpreadsheetView {
 
     /**
@@ -11,8 +9,7 @@ public interface SpreadsheetView {
 
     /**
      * Prints the view.
-     * @param model a spreadsheet.
      */
-    public void printSpreadsheet(Spreadsheet model);
+    public void updateView();
 
 }

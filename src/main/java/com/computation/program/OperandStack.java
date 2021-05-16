@@ -8,7 +8,7 @@ package com.computation.program;
  */
 public class OperandStack {
     
-    private final int[] stack;
+    private int[] stack;
     private int sp;
     
     /**
@@ -25,6 +25,9 @@ public class OperandStack {
      * @param value The value to push
      */
     public void push(final int value) {
+        if (sp >= stack.length - 1) {
+            growStack();
+        }
         stack[++sp] = value;
     }
     
@@ -35,5 +38,13 @@ public class OperandStack {
     public int pop() {
         return stack[sp--];
     }
-    
+
+    private void growStack() {
+        int newSize = stack.length * 2;
+        int[] newStack = new int[newSize];
+        for (int i = 0; i < stack.length; i++) {
+            newStack[i] = stack[i];
+        }
+        this.stack = newStack;
+    }
 }

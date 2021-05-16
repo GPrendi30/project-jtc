@@ -25,7 +25,7 @@ public class Spreadsheet {
 
 
     static {
-        DEFAULT_TABLE_X = 15;
+        DEFAULT_TABLE_X = 5;
         DEFAULT_TABLE_Y = 5;
     }
 
@@ -119,23 +119,11 @@ public class Spreadsheet {
     }
 
     /**
-     * Prints currentSheet.
+     * Returns the sheets of a Spreadsheet.
+     * @return the sheets in an array of Sheet[].
      */
-    public void printCurrentSheet() {
-        currentSheet.print();
-        this.printSheetNames();
-        currentSheet.printFormulas();
-    }
-
-    private void printSheetNames() {
-        for (final Sheet t : sheets.values()) {
-            String tName = t.getTableName();
-            if (tName.equals(currentSheet.getTableName())) {
-                tName += "*";
-            }
-            System.out.print("          \\ " + tName + " / ");
-        }
-        System.out.println();
+    public Sheet[] getSheets() {
+        return sheets.values().toArray(new Sheet[sheets.size()]);
     }
 
     /**
@@ -207,7 +195,7 @@ public class Spreadsheet {
         final StringBuilder sb = new StringBuilder();
         for (int x = 1; x <= currentSheet.sizeX(); x++) {
             for (int y = 1; y <= currentSheet.sizeY(); y++) {
-                Cell c = currentSheet.get(x,y);
+                final Cell c = currentSheet.get(x,y);
                 sb.append(c.getText());
                 sb.append(",");
             }

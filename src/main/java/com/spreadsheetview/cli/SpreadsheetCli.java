@@ -1,16 +1,20 @@
 package com.spreadsheetview.cli;
 
-import com.spreadsheet.Spreadsheet;
 import com.spreadsheetview.SpreadsheetView;
 
-public abstract class SpreadsheetCli implements SpreadsheetView {
+public class SpreadsheetCli implements SpreadsheetView {
+
+    @Override
+    public void init() {
+        //
+    }
 
     /**
      * Prints spreadsheet.
-     * @param s the spreadsheet.
      */
-    public void printSpreadsheet(final Spreadsheet s) {
-        s.printCurrentSheet();
+    @Override
+    public void updateView() {
+        //
     }
 
 }

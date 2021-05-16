@@ -1,13 +1,16 @@
 package com.spreadsheetview.tui;
 
 import com.spreadsheet.Spreadsheet;
-import com.spreadsheet.cell.Cell;
+import com.spreadsheet.cell.CellLocation;
+import com.spreadsheet.sheet.Sheet;
 import com.spreadsheetview.SpreadsheetView;
+
+import java.util.HashMap;
+import java.util.Iterator;
 
 public class SpreadsheetTui implements SpreadsheetView {
 
     private final Spreadsheet model;
-    private final Repl repl;
 
     /**
      * Creates a new TUI.
@@ -15,120 +18,80 @@ public class SpreadsheetTui implements SpreadsheetView {
      */
     public SpreadsheetTui(final Spreadsheet s) {
         model = s;
-        repl = new Repl(this);
     }
 
-    /**
-     * Starts the interface.
-     */
+    @Override
     public void init() {
-        repl.init();
+        //do nothing.
     }
 
-
     /**
-     * Executes command.
-     * @param command a String command.
+     * Updates the view.
      */
-    public void executeCommand(final String command) {
+    public void updateView() {
+        final Sheet currentSheet = model.getCurrentSheet();
+        printSheet(currentSheet);
+        printSheetNames(model.getSheets());
+        printFormulas(currentSheet);
 
-        final String[] arrCommands = command.split("!");
+    }
 
-        if (command.startsWith("Add new sheet")) {
-            final String sheetName = arrCommands[arrCommands.length - 1];
-            model.addNewSheet(sheetName);
-        } else if (command.startsWith("Select Cell")) {
-            selectCell(arrCommands[arrCommands.length - 1]);
-        } else if (command.startsWith("Print Cell")) {
-            final String location = arrCommands[arrCommands.length - 1];
-            System.out.printf("Content at cell %1s : %2s \n", location, getCell(location));
-        } else if (command.startsWith("Update Cell")) {
-            model.updateCurrentCell(arrCommands[arrCommands.length - 1]);
-        } else if (command.startsWith("Select sheet")) {
-            model.selectSheet(arrCommands[arrCommands.length - 1]);
-        } else if (command.startsWith("Print")) {
-            printSpreadsheet(model);
-        } else if (command.startsWith("HELP")) {
-            helpCommand();
-        } else {
-            System.out.println("Command not found");
+    private void printSheet(final Sheet s) {
+        System.out.println(" ###########  "  + s.getTableName() + "  ############# ");
+        for (int x = 0; x <= s.sizeX(); x++) {
+            if (x == 0) {
+                /* table upper border */
+                System.out.println("_______________________________________"
+                        +
+                        "__________________________________________");
+            }
+            for (int y = 0; y <= s.sizeY(); y++) {
+                // for y in col 0 and 1
+                if (y == 0 || y == 1) {
+                    System.out.print("|");
+                }
+                // printing the cell
+                final String g = s.get(x, y).getText();
+                System.out.printf(" %10s |", g);
+            }
+            System.out.println();
+
+            // table down border
+            if (x == s.sizeX()) {
+                System.out.println("__________________________________________"
+                        +
+                        "_______________________________________");
+            }
+
         }
     }
 
-    private void helpCommand() {
-        System.out.println("Here is a list of commands:");
-        System.out.println("Select Cell !() -> () is the string location of the cell \t"
-                + "i.e : B4 C3 C6");
-        System.out.println("Update Cell !() -> () is the new string content of the cell \t"
-                + "i.e : 5 C3+C7 =(C5+C9)");
-        System.out.println("Print Cell !() -> () is the string location of the cell \t"
-                + "i.e : B5 C3 C9");
-        System.out.println("Add new sheet !() -> () is the name of the new sheet");
-        System.out.println("Select sheet !() -> () is the name of the sheet");
-        System.out.println("Print -> Prints the spreadsheet");
+    private void printSheetNames(final Sheet[] sheets) {
+        final Sheet currentSheet = model.getCurrentSheet();
+        for (final Sheet t : sheets) {
+            String tName = t.getTableName();
+            if (tName.equals(currentSheet.getTableName())) {
+                tName += "*";
+            }
+            System.out.print("          \\ " + tName + " / ");
+        }
+        System.out.println();
     }
 
     /**
-     * Selects a cell from a given location.
-     * @param location a String cell location.
+     * Prints the formulas' Table.
      */
-    public void selectCell(final String location) {
-        int x;
-        int y;
-        final int[] loc = Cell.parseLocation(location);
-        x = loc[0];
-        y = loc[1];
-        model.selectCell(x,y);
-    }
+    private void printFormulas(final Sheet s) {
+        final HashMap<CellLocation, String> formulas = s.getFormulaTable();
+        final Iterator<CellLocation> cellLocationIterator = formulas.keySet().iterator();
+        System.out.println(" \n\n|     FORMULAE TABLE      |");
+        System.out.println("---------------------------");
+        for (final String c : formulas.values())
+        {
+            System.out.println("----------------------------");
+            System.out.println(" | " + cellLocationIterator.next() + " : " + c + " | ");
 
-    /**
-     * Gets a cell's content from the location.
-     * @param location a String
-     * @return the content of the cell.
-     */
-    public String getCell(final String location) {
-        selectCell(location);
-        return model.getCurrentCell().getText();
-    }
-
-    /**
-     * Adds a new Sheet.
-     * @param newTableName a String.
-     */
-    public void addNewSheet(final String newTableName) {
-        model.addNewSheet(newTableName);
-    }
-
-    /**
-     * Select a sheet based on the name.
-     * @param sheetName the String name of a sheet.
-     */
-    public void selectSheet(final String sheetName) {
-        model.selectSheet(sheetName);
-    }
-
-    /**
-     * Updates the content of the currentCell.
-     * @param content a String, new content.
-     */
-    public void updateCurrentCell(final String content) {
-        model.updateCurrentCell(content);
-    }
-
-    /**
-     * Gets the content of the current cell.
-     * @return content of the Cell.
-     */
-    public String getCurrentCell() {
-        return model.getCurrentCell().getText();
-    }
-
-    /**
-     * Prints spreadsheet.
-     * @param s the spreadsheet.
-     */
-    public void printSpreadsheet(final Spreadsheet s) {
-        s.printCurrentSheet();
+        }
     }
 
 }

@@ -7,7 +7,6 @@ import com.spreadsheet.cell.CellLocation;
 import com.spreadsheet.cell.CellType;
 
 import java.util.HashMap;
-import java.util.Iterator;
 
 public class Sheet {
     private static final Program PROGRAM = new Program();
@@ -141,6 +140,7 @@ public class Sheet {
      */
     public void updateCell(final Cell c, final String content) {
         c.updateContent(content);
+
         if (c.getType() == CellType.INT) {
             c.evaluate(PROGRAM, variableTable);
         }
@@ -189,26 +189,10 @@ public class Sheet {
     }
 
     /**
-     * Prints the current Sheet.
+     * Returns the formulas.
+     * @return the formulas from FormulaTable as an array of strings.
      */
-    public void print() {
-        System.out.println(" ###########  "  + tableName + "  ############# ");
-        table.print();
+    public HashMap<CellLocation, String> getFormulaTable() {
+        return formulas;
     }
-
-    /**
-     * Prints the formulas' Table.
-     */
-    public void printFormulas() {
-        final Iterator<CellLocation> cellLocationIterator = formulas.keySet().iterator();
-        System.out.println(" \n\n|     FORMULAE TABLE      |");
-        System.out.println("---------------------------");
-        for (final String c : formulas.values())
-        {
-            System.out.println("----------------------------");
-            System.out.println(" | " + cellLocationIterator.next() + " : " + c + " | ");
-
-        }
-    }
-
 }
