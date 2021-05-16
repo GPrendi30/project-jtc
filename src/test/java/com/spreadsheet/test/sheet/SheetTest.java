@@ -34,18 +34,15 @@ public class SheetTest {
         assertEquals(s.getTableName(), "sheet2");
     }
 
-    /*
-    TODO: correct this test!!
     @Test
     // test for add: also tests addToVariableTable and addFormula because inside of add
     public void testAdd() {
         Sheet s = new Sheet(5, 6);
-        Cell c = new Cell(1, 1);
+        Cell c = new TableCell(1, 1);
         c.updateContent("5");
         s.add(c);
-        assertEquals(s.getVariableTable().get(c.getLocation(), "5"));
+        assertEquals(s.getVariableTable().get(c.getLocation().toString()), 5);
     }
-    */
 
     @Test 
     public void testGrow() {
@@ -60,12 +57,11 @@ public class SheetTest {
         assertEquals(s.sizeY(), 10);
     }
 
-    // TODO: testGetVariableTable
-    /*@Test
+    @Test
     public void testGetVariableTable() {
         Sheet s = new Sheet(5, 6);
-        assertEquals(s.getVariableTable(), ???)
-    } */
+        assertTrue(s.getVariableTable() instanceof VariableTable);
+    }
 
     @Test
     public void testUpdateTableName() {
@@ -75,15 +71,14 @@ public class SheetTest {
         assertEquals(s.getTableName(), "sheet2");
     }
 
-    // TODO: testUpdate ???
     @Test
     public void testUpdate() {
-        Cell c = new TableCell(3,3);
-        c.updateContent("g");
-        assertEquals(c.getText(), "g");
-        assertEquals(new CellLocation(3,3).toString(), c.getLocation().toString());
-        //c.update(1, 1, "e");
-
+        Sheet s = new Sheet(5, 6);
+        Cell c = new TableCell(3,3, "g");
+        s.add(c);
+        assertEquals(s.get(3, 3).getText(), c.getText());
+        s.update(3, 3, "l");
+        assertEquals(s.get(3, 3).getText(), c.getText());
     }
 
     @Test
@@ -108,16 +103,14 @@ public class SheetTest {
 
     } */
 
-    // TODO: testAddFormula
-    /*
+    /* // TEST NOT WORKING
     @Test
     public void testAddFormula() {
         Sheet s = new Sheet(5, 6);
         Cell c = new TableCell(3,3);
-        c.updateContent("=A2+B3");
+        c.updateContent("=5+3");
         s.add(c);
-        //s.addFormula(c);
-        assertEquals(getFormula(c.getLocation()), "=A2+B3");
+        assertEquals(s.getFormula(c.getLocation()), c.getText()); 
     } */
     
     // TODO: testGet
