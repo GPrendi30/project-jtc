@@ -1,8 +1,8 @@
 package com.spreadsheetview.tui;
 
-import com.spreadsheet.Spreadsheet;
-import com.spreadsheet.cell.CellLocation;
-import com.spreadsheet.sheet.Sheet;
+import com.spreadsheetmodel.Spreadsheet;
+import com.spreadsheetmodel.cell.CellLocation;
+import com.spreadsheetmodel.sheet.Sheet;
 import com.spreadsheetview.SpreadsheetView;
 
 import java.util.HashMap;

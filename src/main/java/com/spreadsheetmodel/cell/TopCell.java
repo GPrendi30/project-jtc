@@ -1,4 +1,4 @@
-package com.spreadsheet.cell;
+package com.spreadsheetmodel.cell;
 
 public class TopCell extends Cell {
 

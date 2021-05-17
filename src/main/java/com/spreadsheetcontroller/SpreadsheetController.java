@@ -1,8 +1,8 @@
 package com.spreadsheetcontroller;
 
 
-import com.spreadsheet.Spreadsheet;
-import com.spreadsheet.cell.Cell;
+import com.spreadsheetmodel.Spreadsheet;
+import com.spreadsheetmodel.cell.Cell;
 import com.spreadsheetview.SpreadsheetView;
 import com.spreadsheetview.tui.SpreadsheetTui;
 

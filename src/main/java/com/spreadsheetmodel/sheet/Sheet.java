@@ -1,10 +1,10 @@
-package com.spreadsheet.sheet;
+package com.spreadsheetmodel.sheet;
 
 import com.computation.program.Program;
 import com.computation.program.VariableTable;
-import com.spreadsheet.cell.Cell;
-import com.spreadsheet.cell.CellLocation;
-import com.spreadsheet.cell.CellType;
+import com.spreadsheetmodel.cell.Cell;
+import com.spreadsheetmodel.cell.CellLocation;
+import com.spreadsheetmodel.cell.CellType;
 
 import java.util.HashMap;
 

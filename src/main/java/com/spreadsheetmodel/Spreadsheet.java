@@ -1,7 +1,7 @@
-package com.spreadsheet;
+package com.spreadsheetmodel;
 
-import com.spreadsheet.cell.Cell;
-import com.spreadsheet.sheet.Sheet;
+import com.spreadsheetmodel.cell.Cell;
+import com.spreadsheetmodel.sheet.Sheet;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -186,7 +186,8 @@ public class Spreadsheet {
 
         final File csvFile = new File(path);
         if (csvFile.exists()) {
-            //ask for overwrite
+            //ask for
+            System.out.println("File exists, it will be overwritten.");
         } else {
             // create new file.
             csvFile.createNewFile();
@@ -201,6 +202,7 @@ public class Spreadsheet {
             }
             sb.append(System.getProperty("line.separator"));
         }
+
         final FileWriter writer = new FileWriter(csvFile.getAbsolutePath());
         writer.write(sb.toString());
         writer.close();

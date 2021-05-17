@@ -1,4 +1,4 @@
-package com.spreadsheet.cell;
+package com.spreadsheetmodel.cell;
 
 import com.computation.ast.Node;
 import com.computation.parser.ArithParser;

@@ -1,7 +1,7 @@
 package com.spreadsheet.test.sheet;
-import com.spreadsheet.sheet.Sheet;
-import com.spreadsheet.sheet.Grid;
-import com.spreadsheet.cell.*;
+import com.spreadsheetmodel.cell.Cell;
+import com.spreadsheetmodel.cell.TableCell;
+import com.spreadsheetmodel.sheet.Sheet;
 import com.computation.program.VariableTable;
 
 import org.junit.Test;

@@ -1,6 +1,6 @@
 package com.spreadsheet.test.sheet;
-import com.spreadsheet.sheet.Grid;
-import com.spreadsheet.cell.*;
+import com.spreadsheetmodel.cell.Cell;
+import com.spreadsheetmodel.sheet.Grid;
 
 import org.junit.Test;
 

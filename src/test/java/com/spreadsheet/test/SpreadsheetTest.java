@@ -1,10 +1,8 @@
 package com.spreadsheet.test;
 
-import com.spreadsheet.Spreadsheet;
-import com.spreadsheet.cell.*;
-import com.spreadsheet.sheet.*;
-import com.spreadsheetview.tui.SpreadsheetTui;
-import org.junit.Assert;
+import com.spreadsheetmodel.Spreadsheet;
+import com.spreadsheetmodel.cell.Cell;
+import com.spreadsheetmodel.sheet.Sheet;
 import org.junit.Test;
 
 import java.io.File;

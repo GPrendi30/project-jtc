@@ -1,4 +1,4 @@
-package com.spreadsheet.cell;
+package com.spreadsheetmodel.cell;
 
 import com.computation.program.Program;
 import com.computation.program.VariableTable;
