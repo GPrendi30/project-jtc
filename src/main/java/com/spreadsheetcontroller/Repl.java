@@ -18,7 +18,8 @@ public class Repl {
      * Starts the repl.
      */
     public void init() {
-        System.out.println("Welcome to JavaTabularCalculator. \nType HELP to see a list of commands");
+        System.out.println("Welcome to JavaTabularCalculator. \n"
+                + "Type HELP to see a list of commands");
         System.out.println("Input Command");
         while (true) {
             final Scanner sc = new Scanner(System.in);

@@ -40,7 +40,7 @@ public class OperandStack {
     }
 
     private void growStack() {
-        int newSize = stack.length * 2;
+        final int newSize = stack.length * 2;
         int[] newStack = new int[newSize];
         for (int i = 0; i < stack.length; i++) {
             newStack[i] = stack[i];
