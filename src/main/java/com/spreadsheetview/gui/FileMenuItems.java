@@ -1,0 +1,89 @@
+package com.spreadsheetview.gui;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public enum FileMenuItems {
+    NEW("new",new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            createNewFile();
+        }
+    }),
+
+    OPEN("open",new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            openFile();
+        }
+    }),
+
+    IMPORT("import", new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            importFile();
+        }
+    }),
+
+    SAVE("save", new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            saveFile();
+        }
+    }),
+
+    EXPORT("export", new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            exportFile();
+        }
+    });
+
+    private final String name;
+    private final ActionListener listener;
+
+    /**
+     * Initialize an EditMenuItem
+     * @param name The human-readable name of this TokenType.
+     */
+    private FileMenuItems(final String name, ActionListener listener) {
+        this.name = name;
+        this.listener = listener;
+    }
+
+    /**
+     * Get the human-readable name.
+     * @return the name of this EditMenuItem.
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Get the listener of the EditMenuItem.
+     * @return the listener of this EditMenuItem.
+     */
+    public ActionListener getListener() {return listener;}
+
+
+    private static void createNewFile() {
+        System.out.println("File created");
+    }
+
+    private static void importFile() {
+        System.out.println("File imported");
+    }
+
+    private static void exportFile() {
+        System.out.println("File exported");
+    }
+
+    private static void openFile() {
+        System.out.println("File opened");
+    }
+
+    private static void saveFile() {
+        System.out.println("File saved");
+    }
+
+}
