@@ -14,15 +14,10 @@ final public class SpreadsheetInterface extends JFrame {
         setLayout(new BorderLayout());
 
         final Menu menu = new Menu();
-        final JPanel grid = new JPanel(new GridLayout());
-        final JPanel sheetMenu = new JPanel(new FlowLayout());
-
-        grid.add(new JButton("Hello from the grid"));
-        sheetMenu.add(new JButton("hello from the sheets"));
+        final SpreadsheetFrame sf = new SpreadsheetFrame(model);
 
         //add(menu, BorderLayout.NORTH);
-        add(grid, BorderLayout.CENTER);
-        add(sheetMenu, BorderLayout.SOUTH);
+        add(sf, BorderLayout.CENTER);
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setJMenuBar(menu.getMenuBar());

@@ -9,7 +9,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.*;
 
 import com.spreadsheetmodel.*;
-import com.spreadsheetmodel.cell.*;
+import com.spreadsheetmodel.cell.Cell;
 
 import static java.lang.Thread.sleep;
 
