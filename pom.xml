@@ -151,7 +151,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>com.spreadsheetcontroller.SpreadsheetController</mainClass>
+              <mainClass>com.spreadsheetview.gui.SpreadsheetFrame</mainClass>
             </manifest>
           </archive>
         </configuration>
