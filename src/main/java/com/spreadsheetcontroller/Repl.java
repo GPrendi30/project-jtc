@@ -33,7 +33,6 @@ public class Repl {
                 }
                 controller.executeCommand(command);
             } else {
-
                 System.out.println("Type something");
             }
 
