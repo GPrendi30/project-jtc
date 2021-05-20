@@ -1,7 +1,5 @@
 package com.spreadsheetview.gui.menu.menubar;
 
-import com.spreadsheetview.gui.FileMenuItems;
-
 public class FileMenu extends Menu {
 
     public FileMenu() {

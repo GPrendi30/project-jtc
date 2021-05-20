@@ -3,10 +3,10 @@ package com.spreadsheetview.gui.menu.menubar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public enum EditMenuItems {
-    UNDO("undo", new ActionListener() {
+public enum EditMenuItems implements MenuItems {
+    UNDO("undo", new MenuActionListener() {
         @Override
-        public void actionPerformed(ActionEvent actionEvent) {
+        public void command() {
             undo();
         }
     }),
@@ -38,6 +38,7 @@ public enum EditMenuItems {
             find();
         }
     }),
+
     REPLACE("replace", new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
@@ -58,25 +59,19 @@ public enum EditMenuItems {
 
     /**
      * Initialize an EditMenuItem
-     * @param name The human-readable name of this TokenType.
+     * @param name The human-readable name.
      */
     private EditMenuItems(final String name, ActionListener listener) {
         this.name = name;
         this.listener = listener;
     }
 
-    /**
-     * Get the human-readable name.
-     * @return the name of this EditMenuItem.
-     */
+    @Override
     public String getName() {
         return name;
     }
 
-    /**
-     * Get the listener of the EditMenuItem.
-     * @return the listener of this EditMenuItem.
-     */
+    @Override
     public ActionListener getListener() {return listener;}
 
 

@@ -6,8 +6,8 @@ import java.awt.event.ActionListener;
 public abstract class MenuActionListener implements ActionListener {
 
     public void actionPerformed(ActionEvent actionEvent) {
-        performAction();
+        command();
     }
 
-    public abstract void performAction();
+    public abstract void command();
 }

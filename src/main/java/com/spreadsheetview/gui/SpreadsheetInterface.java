@@ -1,7 +1,7 @@
 package com.spreadsheetview.gui;
 
 import com.spreadsheetmodel.Spreadsheet;
-import com.spreadsheetview.gui.menu.menubar.MenuBar;
+import com.spreadsheetview.gui.menu.Menu;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,19 +13,23 @@ final public class SpreadsheetInterface extends JFrame {
         setTitle("Java Tabular Calculator");
         setLayout(new BorderLayout());
 
-        final JMenuBar menu = new MenuBar();
+        final Menu menu = new Menu();
         final JPanel grid = new JPanel(new GridLayout());
         final JPanel sheetMenu = new JPanel(new FlowLayout());
 
         grid.add(new JButton("Hello from the grid"));
         sheetMenu.add(new JButton("hello from the sheets"));
 
-        add(menu, BorderLayout.NORTH);
+        //add(menu, BorderLayout.NORTH);
         add(grid, BorderLayout.CENTER);
         add(sheetMenu, BorderLayout.SOUTH);
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setJMenuBar(menu);
+        setJMenuBar(menu.getMenuBar());
+
+        getContentPane().add(menu.getToolBar(), BorderLayout.NORTH);
+
+        setPreferredSize(new Dimension(800, 800));
         pack();
     }
 

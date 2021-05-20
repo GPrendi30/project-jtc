@@ -1,9 +1,9 @@
-package com.spreadsheetview.gui;
+package com.spreadsheetview.gui.menu.menubar;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public enum FileMenuItems {
+public enum FileMenuItems implements MenuItems {
     NEW("new",new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
@@ -51,18 +51,12 @@ public enum FileMenuItems {
         this.listener = listener;
     }
 
-    /**
-     * Get the human-readable name.
-     * @return the name of this EditMenuItem.
-     */
+    @Override
     public String getName() {
         return name;
     }
 
-    /**
-     * Get the listener of the EditMenuItem.
-     * @return the listener of this EditMenuItem.
-     */
+    @Override
     public ActionListener getListener() {return listener;}
 
 

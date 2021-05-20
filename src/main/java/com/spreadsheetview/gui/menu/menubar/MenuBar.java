@@ -1,6 +1,7 @@
 package com.spreadsheetview.gui.menu.menubar;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class MenuBar extends JMenuBar {
 
@@ -8,8 +9,10 @@ public class MenuBar extends JMenuBar {
         super();
         JMenu file = new FileMenu();
         JMenu edit = new EditMenu();
+        JMenu view = new ViewMenu();
 
         add(file);
         add(edit);
+        add(view);
     }
 }
