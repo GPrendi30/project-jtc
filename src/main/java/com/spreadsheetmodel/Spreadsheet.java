@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Scanner;
 
@@ -29,6 +30,7 @@ public class Spreadsheet {
         DEFAULT_TABLE_Y = 5;
     }
 
+    private final ArrayList<SpreadsheetListener> listeners;
     private Sheet currentSheet;
     private Cell currentCell;
     private int openSheets;
@@ -40,10 +42,13 @@ public class Spreadsheet {
     public Spreadsheet() {
         sheets = new LinkedHashMap<>();
         final Sheet t = new Sheet(DEFAULT_TABLE_X, DEFAULT_TABLE_Y); // default values;
+        listeners = new ArrayList<>();
+
         t.updateTableName("Sheet 1");
         sheets.put(t.getTableName(), t); // first sheet;
         openSheets = 1;
         selectSheet("Sheet 1");
+
     }
 
     /**
@@ -64,6 +69,7 @@ public class Spreadsheet {
 
         sheets.put(t.getTableName(), t);
         selectSheet(t.getTableName());
+        fireSpreadsheetChanged();
     }
 
 
@@ -75,6 +81,7 @@ public class Spreadsheet {
 
     public void selectCell(final int x, final int y) {
         currentCell = currentSheet.get(x, y);
+        fireSpreadsheetChanged();
     }
 
     /**
@@ -83,6 +90,7 @@ public class Spreadsheet {
      */
     public void updateCurrentCell(final String content) {
         currentSheet.updateCell(currentCell, content);
+        fireSpreadsheetChanged();
     }
 
     /**
@@ -100,6 +108,7 @@ public class Spreadsheet {
     public void selectSheet(final String sheetName) {
         currentSheet = sheets.get(sheetName);
         selectCell(0,0);
+        fireSpreadsheetChanged();
     }
 
     /**
@@ -149,7 +158,7 @@ public class Spreadsheet {
             final String[] l = m.split(",");
             for (final String v : l) {
 
-                selectCell(x,y);
+                final Cell c = currentSheet.get(x,y);
                 if (y < l.length) {
                     y++;
                 } else {
@@ -165,11 +174,12 @@ public class Spreadsheet {
                     currentSheet.grow("Horizontally", 2 * currentSheet.sizeY());
                 }
 
-                updateCurrentCell(v);
+                currentSheet.updateCell(c, v);
 
             }
         }
         sc.close();
+        fireSpreadsheetChanged();
     }
 
 
@@ -215,6 +225,7 @@ public class Spreadsheet {
      */
     public void grow(final String dir,final int size) {
         currentSheet.grow(dir, size);
+        fireSpreadsheetChanged();
     }
 
     /**
@@ -240,4 +251,26 @@ public class Spreadsheet {
         openSheets++;
     }
 
+
+    /**
+     * Adds a SpreadsheetListener to the list of listener objects.
+     * @param li a SpreadsheetListener that will be added.
+     */
+    public void addListener(final SpreadsheetListener li) {
+        listeners.add(li);
+    }
+
+    /**
+     * Removes a listener from the list of listeners.
+     * @param li a Spreadsheet listener that will be removed.
+     */
+    public void removeListener(final SpreadsheetListener li) {
+        listeners.remove(li);
+    }
+
+    private void fireSpreadsheetChanged() {
+        for (final SpreadsheetListener li : listeners) {
+            li.spreasheetChanged(this);
+        }
+    }
 }

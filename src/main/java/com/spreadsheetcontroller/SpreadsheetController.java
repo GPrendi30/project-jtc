@@ -7,7 +7,9 @@ import com.spreadsheetview.SpreadsheetView;
 import com.spreadsheetview.tui.SpreadsheetTui;
 
 
+import java.io.Console;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Locale;
 
 
@@ -53,7 +55,6 @@ public class SpreadsheetController {
         final SpreadsheetTui tui = new SpreadsheetTui(s);
         final SpreadsheetController controller = new SpreadsheetController(s, tui, isGui);
         controller.start();
-
     }
 
     private static boolean startGui(final String arg) {

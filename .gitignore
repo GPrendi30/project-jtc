@@ -34,3 +34,6 @@ jtc.iml
 
 #mvn
 target/
+
+#Docker(experimental)
+Dockerfile

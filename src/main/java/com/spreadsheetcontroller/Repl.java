@@ -23,13 +23,20 @@ public class Repl {
         System.out.println("Input Command");
         while (true) {
             final Scanner sc = new Scanner(System.in);
-            final String command = sc.nextLine();
-            if (command.startsWith("!QUIT")) {
-                System.out.println("BYE");
-                break;
+            final String command;
+            if (sc.hasNext()) {
+                command = sc.nextLine();
+                System.out.println(command);
+                if (command.startsWith("!QUIT")) {
+                    System.out.println("BYE");
+                    break;
+                }
+                controller.executeCommand(command);
+            } else {
+                System.out.println("Type something");
             }
 
-            controller.executeCommand(command);
+
         }
     }
 
