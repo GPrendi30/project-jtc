@@ -1,4 +1,4 @@
-package com.spreadsheetview.gui.menu;
+package com.spreadsheetview.gui;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
