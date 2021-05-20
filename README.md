@@ -16,10 +16,10 @@ If mvn site fails to build, run: <br>
 
 
 ### Milestones
-* [ ] Implement the labs
-* [ ] Have a table with cells
+* [X] Implement the labs
+* [X] Have a table with cells
 * [ ] Complete the Model
-* [ ] Have a working CLI
+* [X] Have a working CLI
 * [ ] Have a working GUI
 * [ ] _Add new features (optional)_
   * [ ] repl
