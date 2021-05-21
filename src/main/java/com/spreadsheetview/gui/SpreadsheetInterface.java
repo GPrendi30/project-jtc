@@ -5,8 +5,10 @@ import com.spreadsheetview.SpreadsheetView;
 import com.spreadsheetview.gui.menu.Menu;
 import com.spreadsheetview.tui.SpreadsheetTui;
 
-import java.awt.*;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import javax.swing.JFrame;
+import javax.swing.WindowConstants;
 
 public final class SpreadsheetInterface extends JFrame implements SpreadsheetView {
 

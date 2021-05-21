@@ -7,7 +7,7 @@ import com.spreadsheetmodel.cell.Cell;
 import java.awt.Dimension;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import javax.swing.*;
+import javax.swing.JTextField;
 
 
 public class CellView extends JTextField {

@@ -2,7 +2,8 @@ package com.spreadsheetview.gui.menu.menubar;
 
 
 import java.awt.event.ActionListener;
-import javax.swing.*;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 public abstract class Menu extends JMenu {
 
