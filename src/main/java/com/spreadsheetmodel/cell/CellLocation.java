@@ -63,6 +63,10 @@ public class CellLocation {
         return column;
     }
 
+    /**
+     * Returns the number of columns.
+     * @return int the number of columns.
+     */
     public int getIntColumn() {
         return intColumn;
     }

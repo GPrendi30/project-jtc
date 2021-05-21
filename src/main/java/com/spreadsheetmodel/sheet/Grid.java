@@ -1,6 +1,10 @@
 package com.spreadsheetmodel.sheet;
 
-import com.spreadsheetmodel.cell.*;
+import com.spreadsheetmodel.cell.Cell;
+import com.spreadsheetmodel.cell.CellLocation;
+import com.spreadsheetmodel.cell.LateralCell;
+import com.spreadsheetmodel.cell.TableCell;
+import com.spreadsheetmodel.cell.TopCell;
 
 import java.util.HashMap;
 
