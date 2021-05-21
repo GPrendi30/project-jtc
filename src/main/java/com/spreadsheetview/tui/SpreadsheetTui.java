@@ -54,11 +54,16 @@ public class SpreadsheetTui implements SpreadsheetView {
     }
 
     private void resetTerminalView() {
-        System.out.print("\033[H\033[2J"); // this is the flush escape character for unix-like terminals.
+        // this is the flush escape character for unix-like terminals.
+        System.out.print("\033[H\033[2J");
         System.out.flush();
         // TODO test for windows machines.
     }
 
+    /**
+     * Prints the sheet.
+     * @param spreadsheet a Spreadsheet.
+     */
     public void printSheet(final Spreadsheet spreadsheet) {
         final Sheet s = spreadsheet.getCurrentSheet();
         System.out.println(" ###########  "  + s.getTableName() + "  ############# ");
@@ -160,19 +165,26 @@ public class SpreadsheetTui implements SpreadsheetView {
     }
 
     class CustomKeyListener implements KeyListener {
+
         public void keyTyped(KeyEvent e) {
             System.out.println("Typed");
         }
+
         public void keyPressed(KeyEvent e) {
             System.out.println("Pressed");
             switch (e.getKeyCode()) {
-                case KeyEvent.VK_UP: moveUp(); break;
-                case KeyEvent.VK_DOWN: moveDown(); break;
-                case KeyEvent.VK_LEFT: moveLeft(); break;
-                case KeyEvent.VK_RIGHT: moveRight(); break;
+                case KeyEvent.VK_UP: moveUp();
+                break;
+                case KeyEvent.VK_DOWN: moveDown();
+                break;
+                case KeyEvent.VK_LEFT: moveLeft();
+                break;
+                case KeyEvent.VK_RIGHT: moveRight();
+                break;
             }
             updateSelectedCoordinates(model.getCurrentCell().getLocation().toString());
         }
+
         public void keyReleased(KeyEvent e) {
             System.out.println("Released");
         }

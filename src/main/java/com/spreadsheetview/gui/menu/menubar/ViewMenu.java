@@ -2,6 +2,9 @@ package com.spreadsheetview.gui.menu.menubar;
 
 public class ViewMenu extends Menu {
 
+    /**
+     * Makes the view of the menu.
+     */
     public ViewMenu() {
         super("View");
 

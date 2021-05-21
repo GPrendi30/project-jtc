@@ -5,9 +5,16 @@ import java.awt.event.ActionListener;
 
 public abstract class MenuActionListener implements ActionListener {
 
+    /**
+     * Listener.
+     * @param actionEvent an ActionEvent.
+     */
     public void actionPerformed(ActionEvent actionEvent) {
         command();
     }
 
+    /**
+     * The command.
+     */
     public abstract void command();
 }

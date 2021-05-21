@@ -57,7 +57,9 @@ public enum FileMenuItems implements MenuItems {
     }
 
     @Override
-    public ActionListener getListener() {return listener;}
+    public ActionListener getListener() {
+        return listener;
+    }
 
 
     private static void createNewFile() {

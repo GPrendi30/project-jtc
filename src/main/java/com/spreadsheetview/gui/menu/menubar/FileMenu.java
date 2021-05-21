@@ -2,6 +2,9 @@ package com.spreadsheetview.gui.menu.menubar;
 
 public class FileMenu extends Menu {
 
+    /**
+     * Edit the menu.
+     */
     public FileMenu() {
         super("File");
 

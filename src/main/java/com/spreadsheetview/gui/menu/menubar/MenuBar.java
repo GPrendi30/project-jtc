@@ -4,6 +4,9 @@ import javax.swing.*;
 
 public class MenuBar extends JMenuBar {
 
+    /**
+     * Create a menuBar.
+     */
     public MenuBar() {
         super();
         JMenu file = new FileMenu();

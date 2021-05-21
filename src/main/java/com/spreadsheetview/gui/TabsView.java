@@ -2,11 +2,11 @@ package com.spreadsheetview.gui;
 
 import com.spreadsheetmodel.Spreadsheet;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.*;
 
 public class TabsView extends JPanel {
 
@@ -16,6 +16,10 @@ public class TabsView extends JPanel {
     private JButton addNewSheetButton;
     private final ArrayList<TabsViewListener> listeners;
 
+    /**
+     * Create a tabsView.
+     * @param model a Spreadsheet.
+     */
     public TabsView(Spreadsheet model) {
         super();
         this.model = model;
@@ -26,12 +30,11 @@ public class TabsView extends JPanel {
         setLayout(sheetSelecterButtons);
         JButton firstSheet = new JButton(model.getCurrentSheetName());
 
-
         addNewSheetButton = new JButton("+");
         addNewSheetButton.addActionListener(new ActionListener() {
-           public void actionPerformed(ActionEvent e) {
-               addNewSheet();
-           }
+            public void actionPerformed(ActionEvent e) {
+                addNewSheet();
+            }
         });
 
         buttonList.add(firstSheet);
@@ -42,10 +45,9 @@ public class TabsView extends JPanel {
     }
 
     private void addNewSheet() {
-        // TODO Create a new JButton with the name of the sheet that you want and connect it to a sheet
         JButton newSheetButton = new JButton();
         String name = "Placeholder";
-        buttonList.add(buttonList.size()-1, newSheetButton);
+        buttonList.add(buttonList.size() - 1, newSheetButton);
         model.addNewSheet(name);
         newSheetButton.setText(name);
         add(newSheetButton);

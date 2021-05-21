@@ -58,7 +58,7 @@ public enum EditMenuItems implements MenuItems {
     private final ActionListener listener;
 
     /**
-     * Initialize an EditMenuItem
+     * Initialize an EditMenuItem.
      * @param name The human-readable name.
      */
     private EditMenuItems(final String name, ActionListener listener) {
@@ -72,7 +72,9 @@ public enum EditMenuItems implements MenuItems {
     }
 
     @Override
-    public ActionListener getListener() {return listener;}
+    public ActionListener getListener() {
+        return listener;
+    }
 
 
     private static void undo() {

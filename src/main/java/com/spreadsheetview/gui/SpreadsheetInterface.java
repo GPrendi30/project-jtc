@@ -5,11 +5,15 @@ import com.spreadsheetview.SpreadsheetView;
 import com.spreadsheetview.gui.menu.Menu;
 import com.spreadsheetview.tui.SpreadsheetTui;
 
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 
-final public class SpreadsheetInterface extends JFrame implements SpreadsheetView {
+public final class SpreadsheetInterface extends JFrame implements SpreadsheetView {
 
+    /**
+     * Create a spreadsheetInterface.
+     * @param model a Spreadsheet.
+     */
     public SpreadsheetInterface(final Spreadsheet model) {
         super();
         setTitle("Java Tabular Calculator");

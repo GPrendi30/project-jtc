@@ -93,6 +93,11 @@ public class Spreadsheet {
         fireSpreadsheetChanged();
     }
 
+    /**
+     * Updates the current Cell.
+     * @param c the cell
+     * @param content a String, new content of the cell.
+     */
     public void updateCell(Cell c, String content) {
         currentSheet.updateCell(c, content);
         fireSpreadsheetChanged();

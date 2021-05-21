@@ -1,12 +1,17 @@
 package com.spreadsheetview.gui.menu.toolbar;
 
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 
 public class CustomButton extends JButton {
 
     private final String description;
 
+    /**
+     * Create a customButton.
+     * @param i an Icon for the buttton.
+     * @param description a String that describes the button.
+     */
     public CustomButton(Icon i, String description) {
         super(i);
         this.description = description;

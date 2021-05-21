@@ -47,6 +47,8 @@ public enum ViewMenuItems implements MenuItems {
     }
 
     @Override
-    public ActionListener getListener() {return listener;}
+    public ActionListener getListener() {
+        return listener;
+    }
 
 }

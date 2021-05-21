@@ -5,9 +5,9 @@ import com.spreadsheetmodel.SpreadsheetListener;
 import com.spreadsheetmodel.cell.Cell;
 import com.spreadsheetmodel.sheet.Sheet;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import javax.swing.*;
 
 
 public class SheetView extends JScrollPane {
@@ -17,6 +17,10 @@ public class SheetView extends JScrollPane {
     private GridLayout layout;
     private final ArrayList<SheetViewListener> listeners;
 
+    /**
+     * Create a sheetView.
+     * @param model a Spreadsheet.
+     */
     public SheetView(final Spreadsheet model) {
         this.model = model;
         Sheet current = model.getCurrentSheet();
@@ -76,14 +80,18 @@ public class SheetView extends JScrollPane {
 
     }
 
-    public static void main(String[] args){
-            JFrame frame = new JFrame();
-            Spreadsheet m = new Spreadsheet();
-            SheetView sv = new SheetView(m);
-            frame.add(sv);
-            frame.setSize(new Dimension(500, 500));
-            frame.pack();
-            frame.setVisible(true);
+    /**
+     * The main method.
+     * @param args a String[].
+     */
+    public static void main(String[] args) {
+        JFrame frame = new JFrame();
+        Spreadsheet m = new Spreadsheet();
+        SheetView sv = new SheetView(m);
+        frame.add(sv);
+        frame.setSize(new Dimension(500, 500));
+        frame.pack();
+        frame.setVisible(true);
     }
 }
 

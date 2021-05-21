@@ -4,15 +4,14 @@ import com.spreadsheetmodel.Spreadsheet;
 import com.spreadsheetmodel.SpreadsheetListener;
 import com.spreadsheetmodel.cell.Cell;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import javax.swing.*;
 
-import static java.lang.Thread.sleep;
 
 /**
  * The main frame of the Function Plotter application.
@@ -28,8 +27,8 @@ public final class FormulaBar extends JPanel {
     private Spreadsheet model;
     private JButton cellName;
     private JTextField contentField;
-    private final static Dimension preferredDimension = new Dimension(500, 100);
-    private final static StringBuilder STRING_BUILDER = new StringBuilder();
+    private final Dimension preferredDimension = new Dimension(500, 100);
+    private final StringBuilder stringBuilder = new StringBuilder();
     private final ArrayList<FormulaBarListener> listeners;
 
     /**
@@ -61,8 +60,8 @@ public final class FormulaBar extends JPanel {
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    STRING_BUILDER.append(contentField.getText());
-                    updateCurrentContent(STRING_BUILDER.toString());
+                    stringBuilder.append(contentField.getText());
+                    updateCurrentContent(stringBuilder.toString());
                 }
             }
         });
@@ -85,7 +84,7 @@ public final class FormulaBar extends JPanel {
     private void updateCurrentCell(Cell newCell) {
         currentCell = newCell;
         updateFormulaBar();
-        STRING_BUILDER.setLength(0);
+        stringBuilder.setLength(0);
         fireFormulaBarChanged();
     }
 

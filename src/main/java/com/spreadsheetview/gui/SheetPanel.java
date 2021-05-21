@@ -2,9 +2,9 @@ package com.spreadsheetview.gui;
 
 import com.spreadsheetmodel.Spreadsheet;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import javax.swing.*;
 
 
 public class SheetPanel extends JPanel {
@@ -14,7 +14,11 @@ public class SheetPanel extends JPanel {
     private FormulaBar formulaBar;
     private TabsView tabsBar;
     private final ArrayList<SheetPanelListener> listeners;
-    
+
+    /**
+     * Create a sheetPanel.
+     * @param model a Spreadsheet.
+     */
     public SheetPanel(Spreadsheet model) {
         super();
         this.model = model;
