@@ -1,24 +1,20 @@
 package com.spreadsheetview.gui;
 
 import com.spreadsheetmodel.Spreadsheet;
+import com.spreadsheetmodel.SpreadsheetListener;
 import com.spreadsheetmodel.cell.Cell;
 import com.spreadsheetmodel.sheet.Sheet;
-import com.spreadsheetmodel.*;
-
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
-
 import java.util.ArrayList;
 
 
 public class SheetView extends JScrollPane {
 
+    private JPanel mainGrid;
     private Spreadsheet model;
+    private GridLayout layout;
     private final ArrayList<SheetViewListener> listeners;
 
     public SheetView(final Spreadsheet model) {
@@ -26,18 +22,20 @@ public class SheetView extends JScrollPane {
         Sheet current = model.getCurrentSheet();
         listeners = new ArrayList<>();
 
-        JPanel j = new JPanel();
-        j.setLayout(new GridLayout(current.sizeX(), current.sizeY()));
-        Sheet[] sh = model.getSheets();
+        layout = new GridLayout(current.sizeX(), current.sizeY());
+        mainGrid = new JPanel(layout);
 
-        for (int x = 0; x < current.sizeX(); x++) {
-            for (int y = 0; y < current.sizeY(); y++) {
-                Cell c = current.get(x,y);
-                CellView cv = new CellView(c);
-                j.add(cv);
+        CellView.setModel(model);
+        drawSheet(current);
+        model.addListener(new SpreadsheetListener() {
+            @Override
+            public void spreadsheetChanged(Spreadsheet s) {
+                fireSheetViewChanged();
+                //TODO add a type to the Spreadsheetchanged() method.
+                //drawSheet(model.getCurrentSheet());
             }
-        }
-        setViewportView(j);
+        });
+        setViewportView(mainGrid);
     }
 
     // adding listeners
@@ -61,6 +59,21 @@ public class SheetView extends JScrollPane {
         for (final SheetViewListener li : listeners) {
             li.sheetViewChanged(model);
         }
+    }
+
+    private void drawSheet(final Sheet current) {
+        mainGrid.setLayout(new GridLayout(current.sizeX(), current.sizeY()));
+        for (int x = 0; x < current.sizeX(); x++) {
+            for (int y = 0; y < current.sizeY(); y++) {
+                Cell c = current.get(x,y);
+                CellView cv = new CellView(c);
+                mainGrid.add(cv);
+            }
+        }
+    }
+
+    private void removeCells() {
+
     }
 
     public static void main(String[] args){

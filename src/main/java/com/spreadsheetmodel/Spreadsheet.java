@@ -93,6 +93,11 @@ public class Spreadsheet {
         fireSpreadsheetChanged();
     }
 
+    public void updateCell(Cell c, String content) {
+        currentSheet.updateCell(c, content);
+        fireSpreadsheetChanged();
+    }
+
     /**
      * Returns current Cell.
      * @return a Cell: currentCell

@@ -1,17 +1,16 @@
 package com.spreadsheetview.gui;
 
+import com.spreadsheetmodel.Spreadsheet;
+import com.spreadsheetmodel.SpreadsheetListener;
+import com.spreadsheetmodel.cell.Cell;
+
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-
-import javax.swing.*;
-
 import java.util.ArrayList;
-
-import com.spreadsheetmodel.*;
-import com.spreadsheetmodel.cell.Cell;
 
 import static java.lang.Thread.sleep;
 
@@ -20,7 +19,7 @@ import static java.lang.Thread.sleep;
  * The "GUI".
  * The "GUI" knows the "model", it depends on the "model",
  * and it cannot exist without the "model".
- * The "model" of a SpreadsheetFrame is a Plot.
+ * The "model" of a SheetPanelSheetPanelSheetPanelListner is a Plot.
  */
 
 public final class FormulaBar extends JPanel {
@@ -32,8 +31,9 @@ public final class FormulaBar extends JPanel {
     private final static Dimension preferredDimension = new Dimension(500, 100);
     private final static StringBuilder STRING_BUILDER = new StringBuilder();
     private final ArrayList<FormulaBarListener> listeners;
+
     /**
-     * Create a new SpreadsheetFrame for the given Plot.
+     * Create a formulaBar.
      * @param model The model to show.
      */
     public FormulaBar(final Spreadsheet model) {
@@ -60,8 +60,10 @@ public final class FormulaBar extends JPanel {
             @Override
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
-                STRING_BUILDER.append(contentField.getText());
-                updateCurrentContent(STRING_BUILDER.toString());
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    STRING_BUILDER.append(contentField.getText());
+                    updateCurrentContent(STRING_BUILDER.toString());
+                }
             }
         });
 
@@ -119,27 +121,5 @@ public final class FormulaBar extends JPanel {
         }
     }
 
-    public static void main(String[] args) throws InterruptedException {
-        Spreadsheet s = new Spreadsheet();
-        s.selectCell(3,3);
-        s.updateCurrentCell("g");
-        FormulaBar f = new FormulaBar(s);
-        JFrame frame = new JFrame();
-        frame.setLayout(new BorderLayout());
-        frame.add(f, BorderLayout.NORTH);
-        frame.setSize(new Dimension(500, 500));
-        s.addListener(new SpreadsheetListener() {
-            @Override
-            public void spreadsheetChanged(Spreadsheet s) {
-                System.out.println(s.getCurrentCell().getText());
-            }
-        });
-        frame.pack();
-        frame.setVisible(true);
-        sleep(5);
-        s.getCurrentSheet().update(1,4,"t");
-        s.selectCell(1,4);
-        frame.pack();
-    }
 
 }

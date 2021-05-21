@@ -2,7 +2,6 @@ package com.spreadsheetview.gui.menu.toolbar;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 
 public class CustomButton extends JButton {
 

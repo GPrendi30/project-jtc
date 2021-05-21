@@ -1,6 +1,6 @@
 package com.spreadsheetview.gui;
 
-import com.spreadsheetmodel.*;
+import com.spreadsheetmodel.Spreadsheet;
 
 public interface SheetViewListener {
 

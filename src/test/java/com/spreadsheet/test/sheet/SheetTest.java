@@ -1,12 +1,13 @@
 package com.spreadsheet.test.sheet;
+
+import com.computation.program.VariableTable;
 import com.spreadsheetmodel.cell.Cell;
 import com.spreadsheetmodel.cell.TableCell;
 import com.spreadsheetmodel.sheet.Sheet;
-import com.computation.program.VariableTable;
-
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class SheetTest {
 

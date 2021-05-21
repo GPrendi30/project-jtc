@@ -3,8 +3,6 @@ package com.spreadsheet.test.cell;
 
 import com.computation.program.Program;
 import com.computation.program.VariableTable;
-
-
 import com.spreadsheetmodel.cell.*;
 import org.junit.Test;
 

@@ -7,7 +7,6 @@ import com.spreadsheetmodel.cell.CellLocation;
 import com.spreadsheetmodel.sheet.Sheet;
 import com.spreadsheetview.SpreadsheetView;
 
-import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
@@ -60,7 +59,7 @@ public class SpreadsheetTui implements SpreadsheetView {
         // TODO test for windows machines.
     }
 
-    private void printSheet(final Spreadsheet spreadsheet) {
+    public void printSheet(final Spreadsheet spreadsheet) {
         final Sheet s = spreadsheet.getCurrentSheet();
         System.out.println(" ###########  "  + s.getTableName() + "  ############# ");
         final String currentLocation = model.getCurrentCell().getLocation().toString();

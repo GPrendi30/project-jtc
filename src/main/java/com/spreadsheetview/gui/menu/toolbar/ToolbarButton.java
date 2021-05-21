@@ -3,9 +3,6 @@ package com.spreadsheetview.gui.menu.toolbar;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public enum ToolbarButton {
 

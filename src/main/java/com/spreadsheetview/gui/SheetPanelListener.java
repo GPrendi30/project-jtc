@@ -2,7 +2,7 @@ package com.spreadsheetview.gui;
 
 import com.spreadsheetmodel.Spreadsheet;
 
-public interface SpreadsheetFrameListener {
+public interface SheetPanelListener {
 
     /**
      * Listener notified that the spreadsheetFrame's state has changed.

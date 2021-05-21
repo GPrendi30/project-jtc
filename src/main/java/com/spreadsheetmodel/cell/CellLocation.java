@@ -11,6 +11,7 @@ public class CellLocation {
 
     private final String column;
     private final int row;
+    private final int intColumn;
 
     /**
      * Creates a new CellLocation from coordinates.
@@ -23,6 +24,7 @@ public class CellLocation {
                 : null;
 
         this.row = row;
+        this.intColumn = col;
     }
 
     /**
@@ -59,6 +61,10 @@ public class CellLocation {
      */
     public String getColumn() {
         return column;
+    }
+
+    public int getIntColumn() {
+        return intColumn;
     }
 
     /**

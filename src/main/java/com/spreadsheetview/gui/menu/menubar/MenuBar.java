@@ -1,7 +1,6 @@
 package com.spreadsheetview.gui.menu.menubar;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class MenuBar extends JMenuBar {
 

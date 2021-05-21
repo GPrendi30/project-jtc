@@ -4,12 +4,10 @@ package com.spreadsheetcontroller;
 import com.spreadsheetmodel.Spreadsheet;
 import com.spreadsheetmodel.cell.Cell;
 import com.spreadsheetview.SpreadsheetView;
+import com.spreadsheetview.gui.SpreadsheetInterface;
 import com.spreadsheetview.tui.SpreadsheetTui;
 
-
-import java.io.Console;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Locale;
 
 
@@ -53,7 +51,12 @@ public class SpreadsheetController {
 
         final Spreadsheet s = new Spreadsheet();
         final SpreadsheetTui tui = new SpreadsheetTui(s);
-        final SpreadsheetController controller = new SpreadsheetController(s, tui, isGui);
+        final SpreadsheetInterface gui = new SpreadsheetInterface(s);
+        final SpreadsheetView view = isGui
+                        ?   gui
+                        :   tui;
+
+        final SpreadsheetController controller = new SpreadsheetController(s, view, isGui);
         controller.start();
     }
 
@@ -63,10 +66,13 @@ public class SpreadsheetController {
 
     private void start() {
         if (this.isGui) {
+            /*
             System.out.println("Gui is not yet ready");
             System.out.println("Come Back Later");
             System.out.println("BYE");
-            System.exit(0);
+            //System.exit(0);
+            */
+            view.init();
         } else {
             repl.init();
         }

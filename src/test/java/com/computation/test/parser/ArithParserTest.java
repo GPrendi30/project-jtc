@@ -4,6 +4,7 @@ import com.computation.ast.*;
 import com.computation.parser.ArithParser;
 import com.computation.parser.Parser;
 import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 
 
