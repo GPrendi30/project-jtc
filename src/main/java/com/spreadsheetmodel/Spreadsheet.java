@@ -270,7 +270,7 @@ public class Spreadsheet {
 
     private void fireSpreadsheetChanged() {
         for (final SpreadsheetListener li : listeners) {
-            li.spreasheetChanged(this);
+            li.spreadsheetChanged(this);
         }
     }
 }

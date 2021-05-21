@@ -15,6 +15,14 @@ final public class SpreadsheetInterface extends JFrame {
 
         final Menu menu = new Menu();
         final SpreadsheetFrame sf = new SpreadsheetFrame(model);
+        // add the listener for FormulaBar
+        sf.addListener(new SpreadsheetFrameListener() {
+            @java.lang.Override
+            public void spreadsheetFrameChanged(Spreadsheet model) {
+                pack();
+                repaint();
+            }
+        });
 
         //add(menu, BorderLayout.NORTH);
         add(sf, BorderLayout.CENTER);

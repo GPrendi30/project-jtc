@@ -29,7 +29,7 @@ public class SpreadsheetTui implements SpreadsheetView {
         model = s;
         model.addListener(new SpreadsheetListener() {
             @Override
-            public void spreasheetChanged(final Spreadsheet s) {
+            public void spreadsheetChanged(final Spreadsheet s) {
                 updateView();
             }
         });

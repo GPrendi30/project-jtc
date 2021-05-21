@@ -8,6 +8,8 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.*;
 
+import java.util.ArrayList;
+
 import com.spreadsheetmodel.*;
 import com.spreadsheetmodel.cell.Cell;
 
@@ -29,6 +31,7 @@ public final class FormulaBar extends JPanel {
     private JTextField contentField;
     private final static Dimension preferredDimension = new Dimension(500, 100);
     private final static StringBuilder STRING_BUILDER = new StringBuilder();
+    private final ArrayList<FormulaBarListener> listeners;
     /**
      * Create a new SpreadsheetFrame for the given Plot.
      * @param model The model to show.
@@ -38,6 +41,7 @@ public final class FormulaBar extends JPanel {
         currentCell = model.getCurrentCell();
         this.model = model;
         setLayout(new FlowLayout());
+        listeners = new ArrayList<>();
 
         cellName = new JButton(currentCell.getLocation().toString());
 
@@ -63,7 +67,7 @@ public final class FormulaBar extends JPanel {
 
         model.addListener(new SpreadsheetListener() {
             @Override
-            public void spreasheetChanged(Spreadsheet s) {
+            public void spreadsheetChanged(Spreadsheet s) {
                 updateCurrentCell(s.getCurrentCell());
             }
         });
@@ -80,6 +84,7 @@ public final class FormulaBar extends JPanel {
         currentCell = newCell;
         updateFormulaBar();
         STRING_BUILDER.setLength(0);
+        fireFormulaBarChanged();
     }
 
     private void updateCurrentContent(String text) {
@@ -89,6 +94,29 @@ public final class FormulaBar extends JPanel {
     private void updateFormulaBar() {
         cellName.setText(currentCell.getLocation().toString());
         contentField.setText(currentCell.getText());
+    }
+
+    // adding listeners
+    /**
+     * Adds a SheetViewListener to the list of listener objects.
+     * @param li a SheetViewListener that will be added.
+     */
+    public void addListener(final FormulaBarListener li) {
+        listeners.add(li);
+    }
+
+    /**
+     * Removes a listener from the list of listeners.
+     * @param li a Spreadsheet listener that will be removed.
+     */
+    public void removeListener(final FormulaBarListener li) {
+        listeners.remove(li);
+    }
+
+    private void fireFormulaBarChanged() {
+        for (final FormulaBarListener li : listeners) {
+            li.formulaBarChanged(model);
+        }
     }
 
     public static void main(String[] args) throws InterruptedException {
@@ -102,7 +130,7 @@ public final class FormulaBar extends JPanel {
         frame.setSize(new Dimension(500, 500));
         s.addListener(new SpreadsheetListener() {
             @Override
-            public void spreasheetChanged(Spreadsheet s) {
+            public void spreadsheetChanged(Spreadsheet s) {
                 System.out.println(s.getCurrentCell().getText());
             }
         });
