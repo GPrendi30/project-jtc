@@ -6,7 +6,7 @@ import javax.swing.*;
 
 public enum ToolbarButton {
 
-    UNDO(ToolbarButton.newIcon("/home/geri/Desktop/University/PF2/HOMEWORK/project-jtc/src/main/resources/toolbar/images/undo.png", "undo action"),
+    UNDO(ToolbarButton.newIcon(getPath() + "undo.png", "undo action"),
         new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -14,7 +14,7 @@ public enum ToolbarButton {
             }
         }),
 
-    REDO(newIcon("/home/geri/Desktop/University/PF2/HOMEWORK/project-jtc/src/main/resources/toolbar/images/redo.png", "redo action"),
+    REDO(newIcon(getPath() + "redo.png", "redo action"),
         new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -22,7 +22,7 @@ public enum ToolbarButton {
             }
         }),
 
-    COPY(newIcon("/home/geri/Desktop/University/PF2/HOMEWORK/project-jtc/src/main/resources/toolbar/images/copy.png", "copy action"),
+    COPY(newIcon(getPath() + "copy.png", "copy action"),
         new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -30,7 +30,7 @@ public enum ToolbarButton {
             }
         }),
 
-    PASTE(newIcon("/home/geri/Desktop/University/PF2/HOMEWORK/project-jtc/src/main/resources/toolbar/images/paste.png", "paste action"),
+    PASTE(newIcon(getPath() + "paste.png", "paste action"),
         new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -38,7 +38,7 @@ public enum ToolbarButton {
             }
         }),
 
-    CUT(newIcon("/home/geri/Desktop/University/PF2/HOMEWORK/project-jtc/src/main/resources/toolbar/images/cut.png", "cut action"),
+    CUT(newIcon(getPath() + "cut.png", "cut action"),
         new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -46,7 +46,7 @@ public enum ToolbarButton {
             }
         }),
 
-    TOGGLE_FORMULAS(newIcon("/home/geri/Desktop/University/PF2/HOMEWORK/project-jtc/src/main/resources/toolbar/images/toggle_formulas.png", "toggle action"),
+    TOGGLE_FORMULAS(newIcon(getPath() + "toggle_formulas.png", "toggle action"),
         new ActionListener() {
             private boolean toggled = false;
 
@@ -77,12 +77,19 @@ public enum ToolbarButton {
         this.listener = listener;
     }
 
+    private static String getPath() {
+        return "/home/geri/Desktop/University/PF2/HOMEWORK/project-jtc/"
+                +
+                "src/main/resources/toolbar/images/";
+    }
+
     /**
      * The main function.
      * @param args a String[].
      */
     public static void main(String[] args) {
-        //System.out.println(new ImageIcon(Paths.get(imagesPath.toString(), "undo.png").toString(), "desc"));
+        //System.out.println(new ImageIcon
+        // (Paths.get(imagesPath.toString(), "undo.png").toString(), "desc"));
         //System.out.println(Paths.get(imagesPath.toString(), "home.png").toString());
         //newIcon("undo.png", "a picture");
     }

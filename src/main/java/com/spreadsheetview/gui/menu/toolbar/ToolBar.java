@@ -1,10 +1,13 @@
 package com.spreadsheetview.gui.menu.toolbar;
 
-import javax.swing.*;
 import java.awt.event.ActionListener;
+import javax.swing.*;
 
 public class ToolBar extends JToolBar {
 
+    /**
+     * Create a toolBar.
+     */
     public ToolBar() {
         super("Draggable");
 
