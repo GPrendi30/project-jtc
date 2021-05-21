@@ -181,6 +181,7 @@ public class SpreadsheetTui implements SpreadsheetView {
                 break;
                 case KeyEvent.VK_RIGHT: moveRight();
                 break;
+                default: System.out.println("Failed in SpreadsheetTui KeyPressed");
             }
             updateSelectedCoordinates(model.getCurrentCell().getLocation().toString());
         }
