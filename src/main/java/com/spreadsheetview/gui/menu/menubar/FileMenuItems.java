@@ -6,35 +6,35 @@ import java.awt.event.ActionListener;
 public enum FileMenuItems implements MenuItems {
     NEW("new",new ActionListener() {
         @Override
-        public void actionPerformed(ActionEvent actionEvent) {
+        public void actionPerformed(final ActionEvent actionEvent) {
             createNewFile();
         }
     }),
 
     OPEN("open",new ActionListener() {
         @Override
-        public void actionPerformed(ActionEvent actionEvent) {
+        public void actionPerformed(final ActionEvent actionEvent) {
             openFile();
         }
     }),
 
     IMPORT("import", new ActionListener() {
         @Override
-        public void actionPerformed(ActionEvent actionEvent) {
+        public void actionPerformed(final ActionEvent actionEvent) {
             importFile();
         }
     }),
 
     SAVE("save", new ActionListener() {
         @Override
-        public void actionPerformed(ActionEvent actionEvent) {
+        public void actionPerformed(final ActionEvent actionEvent) {
             saveFile();
         }
     }),
 
     EXPORT("export", new ActionListener() {
         @Override
-        public void actionPerformed(ActionEvent actionEvent) {
+        public void actionPerformed(final ActionEvent actionEvent) {
             exportFile();
         }
     });
@@ -46,7 +46,7 @@ public enum FileMenuItems implements MenuItems {
      * Initialize an EditMenuItem
      * @param name The human-readable name of this TokenType.
      */
-    private FileMenuItems(final String name, ActionListener listener) {
+    private FileMenuItems(final String name, final ActionListener listener) {
         this.name = name;
         this.listener = listener;
     }

@@ -53,14 +53,14 @@ public final class FormulaBar extends JPanel {
 
         //adding listeners
         contentField.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 updateCurrentContent(contentField.getText());
             }
         });
 
         contentField.addKeyListener(new KeyAdapter() {
             @Override
-            public void keyPressed(KeyEvent e) {
+            public void keyPressed(final KeyEvent e) {
                 super.keyPressed(e);
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     stringBuilder.append(contentField.getText());
@@ -71,7 +71,7 @@ public final class FormulaBar extends JPanel {
 
         model.addListener(new SpreadsheetListener() {
             @Override
-            public void spreadsheetChanged(Spreadsheet s) {
+            public void spreadsheetChanged(final Spreadsheet s) {
                 updateCurrentCell(s.getCurrentCell());
             }
         });
@@ -84,14 +84,14 @@ public final class FormulaBar extends JPanel {
         contentField.setPreferredSize(new Dimension(500, 50));
     }
 
-    private void updateCurrentCell(Cell newCell) {
+    private void updateCurrentCell(final Cell newCell) {
         currentCell = newCell;
         updateFormulaBar();
         stringBuilder.setLength(0);
         fireFormulaBarChanged();
     }
 
-    private void updateCurrentContent(String text) {
+    private void updateCurrentContent(final String text) {
         model.updateCurrentCell(text);
     }
 

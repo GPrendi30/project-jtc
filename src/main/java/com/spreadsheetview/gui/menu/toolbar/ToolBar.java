@@ -12,13 +12,13 @@ public class ToolBar extends JToolBar {
     public ToolBar() {
         super("Draggable");
 
-        for (ToolbarButton t : ToolbarButton.values()) {
+        for (final ToolbarButton t : ToolbarButton.values()) {
             addButton(t.getIcon(), t.getListener());
         }
     }
 
-    private void addButton(ImageIcon i, ActionListener li) {
-        CustomButton temp = new CustomButton(i, i.getDescription());
+    private void addButton(final ImageIcon i, final ActionListener li) {
+        final CustomButton temp = new CustomButton(i, i.getDescription());
         temp.addActionListener(li);
         add(temp);
     }

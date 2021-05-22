@@ -15,26 +15,28 @@ public class CellView extends JTextField {
     private static Spreadsheet model;
     private Cell cell;
     private final Dimension preferredSize = new Dimension(100, 50);
-    private final StringBuilder stringBuilder = new StringBuilder();
-    private Dimension size;
+    // eliminate those two?? v
+    //private final StringBuilder stringBuilder = new StringBuilder();
+    //private Dimension size;
 
     /**
      * Create a CellView object.
      * @param c a cell.
      */
-    public CellView(Cell c) {
+    public CellView(final Cell c) {
+        super();
         this.cell = c;
         addKeyListener(new KeyAdapter() {
             @Override
-            public void keyPressed(KeyEvent e) {
+            public void keyPressed(final KeyEvent e) {
                 super.keyPressed(e);
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    String s = getText();
+                    final String s = getText();
 
                     System.out.println(s);
                     if (isFocusOwner()) {
-                        int x = cell.getLocation().getRow();
-                        int y = cell.getLocation().getIntColumn();
+                        final int x = cell.getLocation().getRow();
+                        final int y = cell.getLocation().getIntColumn();
                         model.selectCell(x, y);
                         updateCellContent(s);
                     }
@@ -45,7 +47,7 @@ public class CellView extends JTextField {
         setSize(preferredSize);
         model.addListener(new SpreadsheetListener() {
             @Override
-            public void spreadsheetChanged(Spreadsheet s) {
+            public void spreadsheetChanged(final Spreadsheet s) {
                 updateContent(cell.getText());
             }
         });
@@ -55,11 +57,11 @@ public class CellView extends JTextField {
      * Set the model to the current sheet.
      * @param s the spreadsheet.
      */
-    public static void setModel(Spreadsheet s) {
+    public static void setModel(final Spreadsheet s) {
         model = s;
     }
 
-    private void updateCellContent(String text) {
+    private void updateCellContent(final String text) {
         model.updateCurrentCell(text);
         cell.updateContent(text);
         updateContent(cell.getText());
@@ -69,7 +71,7 @@ public class CellView extends JTextField {
      * Updates the content.
      * @param text a String.
      */
-    public void updateContent(String text) {
+    public void updateContent(final String text) {
         setText(text);
     }
     

@@ -10,9 +10,9 @@ public class MenuBar extends JMenuBar {
      */
     public MenuBar() {
         super();
-        JMenu file = new FileMenu();
-        JMenu edit = new EditMenu();
-        JMenu view = new ViewMenu();
+        final JMenu file = new FileMenu();
+        final JMenu edit = new EditMenu();
+        final JMenu view = new ViewMenu();
 
         add(file);
         add(edit);

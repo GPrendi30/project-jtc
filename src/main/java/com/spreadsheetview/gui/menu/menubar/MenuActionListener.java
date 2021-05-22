@@ -9,7 +9,7 @@ public abstract class MenuActionListener implements ActionListener {
      * Listener.
      * @param actionEvent an ActionEvent.
      */
-    public void actionPerformed(ActionEvent actionEvent) {
+    public void actionPerformed(final ActionEvent actionEvent) {
         command();
     }
 

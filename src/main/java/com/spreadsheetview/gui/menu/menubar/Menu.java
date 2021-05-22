@@ -11,7 +11,7 @@ public abstract class Menu extends JMenu {
      * Create a menu.
      * @param name a String.
      */
-    public Menu(String name) {
+    public Menu(final String name) {
         super(name);
     }
 
@@ -20,8 +20,8 @@ public abstract class Menu extends JMenu {
      * @param name a String.
      * @param actionListener an ActionListener.
      */
-    public void addMenu(String name, ActionListener actionListener) {
-        JMenuItem temp = new JMenuItem(name);
+    public void addMenu(final String name, final ActionListener actionListener) {
+        final JMenuItem temp = new JMenuItem(name);
         temp.addActionListener(actionListener);
         add(temp);
     }

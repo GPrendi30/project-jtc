@@ -98,7 +98,7 @@ public class Spreadsheet {
      * @param c the cell
      * @param content a String, new content of the cell.
      */
-    public void updateCell(Cell c, String content) {
+    public void updateCell(final Cell c, final String content) {
         currentSheet.updateCell(c, content);
         fireSpreadsheetChanged();
     }

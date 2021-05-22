@@ -27,7 +27,7 @@ public final class SpreadsheetInterface extends JFrame implements SpreadsheetVie
         // add the listener for FormulaBar
         sf.addListener(new SheetPanelListener() {
             @Override
-            public void spreadsheetFrameChanged(Spreadsheet model) {
+            public void spreadsheetFrameChanged(final Spreadsheet model) {
                 pack();
                 repaint();
                 t.printSheet(model);

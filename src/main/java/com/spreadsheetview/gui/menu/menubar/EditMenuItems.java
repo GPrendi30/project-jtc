@@ -13,42 +13,42 @@ public enum EditMenuItems implements MenuItems {
 
     REDO("redo", new ActionListener() {
         @Override
-        public void actionPerformed(ActionEvent actionEvent) {
+        public void actionPerformed(final ActionEvent actionEvent) {
             redo();
         }
     }),
 
     COPY("copy", new ActionListener() {
         @Override
-        public void actionPerformed(ActionEvent actionEvent) {
+        public void actionPerformed(final ActionEvent actionEvent) {
             copy();
         }
     }),
 
     PASTE("paste", new ActionListener() {
         @Override
-        public void actionPerformed(ActionEvent actionEvent) {
+        public void actionPerformed(final ActionEvent actionEvent) {
             paste();
         }
     }),
 
     FIND("find", new ActionListener() {
         @Override
-        public void actionPerformed(ActionEvent actionEvent) {
+        public void actionPerformed(final ActionEvent actionEvent) {
             find();
         }
     }),
 
     REPLACE("replace", new ActionListener() {
         @Override
-        public void actionPerformed(ActionEvent actionEvent) {
+        public void actionPerformed(final ActionEvent actionEvent) {
             replace();
         }
     }),
 
     CUT("cut", new ActionListener() {
         @Override
-        public void actionPerformed(ActionEvent actionEvent) {
+        public void actionPerformed(final ActionEvent actionEvent) {
             cut();
         }
     });
@@ -61,7 +61,7 @@ public enum EditMenuItems implements MenuItems {
      * Initialize an EditMenuItem.
      * @param name The human-readable name.
      */
-    private EditMenuItems(final String name, ActionListener listener) {
+    private EditMenuItems(final String name, final ActionListener listener) {
         this.name = name;
         this.listener = listener;
     }

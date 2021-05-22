@@ -12,28 +12,26 @@ import javax.swing.JPanel;
 public class TabsView extends JPanel {
 
     private Spreadsheet model;
-    private FlowLayout sheetSelecterButtons;
     private ArrayList<JButton> buttonList;
-    private JButton addNewSheetButton;
     private final ArrayList<TabsViewListener> listeners;
 
     /**
      * Create a tabsView.
      * @param model a Spreadsheet.
      */
-    public TabsView(Spreadsheet model) {
+    public TabsView(final Spreadsheet model) {
         super();
         this.model = model;
-        sheetSelecterButtons = new FlowLayout();
+        final FlowLayout sheetSelecterButtons = new FlowLayout();
         buttonList = new ArrayList<>();
         listeners = new ArrayList<>();
 
         setLayout(sheetSelecterButtons);
-        JButton firstSheet = new JButton(model.getCurrentSheetName());
+        final JButton firstSheet = new JButton(model.getCurrentSheetName());
 
-        addNewSheetButton = new JButton("+");
+        final JButton addNewSheetButton = new JButton("+");
         addNewSheetButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 addNewSheet();
             }
         });
@@ -46,8 +44,8 @@ public class TabsView extends JPanel {
     }
 
     private void addNewSheet() {
-        JButton newSheetButton = new JButton();
-        String name = "Placeholder";
+        final JButton newSheetButton = new JButton();
+        final String name = "Placeholder";
         buttonList.add(buttonList.size() - 1, newSheetButton);
         model.addNewSheet(name);
         newSheetButton.setText(name);
@@ -58,13 +56,13 @@ public class TabsView extends JPanel {
     }
 
     private void removeAllButtons() {
-        for (JButton j : buttonList) {
+        for (final JButton j : buttonList) {
             remove(j);
         }
     }
 
     private void addAllButtons() {
-        for (JButton j : buttonList) {
+        for (final JButton j : buttonList) {
             add(j);
         }
     }

@@ -9,14 +9,14 @@ import javax.swing.UIManager;
 
 public class CustomButton extends JButton {
 
-    private final String description;
+    /* default */ final String description;
 
     /**
      * Create a customButton.
-     * @param i an Icon for the buttton.
+     * @param i an Icon for the button.
      * @param description a String that describes the button.
      */
-    public CustomButton(Icon i, String description) {
+    public CustomButton(final Icon i,final String description) {
         super(i);
         this.description = description;
         setBorder(null);
@@ -26,11 +26,11 @@ public class CustomButton extends JButton {
         setMinimumSize(new Dimension(64, 64));
 
         addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
+            public void mouseEntered(final java.awt.event.MouseEvent evt) {
                 setBackground(Color.GRAY);
             }
 
-            public void mouseExited(java.awt.event.MouseEvent evt) {
+            public void mouseExited(final java.awt.event.MouseEvent evt) {
                 setBackground(UIManager.getColor("control"));
             }
         });

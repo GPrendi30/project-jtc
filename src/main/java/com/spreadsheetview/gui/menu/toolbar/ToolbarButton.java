@@ -9,7 +9,7 @@ public enum ToolbarButton {
     UNDO(ToolbarButton.newIcon(getPath() + "undo.png", "undo action"),
         new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent actionEvent) {
+            public void actionPerformed(final ActionEvent actionEvent) {
                 System.out.println("undo");
             }
         }),
@@ -17,7 +17,7 @@ public enum ToolbarButton {
     REDO(newIcon(getPath() + "redo.png", "redo action"),
         new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent actionEvent) {
+            public void actionPerformed(final ActionEvent actionEvent) {
                 System.out.println("redo");
             }
         }),
@@ -25,7 +25,7 @@ public enum ToolbarButton {
     COPY(newIcon(getPath() + "copy.png", "copy action"),
         new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent actionEvent) {
+            public void actionPerformed(final ActionEvent actionEvent) {
                 System.out.println("copy");
             }
         }),
@@ -33,7 +33,7 @@ public enum ToolbarButton {
     PASTE(newIcon(getPath() + "paste.png", "paste action"),
         new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent actionEvent) {
+            public void actionPerformed(final ActionEvent actionEvent) {
                 System.out.println("paste");
             }
         }),
@@ -41,7 +41,7 @@ public enum ToolbarButton {
     CUT(newIcon(getPath() + "cut.png", "cut action"),
         new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent actionEvent) {
+            public void actionPerformed(final ActionEvent actionEvent) {
                 System.out.println("cut");
             }
         }),
@@ -51,7 +51,7 @@ public enum ToolbarButton {
             private boolean toggled = false;
 
             @Override
-            public void actionPerformed(ActionEvent actionEvent) {
+            public void actionPerformed(final ActionEvent actionEvent) {
                 if (toggled) {
                     System.out.println("Formulas Toggled");
                 } else {
@@ -71,8 +71,7 @@ public enum ToolbarButton {
     private final ActionListener listener;
 
 
-    private ToolbarButton(ImageIcon i,
-                          ActionListener listener) {
+    private ToolbarButton(final ImageIcon i, final ActionListener listener) {
         this.icon = i;
         this.listener = listener;
     }
@@ -84,23 +83,12 @@ public enum ToolbarButton {
     }
 
     /**
-     * The main function.
-     * @param args a String[].
-     */
-    public static void main(String[] args) {
-        //System.out.println(new ImageIcon
-        // (Paths.get(imagesPath.toString(), "undo.png").toString(), "desc"));
-        //System.out.println(Paths.get(imagesPath.toString(), "home.png").toString());
-        //newIcon("undo.png", "a picture");
-    }
-
-    /**
     * Create an Icon.
     * @param name a String.
     * @param desc a String.
     * @return ImageIcon the Icon.
     */
-    public static ImageIcon newIcon(String name, String desc) {
+    public static ImageIcon newIcon(final String name, final String desc) {
         try {
             //Path iconPath = Paths.get(ToolbarButton.imagesPath.toString(), name);
             //System.out.println(iconPath.toString());

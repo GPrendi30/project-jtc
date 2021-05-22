@@ -17,7 +17,6 @@ public class SheetView extends JScrollPane {
 
     private JPanel mainGrid;
     private Spreadsheet model;
-    private GridLayout layout;
     private final ArrayList<SheetViewListener> listeners;
 
     /**
@@ -25,18 +24,19 @@ public class SheetView extends JScrollPane {
      * @param model a Spreadsheet.
      */
     public SheetView(final Spreadsheet model) {
+        super();
         this.model = model;
-        Sheet current = model.getCurrentSheet();
+        final Sheet current = model.getCurrentSheet();
         listeners = new ArrayList<>();
 
-        layout = new GridLayout(current.sizeX(), current.sizeY());
+        final GridLayout layout = new GridLayout(current.sizeX(), current.sizeY());
         mainGrid = new JPanel(layout);
 
         CellView.setModel(model);
         drawSheet(current);
         model.addListener(new SpreadsheetListener() {
             @Override
-            public void spreadsheetChanged(Spreadsheet s) {
+            public void spreadsheetChanged(final Spreadsheet s) {
                 fireSheetViewChanged();
                 //TODO add a type to the Spreadsheetchanged() method.
                 //drawSheet(model.getCurrentSheet());
@@ -72,25 +72,21 @@ public class SheetView extends JScrollPane {
         mainGrid.setLayout(new GridLayout(current.sizeX(), current.sizeY()));
         for (int x = 0; x < current.sizeX(); x++) {
             for (int y = 0; y < current.sizeY(); y++) {
-                Cell c = current.get(x,y);
-                CellView cv = new CellView(c);
+                final Cell c = current.get(x,y);
+                final CellView cv = new CellView(c);
                 mainGrid.add(cv);
             }
         }
-    }
-
-    private void removeCells() {
-
     }
 
     /**
      * The main method.
      * @param args a String[].
      */
-    public static void main(String[] args) {
-        JFrame frame = new JFrame();
-        Spreadsheet m = new Spreadsheet();
-        SheetView sv = new SheetView(m);
+    public static void main(final String[] args) {
+        final JFrame frame = new JFrame();
+        final Spreadsheet m = new Spreadsheet();
+        final SheetView sv = new SheetView(m);
         frame.add(sv);
         frame.setSize(new Dimension(500, 500));
         frame.pack();
