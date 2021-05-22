@@ -58,6 +58,7 @@ public class SpreadsheetController {
 
         final SpreadsheetController controller = new SpreadsheetController(s, view, isGui);
         controller.start();
+        //gui.init();
     }
 
     private static boolean startGui(final String arg) {

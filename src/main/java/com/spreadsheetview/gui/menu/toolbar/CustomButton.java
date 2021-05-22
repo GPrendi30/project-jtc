@@ -17,6 +17,9 @@ public class CustomButton extends JButton {
      * @param description a String that describes the button.
      */
     public CustomButton(final Icon i,final String description) {
+    
+        // TODO implement hover
+
         super(i);
         this.description = description;
         setBorder(null);

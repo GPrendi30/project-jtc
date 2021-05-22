@@ -2,11 +2,14 @@ package com.spreadsheetview.gui.menu.toolbar;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.nio.file.Paths;
+
+import javax.sound.midi.SysexMessage;
 import javax.swing.ImageIcon;
 
 public enum ToolbarButton {
 
-    UNDO(ToolbarButton.newIcon(getPath() + "undo.png", "undo action"),
+    UNDO(ToolbarButton.newIcon(getPath("undo.png"), "undo action"),
         new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
@@ -14,7 +17,7 @@ public enum ToolbarButton {
             }
         }),
 
-    REDO(newIcon(getPath() + "redo.png", "redo action"),
+    REDO(newIcon(getPath("redo.png"), "redo action"),
         new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
@@ -22,7 +25,7 @@ public enum ToolbarButton {
             }
         }),
 
-    COPY(newIcon(getPath() + "copy.png", "copy action"),
+    COPY(newIcon(getPath("copy.png"), "copy action"),
         new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
@@ -30,7 +33,7 @@ public enum ToolbarButton {
             }
         }),
 
-    PASTE(newIcon(getPath() + "paste.png", "paste action"),
+    PASTE(newIcon(getPath("paste.png"), "paste action"),
         new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
@@ -38,7 +41,7 @@ public enum ToolbarButton {
             }
         }),
 
-    CUT(newIcon(getPath() + "cut.png", "cut action"),
+    CUT(newIcon(getPath("cut.png"), "cut action"),
         new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
@@ -46,7 +49,7 @@ public enum ToolbarButton {
             }
         }),
 
-    TOGGLE_FORMULAS(newIcon(getPath() + "toggle_formulas.png", "toggle action"),
+    TOGGLE_FORMULAS(newIcon(getPath("toggle_formulas.png"), "toggle action"),
         new ActionListener() {
             private boolean toggled = false;
 
@@ -76,10 +79,9 @@ public enum ToolbarButton {
         this.listener = listener;
     }
 
-    private static String getPath() {
-        return "/home/geri/Desktop/University/PF2/HOMEWORK/project-jtc/"
-                +
-                "src/main/resources/toolbar/images/";
+    private static String getPath(final String name) {
+        final String path = "src/main/resources/toolbar/images/";
+        return Paths.get(System.getProperty("user.dir"), path + name).toString();
     }
 
     /**

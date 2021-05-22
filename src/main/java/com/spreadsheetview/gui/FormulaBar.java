@@ -31,7 +31,7 @@ public final class FormulaBar extends JPanel {
     private JButton cellName;
     private JTextField contentField;
     private final Dimension preferredDimension = new Dimension(500, 100);
-    private final StringBuilder stringBuilder = new StringBuilder();
+    private final StringBuilder stringBuilder = new StringBuilder(50);
     private final ArrayList<FormulaBarListener> listeners;
 
     /**
