@@ -30,7 +30,7 @@ public final class SpreadsheetInterface extends JFrame implements SpreadsheetVie
             public void spreadsheetFrameChanged(final Spreadsheet model) {
                 pack();
                 repaint();
-                t.printSheet(model);
+                //t.printSheet(model);
             }
         });
 

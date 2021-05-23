@@ -13,6 +13,7 @@ import java.util.Locale;
 
 public class SpreadsheetController {
 
+    //TODO update controller with command design pattern
     private final Spreadsheet model;
     private final SpreadsheetView view;
     private Repl repl;
@@ -43,25 +44,26 @@ public class SpreadsheetController {
      * @param args any args that you want.
      */
     public static void main(final String[] args) {
-        boolean isGui = false;
+        boolean guiBool = false;
 
         if (args.length != 0) {
-            isGui = startGui(args[0]);
+            guiBool = hasGui(args[0]);
+            System.out.println(args[0]);
         }
 
         final Spreadsheet s = new Spreadsheet();
         final SpreadsheetTui tui = new SpreadsheetTui(s);
         final SpreadsheetInterface gui = new SpreadsheetInterface(s);
-        final SpreadsheetView view = isGui
+        final SpreadsheetView view = guiBool
                         ?   gui
                         :   tui;
 
-        final SpreadsheetController controller = new SpreadsheetController(s, view, isGui);
+        final SpreadsheetController controller = new SpreadsheetController(s, view, guiBool);
         controller.start();
         //gui.init();
     }
 
-    private static boolean startGui(final String arg) {
+    private static boolean hasGui(final String arg) {
         return "gui".equals(arg);
     }
 
@@ -71,8 +73,7 @@ public class SpreadsheetController {
             System.out.println("Gui is not yet ready");
             System.out.println("Come Back Later");
             System.out.println("BYE");
-            //System.exit(0);
-            */
+            //System.exit(0);*/
             view.init();
         } else {
             repl.init();

@@ -49,7 +49,6 @@ public class SpreadsheetTui implements SpreadsheetView {
         printSheet(model);
         printSheetNames(model.getSheets());
         printFormulas(currentSheet);
-
     }
 
     private void resetTerminalView() {
