@@ -25,8 +25,14 @@
 * Completed TUI version
 
 
-## _Plans for milestone 3: May 21_
-* Implement GUI
-* Add listeners
+## Milestone 3: May 21
+* Implemented GUI
+* Added listeners
 * Have a working observer pattern
-* Finish error handling
+* Updated SpreadsheetTUI with a new way to print and flush the terminal
+* Updated Parser + Added Support for multiple types + Added formulas (**)
+* Started the skeleton for error handling
+
+
+** Not part of this commit, they still need some testing, will be added tonight after consulting the TA.
+
