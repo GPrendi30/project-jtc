@@ -12,7 +12,8 @@ public interface Parser {
      * Parse the given source code.
      * @param sourceCode The source code of the program
      * @return the AST of the program
+     * @throws Exception a Parser Exception.
      */
-    abstract Node parse(String sourceCode);
+    abstract Node parse(String sourceCode) throws Exception;
     
 }

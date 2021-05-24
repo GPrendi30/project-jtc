@@ -11,8 +11,9 @@ public class Compiler {
      * Compile the given AST.
      * @param node The root of an AST
      * @return the compiled program
+     * @throws Exception a Compiler Exception.
      */
-    public Program compile(final Node node) {
+    public Program compile(final Node node) throws Exception {
         final Program p = new Program();
         node.compile(p);
         return p;

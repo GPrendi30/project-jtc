@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public class VariableTable {
     
-    private final Map<String,Integer> variables;
+    private final Map<String,Double> variables;
     
     
     /**
@@ -23,19 +23,41 @@ public class VariableTable {
     /**
      * Get the value of the variable with the given name.
      * @param name The name of the variable.
-     * @return The value of the variable with the given name.
+     * @return The Integer value of the variable with the given name.
      */
-    public int get(final String name) {
+    public Integer getInt(final String name) {
+        return variables.get(name).intValue();
+    }
+
+
+    /**
+     * Get the value of the variable with the given name.
+     * @param name The name of the variable.
+     * @return The Double value of the variable with the given name.
+     */
+    public Double getDouble(final String name) {
         return variables.get(name);
     }
     
+    
+    /**
+     * Set the Int value of the variable with the given name.
+     * @param name The name of the variable.
+     * @param value The new value of the variable.
+     */
+    public void iset(final String name, final Integer value) {
+        variables.put(name, value.doubleValue());
+    }
+
     /**
      * Set the value of the variable with the given name.
      * @param name The name of the variable.
      * @param value The new value of the variable.
      */
-    public void set(final String name, final int value) {
+    public void dset(final String name, final Double value) {
         variables.put(name, value);
     }
+
+
     
 }
