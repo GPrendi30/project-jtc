@@ -46,7 +46,7 @@ public class TableCell extends Cell {
         }
 
         return isDigits(content)
-                ?   CellType.INT
+                ?   CellType.NUMBER
                 :   CellType.STRING;
     }
 
@@ -65,6 +65,9 @@ public class TableCell extends Cell {
 
     @Override
     public void evaluate(final Program pr,final VariableTable vt) {
+        if (getType() == CellType.FORMULA) {
+            this.content = this.content.replace("=", "");
+        }
         try {
             final Node result = PARSER.parse(getText());
             result.compile(pr);

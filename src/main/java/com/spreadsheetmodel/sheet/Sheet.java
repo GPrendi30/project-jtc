@@ -72,7 +72,7 @@ public class Sheet {
      * @param c a Cell.
      */
     public void addToVariableTable(final Cell c) {
-        if (c.getType() == CellType.INT && !c.getText().equals("!NIL")) {
+        if (c.getType() == CellType.NUMBER && !c.getText().equals("!NIL")) {
             variableTable.iset(c.getLocation().toString(), Integer.parseInt(c.getText()));
         }
     }
@@ -115,7 +115,7 @@ public class Sheet {
     public void add(final Cell c) {
         //c.updateContent(c.evaluate(PROGRAM, variableTable));
         addFormula(c);
-        if (c.getType() == CellType.INT) {
+        if (c.getType() == CellType.NUMBER) {
             c.evaluate(PROGRAM, variableTable);
         }
         table.put(c);
@@ -141,7 +141,7 @@ public class Sheet {
     public void updateCell(final Cell c, final String content) {
         c.updateContent(content);
 
-        if (c.getType() == CellType.INT) {
+        if (c.getType() == CellType.NUMBER || c.getType() == CellType.FORMULA) {
             c.evaluate(PROGRAM, variableTable);
         }
 

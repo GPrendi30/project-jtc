@@ -31,7 +31,8 @@ import com.computation.program.VariableTable;
  * </code>
  */
 public final class ArithParser implements Parser {
-
+    //TODO fix parser
+    //TODO add tests
     private LexicalAnalyzer lexer;
 
     /**
