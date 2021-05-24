@@ -11,14 +11,19 @@ public class LiteralTokenFactory extends RegExTokenFactory {
      */
     public LiteralTokenFactory() {
         // regular expression for an integer literal
-        super("[0-9]+");
+        super("[0-9]*\\.?[0-9]+");
     }
 
     @Override
     public Token getToken() {
         // return a token of the appropriate TokenType 
         // with its text and starting position
-        return new Token(TokenType.LITERAL, getTokenText(), getTokenStartPosition());
+
+        final String tokenContent = getTokenText();
+        final int position = getTokenStartPosition();
+        return  tokenContent.contains(".")
+                ?  new Token(TokenType.DOUBLELITERAL, tokenContent, position)
+                :  new Token(TokenType.INTLITERAL, tokenContent, position);
     }
 
 }

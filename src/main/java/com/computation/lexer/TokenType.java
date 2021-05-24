@@ -9,17 +9,18 @@ public enum TokenType {
 
     IDENTIFIER("identifier"), 
 
-    LITERAL("literal"), 
-
+    INTLITERAL("intLiteral"),
+    DOUBLELITERAL("doubleLiteral"),
     PLUS("plus"), 
     MINUS("minus"), 
-    STAR("star"), 
-    SLASH("slash"), 
-    PERCENT("percent"), 
-
+    STAR("star"),
+    SLASH("slash"),
+    PERCENT("percent"),
+    SIN("sin"),
+    FUNCTION("function"),
     OPEN_PAREN("open parenthesis"), 
     CLOSED_PAREN("closed parenthesis"),
-
+    COMMA(","),
     END_OF_FILE("end of file"); 
 
     

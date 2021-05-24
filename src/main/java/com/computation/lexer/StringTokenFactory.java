@@ -41,8 +41,8 @@ public class StringTokenFactory extends TokenFactory {
     @Override
     public boolean find(final int startFrom) {
         this.startFrom = startFrom;
-        //return found
-        return text.regionMatches(startFrom, tokenText, 0, tokenText.length());
+        final boolean found = text.regionMatches(startFrom, tokenText, 0, tokenText.length());
+        return found;
     }
 
     /**
