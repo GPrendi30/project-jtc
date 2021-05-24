@@ -1,0 +1,63 @@
+ private void moveUp() {
+        this.selectedCellX = selectedCellX > 1
+                ? selectedCellX--
+                : 1;
+    }
+
+    private void moveDown() {
+        this.selectedCellX = selectedCellX < model.getCurrentSheet().sizeX()
+                ? selectedCellY++
+                : 1;
+    }
+
+    private void moveLeft() {
+        this.selectedCellY = selectedCellY > 1
+                ? selectedCellY--
+                : 1;
+    }
+
+    private void moveRight() {
+        this.selectedCellY = selectedCellY < model.getCurrentSheet().sizeY()
+                ? selectedCellY++
+                : 1;
+    }
+
+
+    /**
+     * Test keylistener, will be removed in other commits.
+     * //TODO fix this.
+     */
+    class CustomKeyListener implements KeyListener {
+
+        public void keyTyped(final KeyEvent e) {
+            System.out.println("Typed");
+        }
+
+        public void keyPressed(final KeyEvent e) {
+            System.out.println("Pressed");
+            switch (e.getKeyCode()) {
+                case KeyEvent.VK_UP: moveUp();
+                    break;
+                case KeyEvent.VK_DOWN: moveDown();
+                    break;
+                case KeyEvent.VK_LEFT: moveLeft();
+                    break;
+                case KeyEvent.VK_RIGHT: moveRight();
+                    break;
+                default: System.out.println("Failed in SpreadsheetTui KeyPressed");
+                    break;
+            }
+            updateSelectedCoordinates(model.getCurrentCell().getLocation().toString());
+        }
+
+        public void keyReleased(final KeyEvent e) {
+            System.out.println("Released");
+        }
+
+    }
+
+     private void updateSelectedCoordinates(final String loc) {
+            final int[] coordinates = CellLocation.parse(loc);
+            this.selectedCellX = coordinates[0];
+            this.selectedCellY = coordinates[1];
+        }

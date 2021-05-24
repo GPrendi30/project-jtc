@@ -68,7 +68,7 @@ public class TableCell extends Cell {
         try {
             final Node result = PARSER.parse(getText());
             result.compile(pr);
-            content = "" + pr.execute(vt);
+            content = "" + pr.iexecute(vt);
         } catch (Exception exception) {
             exception.printStackTrace();
             content = "!NIL";

@@ -73,7 +73,7 @@ public class Sheet {
      */
     public void addToVariableTable(final Cell c) {
         if (c.getType() == CellType.INT && !c.getText().equals("!NIL")) {
-            variableTable.set(c.getLocation().toString(), Integer.parseInt(c.getText()));
+            variableTable.iset(c.getLocation().toString(), Integer.parseInt(c.getText()));
         }
     }
 

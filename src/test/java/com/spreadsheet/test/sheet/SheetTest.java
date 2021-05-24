@@ -39,7 +39,7 @@ public class SheetTest {
         Cell c = new TableCell(1, 1);
         c.updateContent("5");
         s.add(c);
-        assertEquals(s.getVariableTable().get(c.getLocation().toString()), 5);
+        assertEquals(s.getVariableTable().getInt(c.getLocation().toString()).toString(), "5");
     }
 
     @Test 

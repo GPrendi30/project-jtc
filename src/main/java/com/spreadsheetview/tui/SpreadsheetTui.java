@@ -7,17 +7,14 @@ import com.spreadsheetmodel.cell.CellLocation;
 import com.spreadsheetmodel.sheet.Sheet;
 import com.spreadsheetview.SpreadsheetView;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
 public class SpreadsheetTui implements SpreadsheetView {
 
     private final Spreadsheet model;
-    private int selectedCellX;
-    private int selectedCellY;
+    //private int selectedCellX;
+    //private int selectedCellY;
 
     /**
      * Creates a new TUI.
@@ -31,8 +28,6 @@ public class SpreadsheetTui implements SpreadsheetView {
                 updateView();
             }
         });
-        final ArrayList<CustomKeyListener> listeners = new ArrayList<>();
-        listeners.add(new CustomKeyListener());
     }
 
     @Override
@@ -132,69 +127,7 @@ public class SpreadsheetTui implements SpreadsheetView {
         }
     }
 
-    private void updateSelectedCoordinates(final String loc) {
-        final int[] coordinates = CellLocation.parse(loc);
-        this.selectedCellX = coordinates[0];
-        this.selectedCellY = coordinates[1];
-    }
-
-    private void moveUp() {
-        this.selectedCellX = selectedCellX > 1
-                ? selectedCellX--
-                : 1;
-    }
-
-    private void moveDown() {
-        this.selectedCellX = selectedCellX < model.getCurrentSheet().sizeX()
-                ? selectedCellY++
-                : 1;
-    }
-
-    private void moveLeft() {
-        this.selectedCellY = selectedCellY > 1
-                ? selectedCellY--
-                : 1;
-    }
-
-    private void moveRight() {
-        this.selectedCellY = selectedCellY < model.getCurrentSheet().sizeY()
-                    ? selectedCellY++
-                    : 1;
-    }
 
 
     // testing keyListener;
-
-    /**
-     * Test keylistener, will be removed in other commits.
-     * //TODO fix this.
-     */
-    class CustomKeyListener implements KeyListener {
-
-        public void keyTyped(final KeyEvent e) {
-            System.out.println("Typed");
-        }
-
-        public void keyPressed(final KeyEvent e) {
-            System.out.println("Pressed");
-            switch (e.getKeyCode()) {
-                case KeyEvent.VK_UP: moveUp();
-                break;
-                case KeyEvent.VK_DOWN: moveDown();
-                break;
-                case KeyEvent.VK_LEFT: moveLeft();
-                break;
-                case KeyEvent.VK_RIGHT: moveRight();
-                break;
-                default: System.out.println("Failed in SpreadsheetTui KeyPressed");
-                break;
-            }
-            updateSelectedCoordinates(model.getCurrentCell().getLocation().toString());
-        }
-
-        public void keyReleased(final KeyEvent e) {
-            System.out.println("Released");
-        }
-
-    }
 }

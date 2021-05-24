@@ -2,7 +2,7 @@ package com.spreadsheetcontroller;
 
 import java.util.Scanner;
 
-public class Repl {
+public class REPL {
 
     private final SpreadsheetController controller;
 
@@ -10,7 +10,7 @@ public class Repl {
      * Creates a new repl for a Spreadsheet controller.
      * @param controller a SpreadsheetController.
      */
-    public Repl(final SpreadsheetController controller) {
+    public REPL(final SpreadsheetController controller) {
         this.controller = controller;
     }
 

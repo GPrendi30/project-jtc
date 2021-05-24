@@ -16,7 +16,7 @@ public class SpreadsheetController {
     //TODO update controller with command design pattern
     private final Spreadsheet model;
     private final SpreadsheetView view;
-    private Repl repl;
+    private REPL repl;
     private final boolean isGui;
 
     /**
@@ -34,7 +34,7 @@ public class SpreadsheetController {
         if (isGui) {
             //
         } else {
-            repl = new Repl(this);
+            repl = new REPL(this);
         }
     }
 
