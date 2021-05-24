@@ -162,6 +162,8 @@
             <property name="ignoreFinal" value="false"/>
             <property name="allowedAbbreviationLength" value="1"/>
             <property name="allowedAbbreviations" value="IADD,ISUB,IMUL,IDIV,INEG,BIPUSH,ILOAD"/>
+            <property name="allowedAbbreviations" value="DADD,DSUB,DMUL,DDIV,DNEG,BDPUSH,DLOAD"/>
+            <property name="allowedAbbreviations" value="REPL"/>
         </module>
         <module name="OverloadMethodsDeclarationOrder"/>
         <module name="VariableDeclarationUsageDistance"/>
