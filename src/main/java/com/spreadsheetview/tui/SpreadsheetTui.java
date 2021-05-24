@@ -162,6 +162,13 @@ public class SpreadsheetTui implements SpreadsheetView {
                     : 1;
     }
 
+
+    // testing keyListener;
+
+    /**
+     * Test keylistener, will be removed in other commits.
+     * //TODO fix this.
+     */
     class CustomKeyListener implements KeyListener {
 
         public void keyTyped(final KeyEvent e) {

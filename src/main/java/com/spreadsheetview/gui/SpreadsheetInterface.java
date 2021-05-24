@@ -3,7 +3,6 @@ package com.spreadsheetview.gui;
 import com.spreadsheetmodel.Spreadsheet;
 import com.spreadsheetview.SpreadsheetView;
 import com.spreadsheetview.gui.menu.Menu;
-import com.spreadsheetview.tui.SpreadsheetTui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -21,7 +20,7 @@ public final class SpreadsheetInterface extends JFrame implements SpreadsheetVie
         setTitle("Java Tabular Calculator");
         setLayout(new BorderLayout());
 
-        final SpreadsheetTui t = new SpreadsheetTui(model);
+
         final Menu menu = new Menu();
         final SheetPanel sf = new SheetPanel(model);
         // add the listener for FormulaBar
@@ -30,7 +29,6 @@ public final class SpreadsheetInterface extends JFrame implements SpreadsheetVie
             public void spreadsheetFrameChanged(final Spreadsheet model) {
                 pack();
                 repaint();
-                //t.printSheet(model);
             }
         });
 

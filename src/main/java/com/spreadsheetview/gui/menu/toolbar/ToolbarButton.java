@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.nio.file.Paths;
 
-import javax.sound.midi.SysexMessage;
 import javax.swing.ImageIcon;
 
 public enum ToolbarButton {
