@@ -28,8 +28,9 @@ public class Node {
     /**
      * Compile this node into the given Program.
      * @param p The program to append this node to
+     * @throws Exception a Node exception.
      */
-    public void compile(final Program p) {
+    public void compile(final Program p) throws Exception {
         // to be implemented in subclasses
     }
 

@@ -1,7 +1,7 @@
 package com.computation.test.program;
 
-import com.computation.instruction.BIPUSH;
 import com.computation.instruction.Instruction;
+import com.computation.instruction.intinstruction.BIPUSH;
 import com.computation.program.Program;
 import org.junit.Test;
 
@@ -52,6 +52,6 @@ public class ProgramTest {
     public void testExecute() {
         Program p = new Program();
         p.append(new BIPUSH(2));
-        assertEquals(2, p.execute());
+        assertEquals(2, p.iexecute());
     }
 }

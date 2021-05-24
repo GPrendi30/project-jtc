@@ -29,8 +29,8 @@ public class TokenTest {
     
     @Test
     public void testLength3() {
-        Token t = new Token(TokenType.LITERAL, "456", 60);
-        assertEquals(TokenType.LITERAL, t.getType());
+        Token t = new Token(TokenType.INTLITERAL, "456", 60);
+        assertEquals(TokenType.INTLITERAL, t.getType());
         assertEquals("456", t.getText());
         assertEquals(60, t.getStartPosition());
         assertEquals(63, t.getEndPosition());

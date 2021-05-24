@@ -18,7 +18,7 @@ public class LiteralTokenFactoryTest {
         assertEquals(1, f.getTokenLength());
         assertEquals(2, f.getTokenStartPosition());
         assertEquals("9", f.getTokenText());
-        assertEquals(TokenType.LITERAL, f.getToken().getType());
+        assertEquals(TokenType.INTLITERAL, f.getToken().getType());
     }
     
     @Test
@@ -30,7 +30,7 @@ public class LiteralTokenFactoryTest {
         assertEquals(3, f.getTokenLength());
         assertEquals(4, f.getTokenStartPosition());
         assertEquals("123", f.getTokenText());
-        assertEquals(TokenType.LITERAL, f.getToken().getType());
+        assertEquals(TokenType.INTLITERAL, f.getToken().getType());
     }
     
     @Test
