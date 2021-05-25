@@ -1,6 +1,8 @@
 package com.computation.test.lexer;
 
 import com.computation.lexer.*;
+import org.junit.Assert;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -93,7 +95,7 @@ public class LexicalAnalyzerTest {
             Token t = l.getCurrentToken();
             assertNull(t);
         } catch (Exception exception) {
-            System.out.println("should arrive here");
+            assertTrue(exception instanceof Exception);
         }
 
     }

@@ -72,9 +72,8 @@ public final class LexicalAnalyzer {
 
         try {
             token = scanToken();
-            System.out.println("Fetch " + token.getText() + " " + token.getType());
         } catch (Exception ex) {
-            throw ex;
+            throw new Exception("Unrecognized character at position " + (position + 1));
         }
     }
 
@@ -102,7 +101,7 @@ public final class LexicalAnalyzer {
 
             // if no match is found then return null, otherwise produce a token
             if (factoryWithLongestMatch == null) {
-                throw new Exception("Unrecognized character at position " + (position + 1));
+                throw new Exception();
             } else {
                 position += factoryWithLongestMatch.getTokenLength();
                 return factoryWithLongestMatch.getToken();
@@ -115,7 +114,6 @@ public final class LexicalAnalyzer {
      * @return the current token
      */
     public Token getCurrentToken() {
-        //System.out.println("Current Token " + token.getText() + " " + token.getType());
         return token;
     }
 

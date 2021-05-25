@@ -98,7 +98,7 @@ public enum FunctionType {
                 return f.copy();
             }
         }
-        throw new Exception();
+        throw new Exception("Function not defined");
     }
 
 

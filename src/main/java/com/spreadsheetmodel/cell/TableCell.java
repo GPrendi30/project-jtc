@@ -73,8 +73,9 @@ public class TableCell extends Cell {
             result.compile(pr);
             content = "" + pr.iexecute(vt);
         } catch (Exception exception) {
-            exception.printStackTrace();
             content = "!NIL";
+            //TODO throw CellException
+            //throw new Exception("Illegal Expression for Cell");
             //throw exception;
         }
     }

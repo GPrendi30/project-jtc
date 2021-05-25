@@ -141,13 +141,15 @@ public class Sheet {
     public void updateCell(final Cell c, final String content) {
         c.updateContent(content);
 
+        /* add methods have their own checks. */
+
+        addFormula(c);
+
         if (c.getType() == CellType.NUMBER || c.getType() == CellType.FORMULA) {
             c.evaluate(PROGRAM, variableTable);
         }
 
-        /* add methods have their own checks. */
         addToVariableTable(c);
-        addFormula(c);
     }
 
     /**

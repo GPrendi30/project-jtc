@@ -38,3 +38,5 @@ target/
 
 #Docker(experimental)
 Dockerfile
+
+*.txt

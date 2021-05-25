@@ -95,7 +95,7 @@ public class SheetTest {
         s.update(3, 3, "2");
         assertEquals(s.get(3, 3).getText(), "2");
         s.update(3, 3, "=5+3");
-        assertEquals(s.get(3, 3).getText(), "=5+3");
+        assertEquals(s.get(3, 3).getText(), "8");
     }
 
     @Test

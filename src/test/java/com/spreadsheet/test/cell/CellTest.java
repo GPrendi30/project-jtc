@@ -4,6 +4,7 @@ package com.spreadsheet.test.cell;
 import com.computation.program.Program;
 import com.computation.program.VariableTable;
 import com.spreadsheetmodel.cell.*;
+import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -77,8 +78,8 @@ public class CellTest {
         Cell c = new TableCell(3,3, "Cell 3,3");
         assertEquals("Cell 3,3", c.getText());
         assertEquals(CellType.STRING, c.getType());
-        c.updateContent("=Sum(A1+B2)");
-        assertEquals("=Sum(A1+B2)", c.getText());
+        c.updateContent("=SUM(A1+B2)");
+        assertEquals("=SUM(A1+B2)", c.getText());
         assertEquals(CellType.FORMULA, c.getType());
     }
 
@@ -98,7 +99,11 @@ public class CellTest {
         final VariableTable vt = new VariableTable();
         Cell c = new TableCell(2,2, "B3+6");
         assertEquals("B3+6", c.getText());
-        c.evaluate(p, vt);
+        try {
+            c.evaluate(p, vt);
+        } catch (Exception ex) {
+            assertTrue(ex instanceof Exception);
+        }
         assertEquals("!NIL", c.getText());
     }
 

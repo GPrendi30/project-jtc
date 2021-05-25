@@ -1,6 +1,8 @@
 package com.computation.test.parser;
 
 import com.computation.ast.Node;
+import com.computation.ast.function.Function;
+import com.computation.ast.function.FunctionType;
 import com.computation.ast.intnodes.*;
 import com.computation.parser.ArithParser;
 import com.computation.parser.Parser;
@@ -135,7 +137,7 @@ public class ArithParserTest {
         assertEquals(expectedRoot.toString(), actualRoot.toString());
     }
 
-    /*
+
     @Test
     public void testParentheses() throws Exception {
         // setup
@@ -162,5 +164,65 @@ public class ArithParserTest {
         final Node expectedRoot = new IntNegation(new IntAddition(new IntLiteral(12), new IntLiteral(4)));
         // assertion
         assertEquals(expectedRoot.toString(), actualRoot.toString());
-    } */
+    }
+
+    @Test
+    public void testExpressionIntMultiplicationDivision() throws Exception {
+        // setup
+        final Parser parser = new ArithParser();
+        // test input
+        final String sourceCode = "(12*4)/3";
+        // code under test
+        final Node actualRoot = parser.parse(sourceCode);
+        // expected tree
+        final Node expectedRoot = new IntDivision(new IntMultiplication(new IntLiteral(12), new IntLiteral(4)), new IntLiteral(3));
+        // assertion
+        assertEquals(expectedRoot.toString(), actualRoot.toString());
+    }
+
+    @Test
+    public void testExpressionIntNegationAddition() throws Exception {
+        // setup
+        final Parser parser = new ArithParser();
+        // test input
+        final String sourceCode = "-(9)+3";
+        // code under test
+        final Node actualRoot = parser.parse(sourceCode);
+        // expected tree
+        final Node expectedRoot = new IntAddition(new IntNegation(new IntLiteral(9)), new IntLiteral(3));
+        // assertion
+        assertEquals(expectedRoot.toString(), actualRoot.toString());
+    }
+
+    @Test
+    public void testFormulaUnary() throws Exception {
+        // setup
+        final Parser parser = new ArithParser();
+        // test input
+        final String sourceCode = "SIN(3)";
+        // code under test
+        final Node actualRoot = parser.parse(sourceCode);
+        // expected tree
+        final Function expectedRoot = FunctionType.stringToFunction("SIN");
+        expectedRoot.addArgument(new IntLiteral(3));
+        // assertion
+        assertEquals(expectedRoot.toString(), actualRoot.toString());
+    }
+
+    @Test
+    public void testFormulaBinary() throws Exception {
+        // setup
+        final Parser parser = new ArithParser();
+        // test input
+        final String sourceCode = "SUM(3,4,5)";
+        // code under test
+        final Node actualRoot = parser.parse(sourceCode);
+        // expected tree
+        final Function expectedRoot = FunctionType.stringToFunction("SUM");
+        expectedRoot.addArgument(new IntLiteral(3));
+        expectedRoot.addArgument(new IntLiteral(4));
+        expectedRoot.addArgument(new IntLiteral(5));
+        // assertion
+        assertEquals(expectedRoot.toString(), actualRoot.toString());
+    }
 }
