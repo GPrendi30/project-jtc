@@ -68,4 +68,7 @@ Use our script to run without building <br>
 <code> bash script/run.sh </code>  <br>
 
 ### TODO
- How to run guide.
+Implement Error Handling (Work-in-progress) <br>
+Fix ArithParser (work-in-progress) <br>
+test coverage++ <br>
+
