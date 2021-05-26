@@ -47,21 +47,18 @@ public class SpreadsheetController {
         boolean guiBool = false;
 
         if (args.length != 0) {
+            //args[0].replace(" ", "");
             guiBool = hasGui(args[0]);
             System.out.println(args[0]);
         }
 
         final Spreadsheet s = new Spreadsheet();
-        final SpreadsheetGui gui = new SpreadsheetGui(s);
-        final SpreadsheetTui tui = new SpreadsheetTui(s);
-        
         final SpreadsheetView view = guiBool
-                        ?   gui
-                        :   tui;
+                        ?   new SpreadsheetGui(s)
+                        :   new SpreadsheetTui(s);
 
         final SpreadsheetController controller = new SpreadsheetController(s, view, guiBool);
-        //controller.start();
-        gui.init();
+        controller.start();
     }
 
     private static boolean hasGui(final String arg) {

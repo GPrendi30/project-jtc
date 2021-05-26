@@ -36,7 +36,7 @@ public class SheetView extends JScrollPane {
         final Sheet current = model.getCurrentSheet();
         listeners = new ArrayList<>();
 
-        model.grow("Horizontally", 20);
+        model.grow("Horizontally", 26);
         model.grow("Vertically", 20000);
 
         final Object[][] tableData = current.createDataTable();

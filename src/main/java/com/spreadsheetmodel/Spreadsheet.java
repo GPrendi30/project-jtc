@@ -78,7 +78,8 @@ public class Spreadsheet implements Serializable {
     public static Spreadsheet readFromFile(final String path) throws IOException  {
         final Path inputPath = Paths.get(path);
 
-        final ObjectInputStream ois = new ObjectInputStream(new FileInputStream(inputPath.toString()));
+        final ObjectInputStream ois = new ObjectInputStream(
+                new FileInputStream(inputPath.toString()));
 
 
         Spreadsheet deserSpreadsheet = null;
