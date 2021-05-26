@@ -130,9 +130,16 @@ public class Sheet implements Serializable {
      * @param content the content.
      */
     public void update(final int x,final int y,final String content) {
-        final Cell c = get(x,y);
+        final Cell c = getCell(x,y);
         updateCell(c, content);
     }
+
+    public void fillFormulas() {
+        for (CellLocation c : formulas.keySet()) {
+            getCell(c.toString()).updateContent(getFormula(c));
+        }
+    }
+
 
     /**
      * Update the content of a selected cell.
@@ -178,8 +185,21 @@ public class Sheet implements Serializable {
      * @param y the y coordinate.
      * @return the cell at the x,y location.
      */
-    public Cell get(final int x,final int y) {
+    public Cell getCell(final int x, final int y) {
         return table.get(x,y);
+    }
+
+    /**
+     * Gets the cell from a location.
+     * @param location
+     */
+    public Cell getCell(final String location) {
+        int x;
+        int y;
+        final int[] loc = Cell.parseLocation(location);
+        x = loc[0];
+        y = loc[1];
+        return getCell(x,y);
     }
 
     /**
@@ -217,7 +237,7 @@ public class Sheet implements Serializable {
 
         for (int i = 0; i < sizeX(); i++) {
             for (int j = 0; j <= sizeY(); j++) {
-                tableData[i][j] = get(i + 1, j).getText();
+                tableData[i][j] = getCell(i + 1, j).getText();
             }
         } 
 

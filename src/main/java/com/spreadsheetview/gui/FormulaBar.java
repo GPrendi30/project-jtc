@@ -48,6 +48,16 @@ public final class FormulaBar extends JPanel {
         cellName = new JButton(currentCell.getLocation().toString());
 
         // TODO add action listener to button
+        cellName.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(final KeyEvent e) {
+                super.keyPressed(e);
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    final String s = contentField.getText();
+                    updateCurrentContent(s);
+                }
+            }
+        });
 
         contentField = new JTextField(currentCell.getText());
 
@@ -63,8 +73,8 @@ public final class FormulaBar extends JPanel {
             public void keyPressed(final KeyEvent e) {
                 super.keyPressed(e);
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    stringBuilder.append(contentField.getText());
-                    updateCurrentContent(stringBuilder.toString());
+                    final String s = contentField.getText();
+                    updateCurrentContent(s);
                 }
             }
         });
@@ -84,6 +94,11 @@ public final class FormulaBar extends JPanel {
         contentField.setPreferredSize(new Dimension(500, 50));
     }
 
+    private void selectCell(final String location) {
+        model.selectCell(location);
+        fireFormulaBarChanged();
+    }
+
     private void updateCurrentCell(final Cell newCell) {
         currentCell = newCell;
         updateFormulaBar();
@@ -96,8 +111,12 @@ public final class FormulaBar extends JPanel {
     }
 
     private void updateFormulaBar() {
+        final String formula = model.getFormula(currentCell);
+        final String content = formula != null
+                    ? formula
+                    : currentCell.getText();
         cellName.setText(currentCell.getLocation().toString());
-        contentField.setText(currentCell.getText());
+        contentField.setText(content);
     }
 
     // adding listeners

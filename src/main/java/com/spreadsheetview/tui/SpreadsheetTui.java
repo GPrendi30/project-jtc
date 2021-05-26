@@ -7,7 +7,6 @@ import com.spreadsheetmodel.cell.CellLocation;
 import com.spreadsheetmodel.sheet.Sheet;
 import com.spreadsheetview.SpreadsheetView;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -78,7 +77,7 @@ public class SpreadsheetTui implements SpreadsheetView {
                     space = 3;
                 }
                 // printing the cell
-                final Cell g = s.get(x, y);
+                final Cell g = s.getCell(x, y);
                 final String thisCellLocation = g.getLocation().toString();
 
                 if (currentLocation.equals(thisCellLocation)) {

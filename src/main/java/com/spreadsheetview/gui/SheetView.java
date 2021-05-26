@@ -62,7 +62,7 @@ public class SheetView extends JScrollPane {
 
                 // when you press enter, the selected cell is evaluated also in the view
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    mainGrid.setValueAt(current.get(row - 1, column).getText(), row - 1, column);
+                    mainGrid.setValueAt(current.getCell(row - 1, column).getText(), row - 1, column);
                 }
 
             }
@@ -107,6 +107,9 @@ public class SheetView extends JScrollPane {
             public void spreadsheetChanged(final Spreadsheet s) {
                 fireSheetViewChanged();
                 //TODO add a type to the Spreadsheetchanged() method.
+
+                mainGrid.repaint();
+
                 //drawSheet(model.getCurrentSheet());
             }
         });
@@ -114,12 +117,11 @@ public class SheetView extends JScrollPane {
     }
 
     // adding listeners
-    /**
-     * Adds a SheetViewListener to the list of listener objects.
-     * @param li a SheetViewListener that will be added.
-     */
-    public void addListener(final SheetViewListener li) {
-        listeners.add(li);
+
+    private void fireSheetViewChanged() {
+        for (final SheetViewListener li : listeners) {
+            li.sheetViewChanged(model);
+        }
     }
 
     /**
@@ -130,23 +132,16 @@ public class SheetView extends JScrollPane {
         listeners.remove(li);
     }
 
-    private void fireSheetViewChanged() {
-        for (final SheetViewListener li : listeners) {
-            li.sheetViewChanged(model);
-        }
+    /**
+     * Adds a SheetViewListener to the list of listener objects.
+     * @param li a SheetViewListener that will be added.
+     */
+    public void addListener(final SheetViewListener li) {
+        listeners.add(li);
     }
 
-    /*
-    private void drawSheet(final Sheet current) {
-        mainGrid.setLayout(new GridLayout(current.sizeX(), current.sizeY()));
-        for (int x = 0; x < current.sizeX(); x++) {
-            for (int y = 0; y < current.sizeY(); y++) {
-                final Cell c = current.get(x,y);
-                final CellView cv = new CellView(c);
-                mainGrid.add(cv);
-            }
-        }
-    } */
+
+
 
     /**
      * The main method.

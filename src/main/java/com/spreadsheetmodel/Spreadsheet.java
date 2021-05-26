@@ -122,7 +122,16 @@ public class Spreadsheet implements Serializable {
      */
 
     public void selectCell(final int x, final int y) {
-        currentCell = currentSheet.get(x, y);
+        currentCell = currentSheet.getCell(x, y);
+        fireSpreadsheetChanged();
+    }
+
+    /**
+     * Selects cell at the given coordinates.
+     * @param location the string location, ex: A1 B3
+     */
+    public void selectCell(final String location) {
+        currentCell = currentSheet.getCell(location);
         fireSpreadsheetChanged();
     }
 
@@ -134,6 +143,11 @@ public class Spreadsheet implements Serializable {
         currentSheet.updateCell(currentCell, content);
         fireSpreadsheetChanged();
     }
+
+    public void formulasOn() {
+        currentSheet.fillFormulas();
+    }
+
 
     /**
      * Updates the current Cell.
@@ -210,7 +224,7 @@ public class Spreadsheet implements Serializable {
             final String[] l = m.split(",");
             for (final String v : l) {
 
-                final Cell c = currentSheet.get(x,y);
+                final Cell c = currentSheet.getCell(x,y);
                 if (y < l.length) {
                     y++;
                 } else {
@@ -234,6 +248,9 @@ public class Spreadsheet implements Serializable {
         fireSpreadsheetChanged();
     }
 
+    public String getFormula(final Cell c) {
+        return currentSheet.getFormula(c.getLocation());
+    }
 
     /**
      * Writes to a csv file
@@ -258,7 +275,7 @@ public class Spreadsheet implements Serializable {
         final StringBuilder sb = new StringBuilder();
         for (int x = 1; x <= currentSheet.sizeX(); x++) {
             for (int y = 1; y <= currentSheet.sizeY(); y++) {
-                final Cell c = currentSheet.get(x,y);
+                final Cell c = currentSheet.getCell(x,y);
                 sb.append(c.getText());
                 sb.append(",");
             }

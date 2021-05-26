@@ -81,9 +81,9 @@ public class SheetTest {
         Sheet s = new Sheet(5, 6);
         Cell c = new TableCell(3,3, "g");
         s.add(c);
-        assertEquals(s.get(3, 3).getText(), c.getText());
+        assertEquals(s.getCell(3, 3).getText(), c.getText());
         s.update(3, 3, "l");
-        assertEquals(s.get(3, 3).getText(), "l");
+        assertEquals(s.getCell(3, 3).getText(), "l");
     }
 
     @Test
@@ -93,9 +93,9 @@ public class SheetTest {
         assertEquals(c.getText(), "5");
         s.add(c);
         s.update(3, 3, "2");
-        assertEquals(s.get(3, 3).getText(), "2");
+        assertEquals(s.getCell(3, 3).getText(), "2");
         s.update(3, 3, "=5+3");
-        assertEquals(s.get(3, 3).getText(), "8");
+        assertEquals(s.getCell(3, 3).getText(), "8");
     }
 
     @Test
