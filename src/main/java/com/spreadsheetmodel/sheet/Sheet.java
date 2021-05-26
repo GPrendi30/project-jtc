@@ -6,9 +6,10 @@ import com.spreadsheetmodel.cell.Cell;
 import com.spreadsheetmodel.cell.CellLocation;
 import com.spreadsheetmodel.cell.CellType;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class Sheet {
+public class Sheet implements Serializable {
     private static final Program PROGRAM = new Program();
 
     private String tableName;

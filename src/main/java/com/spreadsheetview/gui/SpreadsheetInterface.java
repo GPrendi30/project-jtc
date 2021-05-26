@@ -4,10 +4,10 @@ import com.spreadsheetmodel.Spreadsheet;
 import com.spreadsheetview.SpreadsheetView;
 import com.spreadsheetview.gui.menu.Menu;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import javax.swing.JFrame;
-import javax.swing.WindowConstants;
+import java.awt.*;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
+import javax.swing.*;
 
 
 public final class SpreadsheetInterface extends JFrame implements SpreadsheetView {

@@ -1,6 +1,8 @@
 package com.spreadsheetview;
 
-public interface SpreadsheetView {
+import java.io.Serializable;
+
+public interface SpreadsheetView extends Serializable {
 
     /**
      * Starts the view.

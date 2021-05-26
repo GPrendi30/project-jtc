@@ -6,9 +6,10 @@ import com.spreadsheetmodel.cell.LateralCell;
 import com.spreadsheetmodel.cell.TableCell;
 import com.spreadsheetmodel.cell.TopCell;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class Grid {
+public class Grid implements Serializable {
     private final HashMap<String, HashMap<Integer, Cell>> matrix;
     private int xDim;
     private int yDim;

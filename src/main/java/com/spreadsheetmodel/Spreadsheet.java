@@ -3,10 +3,16 @@ package com.spreadsheetmodel;
 import com.spreadsheetmodel.cell.Cell;
 import com.spreadsheetmodel.sheet.Sheet;
 
+import com.spreadsheetview.tui.SpreadsheetTui;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -15,7 +21,7 @@ import java.util.LinkedHashMap;
 import java.util.Scanner;
 
 
-public class Spreadsheet {
+public class Spreadsheet implements Serializable {
 
     private static final int DEFAULT_TABLE_X;
     private static final int DEFAULT_TABLE_Y;
@@ -45,6 +51,33 @@ public class Spreadsheet {
         openSheets = 1;
         selectSheet("Sheet 1");
 
+    }
+
+    public static void writeToFile(String path, Object o) throws IOException  {
+
+        Path f = Paths.get(path);
+
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(f.toString()));
+
+        oos.writeObject(o);
+
+    }
+
+    public static Spreadsheet readFromFile(String path) throws IOException  {
+        Path f = Paths.get(path);
+
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f.toString()));
+
+
+        Spreadsheet j = null;
+
+        try {
+            j= (Spreadsheet) ois.readObject();
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return j;
     }
 
     /**

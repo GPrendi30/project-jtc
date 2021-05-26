@@ -1,11 +1,12 @@
 package com.spreadsheetmodel.cell;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CellLocation {
+public class CellLocation implements Serializable {
 
     private static final String ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 

@@ -59,8 +59,8 @@ public class SpreadsheetController {
                         :   tui;
 
         final SpreadsheetController controller = new SpreadsheetController(s, view, guiBool);
-        controller.start();
-        //gui.init();
+        //controller.start();
+        gui.init();
     }
 
     private static boolean hasGui(final String arg) {

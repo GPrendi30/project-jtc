@@ -1,5 +1,6 @@
 package com.computation.program;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,7 +9,7 @@ import java.util.Map;
  * A table of variables
  * (a map from variable names to variable values).
  */
-public class VariableTable {
+public class VariableTable implements Serializable {
     
     private final Map<String,Double> variables;
     

@@ -2,8 +2,9 @@ package com.spreadsheetmodel.cell;
 
 import com.computation.program.Program;
 import com.computation.program.VariableTable;
+import java.io.Serializable;
 
-public class Cell {
+public class Cell implements Serializable {
 
     private final CellLocation location;
     private boolean selectable;

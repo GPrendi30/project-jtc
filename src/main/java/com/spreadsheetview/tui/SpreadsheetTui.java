@@ -7,6 +7,7 @@ import com.spreadsheetmodel.cell.CellLocation;
 import com.spreadsheetmodel.sheet.Sheet;
 import com.spreadsheetview.SpreadsheetView;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -127,7 +128,20 @@ public class SpreadsheetTui implements SpreadsheetView {
         }
     }
 
+    public static void main(String[] args) throws IOException {
+        Spreadsheet s = new Spreadsheet();
+        s.importCsv("/home/geri/Desktop/test_folder/a.csv");
 
 
+        Spreadsheet.writeToFile("/home/geri/g.jtc", s);
+        SpreadsheetTui t = new SpreadsheetTui(s);
+        t.updateView();
+
+        Spreadsheet l = Spreadsheet.readFromFile("/home/geri/g.jtc");
+        SpreadsheetTui m = new SpreadsheetTui(l);
+        m.updateView();
+
+
+    }
     // testing keyListener;
 }
