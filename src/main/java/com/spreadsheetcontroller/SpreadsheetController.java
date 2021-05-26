@@ -4,7 +4,7 @@ package com.spreadsheetcontroller;
 import com.spreadsheetmodel.Spreadsheet;
 import com.spreadsheetmodel.cell.Cell;
 import com.spreadsheetview.SpreadsheetView;
-import com.spreadsheetview.gui.SpreadsheetInterface;
+import com.spreadsheetview.gui.SpreadsheetGui;
 import com.spreadsheetview.tui.SpreadsheetTui;
 
 import java.io.IOException;
@@ -52,7 +52,7 @@ public class SpreadsheetController {
         }
 
         final Spreadsheet s = new Spreadsheet();
-        final SpreadsheetInterface gui = new SpreadsheetInterface(s);
+        final SpreadsheetGui gui = new SpreadsheetGui(s);
         final SpreadsheetTui tui = new SpreadsheetTui(s);
         
         final SpreadsheetView view = guiBool

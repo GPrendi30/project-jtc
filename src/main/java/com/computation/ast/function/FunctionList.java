@@ -1,9 +1,10 @@
 package com.computation.ast.function;
 
+import com.computation.ast.Type;
 import com.computation.program.OperandStack;
 import com.computation.program.Storage;
 
-public enum FunctionType {
+public enum FunctionList {
 
     SIN("SIN",
         new Function("sin",
@@ -20,7 +21,8 @@ public enum FunctionType {
                     return "sin";
                 }
             },
-                Function.UNARY
+                Function.UNARY,
+                Type.DOUBLE
         )),
 
     COS("COS",
@@ -37,7 +39,8 @@ public enum FunctionType {
                 return "cos";
             }
         },
-                Function.UNARY
+                Function.UNARY,
+                Type.DOUBLE
         )),
 
     SUM("SUM",
@@ -56,7 +59,8 @@ public enum FunctionType {
             }
         },
                 Function.BINARY,
-                Function.NO_LIMIT));
+                Function.NO_LIMIT,
+                Type.DOUBLE));
 
     //TODO add more functions
 
@@ -64,7 +68,7 @@ public enum FunctionType {
     private final Function function;
 
 
-    private FunctionType(final String name, final Function function) {
+    private FunctionList(final String name, final Function function) {
         this.name = name;
         this.function = function;
     }
@@ -92,7 +96,7 @@ public enum FunctionType {
      * @throws Exception throws a FunctionTypeException //TODO implement
      */
     public static Function stringToFunction(final String name) throws Exception {
-        for (final FunctionType func : FunctionType.values()) {
+        for (final FunctionList func : FunctionList.values()) {
             if (name.equals(func.getName())) {
                 final Function f = func.getFunction();
                 return f.copy();

@@ -21,8 +21,7 @@ public class Function extends Node implements FunctionPrototype {
     private final FunctionOperation fop;
     private final int mode;
     private final int numArguments;
-
-
+    private final Type returnType;
 
     /**
      * Creates a new Function based on the name and Operation.
@@ -34,13 +33,15 @@ public class Function extends Node implements FunctionPrototype {
     public Function(final String name,
                     final FunctionOperation fop,
                     final int mode,
-                    final int argNum) {
+                    final int argNum,
+                    final Type returnType) {
         super();
         this.name = name;
         arguments = new ArrayList<>();
         this.fop = fop;
         this.mode = mode;
         this.numArguments = argNum;
+        this.returnType = returnType;
     }
 
     /**
@@ -51,13 +52,13 @@ public class Function extends Node implements FunctionPrototype {
      */
     public Function(final String name,
                     final FunctionOperation fop,
-                    final int mode) {
-        super();
-        this.name = name;
-        arguments = new ArrayList<>();
-        this.fop = fop;
-        this.mode = mode;
-        this.numArguments = mode;
+                    final int mode,
+                    final Type returnType) {
+        this(name,
+            fop,
+            mode,
+            mode, // set argnum the same as mode.
+            returnType);
     }
 
     /**
@@ -171,6 +172,7 @@ public class Function extends Node implements FunctionPrototype {
         return new Function(this.name,
                 this.fop,
                 this.mode,
-                this.numArguments);
+                this.numArguments,
+                this.returnType);
     }
 }

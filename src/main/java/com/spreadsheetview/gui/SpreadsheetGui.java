@@ -10,13 +10,13 @@ import java.awt.image.ImageProducer;
 import javax.swing.*;
 
 
-public final class SpreadsheetInterface extends JFrame implements SpreadsheetView {
+public final class SpreadsheetGui extends JFrame implements SpreadsheetView {
 
     /**
      * Create a spreadsheetInterface.
      * @param model a Spreadsheet.
      */
-    public SpreadsheetInterface(final Spreadsheet model) {
+    public SpreadsheetGui(final Spreadsheet model) {
         super();
         setTitle("Java Tabular Calculator");
         setLayout(new BorderLayout());

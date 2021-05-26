@@ -5,7 +5,7 @@ import com.computation.ast.doublenodes.DoubleLiteral;
 import com.computation.ast.doublenodes.DoubleVariable;
 
 import com.computation.ast.function.Function;
-import com.computation.ast.function.FunctionType;
+import com.computation.ast.function.FunctionList;
 import com.computation.ast.intnodes.IntLiteral;
 
 import com.computation.ast.wrappernodes.AdditionWrapper;
@@ -251,7 +251,7 @@ public final class ArithParser implements Parser {
      * @return a Node representing the function
      */
     private Node parseFunction() throws Exception {
-        final Function f = FunctionType.stringToFunction(lexer.getCurrentToken().getText());
+        final Function f = FunctionList.stringToFunction(lexer.getCurrentToken().getText());
         lexer.fetchNextToken();
 
         if (lexer.getCurrentToken().getType() == TokenType.OPEN_PAREN) {

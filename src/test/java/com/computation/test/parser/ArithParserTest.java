@@ -2,7 +2,7 @@ package com.computation.test.parser;
 
 import com.computation.ast.Node;
 import com.computation.ast.function.Function;
-import com.computation.ast.function.FunctionType;
+import com.computation.ast.function.FunctionList;
 import com.computation.ast.intnodes.*;
 import com.computation.parser.ArithParser;
 import com.computation.parser.Parser;
@@ -203,7 +203,7 @@ public class ArithParserTest {
         // code under test
         final Node actualRoot = parser.parse(sourceCode);
         // expected tree
-        final Function expectedRoot = FunctionType.stringToFunction("SIN");
+        final Function expectedRoot = FunctionList.stringToFunction("SIN");
         expectedRoot.addArgument(new IntLiteral(3));
         // assertion
         assertEquals(expectedRoot.toString(), actualRoot.toString());
@@ -218,7 +218,7 @@ public class ArithParserTest {
         // code under test
         final Node actualRoot = parser.parse(sourceCode);
         // expected tree
-        final Function expectedRoot = FunctionType.stringToFunction("SUM");
+        final Function expectedRoot = FunctionList.stringToFunction("SUM");
         expectedRoot.addArgument(new IntLiteral(3));
         expectedRoot.addArgument(new IntLiteral(4));
         expectedRoot.addArgument(new IntLiteral(5));
