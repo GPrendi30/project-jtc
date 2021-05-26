@@ -143,4 +143,12 @@ public class Grid implements Serializable {
 
         }
     }
+
+    /**
+     * Creates an array containing the first row content (the columns header).
+     * @return String[] the array with the first row content 
+     */
+    public String[] getColumns() {
+        return matrix.keySet().toArray(new String[sizeY()]);
+    }
 }

@@ -198,4 +198,29 @@ public class Sheet implements Serializable {
     public HashMap<CellLocation, String> getFormulaTable() {
         return formulas;
     }
+
+    /**
+     * Creates a string array that contains the rows names.
+     * @return Object[][] the bidimensional Object array.
+     */
+    public String[] getColumns() {
+        return table.getColumns();
+    }
+
+    /**
+     * Creates the a data table.
+     * @return Object[][] the bidimensional Object array.
+     */
+    public Object[][] createDataTable() {
+
+        Object[][] tableData = new Object[sizeX() - 1][sizeY()];;
+
+        for (int i = 1; i < sizeX() - 1; i++) {
+            for (int j = 0; j < sizeY(); j++) {
+                tableData[i][j] = get(i, j).getText();
+            }
+        } 
+
+        return tableData;
+    }
 }
