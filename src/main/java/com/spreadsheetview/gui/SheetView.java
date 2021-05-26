@@ -2,22 +2,16 @@ package com.spreadsheetview.gui;
 
 import com.spreadsheetmodel.Spreadsheet;
 import com.spreadsheetmodel.SpreadsheetListener;
-import com.spreadsheetmodel.cell.Cell;
 import com.spreadsheetmodel.sheet.Sheet;
 
-import org.w3c.dom.events.MouseEvent;
 
 import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
-import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-import javax.swing.Action;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -43,10 +37,11 @@ public class SheetView extends JScrollPane {
         listeners = new ArrayList<>();
 
         model.grow("Horizontally", 20);
-        model.grow("Vertically", 20);
+        model.grow("Vertically", 20000);
 
-        Object[][] tableData = current.createDataTable();
+        final Object[][] tableData = current.createDataTable();
         String[] columns = model.getCurrentSheet().getColumns();
+
 
         columns[0] = "";
 
@@ -75,7 +70,7 @@ public class SheetView extends JScrollPane {
 
         // selects the cell on mouse click
         mainGrid.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent e) {
+            public void mouseClicked(final MouseEvent e) {
                 super.mouseClicked(e);
 
                 final int row = mainGrid.getSelectedRow();
@@ -88,12 +83,12 @@ public class SheetView extends JScrollPane {
 
         // updates the sheet's cells when one is modified
         mainGrid.getModel().addTableModelListener(new TableModelListener() {
-            public void tableChanged(TableModelEvent e) {
+            public void tableChanged(final TableModelEvent e) {
 
                 final int row = mainGrid.getSelectedRow();
                 final int column = mainGrid.getSelectedColumn();
 
-                String content = (String)mainGrid.getValueAt(row, column);
+                final String content = (String)mainGrid.getValueAt(row, column);
                 
                 current.update(row, column, content);
 
@@ -101,6 +96,7 @@ public class SheetView extends JScrollPane {
                 model.selectCell(row, column);
 
                 mainGrid.repaint();
+                fireSheetViewChanged();
             }
         });
         

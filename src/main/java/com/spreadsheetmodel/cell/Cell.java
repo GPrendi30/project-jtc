@@ -2,6 +2,7 @@ package com.spreadsheetmodel.cell;
 
 import com.computation.program.Program;
 import com.computation.program.VariableTable;
+
 import java.io.Serializable;
 
 public class Cell implements Serializable {

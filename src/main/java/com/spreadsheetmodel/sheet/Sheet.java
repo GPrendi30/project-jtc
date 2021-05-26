@@ -213,11 +213,11 @@ public class Sheet implements Serializable {
      */
     public Object[][] createDataTable() {
 
-        Object[][] tableData = new Object[sizeX() - 1][sizeY()];;
+        final Object[][] tableData = new Object[sizeX()][sizeY() + 1];
 
-        for (int i = 1; i < sizeX() - 1; i++) {
-            for (int j = 0; j < sizeY(); j++) {
-                tableData[i][j] = get(i, j).getText();
+        for (int i = 0; i < sizeX(); i++) {
+            for (int j = 0; j <= sizeY(); j++) {
+                tableData[i][j] = get(i + 1, j).getText();
             }
         } 
 

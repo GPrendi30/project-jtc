@@ -3,7 +3,6 @@ package com.spreadsheetmodel;
 import com.spreadsheetmodel.cell.Cell;
 import com.spreadsheetmodel.sheet.Sheet;
 
-import com.spreadsheetview.tui.SpreadsheetTui;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -53,31 +52,44 @@ public class Spreadsheet implements Serializable {
 
     }
 
-    public static void writeToFile(String path, Object o) throws IOException  {
+    /**
+     * Writes a Spreadsheet object to a file.
+     * @param path a String path
+     * @param s a SpreadSheet object.
+     * @throws IOException in case the file doesn't exist.
+     */
+    public static void writeToFile(final String path,final Spreadsheet s) throws IOException  {
 
-        Path f = Paths.get(path);
+        final Path targetPath = Paths.get(path);
 
-        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(f.toString()));
+        final ObjectOutputStream oos = new ObjectOutputStream(
+                new FileOutputStream(targetPath.toString()));
 
-        oos.writeObject(o);
+        oos.writeObject(s);
 
     }
 
-    public static Spreadsheet readFromFile(String path) throws IOException  {
-        Path f = Paths.get(path);
+    /**
+     * Reads from a file, and returns a Spreadsheet object.
+     * @param path the String path to a jtc file.
+     * @return a Spreadsheet.
+     * @throws IOException throws an error in case it
+     */
+    public static Spreadsheet readFromFile(final String path) throws IOException  {
+        final Path inputPath = Paths.get(path);
 
-        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f.toString()));
+        final ObjectInputStream ois = new ObjectInputStream(new FileInputStream(inputPath.toString()));
 
 
-        Spreadsheet j = null;
+        Spreadsheet deserSpreadsheet = null;
 
         try {
-            j= (Spreadsheet) ois.readObject();
-        } catch (ClassNotFoundException e) {
+            deserSpreadsheet = (Spreadsheet) ois.readObject();
+        } catch (ClassNotFoundException exception) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            exception.printStackTrace();
         }
-        return j;
+        return deserSpreadsheet;
     }
 
     /**
