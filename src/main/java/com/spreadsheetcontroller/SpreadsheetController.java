@@ -52,8 +52,9 @@ public class SpreadsheetController {
         }
 
         final Spreadsheet s = new Spreadsheet();
-        final SpreadsheetTui tui = new SpreadsheetTui(s);
         final SpreadsheetInterface gui = new SpreadsheetInterface(s);
+        final SpreadsheetTui tui = new SpreadsheetTui(s);
+        
         final SpreadsheetView view = guiBool
                         ?   gui
                         :   tui;
