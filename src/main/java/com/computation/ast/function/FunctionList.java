@@ -22,6 +22,7 @@ public enum FunctionList {
                 }
             },
                 Function.UNARY,
+                new Type[]{Type.INT, Type.DOUBLE},
                 Type.DOUBLE
         )),
 
@@ -40,6 +41,7 @@ public enum FunctionList {
             }
         },
                 Function.UNARY,
+                new Type[]{Type.INT, Type.DOUBLE},
                 Type.DOUBLE
         )),
 
@@ -60,6 +62,7 @@ public enum FunctionList {
         },
                 Function.BINARY,
                 Function.NO_LIMIT,
+                new Type[]{Type.DOUBLE, Type.INT},
                 Type.DOUBLE));
 
     //TODO add more functions
