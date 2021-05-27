@@ -29,6 +29,12 @@ public class TabsView extends JPanel {
 
         setLayout(sheetSelecterButtons);
         final JButton firstSheet = new JButton(model.getCurrentSheetName());
+        firstSheet.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                model.selectSheet(firstSheet.getText());
+            }
+        });
 
         final JButton addNewSheetButton = new JButton("+");
         addNewSheetButton.addActionListener(new ActionListener() {
@@ -47,13 +53,23 @@ public class TabsView extends JPanel {
     private void addNewSheet() {
         final JButton newSheetButton = new JButton();
         final String name = "Placeholder";
-        buttonList.add(buttonList.size() - 1, newSheetButton);
-        model.addNewSheet(name);
-        newSheetButton.setText(name);
-        add(newSheetButton);
-        removeAllButtons();
-        addAllButtons();
-        fireTabsViewChanged();
+        final boolean addSheet = model.addNewSheet(name);
+        System.out.println(addSheet);
+        if (addSheet) {
+            buttonList.add(buttonList.size() - 1, newSheetButton);
+            newSheetButton.setText(name);
+            newSheetButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    model.selectSheet(newSheetButton.getText());
+                }
+            });
+            add(newSheetButton);
+            removeAllButtons();
+            addAllButtons();
+            fireTabsViewChanged();
+        }
+
     }
 
     private void removeAllButtons() {

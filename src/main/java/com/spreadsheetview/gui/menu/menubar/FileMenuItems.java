@@ -1,20 +1,37 @@
 package com.spreadsheetview.gui.menu.menubar;
 
+import com.spreadsheetcontroller.SpreadsheetController;
+import com.spreadsheetmodel.Spreadsheet;
+import com.spreadsheetview.gui.SpreadsheetGui;
+import com.spreadsheetview.gui.menu.FilePicker;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+
+import javax.swing.JFileChooser;
 
 public enum FileMenuItems implements MenuItems {
     NEW("new",new ActionListener() {
         @Override
         public void actionPerformed(final ActionEvent actionEvent) {
             createNewFile();
+            SpreadsheetController.main(new String[] {"gui"});
         }
+
     }),
 
     OPEN("open",new ActionListener() {
         @Override
         public void actionPerformed(final ActionEvent actionEvent) {
             openFile();
+            final FilePicker p = new FilePicker("JTC files", "jtc");
+            final int approved = p.showOpenDialog(null);
+
+            if (approved == JFileChooser.APPROVE_OPTION) {
+                final File f = p.getSelectedFile();
+                System.out.println(f.getName());
+            }
         }
     }),
 
@@ -22,6 +39,14 @@ public enum FileMenuItems implements MenuItems {
         @Override
         public void actionPerformed(final ActionEvent actionEvent) {
             importFile();
+            final FilePicker p = new FilePicker("CSV files", "csv");
+            p.setName("Import");
+            final int approved = p.showOpenDialog(null);
+
+            if (approved == JFileChooser.APPROVE_OPTION) {
+                final File f = p.getSelectedFile();
+                System.out.println(f.getName());
+            }
         }
     }),
 
@@ -29,6 +54,13 @@ public enum FileMenuItems implements MenuItems {
         @Override
         public void actionPerformed(final ActionEvent actionEvent) {
             saveFile();
+            final FilePicker p = new FilePicker("JTC files", "jtc");
+            final int approved = p.showSaveDialog(null);
+
+            if (approved == JFileChooser.APPROVE_OPTION) {
+                final File f = p.getSelectedFile();
+                System.out.println(f.getName());
+            }
         }
     }),
 
@@ -36,6 +68,14 @@ public enum FileMenuItems implements MenuItems {
         @Override
         public void actionPerformed(final ActionEvent actionEvent) {
             exportFile();
+
+            final FilePicker p = new FilePicker("CSV files", "csv");
+            final int approved = p.showSaveDialog(null);
+
+            if (approved == JFileChooser.APPROVE_OPTION) {
+                final File f = p.getSelectedFile();
+                System.out.println(f.getName());
+            }
         }
     });
 

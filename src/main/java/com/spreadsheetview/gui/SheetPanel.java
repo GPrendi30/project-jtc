@@ -3,7 +3,10 @@ package com.spreadsheetview.gui;
 import com.spreadsheetmodel.Spreadsheet;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 
@@ -22,6 +25,7 @@ public class SheetPanel extends JPanel {
         listeners = new ArrayList<>();
 
         setLayout(new BorderLayout());
+
         final SheetView sv = new SheetView(model);
         add(sv, BorderLayout.CENTER);
         // add the listener for SheetView
@@ -53,6 +57,8 @@ public class SheetPanel extends JPanel {
         });
 
 
+
+
     }
 
     // adding listeners
@@ -76,5 +82,20 @@ public class SheetPanel extends JPanel {
         for (final SheetPanelListener li : listeners) {
             li.spreadsheetFrameChanged(model);
         }
+
+    }
+
+    /**
+     * The main method.
+     * @param args a String[].
+     */
+    public static void main(final String[] args) {
+        final JFrame frame = new JFrame();
+        final Spreadsheet m = new Spreadsheet();
+        final SheetPanel sv = new SheetPanel(m);
+        frame.add(sv);
+        frame.setSize(new Dimension(500, 500));
+        frame.pack();
+        frame.setVisible(true);
     }
 }

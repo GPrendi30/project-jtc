@@ -53,41 +53,56 @@ public class Spreadsheet implements Serializable {
 
     }
 
-    public static void writeToFile(String path, Object o) throws IOException  {
+    /**
+     * Writes a Spreadsheet object to a file.
+     * @param path a String path
+     * @param s a SpreadSheet object.
+     * @throws IOException in case the file doesn't exist.
+     */
+    public static void writeToFile(final String path,final Spreadsheet s) throws IOException  {
 
-        Path f = Paths.get(path);
+        final Path targetPath = Paths.get(path);
 
-        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(f.toString()));
+        final ObjectOutputStream oos = new ObjectOutputStream(
+                new FileOutputStream(targetPath.toString()));
 
-        oos.writeObject(o);
+        oos.writeObject(s);
 
     }
 
-    public static Spreadsheet readFromFile(String path) throws IOException  {
-        Path f = Paths.get(path);
+    /**
+     * Reads from a file, and returns a Spreadsheet object.
+     * @param path the String path to a jtc file.
+     * @return a Spreadsheet.
+     * @throws IOException throws an error in case it
+     */
+    public static Spreadsheet readFromFile(final String path) throws IOException  {
+        final Path inputPath = Paths.get(path);
 
-        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f.toString()));
+        final ObjectInputStream ois = new ObjectInputStream(
+                new FileInputStream(inputPath.toString()));
 
 
-        Spreadsheet j = null;
+        Spreadsheet deserSpreadsheet = null;
 
         try {
-            j= (Spreadsheet) ois.readObject();
-        } catch (ClassNotFoundException e) {
+            deserSpreadsheet = (Spreadsheet) ois.readObject();
+        } catch (ClassNotFoundException exception) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            exception.printStackTrace();
         }
-        return j;
+        return deserSpreadsheet;
     }
 
     /**
      * Adds a new Sheet with a given name.
      * @param tableName a String tableName.
      */
-    public void addNewSheet(final String tableName) {
+    public boolean addNewSheet(final String tableName) {
+        final int prevOpenSheets = openSheets;
         if (openSheets >= 10) {
             setOpenSheets(10);
-            return;
+            return false;
         }
 
         final Sheet t = new Sheet(DEFAULT_TABLE_X, DEFAULT_TABLE_Y, tableName);
@@ -96,12 +111,27 @@ public class Spreadsheet implements Serializable {
             t.updateTableName("Sheet " + openSheets);
         }
 
-        sheets.put(t.getTableName(), t);
-        selectSheet(t.getTableName());
-        fireSpreadsheetChanged();
+        if (checkSheetName(tableName)) {
+            sheets.put(t.getTableName(), t);
+            selectSheet(t.getTableName());
+            if (prevOpenSheets < getOpenSheets()) {
+                fireSpreadsheetChanged(
+                        new SpreadsheetEvent("Sheet added", SpreadsheetEventType.SHEET_ADDED));
+                return true;
+            }
+        }
+        return false;
+
     }
 
-
+    private boolean checkSheetName(final String tableName) {
+        for (String sheetName : sheets.keySet()) {
+            if (sheetName.equals(tableName)) {
+                return false;
+            }
+        }
+        return true;
+    }
     /**
      * Selects cell at the given coordinates.
      * @param x the x coordinate
@@ -109,8 +139,19 @@ public class Spreadsheet implements Serializable {
      */
 
     public void selectCell(final int x, final int y) {
-        currentCell = currentSheet.get(x, y);
-        fireSpreadsheetChanged();
+        currentCell = currentSheet.getCell(x, y);
+        fireSpreadsheetChanged(
+                new SpreadsheetEvent("Sheet added", SpreadsheetEventType.CELL_CHANGED));
+    }
+
+    /**
+     * Selects cell at the given coordinates.
+     * @param location the string location, ex: A1 B3
+     */
+    public void selectCell(final String location) {
+        currentCell = currentSheet.getCell(location);
+        fireSpreadsheetChanged(
+                new SpreadsheetEvent("Sheet added", SpreadsheetEventType.CELL_CHANGED));
     }
 
     /**
@@ -118,8 +159,19 @@ public class Spreadsheet implements Serializable {
      * @param content a String, new content of the cell.
      */
     public void updateCurrentCell(final String content) {
-        currentSheet.updateCell(currentCell, content);
-        fireSpreadsheetChanged();
+        updateCell(currentCell, content);
+    }
+
+    public void formulasOn() {
+        currentSheet.fillFormulas();
+        fireSpreadsheetChanged(
+                new SpreadsheetEvent("Sheet added", SpreadsheetEventType.SHEET_CHANGED));
+    }
+
+    public void sortCol(final int col) {
+        currentSheet.sortColumn(col);
+        fireSpreadsheetChanged(
+                new SpreadsheetEvent("Sheet added", SpreadsheetEventType.SHEET_CHANGED));
     }
 
     /**
@@ -127,9 +179,11 @@ public class Spreadsheet implements Serializable {
      * @param c the cell
      * @param content a String, new content of the cell.
      */
-    public void updateCell(final Cell c, final String content) {
+    private void updateCell(final Cell c, final String content) {
         currentSheet.updateCell(c, content);
-        fireSpreadsheetChanged();
+        //currentSheet.reEvalFormulas();
+        fireSpreadsheetChanged(
+                new SpreadsheetEvent("Sheet added", SpreadsheetEventType.CELL_CHANGED));
     }
 
     /**
@@ -146,8 +200,9 @@ public class Spreadsheet implements Serializable {
      */
     public void selectSheet(final String sheetName) {
         currentSheet = sheets.get(sheetName);
-        selectCell(0,0);
-        fireSpreadsheetChanged();
+        selectCell(1,1);
+        fireSpreadsheetChanged(
+                new SpreadsheetEvent("Sheet added", SpreadsheetEventType.SHEET_SELECTED));
     }
 
     /**
@@ -197,7 +252,7 @@ public class Spreadsheet implements Serializable {
             final String[] l = m.split(",");
             for (final String v : l) {
 
-                final Cell c = currentSheet.get(x,y);
+                final Cell c = currentSheet.getCell(x,y);
                 if (y < l.length) {
                     y++;
                 } else {
@@ -218,9 +273,13 @@ public class Spreadsheet implements Serializable {
             }
         }
         sc.close();
-        fireSpreadsheetChanged();
+        fireSpreadsheetChanged(
+                new SpreadsheetEvent("Sheet added", SpreadsheetEventType.SHEET_CHANGED));
     }
 
+    public String getFormula(final Cell c) {
+        return currentSheet.getFormula(c.getLocation());
+    }
 
     /**
      * Writes to a csv file
@@ -245,7 +304,7 @@ public class Spreadsheet implements Serializable {
         final StringBuilder sb = new StringBuilder();
         for (int x = 1; x <= currentSheet.sizeX(); x++) {
             for (int y = 1; y <= currentSheet.sizeY(); y++) {
-                final Cell c = currentSheet.get(x,y);
+                final Cell c = currentSheet.getCell(x,y);
                 sb.append(c.getText());
                 sb.append(",");
             }
@@ -264,7 +323,8 @@ public class Spreadsheet implements Serializable {
      */
     public void grow(final String dir,final int size) {
         currentSheet.grow(dir, size);
-        fireSpreadsheetChanged();
+        fireSpreadsheetChanged(
+                new SpreadsheetEvent("Sheet added", SpreadsheetEventType.TABLE_GROW));
     }
 
     /**
@@ -307,9 +367,26 @@ public class Spreadsheet implements Serializable {
         listeners.remove(li);
     }
 
-    private void fireSpreadsheetChanged() {
+    private void fireSpreadsheetChanged(SpreadsheetEvent se) {
         for (final SpreadsheetListener li : listeners) {
-            li.spreadsheetChanged(this);
+            li.spreadsheetChanged(this, se);
         }
+    }
+
+    public static void main(String[] args) {
+        Spreadsheet s = new Spreadsheet();
+        SpreadsheetTui t = new SpreadsheetTui(s);
+
+        t.updateView();
+        s.selectCell(3,3);
+        s.updateCurrentCell("=B5");
+
+        s.getCurrentSheet().update(4,4,"3");
+        s.updateCurrentCell("3");
+        t.updateView();
+        s.selectCell("B5");
+        t.updateView();
+        s.updateCurrentCell("10");
+        t.updateView();
     }
 }

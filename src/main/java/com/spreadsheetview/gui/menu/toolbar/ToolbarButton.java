@@ -7,7 +7,7 @@ import javax.swing.ImageIcon;
 
 public enum ToolbarButton {
 
-    UNDO(ToolbarButton.newIcon(getPath("undo.png"), "undo action"),
+    UNDO(ToolbarButton.newIcon(getPath("undo32.png"), "undo action"),
         new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
@@ -15,7 +15,7 @@ public enum ToolbarButton {
             }
         }),
 
-    REDO(newIcon(getPath("redo.png"), "redo action"),
+    REDO(newIcon(getPath("redo32.png"), "redo action"),
         new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
@@ -23,7 +23,7 @@ public enum ToolbarButton {
             }
         }),
 
-    COPY(newIcon(getPath("copy.png"), "copy action"),
+    COPY(newIcon(getPath("copy32.png"), "copy action"),
         new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
@@ -31,7 +31,7 @@ public enum ToolbarButton {
             }
         }),
 
-    PASTE(newIcon(getPath("paste.png"), "paste action"),
+    PASTE(newIcon(getPath("paste32.png"), "paste action"),
         new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
@@ -39,7 +39,7 @@ public enum ToolbarButton {
             }
         }),
 
-    CUT(newIcon(getPath("cut.png"), "cut action"),
+    CUT(newIcon(getPath("cut32.png"), "cut action"),
         new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
@@ -47,7 +47,7 @@ public enum ToolbarButton {
             }
         }),
 
-    TOGGLE_FORMULAS(newIcon(getPath("toggle_formulas.png"), "toggle action"),
+    TOGGLE_FORMULAS(newIcon(getPath("toggle_formulas32.png"), "toggle action"),
         new ActionListener() {
             private boolean toggled = false;
 

@@ -1,8 +1,10 @@
 package com.spreadsheetview.gui.menu.toolbar;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.ImageIcon;
-import javax.swing.JToolBar;
+import java.beans.PropertyChangeListener;
+import javax.swing.*;
 
 public class ToolBar extends JToolBar {
 
@@ -10,11 +12,15 @@ public class ToolBar extends JToolBar {
      * Create a toolBar.
      */
     public ToolBar() {
-        super("Draggable");
+        super("Toolbar");
 
         for (final ToolbarButton t : ToolbarButton.values()) {
             addButton(t.getIcon(), t.getListener());
         }
+        FlowLayout layout = new FlowLayout();
+        layout.setAlignment(FlowLayout.LEFT);
+        setLayout(layout);
+
     }
 
     private void addButton(final ImageIcon i, final ActionListener li) {

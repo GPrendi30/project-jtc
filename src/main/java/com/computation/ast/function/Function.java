@@ -17,11 +17,13 @@ public class Function extends Node implements FunctionPrototype {
 
 
     private final String name;
-    private final ArrayList<Node> arguments;
+    private final Type[] argumentTypes;
+    private final ArrayList<Node> parameters;
     private final FunctionOperation fop;
     private final int mode;
     private final int numArguments;
     private final Type returnType;
+    //TODO add argument stack;
 
     /**
      * Creates a new Function based on the name and Operation.
@@ -29,18 +31,21 @@ public class Function extends Node implements FunctionPrototype {
      * @param fop the function Operation.
      * @param mode the mode of a Function : Unary, Binary, Tertiary.
      * @param argNum the number of the arguments, int or NO_LIMIT.
+     * @param returnType the node TYPE that the function returns.
      */
     public Function(final String name,
                     final FunctionOperation fop,
                     final int mode,
                     final int argNum,
+                    final Type[] argumentTypes,
                     final Type returnType) {
         super();
         this.name = name;
-        arguments = new ArrayList<>();
+        parameters = new ArrayList<>();
         this.fop = fop;
         this.mode = mode;
         this.numArguments = argNum;
+        this.argumentTypes = argumentTypes;
         this.returnType = returnType;
     }
 
@@ -49,15 +54,18 @@ public class Function extends Node implements FunctionPrototype {
      * @param name a String name for the function.
      * @param fop the function Operation.
      * @param mode the mode of a Function : Unary, Binary, Tertiary.
+     * @param returnType the node TYPE that the function returns.
      */
     public Function(final String name,
                     final FunctionOperation fop,
                     final int mode,
+                    final Type[] argumentTypes,
                     final Type returnType) {
         this(name,
             fop,
             mode,
-            mode, // set argnum the same as mode.
+            mode,// set argnum the same as mode.
+            argumentTypes,
             returnType);
     }
 
@@ -66,27 +74,33 @@ public class Function extends Node implements FunctionPrototype {
      * @param arg an argument node.
      * @throws Exception a Function Exception.
      */
-    public void addArgument(final Node arg) throws Exception {
-        if (numArguments != Function.NO_LIMIT && arguments.size() >= numArguments) {
+    public void addParameter(final Node arg) throws Exception {
+        if (numArguments != Function.NO_LIMIT && parameters.size() >= numArguments) {
             throw new Exception("Number of arguments exceeded");
         }
-        arguments.add(arg);
+
+        checkType(arg.getType());
+        parameters.add(arg);
+    }
+
+    private void checkType(Type type) throws Exception {
+        for (Type t : argumentTypes) {
+            if (t.equals(type)) {
+                return;
+
+            }
+        }
+        throw new Exception("Argument type mismatch");
     }
 
     @Override
     public Type getType() {
-        for (final Node arg : arguments) {
-            if (arg.getType() == Type.DOUBLE) {
-                return Type.DOUBLE;
-            }
-        }
-
-        return Type.INT;
+        return returnType;
     }
 
     @Override
     public boolean isConstant() {
-        for (final Node arg : arguments) {
+        for (final Node arg : parameters) {
             if (!arg.isConstant()) {
                 return false;
             }
@@ -97,7 +111,7 @@ public class Function extends Node implements FunctionPrototype {
     @Override
     public void compile(final Program p) throws Exception {
         // TODO make FunctionException
-        if (arguments.size() - 1 != numArguments && arguments.size() < mode) {
+        if (parameters.size() - 1 != numArguments && parameters.size() < mode) {
             throw numArguments == Function.NO_LIMIT
                     ? new Exception("Mismatch of parameters, needed at least "
                             + mode + " parameters.")
@@ -106,7 +120,7 @@ public class Function extends Node implements FunctionPrototype {
         }
 
         int argNum = 0;
-        for (final Node arg : arguments) {
+        for (final Node arg : parameters) {
             arg.compile(p);
 
             argNum++;
@@ -129,9 +143,9 @@ public class Function extends Node implements FunctionPrototype {
         // to be implemented in subclasses
         final StringBuilder str = new StringBuilder();
         str.append(name + "(");
-        for (final Node arg : arguments) {
+        for (final Node arg : parameters) {
             str.append(arg);
-            if (arguments.size() > 1) {
+            if (parameters.size() > 1) {
                 str.append(",");
             }
         }
@@ -164,7 +178,7 @@ public class Function extends Node implements FunctionPrototype {
      */
     @Deprecated
     public void removeAllArguments() {
-        arguments.removeAll(arguments);
+        parameters.removeAll(parameters);
     }
 
     @Override
@@ -173,6 +187,7 @@ public class Function extends Node implements FunctionPrototype {
                 this.fop,
                 this.mode,
                 this.numArguments,
+                this.argumentTypes,
                 this.returnType);
     }
 }

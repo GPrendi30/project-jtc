@@ -20,14 +20,17 @@ public class CellLocation implements Serializable {
      * @param col the y coordinate.
      */
     public CellLocation(final int row,final int col) {
-        this.column = (col != 0)
-                ? CellLocation.ALPHA.substring(col - 1, col)
-                : null;
+        this.column = getColumnFromInt(col);
 
         this.row = row;
         this.intColumn = col;
     }
 
+    public static String getColumnFromInt(final int col) {
+        return (col != 0)
+                ? CellLocation.ALPHA.substring(col - 1, col)
+                : null;
+    }
     /**
      * Parses the location of a Cell and returns the coordinates.
      * @param loc a String Representation of a CellLocation.

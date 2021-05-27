@@ -44,24 +44,21 @@ public class SpreadsheetController {
      * @param args any args that you want.
      */
     public static void main(final String[] args) {
-        boolean guiBool = false;
+        boolean guiBool = true;
 
         if (args.length != 0) {
+            //args[0].replace(" ", "");
             guiBool = hasGui(args[0]);
             System.out.println(args[0]);
         }
 
         final Spreadsheet s = new Spreadsheet();
-        final SpreadsheetGui gui = new SpreadsheetGui(s);
-        final SpreadsheetTui tui = new SpreadsheetTui(s);
-        
         final SpreadsheetView view = guiBool
-                        ?   gui
-                        :   tui;
+                        ?   new SpreadsheetGui(s)
+                        :   new SpreadsheetTui(s);
 
         final SpreadsheetController controller = new SpreadsheetController(s, view, guiBool);
-        //controller.start();
-        gui.init();
+        controller.start();
     }
 
     private static boolean hasGui(final String arg) {
@@ -97,6 +94,8 @@ public class SpreadsheetController {
             // this got executed;
         } else if (command.startsWith("print")) {
             updateView();
+        } else if (command.startsWith("sort column")) {
+            model.sortCol(Integer.parseInt(arrCommands[arrCommands.length-1]));
         } else if (command.startsWith("help")) {
             helpCommand();
         } else {

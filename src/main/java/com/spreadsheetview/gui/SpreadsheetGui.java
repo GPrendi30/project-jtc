@@ -4,14 +4,18 @@ import com.spreadsheetmodel.Spreadsheet;
 import com.spreadsheetview.SpreadsheetView;
 import com.spreadsheetview.gui.menu.Menu;
 
-import java.awt.*;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+
+
+import javax.swing.JFrame;
+import javax.swing.WindowConstants;
 
 
 public final class SpreadsheetGui extends JFrame implements SpreadsheetView {
 
+    public static int DEFAULT_X = 800;
+    public static int DEFAULT_Y = 800;
     /**
      * Create a spreadsheetInterface.
      * @param model a Spreadsheet.
@@ -28,6 +32,7 @@ public final class SpreadsheetGui extends JFrame implements SpreadsheetView {
         sf.addListener(new SheetPanelListener() {
             @Override
             public void spreadsheetFrameChanged(final Spreadsheet model) {
+                sf.repaint();
                 pack();
                 repaint();
             }
@@ -36,12 +41,14 @@ public final class SpreadsheetGui extends JFrame implements SpreadsheetView {
         //add(menu, BorderLayout.NORTH);
         add(sf, BorderLayout.CENTER);
 
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
+
         setJMenuBar(menu.getMenuBar());
 
         getContentPane().add(menu.getToolBar(), BorderLayout.NORTH);
 
-        setPreferredSize(new Dimension(800, 800));
+        setSize(new Dimension(DEFAULT_X, DEFAULT_Y));
         pack();
     }
 
@@ -55,7 +62,14 @@ public final class SpreadsheetGui extends JFrame implements SpreadsheetView {
         // empty
     }
 
-
-
+    /**
+     * The main method.
+     * @param args a String[].
+     */
+    public static void main(final String[] args) {
+        final Spreadsheet m = new Spreadsheet();
+        final SpreadsheetGui sv = new SpreadsheetGui(m);
+        sv.init();
+    }
 
 }
