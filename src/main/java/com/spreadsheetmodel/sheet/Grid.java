@@ -79,7 +79,7 @@ public class Grid implements Serializable {
      * @return the Cell at x,y coordinates.
      */
     public Cell get(final int row,final int column) {
-        final String col = new CellLocation(row, column).getColumn();
+        final String col = CellLocation.getColumnFromInt(column);
         return matrix.containsKey(col)
                 ? matrix.get(col).get(row)
                 : null;
@@ -96,7 +96,7 @@ public class Grid implements Serializable {
                 if (y == 0) {
                     c = new TopCell(x);
                 } else {
-                    c = new TableCell(x,y);
+                    c = new TableCell(x,y,"");
                 }
                 put(c);
             }
@@ -151,4 +151,5 @@ public class Grid implements Serializable {
     public String[] getColumns() {
         return matrix.keySet().toArray(new String[sizeY()]);
     }
+
 }

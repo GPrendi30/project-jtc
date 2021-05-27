@@ -6,7 +6,11 @@ import com.spreadsheetmodel.cell.Cell;
 import com.spreadsheetmodel.cell.CellLocation;
 import com.spreadsheetmodel.cell.CellType;
 
+
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import static java.util.Collections.reverse;
 import java.util.HashMap;
 
 public class Sheet implements Serializable {
@@ -179,6 +183,43 @@ public class Sheet implements Serializable {
         }
     }
 
+    public void sortColumn(final String state, final int col) {
+
+
+        ArrayList<String> cellValues = new ArrayList<>();
+
+        for (int i= 1; i < sizeX(); i++) {
+            final Cell c = getCell(i, col);
+            final String content = c.getText();
+            if (!content.equals("")) {
+                cellValues.add(content);
+            }
+            c.updateContent("");
+        }
+
+        String[] finalValues = cellValues.toArray(new String[cellValues.size()]);
+
+        Arrays.sort(finalValues);
+        if (state == "desc") {
+            reverse(Arrays.asList(finalValues));
+        }
+        for (int i = 0; i < finalValues.length; i++) {
+            update(i+1,col, finalValues[i]);
+        }
+    }
+
+    public void sortColumn(final int col) {
+        sortColumn("desc", col);
+    }
+
+
+    public void reEvalFormulas() {
+        for (CellLocation c : formulas.keySet()) {
+            updateCell(getCell(c.toString()), formulas.get(c));
+        }
+    }
+
+
     /**
      * Gets the cell at a given location.
      * @param x the x coordinate.
@@ -234,10 +275,15 @@ public class Sheet implements Serializable {
     public Object[][] createDataTable() {
 
         final Object[][] tableData = new Object[sizeX()][sizeY() + 1];
+        System.out.println(sizeX());
+        System.out.println(sizeY());
 
         for (int i = 0; i < sizeX(); i++) {
-            for (int j = 0; j <= sizeY(); j++) {
+            for (int j = 0; j < sizeY(); j++) {
+
                 tableData[i][j] = getCell(i + 1, j).getText();
+
+                //tableData[i][j] = getCell(i+1, j).getText();
             }
         } 
 

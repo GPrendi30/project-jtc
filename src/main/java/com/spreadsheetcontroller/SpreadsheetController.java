@@ -44,7 +44,7 @@ public class SpreadsheetController {
      * @param args any args that you want.
      */
     public static void main(final String[] args) {
-        boolean guiBool = false;
+        boolean guiBool = true;
 
         if (args.length != 0) {
             //args[0].replace(" ", "");
@@ -94,6 +94,8 @@ public class SpreadsheetController {
             // this got executed;
         } else if (command.startsWith("print")) {
             updateView();
+        } else if (command.startsWith("sort column")) {
+            model.sortCol(Integer.parseInt(arrCommands[arrCommands.length-1]));
         } else if (command.startsWith("help")) {
             helpCommand();
         } else {
