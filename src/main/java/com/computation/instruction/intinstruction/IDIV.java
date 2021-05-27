@@ -9,7 +9,9 @@ public class IDIV extends Instruction {
     @Override
     public void execute(final Storage storage) {
         final OperandStack stack = storage.getOperandStack();
-        stack.ipush((1 / stack.ipop()) * stack.ipop());
+        final int a = stack.ipop();
+        final int b = stack.ipop();
+        stack.ipush(b / a);
     }
 
     @Override

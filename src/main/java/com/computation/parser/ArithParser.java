@@ -27,11 +27,11 @@ import com.computation.program.VariableTable;
  * <code>
  * EXPRESSION   ::= [ "+" | "-" ] TERM { ( "+" | "-" ) TERM }
  * TERM         ::= FACTOR { ( "*" | "/" ) FACTOR }
- * FACTOR       ::= Literal | 
- *                  Identifier| 
+ * FACTOR       ::= Literal |
+ *                  Identifier|
  *                  "(" EXPRESSION ")"
- * FUNCTION     ::= SIN|COS|SUM (ARGUMENT {, ARGUMENT})
- * ARGUMENT     ::= RANGE | EXPRESSION
+ * FUNCTION     ::= SIN|COS|SUM (PARAMETER {, PARAMETER})
+ * PARAMETER    ::= RANGE | EXPRESSION
  * </code>
  */
 public final class ArithParser implements Parser {
@@ -258,14 +258,14 @@ public final class ArithParser implements Parser {
             lexer.fetchNextToken();
 
             if (lexer.getCurrentToken().getType() != TokenType.CLOSED_PAREN) {
-                f.addArgument(parseArguments());
+                f.addParameter(parseParameters());
 
 
                 if (lexer.getCurrentToken().getType() == TokenType.COMMA) {
                     lexer.fetchNextToken();
 
                     while (lexer.getCurrentToken().getType() != TokenType.END_OF_FILE) {
-                        f.addArgument(parseArguments());
+                        f.addParameter(parseParameters());
                         //lexer.fetchNextToken();
 
                         if (lexer.getCurrentToken().getType() == TokenType.COMMA) {
@@ -299,12 +299,12 @@ public final class ArithParser implements Parser {
      *
      * <p>EBNF:
      * <code>
-     * ARGUMENT ::= RANGE | EXPRESSION
+     * PARAMETER ::= RANGE | EXPRESSION
      * </code>
      *
      * @return a Node representing the argument
      */
-    private Node parseArguments() throws Exception {
+    private Node parseParameters() throws Exception {
         // if (ranges)
         //TODO add ranges
         return parseExpression();
