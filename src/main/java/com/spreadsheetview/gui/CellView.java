@@ -1,6 +1,7 @@
 package com.spreadsheetview.gui;
 
 import com.spreadsheetmodel.Spreadsheet;
+import com.spreadsheetmodel.SpreadsheetEvent;
 import com.spreadsheetmodel.SpreadsheetListener;
 import com.spreadsheetmodel.cell.Cell;
 
@@ -47,9 +48,10 @@ public class CellView extends JTextField {
         setSize(preferredSize);
         model.addListener(new SpreadsheetListener() {
             @Override
-            public void spreadsheetChanged(final Spreadsheet s) {
+            public void spreadsheetChanged(Spreadsheet s, SpreadsheetEvent se) {
                 updateContent(cell.getText());
             }
+
         });
     }
 

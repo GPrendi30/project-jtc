@@ -204,7 +204,7 @@ public class ArithParserTest {
         final Node actualRoot = parser.parse(sourceCode);
         // expected tree
         final Function expectedRoot = FunctionList.stringToFunction("SIN");
-        expectedRoot.addArgument(new IntLiteral(3));
+        expectedRoot.addParameter(new IntLiteral(3));
         // assertion
         assertEquals(expectedRoot.toString(), actualRoot.toString());
     }
@@ -219,9 +219,9 @@ public class ArithParserTest {
         final Node actualRoot = parser.parse(sourceCode);
         // expected tree
         final Function expectedRoot = FunctionList.stringToFunction("SUM");
-        expectedRoot.addArgument(new IntLiteral(3));
-        expectedRoot.addArgument(new IntLiteral(4));
-        expectedRoot.addArgument(new IntLiteral(5));
+        expectedRoot.addParameter(new IntLiteral(3));
+        expectedRoot.addParameter(new IntLiteral(4));
+        expectedRoot.addParameter(new IntLiteral(5));
         // assertion
         assertEquals(expectedRoot.toString(), actualRoot.toString());
     }

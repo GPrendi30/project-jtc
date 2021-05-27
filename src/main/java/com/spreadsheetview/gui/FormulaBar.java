@@ -1,19 +1,24 @@
 package com.spreadsheetview.gui;
 
 import com.spreadsheetmodel.Spreadsheet;
+import com.spreadsheetmodel.SpreadsheetEvent;
 import com.spreadsheetmodel.SpreadsheetListener;
 import com.spreadsheetmodel.cell.Cell;
 
+import com.spreadsheetview.tui.SpreadsheetTui;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
 
 
 /**
@@ -28,7 +33,8 @@ public final class FormulaBar extends JPanel {
 
     private Cell currentCell;
     private Spreadsheet model;
-    private JButton cellName;
+    private SpreadsheetTui tui;
+    private JTextField cellName;
     private JTextField contentField;
     private final Dimension preferredDimension = new Dimension(500, 100);
     private final StringBuilder stringBuilder = new StringBuilder(50);
@@ -42,10 +48,16 @@ public final class FormulaBar extends JPanel {
         super();
         currentCell = model.getCurrentCell();
         this.model = model;
-        setLayout(new FlowLayout());
+        tui = new SpreadsheetTui(model);
         listeners = new ArrayList<>();
 
-        cellName = new JButton(currentCell.getLocation().toString());
+        FlowLayout layout = new FlowLayout();
+        layout.setAlignment(FlowLayout.LEFT);
+        setLayout(layout);
+
+
+
+        cellName = new JTextField(currentCell.getLocation().toString());
 
         // TODO add action listener to button
         cellName.addKeyListener(new KeyAdapter() {
@@ -53,12 +65,12 @@ public final class FormulaBar extends JPanel {
             public void keyPressed(final KeyEvent e) {
                 super.keyPressed(e);
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    final String s = contentField.getText();
-                    updateCurrentContent(s);
+                    final String s = cellName.getText();
+                    selectCell(s);
                 }
             }
         });
-
+        //cellName.setPreferredSize(new Dimension(500, 100));
         contentField = new JTextField(currentCell.getText());
 
         //adding listeners
@@ -67,6 +79,7 @@ public final class FormulaBar extends JPanel {
                 updateCurrentContent(contentField.getText());
             }
         });
+
 
         contentField.addKeyListener(new KeyAdapter() {
             @Override
@@ -81,7 +94,7 @@ public final class FormulaBar extends JPanel {
 
         model.addListener(new SpreadsheetListener() {
             @Override
-            public void spreadsheetChanged(final Spreadsheet s) {
+            public void spreadsheetChanged(Spreadsheet s, SpreadsheetEvent se) {
                 updateCurrentCell(s.getCurrentCell());
             }
         });
@@ -89,9 +102,12 @@ public final class FormulaBar extends JPanel {
         updateCurrentCell(model.getCurrentCell());
         add(cellName);
         add(contentField);
-        setPreferredSize(preferredDimension);
-        //setMinimumSize(new Dimension(300,300));
-        contentField.setPreferredSize(new Dimension(500, 50));
+
+
+        this.setSize(new Dimension(SpreadsheetGui.DEFAULT_X, 30));
+        updateSize();
+        repaint();
+
     }
 
     private void selectCell(final String location) {
@@ -140,6 +156,18 @@ public final class FormulaBar extends JPanel {
         for (final FormulaBarListener li : listeners) {
             li.formulaBarChanged(model);
         }
+        updateSize();
+    }
+
+    public void updateSize() {
+        if (getParent() != null) {
+            this.setSize(new Dimension(getParent().getWidth(), 30));
+        }
+
+
+        cellName.setPreferredSize(new Dimension(40, 20));
+        contentField.setPreferredSize(new Dimension(getWidth()-50, 20));
+        repaint();
     }
 
 

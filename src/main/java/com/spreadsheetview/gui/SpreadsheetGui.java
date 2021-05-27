@@ -6,12 +6,16 @@ import com.spreadsheetview.gui.menu.Menu;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+
+
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
 
 public final class SpreadsheetGui extends JFrame implements SpreadsheetView {
 
+    public static int DEFAULT_X = 800;
+    public static int DEFAULT_Y = 800;
     /**
      * Create a spreadsheetInterface.
      * @param model a Spreadsheet.
@@ -28,6 +32,7 @@ public final class SpreadsheetGui extends JFrame implements SpreadsheetView {
         sf.addListener(new SheetPanelListener() {
             @Override
             public void spreadsheetFrameChanged(final Spreadsheet model) {
+                sf.repaint();
                 pack();
                 repaint();
             }
@@ -36,12 +41,14 @@ public final class SpreadsheetGui extends JFrame implements SpreadsheetView {
         //add(menu, BorderLayout.NORTH);
         add(sf, BorderLayout.CENTER);
 
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
+
         setJMenuBar(menu.getMenuBar());
 
         getContentPane().add(menu.getToolBar(), BorderLayout.NORTH);
 
-        setPreferredSize(new Dimension(800, 800));
+        setSize(new Dimension(DEFAULT_X, DEFAULT_Y));
         pack();
     }
 
