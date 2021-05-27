@@ -1,5 +1,6 @@
 package com.spreadsheetview.gui.menu.menubar;
 
+import com.spreadsheetcontroller.SpreadsheetController;
 import com.spreadsheetmodel.Spreadsheet;
 import com.spreadsheetview.gui.SpreadsheetGui;
 import com.spreadsheetview.gui.menu.FilePicker;
@@ -15,8 +16,7 @@ public enum FileMenuItems implements MenuItems {
         @Override
         public void actionPerformed(final ActionEvent actionEvent) {
             createNewFile();
-            final SpreadsheetGui g = new SpreadsheetGui(new Spreadsheet());
-            g.init();
+            SpreadsheetController.main(new String[] {"gui"});
         }
 
     }),
