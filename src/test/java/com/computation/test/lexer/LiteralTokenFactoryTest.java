@@ -40,5 +40,4 @@ public class LiteralTokenFactoryTest {
         boolean found = f.find(4);
         assertFalse(found);
     }
-    
 }

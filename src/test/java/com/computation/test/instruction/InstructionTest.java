@@ -1,8 +1,22 @@
 package com.computation.test.instruction;
 
 import com.computation.instruction.Instruction;
-import com.computation.instruction.doubleinstruction.*;
-import com.computation.instruction.intinstruction.*;
+import com.computation.instruction.doubleinstruction.BDPUSH;
+import com.computation.instruction.doubleinstruction.D2I;
+import com.computation.instruction.doubleinstruction.DADD;
+import com.computation.instruction.doubleinstruction.DDIV;
+import com.computation.instruction.doubleinstruction.DLOAD;
+import com.computation.instruction.doubleinstruction.DMUL;
+import com.computation.instruction.doubleinstruction.DNEG;
+import com.computation.instruction.doubleinstruction.DSUB;
+import com.computation.instruction.intinstruction.BIPUSH;
+import com.computation.instruction.intinstruction.I2D;
+import com.computation.instruction.intinstruction.IADD;
+import com.computation.instruction.intinstruction.IDIV;
+import com.computation.instruction.intinstruction.ILOAD;
+import com.computation.instruction.intinstruction.IMUL;
+import com.computation.instruction.intinstruction.INEG;
+import com.computation.instruction.intinstruction.ISUB;
 import com.computation.program.OperandStack;
 import com.computation.program.Storage;
 import com.computation.program.VariableTable;

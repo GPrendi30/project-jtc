@@ -1,12 +1,13 @@
 package com.computation.test.lexer;
 
-import com.computation.lexer.*;
-import org.junit.Assert;
-import static org.junit.Assert.assertTrue;
+import com.computation.lexer.LexicalAnalyzer;
+import com.computation.lexer.OperatorTokenFactory;
+import com.computation.lexer.Token;
+import com.computation.lexer.TokenFactory;
+import com.computation.lexer.TokenType;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 
 public class LexicalAnalyzerTest {
