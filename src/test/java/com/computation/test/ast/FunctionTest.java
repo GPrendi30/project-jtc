@@ -1,20 +1,16 @@
 package com.computation.test.ast;
 
-import com.computation.ast.Node;
 import com.computation.ast.NodeLiteral;
 import com.computation.ast.NodeVariable;
 import com.computation.ast.Type;
+import com.computation.ast.doublenodes.DoubleLiteral;
 import com.computation.ast.function.Function;
-import com.computation.ast.function.FunctionList;
 import com.computation.ast.function.FunctionOperation;
-import com.computation.instruction.Instruction;
-import com.computation.instruction.doubleinstruction.BDPUSH;
-import com.computation.instruction.doubleinstruction.DLOAD;
-import com.computation.instruction.intinstruction.BIPUSH;
+import com.computation.ast.intnodes.IntLiteral;
+import com.computation.ast.intnodes.IntVariable;
 import com.computation.program.OperandStack;
 import com.computation.program.Program;
 import com.computation.program.Storage;
-import com.computation.program.VariableTable;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -38,7 +34,7 @@ public class FunctionTest {
                 }
             },
             Function.BINARY,
-            Function.NO_LIMIT,
+            new Type[]{Type.INT, Type.DOUBLE},
             Type.INT);
 
     Function func2 = new Function("cos", new FunctionOperation() {
@@ -55,16 +51,15 @@ public class FunctionTest {
                 }
             },
                     Function.UNARY,
+            new Type[]{Type.INT, Type.DOUBLE},
                     Type.DOUBLE);
 
     @Test
     public void testGetType() throws Exception {
 
-        assertEquals("INT", func1.getType().toString());
+        assertEquals(Type.INT, func1.getType());
 
-        // TODO find something that makes it double
-        func1.addArgument(new NodeLiteral(5.0));
-        assertEquals("INT", func1.getType().toString());
+        assertEquals(Type.DOUBLE, func2.getType());
     }
 
     @Test
@@ -72,30 +67,30 @@ public class FunctionTest {
 
         assertTrue(func1.isConstant());
 
-        func1.addArgument(new NodeVariable("x"));
+        func1.addParameter(new IntVariable("x"));
         assertFalse(func1.isConstant());
 
         // TODO isConstant has not 100% coverage
     }
 
     @Test
-    public void testToStringAddArgument()  throws Exception {
+    public void testToStringAddParameter()  throws Exception {
 
         assertEquals("sum()", func1.toString());
 
-        // test for addArgument method
-        func1.addArgument(new NodeLiteral(5));
+        // test for addParameter method
+        func1.addParameter(new IntLiteral(5));
         assertEquals("sum(5)", func1.toString());
     }
 
     @Test
-    public void testAddArgumentThrowsNumberOfArgumentsExcedeed() throws Exception {
+    public void testAddParameterThrowsNumberOfArgumentsExceeded() throws Exception {
         boolean thrown = false;
 
-        func2.addArgument(new NodeLiteral(5));
+        func2.addParameter(new IntLiteral(5));
 
         try {
-            func2.addArgument(new NodeLiteral(5));
+            func2.addParameter(new IntLiteral(5));
         } catch (Exception e) {
             thrown = true;
         }
@@ -108,8 +103,8 @@ public class FunctionTest {
 
         assertEquals("sum", func1.getFunctionOperation().toString());
 
-        // test with addArgument method
-        func1.addArgument(new NodeLiteral(5));
+        // test with addParameter method
+        func1.addParameter(new IntLiteral(5));
         assertEquals("sum",func1.getFunctionOperation().toString());
     }
 
@@ -118,8 +113,8 @@ public class FunctionTest {
 
         assertEquals("sum()", func1.toString());
 
-        // test for addArgument method
-        func1.addArgument(new NodeLiteral(5));
+        // test for addParameter method
+        func1.addParameter(new IntLiteral(5));
         assertEquals("sum(5)", func1.toString());
 
         func1.removeAllArguments();
@@ -154,7 +149,7 @@ public class FunctionTest {
         boolean notThrown = true;
 
         Program p = new Program();
-        func2.addArgument(new NodeLiteral(5.0));
+        func2.addParameter(new DoubleLiteral(5.0));
         p.append(func2.getFunctionOperation());
 
         try {
