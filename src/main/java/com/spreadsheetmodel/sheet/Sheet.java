@@ -1,16 +1,16 @@
 package com.spreadsheetmodel.sheet;
 
+import static java.util.Collections.reverse;
+
 import com.computation.program.Program;
 import com.computation.program.VariableTable;
 import com.spreadsheetmodel.cell.Cell;
 import com.spreadsheetmodel.cell.CellLocation;
 import com.spreadsheetmodel.cell.CellType;
 
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
-import static java.util.Collections.reverse;
 import java.util.HashMap;
 
 public class Sheet implements Serializable {
@@ -138,6 +138,9 @@ public class Sheet implements Serializable {
         updateCell(c, content);
     }
 
+    /**
+     * Fills a formula.
+     */
     public void fillFormulas() {
         for (CellLocation c : formulas.keySet()) {
             getCell(c.toString()).updateContent(getFormula(c));
@@ -183,12 +186,17 @@ public class Sheet implements Serializable {
         }
     }
 
+    /**
+     * Sort a column.
+     * @param state a String.
+     * @param col the int representing a column.
+     */
     public void sortColumn(final String state, final int col) {
 
 
         ArrayList<String> cellValues = new ArrayList<>();
 
-        for (int i= 1; i < sizeX(); i++) {
+        for (int i = 1; i < sizeX(); i++) {
             final Cell c = getCell(i, col);
             final String content = c.getText();
             if (!content.equals("")) {
@@ -204,27 +212,32 @@ public class Sheet implements Serializable {
             reverse(Arrays.asList(finalValues));
         }
         for (int i = 0; i < finalValues.length; i++) {
-            update(i+1,col, finalValues[i]);
+            update(i + 1,col, finalValues[i]);
         }
     }
 
+    /**
+     * Sort a column.
+     * @param col the int representing the column.
+     */
     public void sortColumn(final int col) {
         sortColumn("desc", col);
     }
 
-
+    /**
+     * Re-evalutates a formula.
+     */
     public void reEvalFormulas() {
         for (CellLocation c : formulas.keySet()) {
             updateCell(getCell(c.toString()), formulas.get(c));
         }
     }
 
-
     /**
      * Gets the cell at a given location.
      * @param x the x coordinate.
      * @param y the y coordinate.
-     * @return the cell at the x,y location.
+     * @return Cell the cell at the x,y location.
      */
     public Cell getCell(final int x, final int y) {
         return table.get(x,y);
@@ -232,7 +245,8 @@ public class Sheet implements Serializable {
 
     /**
      * Gets the cell from a location.
-     * @param location
+     * @param location the location.
+     * @return Cell a cell.
      */
     public Cell getCell(final String location) {
         int x;

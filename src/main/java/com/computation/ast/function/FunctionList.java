@@ -84,81 +84,81 @@ public enum FunctionList {
                 Type.DOUBLE)),
 
     AVG("AVG",
-                new Function("avg", new FunctionOperation() {
-        @Override
-        public void execute(final Storage storage) {
-            final OperandStack op = storage.getOperandStack();
-            final double a = op.dpop();
-            final double b = op.dpop();
-            op.dpush((a+b)/2);
-        }
+        new Function("avg", new FunctionOperation() {
+            @Override
+            public void execute(final Storage storage) {
+                final OperandStack op = storage.getOperandStack();
+                final double a = op.dpop();
+                final double b = op.dpop();
+                op.dpush((a + b) / 2);
+            }
 
-        @Override
-        public String toString() {
-            return "avg";
-        }
-    },
-    Function.BINARY,
+            @Override
+            public String toString() {
+                return "avg";
+            }
+        },
+        Function.BINARY,
             new Type[]{Type.DOUBLE, Type.INT},
-    Type.DOUBLE)),
+        Type.DOUBLE)),
 
     MAX("MAX",
-                new Function("max", new FunctionOperation() {
-        @Override
-        public void execute(final Storage storage) {
-            final OperandStack op = storage.getOperandStack();
-            final double a = op.dpop();
-            final double b = op.dpop();
-            op.dpush(Math.max(a, b));
-        }
+        new Function("max", new FunctionOperation() {
+            @Override
+            public void execute(final Storage storage) {
+                final OperandStack op = storage.getOperandStack();
+                final double a = op.dpop();
+                final double b = op.dpop();
+                op.dpush(Math.max(a, b));
+            }
 
-        @Override
-        public String toString() {
-            return "max";
-        }
-    },
-    Function.BINARY,
+            @Override
+            public String toString() {
+                return "max";
+            }
+        },
+        Function.BINARY,
             new Type[]{Type.DOUBLE, Type.INT},
-    Type.DOUBLE)),
+        Type.DOUBLE)),
 
     MIN("MIN",
-                new Function("min", new FunctionOperation() {
-        @Override
-        public void execute(final Storage storage) {
-            final OperandStack op = storage.getOperandStack();
-            final double a = op.dpop();
-            final double b = op.dpop();
-            op.dpush(Math.min(a, b));
-        }
+        new Function("min", new FunctionOperation() {
+            @Override
+            public void execute(final Storage storage) {
+                final OperandStack op = storage.getOperandStack();
+                final double a = op.dpop();
+                final double b = op.dpop();
+                op.dpush(Math.min(a, b));
+            }
 
-        @Override
-        public String toString() {
-            return "min";
-        }
-    },
-    Function.BINARY,
+            @Override
+            public String toString() {
+                return "min";
+            }
+        },
+        Function.BINARY,
             new Type[]{Type.DOUBLE, Type.INT},
-    Type.DOUBLE)),
+        Type.DOUBLE)),
 
     MOD("MOD",
-                new Function("mod", new FunctionOperation() {
-        @Override
-        public void execute(final Storage storage) {
-            final OperandStack op = storage.getOperandStack();
-            final double a = op.dpop();
-            final double b = op.dpop();
-            // invert a and b because of the order those are popped
-            op.dpush(b % a);
-        }
+        new Function("mod", new FunctionOperation() {
+            @Override
+            public void execute(final Storage storage) {
+                final OperandStack op = storage.getOperandStack();
+                final double a = op.dpop();
+                final double b = op.dpop();
+                // invert a and b because of the order those are popped
+                op.dpush(b % a);
+            }
 
-        @Override
-        public String toString() {
-            return "mod";
-        }
-    },
-    Function.BINARY,
+            @Override
+            public String toString() {
+                return "mod";
+            }
+        },
+        Function.BINARY,
             new Type[]{Type.DOUBLE, Type.INT},
-    Type.DOUBLE));
+        Type.DOUBLE));
 
 
     //TODO add more functions

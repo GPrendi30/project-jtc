@@ -7,4 +7,4 @@ public enum SpreadsheetEventType {
     SHEET_SELECTED,
     TABLE_GROW,
     SHEET_CHANGED
-    }
+}

@@ -11,7 +11,7 @@ public class DDIV extends Instruction {
         final OperandStack stack = storage.getOperandStack();
         final double a = stack.dpop();
         final double b = stack.dpop();
-        stack.dpush(b/a);
+        stack.dpush(b / a);
     }
 
     @Override

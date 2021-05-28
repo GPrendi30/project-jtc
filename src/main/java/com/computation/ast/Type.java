@@ -14,6 +14,11 @@ public enum Type {
         this.state = i;
     }
 
+    /**
+     * Check if equals.
+     * @param t Type.
+     * @return boolean.
+     */
     public boolean equals(final Type t) {
         return this.state == t.state;
     }

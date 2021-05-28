@@ -26,15 +26,21 @@ public class CellLocation implements Serializable {
         this.intColumn = col;
     }
 
+    /**
+     * Gets a column starting from an int.
+     * @param col the int representing the column.
+     * @return String the column.
+     */
     public static String getColumnFromInt(final int col) {
         return (col != 0)
                 ? CellLocation.ALPHA.substring(col - 1, col)
                 : null;
     }
+
     /**
      * Parses the location of a Cell and returns the coordinates.
      * @param loc a String Representation of a CellLocation.
-     * @return the x,y values of the CellLocation
+     * @return the x,y values of the CellLocation.
      */
     public static int[] parse(final String loc) {
         final List<String> location = parseString(loc);

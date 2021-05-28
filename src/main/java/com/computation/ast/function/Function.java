@@ -31,6 +31,7 @@ public class Function extends Node implements FunctionPrototype {
      * @param fop the function Operation.
      * @param mode the mode of a Function : Unary, Binary, Tertiary.
      * @param argNum the number of the arguments, int or NO_LIMIT.
+     * @param argumentTypes the usable types of the arguments.
      * @param returnType the node TYPE that the function returns.
      */
     public Function(final String name,
@@ -54,6 +55,7 @@ public class Function extends Node implements FunctionPrototype {
      * @param name a String name for the function.
      * @param fop the function Operation.
      * @param mode the mode of a Function : Unary, Binary, Tertiary.
+     * @param argumentTypes the usable types of the arguments.
      * @param returnType the node TYPE that the function returns.
      */
     public Function(final String name,

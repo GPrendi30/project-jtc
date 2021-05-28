@@ -6,6 +6,8 @@ import com.spreadsheetmodel.SpreadsheetListener;
 import com.spreadsheetmodel.cell.Cell;
 
 import com.spreadsheetview.tui.SpreadsheetTui;
+
+
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -13,12 +15,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import java.awt.event.WindowListener;
 import java.util.ArrayList;
+
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.event.AncestorEvent;
-import javax.swing.event.AncestorListener;
+
+
 
 
 /**
@@ -159,6 +161,9 @@ public final class FormulaBar extends JPanel {
         updateSize();
     }
 
+    /**
+     * Updates the size.
+     */
     public void updateSize() {
         if (getParent() != null) {
             this.setSize(new Dimension(getParent().getWidth(), 30));
@@ -166,7 +171,7 @@ public final class FormulaBar extends JPanel {
 
 
         cellName.setPreferredSize(new Dimension(40, 20));
-        contentField.setPreferredSize(new Dimension(getWidth()-50, 20));
+        contentField.setPreferredSize(new Dimension(getWidth() - 50, 20));
         repaint();
     }
 

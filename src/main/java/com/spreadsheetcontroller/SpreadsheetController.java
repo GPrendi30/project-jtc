@@ -95,7 +95,7 @@ public class SpreadsheetController {
         } else if (command.startsWith("print")) {
             updateView();
         } else if (command.startsWith("sort column")) {
-            model.sortCol(Integer.parseInt(arrCommands[arrCommands.length-1]));
+            model.sortCol(Integer.parseInt(arrCommands[arrCommands.length - 1]));
         } else if (command.startsWith("help")) {
             helpCommand();
         } else {
