@@ -141,6 +141,13 @@ public class Spreadsheet implements Serializable {
     public void selectCell(final int x, final int y) {
         currentCell = currentSheet.getCell(x, y);
         fireSpreadsheetChanged(
+                new SpreadsheetEvent("Sheet added", SpreadsheetEventType.CELL_SELECTED));
+    }
+
+    public void updateCell(final int x, final int y, String content) {
+        currentCell = currentSheet.getCell(x, y);
+        currentCell.updateContent(content);
+        fireSpreadsheetChanged(
                 new SpreadsheetEvent("Sheet added", SpreadsheetEventType.CELL_CHANGED));
     }
 

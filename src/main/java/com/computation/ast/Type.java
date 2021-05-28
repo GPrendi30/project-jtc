@@ -6,7 +6,8 @@ package com.computation.ast;
 public enum Type {
     INT(0),
     INVALID(1),
-    DOUBLE(2);
+    DOUBLE(2),
+    ARRAY(3);
 
     private int state;
 
