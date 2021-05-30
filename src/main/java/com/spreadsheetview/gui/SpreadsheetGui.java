@@ -9,7 +9,6 @@ import java.awt.Dimension;
 
 
 import javax.swing.JFrame;
-import javax.swing.WindowConstants;
 
 
 public final class SpreadsheetGui extends JFrame implements SpreadsheetView {
