@@ -16,7 +16,7 @@ public enum TokenType {
     STAR("star"),
     SLASH("slash"),
     PERCENT("percent"),
-    SIN("sin"),
+    COLON("colon"),
     FUNCTION("function"),
     OPEN_PAREN("open parenthesis"), 
     CLOSED_PAREN("closed parenthesis"),

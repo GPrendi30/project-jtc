@@ -35,11 +35,13 @@ public final class LexicalAnalyzer {
      */
     public LexicalAnalyzer(final String expression) {
         this(expression, new TokenFactory[] {
+                new FunctionTokenFactory("ISUM"),
             new FunctionTokenFactory("SIN"),
             new FunctionTokenFactory("COS"),
             new FunctionTokenFactory("SUM"),
             new IdentifierTokenFactory(),
             new LiteralTokenFactory(),
+            new OperatorTokenFactory(":", TokenType.COLON),
             new OperatorTokenFactory("+", TokenType.PLUS),
             new OperatorTokenFactory("-", TokenType.MINUS),
             new OperatorTokenFactory("*", TokenType.STAR),
@@ -116,5 +118,6 @@ public final class LexicalAnalyzer {
     public Token getCurrentToken() {
         return token;
     }
+
 
 }

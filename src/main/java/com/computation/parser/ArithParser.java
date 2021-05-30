@@ -8,6 +8,8 @@ import com.computation.ast.function.Function;
 import com.computation.ast.function.FunctionList;
 import com.computation.ast.intnodes.IntLiteral;
 
+import com.computation.ast.range.NumberRange;
+import com.computation.ast.range.Range;
 import com.computation.ast.wrappernodes.AdditionWrapper;
 import com.computation.ast.wrappernodes.DivisionWrapper;
 import com.computation.ast.wrappernodes.MultiplicationWrapper;
@@ -29,7 +31,8 @@ import com.computation.program.VariableTable;
  * TERM         ::= FACTOR { ( "*" | "/" ) FACTOR }
  * FACTOR       ::= Literal |
  *                  Identifier|
- *                  "(" EXPRESSION ")"
+ *                  "(" EXPRESSION ")" |
+ *                  FUNCTION
  * FUNCTION     ::= SIN|COS|SUM (PARAMETER {, PARAMETER})
  * PARAMETER    ::= RANGE | EXPRESSION
  * </code>
@@ -306,10 +309,25 @@ public final class ArithParser implements Parser {
      */
     private Node parseParameters() throws Exception {
         // if (ranges)
-        //TODO add ranges
-        return parseExpression();
+        Node left = parseExpression();
+        if (lexer.getCurrentToken().getType() == TokenType.COLON) {
+            lexer.fetchNextToken();
+            Node right = parseExpression();
+            Range range = new NumberRange(left, right);
+            return range.getValues();
+        }
+
+        return left;
     }
 
+    private Node parseRanges(Node n) throws Exception {
+        if (lexer.getCurrentToken().getType() == TokenType.COLON) {
+            lexer.fetchNextToken();
+            Node right = parseExpression();
+            n = new NumberRange(n, right);
+        }
+        return n;
+    }
 
     /**
      * main.
@@ -318,7 +336,7 @@ public final class ArithParser implements Parser {
      */
     public static void main(final String[] args) throws Exception {
         final Parser p = new ArithParser();
-        final Node result = p.parse("-SIN(-3.0)");
+        final Node result = p.parse("ISUM(3:6)");
 
         final Program pr = new Program();
         final VariableTable vt = new VariableTable();
