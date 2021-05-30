@@ -1,32 +1,31 @@
 package com.spreadsheetview.gui;
 
 import com.spreadsheetmodel.Spreadsheet;
-<<<<<<< HEAD
+
 import com.spreadsheetmodel.SpreadsheetEvent;
 import com.spreadsheetmodel.SpreadsheetEventType;
 import com.spreadsheetmodel.SpreadsheetListener;
 import com.spreadsheetmodel.commands.Command;
-=======
->>>>>>> 86467ca01ca6903f7d3cf0aa01bc84ebded9f38d
+
 import com.spreadsheetmodel.sheet.Sheet;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
+import java.awt.*;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-<<<<<<< HEAD
+
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
-=======
+
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
->>>>>>> 86467ca01ca6903f7d3cf0aa01bc84ebded9f38d
+
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -56,7 +55,7 @@ public class SheetView extends JScrollPane {
 
         //draw();
 
-        final Object[][] tableData = model.getCurrentSheet().createDataTable();
+        Object[][] tableData = model.getCurrentSheet().createDataTable();
         String[] columns = model.getCurrentSheet().getColumns();
 
         columns[0] = "";
@@ -93,13 +92,14 @@ public class SheetView extends JScrollPane {
             }
 
         };
+
         mainGrid.getColumnModel().getColumn(0).setPreferredWidth(35);
         //mainGrid.getTableHeader().setDefaultRenderer(new EditableHeaderRenderer());
 
         //  Override default renderer for a specific column
         mainGrid.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-<<<<<<< HEAD
+
         mainGrid.addMouseListener(new MouseAdapter() {
 
             public void mouseClicked(final MouseEvent e) {
@@ -131,11 +131,11 @@ public class SheetView extends JScrollPane {
 
         mainGrid.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
-            @Override
-            public void valueChanged(ListSelectionEvent listSelectionEvent) {
+                                                                  @Override
+                                                                  public void valueChanged(ListSelectionEvent listSelectionEvent) {
 
-            }
-=======
+                                                                  }
+                                                              });
         add(mainGrid);
         setViewportView(mainGrid);
     }
@@ -281,7 +281,6 @@ public class SheetView extends JScrollPane {
      */
 
     // adding listeners
->>>>>>> 86467ca01ca6903f7d3cf0aa01bc84ebded9f38d
 
     private void fireSheetViewChanged() {
         for (final SheetViewListener li : listeners) {
@@ -391,16 +390,16 @@ public class SheetView extends JScrollPane {
                 boolean hasFocus, int row, int column) {
             super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
-<<<<<<< HEAD
+
             Component colRender = table.getTableHeader().getDefaultRenderer().getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (isSelected)
                     setBackground(new Color(60,179,113));
 
-=======
+
             if (isSelected) {
                 setBackground(new Color(60, 179, 113));
             }
->>>>>>> 86467ca01ca6903f7d3cf0aa01bc84ebded9f38d
+
 
             return colRender;
         }
@@ -423,4 +422,5 @@ public class SheetView extends JScrollPane {
         }
     }
 }
+
 

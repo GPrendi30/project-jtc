@@ -1,8 +1,8 @@
 package com.spreadsheetview.gui.menu.menubar;
 
 import com.spreadsheetcontroller.SpreadsheetController;
-import com.spreadsheetmodel.Spreadsheet;
-import com.spreadsheetview.gui.SpreadsheetGui;
+import com.spreadsheetmodel.commands.ImportCommand;
+import com.spreadsheetmodel.commands.Invoker;
 import com.spreadsheetview.gui.menu.FilePicker;
 
 import java.awt.event.ActionEvent;
@@ -45,6 +45,9 @@ public enum FileMenuItems implements MenuItems {
 
             if (approved == JFileChooser.APPROVE_OPTION) {
                 final File f = p.getSelectedFile();
+                final ImportCommand importCommand = new ImportCommand();
+                importCommand.setPath(f.getPath().toString());
+                Invoker.getInstance().invoke(importCommand);
                 System.out.println(f.getName());
             }
         }

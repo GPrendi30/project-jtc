@@ -2,6 +2,9 @@ package com.spreadsheetview.gui;
 
 import com.spreadsheetmodel.Spreadsheet;
 
+import com.spreadsheetmodel.SpreadsheetEvent;
+import com.spreadsheetmodel.SpreadsheetEventType;
+import com.spreadsheetmodel.SpreadsheetListener;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -46,13 +49,26 @@ public class TabsView extends JPanel {
         buttonList.add(firstSheet);
         buttonList.add(addNewSheetButton);
 
+        model.addListener(new SpreadsheetListener() {
+            @Override
+            public void spreadsheetChanged(Spreadsheet s, SpreadsheetEvent se) {
+                if (se.getId() == SpreadsheetEventType.SHEET_ADDED) {
+                    addNewSheet(model.getCurrentSheetName());
+                }
+            }
+        });
+
         add(firstSheet);
         add(addNewSheetButton);
     }
 
     private void addNewSheet() {
-        final JButton newSheetButton = new JButton();
         final String name = "Placeholder";
+        addNewSheet(name);
+    }
+
+    private void addNewSheet(String name) {
+        final JButton newSheetButton = new JButton();
         final boolean addSheet = model.addNewSheet(name);
         System.out.println(addSheet);
         if (addSheet) {
