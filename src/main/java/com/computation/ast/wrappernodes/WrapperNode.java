@@ -47,6 +47,7 @@ public class WrapperNode extends Node {
         return new IntToDouble(n);
     }
 
+    @Deprecated
     protected Node castToInt(final Node n) {
         return new DoubleToInt(n);
     }

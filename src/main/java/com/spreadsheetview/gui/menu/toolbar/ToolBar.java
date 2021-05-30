@@ -1,10 +1,10 @@
 package com.spreadsheetview.gui.menu.toolbar;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
+import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeListener;
-import javax.swing.*;
+
+import javax.swing.ImageIcon;
+import javax.swing.JToolBar;
 
 public class ToolBar extends JToolBar {
 

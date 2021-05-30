@@ -4,6 +4,7 @@ import com.spreadsheetmodel.cell.Cell;
 import com.spreadsheetmodel.sheet.Sheet;
 
 import com.spreadsheetview.tui.SpreadsheetTui;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -97,6 +98,7 @@ public class Spreadsheet implements Serializable {
     /**
      * Adds a new Sheet with a given name.
      * @param tableName a String tableName.
+     * @return boolean a boolean.
      */
     public boolean addNewSheet(final String tableName) {
         final int prevOpenSheets = openSheets;
@@ -132,12 +134,12 @@ public class Spreadsheet implements Serializable {
         }
         return true;
     }
+
     /**
      * Selects cell at the given coordinates.
      * @param x the x coordinate
      * @param y the y coordinate
      */
-
     public void selectCell(final int x, final int y) {
         currentCell = currentSheet.getCell(x, y);
         fireSpreadsheetChanged(
@@ -169,12 +171,19 @@ public class Spreadsheet implements Serializable {
         updateCell(currentCell, content);
     }
 
+    /**
+     * Fills the formulas.
+     */
     public void formulasOn() {
         currentSheet.fillFormulas();
         fireSpreadsheetChanged(
                 new SpreadsheetEvent("Sheet added", SpreadsheetEventType.SHEET_CHANGED));
     }
 
+    /**
+     * Used to sort a column.
+     * @param col the cell
+     */
     public void sortCol(final int col) {
         currentSheet.sortColumn(col);
         fireSpreadsheetChanged(
@@ -284,6 +293,11 @@ public class Spreadsheet implements Serializable {
                 new SpreadsheetEvent("Sheet added", SpreadsheetEventType.SHEET_CHANGED));
     }
 
+    /**
+     * Gets the formula specified in the param cell.
+     * @param c the cell
+     * @return String the formula.
+     */
     public String getFormula(final Cell c) {
         return currentSheet.getFormula(c.getLocation());
     }
@@ -380,6 +394,10 @@ public class Spreadsheet implements Serializable {
         }
     }
 
+    /**
+     * Main function.
+     * @param args a String[].
+     */
     public static void main(String[] args) {
         Spreadsheet s = new Spreadsheet();
         SpreadsheetTui t = new SpreadsheetTui(s);
