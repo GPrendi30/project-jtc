@@ -1,8 +1,9 @@
 package com.spreadsheetview.gui;
 
 import com.spreadsheetmodel.Spreadsheet;
+import java.io.Serializable;
 
-public interface SheetPanelListener {
+public interface SheetPanelListener extends Serializable {
 
     /**
      * Listener notified that the spreadsheetFrame's state has changed.

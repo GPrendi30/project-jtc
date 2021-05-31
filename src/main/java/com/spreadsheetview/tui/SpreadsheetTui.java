@@ -8,10 +8,11 @@ import com.spreadsheetmodel.cell.CellLocation;
 import com.spreadsheetmodel.sheet.Sheet;
 import com.spreadsheetview.SpreadsheetView;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
 
-public class SpreadsheetTui implements SpreadsheetView {
+public class SpreadsheetTui implements SpreadsheetView, Serializable {
 
     private final Spreadsheet model;
     //private int selectedCellX;

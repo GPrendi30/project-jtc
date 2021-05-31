@@ -5,32 +5,37 @@ import com.spreadsheetmodel.Spreadsheet;
 import com.spreadsheetmodel.SpreadsheetEvent;
 import com.spreadsheetmodel.SpreadsheetEventType;
 import com.spreadsheetmodel.SpreadsheetListener;
-import com.spreadsheetmodel.commands.Command;
-
 import com.spreadsheetmodel.sheet.Sheet;
 
 import java.awt.*;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 
-import javax.swing.*;
+import java.util.HashMap;
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+
+import javax.swing.border.Border;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
+
 
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
-
+import javax.swing.table.TableModel;
 
 
 public class SheetView extends JScrollPane {
@@ -38,7 +43,18 @@ public class SheetView extends JScrollPane {
     private JTable mainGrid;
     private Spreadsheet model;
     private final ArrayList<SheetViewListener> listeners;
-    //TODO Listeners, Styling
+    private final HashMap<String, TableModel> tableModels;
+    private final TableModelListener tableListener = new TableModelListener() {
+        @Override
+        public void tableChanged(final TableModelEvent e) {
+        final int row = mainGrid.getSelectedRow() + 1;
+        final int column = mainGrid.getSelectedColumn();
+        if (e.getSource().equals(mainGrid.getModel())) {
+            model.getCurrentSheet().update(
+                    row,
+                    column,
+                    (String) mainGrid.getValueAt(row - 1, column));
+        }}};
 
     /**
      * Create a sheetView.
@@ -49,21 +65,13 @@ public class SheetView extends JScrollPane {
         this.model = model;
         final Sheet current = model.getCurrentSheet();
         listeners = new ArrayList<>();
-
+        tableModels = new HashMap<>();
         model.grow("Horizontally", 25);
         model.grow("Vertically", 100);
 
         //draw();
 
-        Object[][] tableData = model.getCurrentSheet().createDataTable();
-        String[] columns = model.getCurrentSheet().getColumns();
-
-        columns[0] = "";
-
-        DefaultTableModel tableModel = new DefaultTableModel(tableData, columns);
-
-
-        mainGrid = new JTable(tableModel) {
+        mainGrid = new JTable() {
 
             public TableCellRenderer getCellRenderer(int row, int column) {
 
@@ -90,244 +98,145 @@ public class SheetView extends JScrollPane {
                     return true;  // Allow the editing
                 }
             }
-
         };
+        addTableModel();
+        selectSheetModel();
+
+        mainGrid.addKeyListener(new KeyListener() {
+                                    @Override
+                                    public void keyTyped(KeyEvent keyEvent) {
+
+                                    }
+
+                                    @Override
+                                    public void keyPressed(KeyEvent keyEvent) {
+                                        int row = mainGrid.getSelectedRow();
+                                        int column = mainGrid.getSelectedColumn();
+                                        switch (keyEvent.getKeyCode()) {
+                                            case KeyEvent.VK_UP:
+                                                row = row - 1;
+                                                model.selectCell(row+1, column);
+                                                break;
+                                            case KeyEvent.VK_DOWN:
+                                                row = row + 1;
+                                                model.selectCell(row+1, column);
+                                                break;
+                                            case KeyEvent.VK_LEFT:
+                                                column = column - 1;
+                                                model.selectCell(row+1, column);
+                                                break;
+                                            case KeyEvent.VK_RIGHT:
+                                                column = column + 1;
+                                                model.selectCell(row+1, column);
+                                                break;
+                                        }
+                                    }
+                                    private void modelSelect(int row, int column) {
+
+                                    }
+                                    @Override
+                                    public void keyReleased(KeyEvent keyEvent) {
+
+                                    }
+                                }
+        );
+                mainGrid.addMouseListener(new MouseAdapter() {
+
+                    public void mouseClicked(final MouseEvent e) {
+                        super.mouseClicked(e);
+
+                        final int row = mainGrid.getSelectedRow();
+                        final int column = mainGrid.getSelectedColumn();
+                        if (row >= 0 && column >= 0) {
+                            System.out.println(row + " " + column);
+                            model.selectCell(row + 1, column);
+                        }
+                    }
+                });
 
         mainGrid.getColumnModel().getColumn(0).setPreferredWidth(35);
-        //mainGrid.getTableHeader().setDefaultRenderer(new EditableHeaderRenderer());
-
-        //  Override default renderer for a specific column
         mainGrid.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-
-
-        mainGrid.addMouseListener(new MouseAdapter() {
-
-            public void mouseClicked(final MouseEvent e) {
-                super.mouseClicked(e);
-                AbstractTableModel tableModel = (AbstractTableModel) mainGrid.getModel();
-
-                final int row = mainGrid.getSelectedRow();
-                final int column = mainGrid.getSelectedColumn();
-                if (row >= 0 && column >= 0) {
-                    System.out.println(row + " " + column);
-                    model.selectCell(row + 1, column);
-                }
-            }
-        });
-
-        mainGrid.getModel().addTableModelListener(new TableModelListener() {
-
-            public void tableChanged(final TableModelEvent e) {
-                final int row = mainGrid.getSelectedRow() + 1;
-                final int column = mainGrid.getSelectedColumn();
-                if (e.getSource().equals(mainGrid.getModel())) {
-                    //model.selectCell(row, column);
-                    model.getCurrentSheet().update(row, column, (String) mainGrid.getValueAt(row - 1, column));
-
-                }
-            }
-
-        });
-
-        mainGrid.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-
-                                                                  @Override
-                                                                  public void valueChanged(ListSelectionEvent listSelectionEvent) {
-
-                                                                  }
-                                                              });
         add(mainGrid);
         setViewportView(mainGrid);
-    }
-
-    /*
-    mainGrid.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-
-    // select the cells on keys
-    mainGrid.addKeyListener(new KeyAdapter() {
-        @Override
-        public void keyPressed(final KeyEvent e) {
-
-
-
-            // when you press enter, the selected cell is evaluated also in the view
-            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                final int row = mainGrid.getSelectedRow() + 1;
-                final int column = mainGrid.getSelectedColumn();
-
-                //model.selectCell(row, column);
-                //fireGridUpdate();
-                //System.out.println(row + " " + column +
-                // " " + mainGrid.getValueAt(row, column).toString());
-                //model.updateCurrentCell(mainGrid.getValueAt(row, column).toString());
-                //fireCellUpdate(row, column);
-
-            }
-
-        }
-    });
-
-    // selects the cell on mouse click
-    mainGrid.addMouseListener(new MouseAdapter() {
-
-        public void mouseClicked(final MouseEvent e) {
-            super.mouseClicked(e);
-
-            final int row = mainGrid.getSelectedRow();
-            final int column = mainGrid.getSelectedColumn();
-            System.out.println(row + " " + column);
-            model.selectCell(row+1, column);
-
-        }
-    });
->>>>>>> 86467ca01ca6903f7d3cf0aa01bc84ebded9f38d
-
-    // updates the sheet's cells when one is modified
-
-            public void valueChangedTonight(ListSelectionEvent e) {
-
-<<<<<<< HEAD
-                // JUST IGNORE WHEN USER HAS ATLEAST ONE SELECTION
-                if(e.getValueIsAdjusting())
-                {
-                    return;
-                }
-                ListSelectionModel lsm=(ListSelectionModel) e.getSource();
-
-                if(lsm.isSelectionEmpty())
-                {
-                    JOptionPane.showMessageDialog(null, "No selection");
-                }else
-                {
-                    int selectedRow=lsm.getMinSelectionIndex();
-                    int selectedEndRow = lsm.getMaxSelectionIndex();
-                    JOptionPane.showMessageDialog(null, "Selected Rows "+selectedRow + " "+ selectedEndRow );
-                }
-            }
-        });
-
-        mainGrid.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(final KeyEvent e) {
-
-                // when you press enter, the selected cell is evaluated also in the view
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    AbstractTableModel tableModel = (AbstractTableModel) mainGrid.getModel();
-                    final int row = mainGrid.getSelectedRow()+1;
-                    final int column = mainGrid.getSelectedColumn();
-
-
-                    tableModel.fireTableCellUpdated(row, column);
-                    fireSheetViewChanged();
-                }}});
 
         model.addListener(new SpreadsheetListener() {
             @Override
             public void spreadsheetChanged(Spreadsheet s, SpreadsheetEvent se) {
-                int row = s.getCurrentCell().getLocation().getRow();
-                int col = s.getCurrentCell().getLocation().getIntColumn();
-                if (se.getID() == SpreadsheetEventType.CELL_SELECTED) {
-                    //mainGrid.clearSelection();
-                    mainGrid.changeSelection(row-1, col, true, true);
-                    fireSheetViewChanged();
-                } if (se.getID() == SpreadsheetEventType.CELL_CHANGED) {
-                    mainGrid.setValueAt(s.getCurrentCell().getText(), row - 1, col);
-                    fireSheetViewChanged();
+
+                if (se.getId() == SpreadsheetEventType.SHEET_SELECTED) {
+                    mainGrid.changeSelection(1,1, true,true);
+                    mainGrid.clearSelection();
+                    addTableModel();
+                    selectSheetModel();
+                }
+
+
+
+                if (se.getId() == SpreadsheetEventType.SHEET_CHANGED) {
+                    redraw();
+                }
+
+                if (se.getId() == SpreadsheetEventType.CELL_SELECTED) {
+                    final int col = model.getCurrentCell().getLocation().getIntColumn();
+                    DefaultTableCellRenderer MyHeaderRender = new DefaultTableCellRenderer();
+                    MyHeaderRender.setBackground(new Color(60, 179, 113));
+
+                    for(int i = 0; i < mainGrid.getColumnCount(); i++) {
+                        if (i == col) {
+                            mainGrid.getColumnModel().getColumn(i).setHeaderRenderer(MyHeaderRender);
+                            continue;
+                        }
+                        mainGrid.getColumnModel().getColumn(i).setHeaderRenderer(mainGrid.getTableHeader().getDefaultRenderer());
+                    }
+
+                }
+                if (se.getId() == SpreadsheetEventType.CELL_CHANGED) {
+                    final int row = model.getCurrentCell().getLocation().getRow();
+                    final int col = model.getCurrentCell().getLocation().getIntColumn();
+                    mainGrid.setValueAt(model.getCurrentCell().getText(), row-1, col);
                 }
             }
         });
-        add(mainGrid);
-        setViewportView(mainGrid);
-    }
-=======
-
-    mainGrid.getModel().addTableModelListener(new TableModelListener() {
-
-        public void tableChanged(final TableModelEvent e) {
-            final int row = mainGrid.getSelectedRow();
-            final int column = mainGrid.getSelectedColumn();
-        }
-    });
-
-    add(mainGrid);
-
-    model.addListener(new SpreadsheetListener() {
-        @Override
-        public void spreadsheetChanged(Spreadsheet s, SpreadsheetEvent se) {
-            //fireSheetViewChanged();
-            //TODO add a type to the Spreadsheetchanged() method.
-            //fireGridUpdate();
-            //mainGrid.clearSelection();
-            final int row = model.getCurrentCell().getLocation().getRow()-1;
-            final int column = model.getCurrentCell().getLocation().getIntColumn();
-            mainGrid.setValueAt(model.getCurrentCell().getText(), row, column);
-            mainGrid.changeSelection(row, column, true, false);
-            //drawSheet(model.getCurrentSheet());
-            //redraw();
-            switch (se.getID()) {
-                case SHEET_ADDED:
-                case SHEET_CHANGED:
-                case SHEET_SELECTED:
-                default:
-                    System.out.println("draw");
-                    draw();
-                    repaint();
-            }
-        }
-
-
-    });
-    setViewportView(mainGrid);
-     */
-
-    // adding listeners
-
-    private void fireSheetViewChanged() {
-        for (final SheetViewListener li : listeners) {
-            li.sheetViewChanged(model);
-            repaint();
-        }
     }
 
-    private void fireCellUpdate(final int row, final int col) {
+    public void addTableModel() {
+        if (tableModels.containsKey(model.getCurrentSheetName())) {
+            return;
+        }
 
-        AbstractTableModel tableModel = (AbstractTableModel) mainGrid.getModel();
-        tableModel.fireTableCellUpdated(row, col);
-        //System.out.println(tableModel.getValueAt(row, col).toString());
-        //model.updateCurrentCell(mainGrid.getValueAt(row, col).toString());
-    }
-
-    /**
-     * Draw the table.
-     */
-    public void draw() {
-        //remove(mainGrid);
-        System.out.println("redraw");
-
-
-        final Object[][] tableData = model.getCurrentSheet().createDataTable();
+        Object[][] tableData = model.getCurrentSheet().createDataTable();
         String[] columns = model.getCurrentSheet().getColumns();
-
 
         columns[0] = "";
 
-        mainGrid = new JTable(tableData, columns)
-        {
-            public boolean isCellEditable(int rowindex, int colindex)
-            {
-                if (colindex == 0) {
-                    return false; // Disallow Column 0
-                } else {
-                    return true;  // Allow the editing
-                }
-            }
-        };
+        final DefaultTableModel tableModel = new DefaultTableModel(tableData, columns);
+        tableModels.put(model.getCurrentSheetName(), tableModel);
+        mainGrid.setModel(tableModel);
+
+
+        tableModel.addTableModelListener(tableListener);
+        //redraw();
     }
 
-    private void fireGridUpdate() {
+    private void redraw() {
+        final Sheet sh = model.getCurrentSheet();
+        for (int i = 1; i <= sh.sizeX(); i ++) {
+            for (int j = 1; j <= sh.sizeY(); j ++) {
+                final String content = sh.getCell(i, j).getText();
+                System.out.println(content);
+                mainGrid.setValueAt(content, i-1, j);
+            }
+        }
+    }
 
+    private void selectSheetModel() {
+        mainGrid.setModel(tableModels.get(model.getCurrentSheetName()));
+        mainGrid.getColumnModel().getColumn(0).setPreferredWidth(35);
+        repaint(0, 0, mainGrid.getWidth(), mainGrid.getHeight());
+    }
+    private void fireGridUpdate(final int row, final int column) {
         AbstractTableModel tableModel = (AbstractTableModel) mainGrid.getModel();
-        tableModel.fireTableDataChanged();
+        tableModel.fireTableCellUpdated(row-1, column);
     }
 
 
@@ -369,12 +278,14 @@ public class SheetView extends JScrollPane {
         public Component getTableCellRendererComponent(
                 JTable table, Object value, boolean isSelected,
                 boolean hasFocus, int row, int column) {
-            super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            //super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
             if (isSelected) {
                 setBackground(new Color(172, 225, 175));
             } else {
                 setBackground(table.getBackground());
             }
+
+
 
             return this;
         }
@@ -390,37 +301,16 @@ public class SheetView extends JScrollPane {
                 boolean hasFocus, int row, int column) {
             super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
-
-            Component colRender = table.getTableHeader().getDefaultRenderer().getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                if (isSelected)
-                    setBackground(new Color(60,179,113));
-
-
             if (isSelected) {
                 setBackground(new Color(60, 179, 113));
             }
+            setBorder(BorderFactory.createLineBorder(new Color(60, 179, 113)));
 
-
-            return colRender;
-        }
-    }
-
-    class EditableHeaderRenderer extends Component implements TableCellRenderer {
-
-        private JTable table = null;
-        public EditableHeaderRenderer() {
-            setFont(new Font("Consolas", Font.BOLD, 14));
-            setForeground(Color.BLUE);
-            setBorder(BorderFactory.createEtchedBorder());
-        }
-
-        @Override
-        public Component getTableCellRendererComponent(JTable table, Object value,
-                                                       boolean isSelected, boolean hasFocus, int row, int column) {
 
             return this;
         }
     }
+
 }
 
 
