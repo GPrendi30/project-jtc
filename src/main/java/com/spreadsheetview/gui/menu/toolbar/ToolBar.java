@@ -1,6 +1,13 @@
 package com.spreadsheetview.gui.menu.toolbar;
 
-import java.awt.FlowLayout;
+import com.spreadsheetmodel.commands.Command;
+import com.spreadsheetmodel.commands.CopyCommand;
+import com.spreadsheetmodel.commands.CutCommand;
+import com.spreadsheetmodel.commands.Invoker;
+import com.spreadsheetmodel.commands.OpenCommand;
+import com.spreadsheetmodel.commands.PasteCommand;
+import com.spreadsheetmodel.commands.SaveCommand;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.nio.file.Paths;
@@ -16,47 +23,54 @@ public class ToolBar extends JToolBar {
     public ToolBar() {
         super("Toolbar");
 
-        addButton(newIcon(getPath("undo32.png"), "undo action"),
-            new ActionListener() {
-                @Override
-                public void actionPerformed(final ActionEvent actionEvent) {
-                    System.out.println("undo");
+        ImageIcon undoIcon = newIcon(getPath("undo32.png"), "undo action");
+        final ImageIcon redoIcon = newIcon(getPath("redo32.png"), "redo action");
+        ImageIcon copyIcon = newIcon(getPath("copy32.png"), "copy action");
+        ImageIcon pasteIcon = newIcon(getPath("paste32.png"), "paste action");
+        ImageIcon cutIcon = newIcon(getPath("cut32.png"), "cut action");
+        ImageIcon toggleIcon = newIcon(getPath("toggle_formulas32.png"), "toggle action");
+
+        addButton(undoIcon,
+                new ToolBarActionListener() {
+                    @Override
+                    public Command command() {
+                    return (Command) new CopyCommand();
                 }
             });
 
-        addButton(newIcon(getPath("redo32.png"), "redo action"),
-            new ActionListener() {
-                @Override
-                public void actionPerformed(final ActionEvent actionEvent) {
-                    System.out.println("redo");
+        addButton(redoIcon,
+                new ToolBarActionListener() {
+                    @Override
+                    public Command command() {
+                    return new OpenCommand("g");
                 }
             });
 
-        addButton(newIcon(getPath("copy32.png"), "copy action"),
-            new ActionListener() {
-                @Override
-                public void actionPerformed(final ActionEvent actionEvent) {
-                    System.out.println("copy");
+        addButton(copyIcon,
+                new ToolBarActionListener() {
+                    @Override
+                    public Command command() {
+                        return new SaveCommand("s");
                 }
             });
 
-        addButton(newIcon(getPath("paste32.png"), "paste action"),
-            new ActionListener() {
+        addButton(pasteIcon,
+            new ToolBarActionListener() {
                 @Override
-                public void actionPerformed(final ActionEvent actionEvent) {
-                    System.out.println("paste");
+                public Command command() {
+                return (Command) new PasteCommand();
+            }
+            });
+
+        addButton(cutIcon,
+            new ToolBarActionListener() {
+                @Override
+                public Command command() {
+                   return (Command) new CutCommand();
                 }
             });
 
-        addButton(newIcon(getPath("cut32.png"), "cut action"),
-            new ActionListener() {
-                @Override
-                public void actionPerformed(final ActionEvent actionEvent) {
-                    System.out.println("cut");
-                }
-            });
-
-        addButton(newIcon(getPath("toggle_formulas32.png"), "toggle action"),
+        addButton(toggleIcon,
             new ActionListener() {
                 private boolean toggled = false;
 
@@ -100,14 +114,18 @@ public class ToolBar extends JToolBar {
      */
     public static ImageIcon newIcon(final String name, final String desc) {
         try {
-            //Path iconPath = Paths.get(ToolbarButton.imagesPath.toString(), name);
-            //System.out.println(iconPath.toString());
-            //System.out.println(ToolbarButton.projectDir);
-            //System.out.println(imagesPath.toString());
             return new ImageIcon(name, desc);
         } catch (Exception ex) {
             System.out.println(name);
             return  null;
         }
     }
+
+    private class ToolBarButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+
+        }
+    }
+
 }

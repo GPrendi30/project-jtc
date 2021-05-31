@@ -3,9 +3,7 @@ package com.spreadsheetview.gui.menu.toolbar;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Insets;
-import javax.swing.Icon;
-import javax.swing.JButton;
-import javax.swing.UIManager;
+import javax.swing.*;
 
 public class CustomButton extends JButton {
 
@@ -16,7 +14,7 @@ public class CustomButton extends JButton {
      * @param i an Icon for the button.
      * @param description a String that describes the button.
      */
-    public CustomButton(final Icon i,final String description) {
+    public CustomButton(final ImageIcon i, final String description) {
     
         // TODO implement hover
 
@@ -28,6 +26,7 @@ public class CustomButton extends JButton {
         setMaximumSize(new Dimension(100, 100));
         setMinimumSize(new Dimension(64, 64));
 
+        setToolTipText(description);
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(final java.awt.event.MouseEvent evt) {
                 setBackground(Color.GRAY);
