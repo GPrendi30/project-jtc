@@ -1,8 +1,11 @@
 package com.spreadsheetview.gui.menu.menubar;
 
 import com.spreadsheetcontroller.SpreadsheetController;
+import com.spreadsheetmodel.commands.ExportCommand;
 import com.spreadsheetmodel.commands.ImportCommand;
 import com.spreadsheetmodel.commands.Invoker;
+import com.spreadsheetmodel.commands.OpenCommand;
+import com.spreadsheetmodel.commands.SaveCommand;
 import com.spreadsheetview.gui.menu.FilePicker;
 
 import javax.swing.*;
@@ -23,95 +26,56 @@ public class FileMenu extends Menu {
         addMenu("new", new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
-                createNewFile();
-                SpreadsheetController.main(new String[]{"gui"});
-            }
+                SpreadsheetController.main(new String[]{"gui"}); }
         });
 
         // Add the menu "open"
-        addMenu("open",new ActionListener() {
+        addMenu("open", new MenuActionListener(
+                "JTC Files",
+                "jtc",
+                MenuActionListener.OPEN_DIALOG) {
             @Override
-            public void actionPerformed(final ActionEvent actionEvent) {
-                openFile();
-                final FilePicker p = new FilePicker("JTC files", "jtc");
-                final int approved = p.showOpenDialog(null);
-
-                if (approved == JFileChooser.APPROVE_OPTION) {
-                    final File f = p.getSelectedFile();
-                    System.out.println(f.getName());
-                }
+            public void command(String path) {
+                final OpenCommand openCommand = new OpenCommand(path);
+                Invoker.getInstance().invoke(openCommand);
             }
-        });
+    });
 
         // Add the menu "import"
-        addMenu("import", new ActionListener() {
+        addMenu("import", new MenuActionListener(
+                "CSV files",
+                "csv",
+                MenuActionListener.OPEN_DIALOG) {
             @Override
-            public void actionPerformed(final ActionEvent actionEvent) {
-                importFile();
-                final FilePicker p = new FilePicker("CSV files", "csv");
-                p.setName("Import");
-                final int approved = p.showOpenDialog(null);
-
-                if (approved == JFileChooser.APPROVE_OPTION) {
-                    final File f = p.getSelectedFile();
-                    final ImportCommand importCommand = new ImportCommand();
-                    importCommand.setPath(f.getPath().toString());
-                    Invoker.getInstance().invoke(importCommand);
-                    System.out.println(f.getName());
-                }
+            public void command(String path) {
+                final ImportCommand importCommand = new ImportCommand(path);
+                Invoker.getInstance().invoke(importCommand);
             }
         });
 
         // Add the menu "save"
-        addMenu("save", new ActionListener() {
+        addMenu("save", new MenuActionListener(
+                "JTC Files",
+                "jtc",
+                MenuActionListener.SAVE_DIALOG) {
             @Override
-            public void actionPerformed(final ActionEvent actionEvent) {
-                saveFile();
-                final FilePicker p = new FilePicker("JTC files", "jtc");
-                final int approved = p.showSaveDialog(null);
-
-                if (approved == JFileChooser.APPROVE_OPTION) {
-                    final File f = p.getSelectedFile();
-                    System.out.println(f.getName());
-                }
+            public void command(String path) {
+                final SaveCommand saveCommand = new SaveCommand(path);
+                Invoker.getInstance().invoke(saveCommand);
             }
         });
 
         // Add the menu "export"
-        addMenu("export", new ActionListener() {
+        addMenu("export",new MenuActionListener(
+                "CSV Files",
+                "csv",
+                MenuActionListener.SAVE_DIALOG) {
             @Override
-            public void actionPerformed(final ActionEvent actionEvent) {
-                exportFile();
-
-                final FilePicker p = new FilePicker("CSV files", "csv");
-                final int approved = p.showSaveDialog(null);
-
-                if (approved == JFileChooser.APPROVE_OPTION) {
-                    final File f = p.getSelectedFile();
-                    System.out.println(f.getName());
-                }
+            public void command(String path) {
+                final ExportCommand exportCommand = new ExportCommand(path);
+                Invoker.getInstance().invoke(exportCommand);
             }
         });
 
-    }
-
-    private static void createNewFile() {
-        System.out.println("File created");
-    }
-
-    private static void importFile() {
-        System.out.println("File imported");
-    }
-
-    private static void exportFile() {
-        System.out.println("File exported");
-    }
-
-    private static void openFile() {
-        System.out.println("File opened");
-    }
-
-    private static void saveFile() {
-        System.out.println("File saved");
     }
 }

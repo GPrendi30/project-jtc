@@ -11,10 +11,10 @@ public class EditMenu extends Menu {
     public EditMenu() {
         super("edit");
 
-        addMenu("undo", new MenuActionListener() {
+        addMenu("undo", new ActionListener() {
             @Override
-            public void command() {
-                undo();
+            public void actionPerformed(ActionEvent actionEvent) {
+
             }
         });
 
