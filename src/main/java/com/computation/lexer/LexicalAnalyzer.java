@@ -74,8 +74,8 @@ public final class LexicalAnalyzer {
 
         try {
             token = scanToken();
-        } catch (Exception ex) {
-            throw new Exception("Unrecognized character at position " + (position + 1));
+        } catch (Exception e) {
+            throw new LexerException("Unrecognized character at position " + (position + 1), e);
         }
     }
 
@@ -103,7 +103,7 @@ public final class LexicalAnalyzer {
 
             // if no match is found then return null, otherwise produce a token
             if (factoryWithLongestMatch == null) {
-                throw new Exception();
+                throw new LexerException();
             } else {
                 position += factoryWithLongestMatch.getTokenLength();
                 return factoryWithLongestMatch.getToken();
