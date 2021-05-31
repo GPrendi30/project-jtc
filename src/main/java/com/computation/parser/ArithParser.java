@@ -1,6 +1,7 @@
 package com.computation.parser;
 
 import com.computation.ast.Node;
+import com.computation.ast.Type;
 import com.computation.ast.doublenodes.DoubleLiteral;
 import com.computation.ast.doublenodes.DoubleVariable;
 
@@ -8,6 +9,8 @@ import com.computation.ast.function.Function;
 import com.computation.ast.function.FunctionList;
 import com.computation.ast.intnodes.IntLiteral;
 
+import com.computation.ast.intnodes.IntVariable;
+import com.computation.ast.range.ArrayNode;
 import com.computation.ast.range.NumberRange;
 import com.computation.ast.range.Range;
 import com.computation.ast.wrappernodes.AdditionWrapper;
@@ -20,6 +23,7 @@ import com.computation.lexer.LexicalAnalyzer;
 import com.computation.lexer.TokenType;
 import com.computation.program.Program;
 import com.computation.program.VariableTable;
+import com.spreadsheetmodel.cell.CellLocation;
 
 
 /**
@@ -309,24 +313,56 @@ public final class ArithParser implements Parser {
      */
     private Node parseParameters() throws Exception {
         // if (ranges)
+        boolean numericRange = false;
+        if (lexer.getCurrentToken().getType() == TokenType.INTLITERAL) {
+            numericRange = true;
+        }
+
         Node left = parseExpression();
+
         if (lexer.getCurrentToken().getType() == TokenType.COLON) {
             lexer.fetchNextToken();
             Node right = parseExpression();
-            Range range = new NumberRange(left, right);
-            return range.getValues();
+            Range range = new Range(left, right);
+            left = numericRange
+                    ? parseNumberRanges(range)
+                    : parseVariableRanges(range);
         }
 
         return left;
     }
 
-    private Node parseRanges(Node n) throws Exception {
-        if (lexer.getCurrentToken().getType() == TokenType.COLON) {
-            lexer.fetchNextToken();
-            Node right = parseExpression();
-            n = new NumberRange(n, right);
+    private Node parseVariableRanges(final Range rangeNode) throws Exception {
+        final int[] startCoordinates = CellLocation.parse(rangeNode.getStart().toString());
+        final int[] endCoordinates = CellLocation.parse(rangeNode.getEnd().toString());
+        final int startX = startCoordinates[0];
+        final int startY = startCoordinates[1];
+        final int endX = endCoordinates[0];
+        final int endY = endCoordinates[1];
+        final ArrayNode arrayValues = new ArrayNode(Type.INT);
+
+        for (int i = startY; i <= endY; i++) {
+            for (int j = startX; j <= endX; j++) {
+                final CellLocation cl = new CellLocation(j, i);
+                System.out.println(cl.toString());
+                arrayValues.append(new IntVariable(cl.toString()));
+            }
         }
-        return n;
+
+        return arrayValues;
+    }
+
+    private Node parseNumberRanges(final Range rangeNode) throws Exception {
+        final int startIndex = Integer.parseInt(rangeNode.getStart().toString());
+        final int endIndex = Integer.parseInt(rangeNode.getEnd().toString());
+        final ArrayNode arrayValues = new ArrayNode(Type.INT);
+
+        for (int i = startIndex; i <= endIndex; i++) {
+            final Node tempNode = new IntLiteral(i);
+            arrayValues.append(tempNode);
+        }
+
+        return arrayValues;
     }
 
     /**
@@ -336,7 +372,7 @@ public final class ArithParser implements Parser {
      */
     public static void main(final String[] args) throws Exception {
         final Parser p = new ArithParser();
-        final Node result = p.parse("ISUM(3:6)");
+        final Node result = p.parse("ASUM(1:10)");
 
         final Program pr = new Program();
         final VariableTable vt = new VariableTable();

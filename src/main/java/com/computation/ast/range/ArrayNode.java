@@ -21,7 +21,9 @@ public class ArrayNode extends Node {
         contents = new ArrayList<>();
     }
 
-
+    public Node getElement(int index) {
+        return contents.get(index);
+    }
     /**
      * Appends a value to the Array.
      * @param child a Node.
@@ -38,6 +40,9 @@ public class ArrayNode extends Node {
         }
     }
 
+    public int getLength() {
+        return contents.size();
+    }
 
     @Override
     public Type getType() {

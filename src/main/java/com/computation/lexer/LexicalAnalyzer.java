@@ -35,7 +35,7 @@ public final class LexicalAnalyzer {
      */
     public LexicalAnalyzer(final String expression) {
         this(expression, new TokenFactory[] {
-            new FunctionTokenFactory("ISUM"),
+            new FunctionTokenFactory("ASUM"),
             new FunctionTokenFactory("SIN"),
             new FunctionTokenFactory("COS"),
             new FunctionTokenFactory("SUM"),
@@ -68,7 +68,7 @@ public final class LexicalAnalyzer {
 
     /**
      * Ask the analyzer to move to the next token in the text.
-     * @throws Exception a LexicalAnalyzer exception //TODO add a LexicalAnalyzerException
+     * @throws Exception a LexicalAnalyzer exception
      */
     public void fetchNextToken() throws Exception {
 

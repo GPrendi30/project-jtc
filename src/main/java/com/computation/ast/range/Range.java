@@ -22,7 +22,13 @@ public class Range extends Node {
         this.end = end;
     }
 
+    public Node getStart() {
+        return start;
+    }
 
+    public Node getEnd() {
+        return end;
+    }
     private void parseRange() {
         //to be overwritten.
     }
