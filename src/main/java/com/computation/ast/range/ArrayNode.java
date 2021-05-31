@@ -3,6 +3,7 @@ package com.computation.ast.range;
 import com.computation.ast.Node;
 import com.computation.ast.Type;
 import com.computation.program.Program;
+
 import java.util.ArrayList;
 
 public class ArrayNode extends Node {
@@ -16,7 +17,7 @@ public class ArrayNode extends Node {
     }
 
 
-    public void add(final Node child) throws Exception {
+    public void append(final Node child) throws Exception {
         checkType(child);
         contents.add(child);
     }
@@ -35,7 +36,7 @@ public class ArrayNode extends Node {
 
     @Override
     public boolean isConstant() {
-        for(final Node child : contents) {
+        for (final Node child : contents) {
             if (!child.isConstant()) {
                 return false;
             }
@@ -45,7 +46,7 @@ public class ArrayNode extends Node {
 
     @Override
     public void compile(final Program p) throws Exception {
-        for(final Node child : contents) {
+        for (final Node child : contents) {
             child.compile(p);
         }
     }

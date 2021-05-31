@@ -30,7 +30,7 @@ public class NumberRange extends Range {
         int endIndex = Integer.parseInt(end.toString());
         for (int i = startIndex; i <= endIndex; i++) {
             final Node tempNode = new IntLiteral(i);
-            value.add(tempNode);
+            value.append(tempNode);
         }
     }
 }

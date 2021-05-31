@@ -26,6 +26,7 @@ public enum FunctionList {
             Type.DOUBLE
         )),
 
+
     COS("COS",
         new Function("cos", new FunctionOperation() {
             @Override
@@ -41,18 +42,17 @@ public enum FunctionList {
             }
         },
                 Function.UNARY,
-                new Type[]{Type.INT, Type.DOUBLE},
+                new Type[]
+                        { Type.INT, Type.DOUBLE },
                 Type.DOUBLE
         )),
 
     SUM("SUM",
-        new Function("sum", new FunctionOperation() {
+        new BinaryFunction("sum", new FunctionOperation() {
             @Override
             public void execute(final Storage storage) {
                 final OperandStack op = storage.getOperandStack();
-                final double a = op.dpop();
-                final double b = op.dpop();
-                op.dpush(a + b);
+                op.dpush(op.dpop() + op.dpop());
             }
 
             @Override
@@ -60,13 +60,12 @@ public enum FunctionList {
                 return "sum";
             }
         },
-                Function.BINARY,
                 Function.NO_LIMIT,
-                new Type[]{Type.DOUBLE, Type.INT},
                 Type.DOUBLE)),
 
+
     ABS("ABS",
-        new Function("abs", new FunctionOperation() {
+        new BinaryFunction("abs", new FunctionOperation() {
             @Override
             public void execute(final Storage storage) {
                 final OperandStack op = storage.getOperandStack();
@@ -79,18 +78,16 @@ public enum FunctionList {
                 return "abs";
             }
         },
-                Function.UNARY,
-                new Type[]{Type.DOUBLE, Type.INT},
+
                 Type.DOUBLE)),
 
+
     AVG("AVG",
-        new Function("avg", new FunctionOperation() {
+        new BinaryFunction("avg", new FunctionOperation() {
             @Override
             public void execute(final Storage storage) {
                 final OperandStack op = storage.getOperandStack();
-                final double a = op.dpop();
-                final double b = op.dpop();
-                op.dpush((a + b) / 2);
+                op.dpush((op.dpop() + op.dpop()) / 2);
             }
 
             @Override
@@ -98,18 +95,16 @@ public enum FunctionList {
                 return "avg";
             }
         },
-        Function.BINARY,
-            new Type[]{Type.DOUBLE, Type.INT},
+
         Type.DOUBLE)),
 
+
     MAX("MAX",
-        new Function("max", new FunctionOperation() {
+        new BinaryFunction("max", new FunctionOperation() {
             @Override
             public void execute(final Storage storage) {
                 final OperandStack op = storage.getOperandStack();
-                final double a = op.dpop();
-                final double b = op.dpop();
-                op.dpush(Math.max(a, b));
+                op.dpush(Math.max(op.dpop(), op.dpop()));
             }
 
             @Override
@@ -117,18 +112,15 @@ public enum FunctionList {
                 return "max";
             }
         },
-        Function.BINARY,
-            new Type[]{Type.DOUBLE, Type.INT},
         Type.DOUBLE)),
 
+
     MIN("MIN",
-        new Function("min", new FunctionOperation() {
+        new BinaryFunction("min", new FunctionOperation() {
             @Override
             public void execute(final Storage storage) {
                 final OperandStack op = storage.getOperandStack();
-                final double a = op.dpop();
-                final double b = op.dpop();
-                op.dpush(Math.min(a, b));
+                op.dpush(Math.min(op.dpop(), op.dpop()));
             }
 
             @Override
@@ -136,12 +128,12 @@ public enum FunctionList {
                 return "min";
             }
         },
-        Function.BINARY,
-            new Type[]{Type.DOUBLE, Type.INT},
         Type.DOUBLE)),
 
+
+
     MOD("MOD",
-        new Function("mod", new FunctionOperation() {
+        new BinaryFunction("mod", new FunctionOperation() {
             @Override
             public void execute(final Storage storage) {
                 final OperandStack op = storage.getOperandStack();
@@ -150,15 +142,13 @@ public enum FunctionList {
                 // invert a and b because of the order those are popped
                 op.dpush(b % a);
             }
-
             @Override
             public String toString() {
                 return "mod";
             }
         },
-        Function.BINARY,
-            new Type[]{Type.DOUBLE, Type.INT},
         Type.DOUBLE));
+
 
 
     //TODO add more functions
