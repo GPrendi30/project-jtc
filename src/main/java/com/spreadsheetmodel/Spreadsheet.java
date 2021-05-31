@@ -3,8 +3,6 @@ package com.spreadsheetmodel;
 import com.spreadsheetmodel.cell.Cell;
 import com.spreadsheetmodel.sheet.Sheet;
 
-import com.spreadsheetview.tui.SpreadsheetTui;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -101,7 +99,6 @@ public class Spreadsheet implements Serializable {
      * @return boolean a boolean.
      */
     public boolean addNewSheet(final String tableName) {
-        final int prevOpenSheets = openSheets;
         if (openSheets >= 10) {
             setOpenSheets(10);
             return false;
@@ -127,9 +124,8 @@ public class Spreadsheet implements Serializable {
     }
 
     private boolean checkSheetName(final String tableName) {
-        for (String sheetName : sheets.keySet()) {
+        for (final String sheetName : sheets.keySet()) {
             if (sheetName.equals(tableName)) {
-                System.out.println(sheetName);
                 return false;
             }
         }
@@ -144,7 +140,8 @@ public class Spreadsheet implements Serializable {
     public void selectCell(final int x, final int y) {
         currentCell = currentSheet.getCell(x, y);
         fireSpreadsheetChanged(
-                new SpreadsheetEvent("Sheet added", SpreadsheetEventType.CELL_SELECTED));
+                new SpreadsheetEvent("Cell " + currentCell.getLocation().toString() + " selected ",
+                        SpreadsheetEventType.CELL_SELECTED));
     }
 
     /**
@@ -154,7 +151,8 @@ public class Spreadsheet implements Serializable {
     public void selectCell(final String location) {
         currentCell = currentSheet.getCell(location);
         fireSpreadsheetChanged(
-                new SpreadsheetEvent("Sheet added", SpreadsheetEventType.CELL_CHANGED));
+                new SpreadsheetEvent("Sheet " + getCurrentSheetName() + " selected",
+                        SpreadsheetEventType.CELL_CHANGED));
     }
 
     /**
@@ -163,11 +161,12 @@ public class Spreadsheet implements Serializable {
      * @param y the y coordinate
      * @param content the String content.
      */
-    public void updateCell(final int x, final int y, String content) {
+    public void updateCell(final int x, final int y, final String content) {
         currentCell = currentSheet.getCell(x, y);
         currentCell.updateContent(content);
         fireSpreadsheetChanged(
-                new SpreadsheetEvent("Sheet added", SpreadsheetEventType.CELL_CHANGED));
+                new SpreadsheetEvent("Cell" + currentCell.getLocation().toString() + " updated" ,
+                        SpreadsheetEventType.CELL_CHANGED));
     }
 
     /**
@@ -179,7 +178,8 @@ public class Spreadsheet implements Serializable {
         currentSheet.updateCell(c, content);
         //currentSheet.reEvalFormulas();
         fireSpreadsheetChanged(
-                new SpreadsheetEvent("Sheet added", SpreadsheetEventType.CELL_CHANGED));
+                new SpreadsheetEvent("Cell" + currentCell.getLocation().toString() + " updated",
+                        SpreadsheetEventType.CELL_CHANGED));
     }
 
     /**
@@ -198,7 +198,8 @@ public class Spreadsheet implements Serializable {
     public void formulasOn() {
         currentSheet.fillFormulas();
         fireSpreadsheetChanged(
-                new SpreadsheetEvent("Sheet added", SpreadsheetEventType.SHEET_CHANGED));
+                new SpreadsheetEvent("Formulas filled in",
+                        SpreadsheetEventType.SHEET_CHANGED));
     }
 
     /**
@@ -208,7 +209,8 @@ public class Spreadsheet implements Serializable {
     public void sortCol(final int col) {
         currentSheet.sortColumn(col);
         fireSpreadsheetChanged(
-                new SpreadsheetEvent("Sheet added", SpreadsheetEventType.SHEET_CHANGED));
+                new SpreadsheetEvent("Column " + (col + 1) + " sorted ",
+                        SpreadsheetEventType.SHEET_CHANGED));
     }
 
 
@@ -228,7 +230,8 @@ public class Spreadsheet implements Serializable {
         currentSheet = sheets.get(sheetName);
         selectCell(1,1);
         fireSpreadsheetChanged(
-                new SpreadsheetEvent("Sheet added", SpreadsheetEventType.SHEET_SELECTED));
+                new SpreadsheetEvent("Sheet selected",
+                        SpreadsheetEventType.SHEET_SELECTED));
     }
 
     /**
@@ -300,7 +303,8 @@ public class Spreadsheet implements Serializable {
         }
         sc.close();
         fireSpreadsheetChanged(
-                new SpreadsheetEvent("Sheet added", SpreadsheetEventType.SHEET_CHANGED));
+                new SpreadsheetEvent("A csv file imported",
+                        SpreadsheetEventType.SHEET_CHANGED));
     }
 
     /**
@@ -355,7 +359,8 @@ public class Spreadsheet implements Serializable {
     public void grow(final String dir,final int size) {
         currentSheet.grow(dir, size);
         fireSpreadsheetChanged(
-                new SpreadsheetEvent("Sheet added", SpreadsheetEventType.TABLE_GROW));
+                new SpreadsheetEvent("Sheet grow",
+                        SpreadsheetEventType.TABLE_GROW));
     }
 
     /**
@@ -398,30 +403,9 @@ public class Spreadsheet implements Serializable {
         listeners.remove(li);
     }
 
-    private void fireSpreadsheetChanged(SpreadsheetEvent se) {
+    private void fireSpreadsheetChanged(final SpreadsheetEvent se) {
         for (final SpreadsheetListener li : listeners) {
             li.spreadsheetChanged(this, se);
         }
-    }
-
-    /**
-     * Main function.
-     * @param args a String[].
-     */
-    public static void main(String[] args) {
-        Spreadsheet s = new Spreadsheet();
-        SpreadsheetTui t = new SpreadsheetTui(s);
-
-        t.updateView();
-        s.selectCell(3,3);
-        s.updateCurrentCell("=B5");
-
-        s.getCurrentSheet().update(4,4,"3");
-        s.updateCurrentCell("3");
-        t.updateView();
-        s.selectCell("B5");
-        t.updateView();
-        s.updateCurrentCell("10");
-        t.updateView();
     }
 }

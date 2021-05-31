@@ -36,7 +36,7 @@ public class TabsView extends JPanel {
         final JButton firstSheet = new JButton(model.getCurrentSheetName());
         firstSheet.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent actionEvent) {
+            public void actionPerformed(final ActionEvent actionEvent) {
                 model.selectSheet(firstSheet.getText());
             }
         });
@@ -44,7 +44,7 @@ public class TabsView extends JPanel {
         final JButton addNewSheetButton = new JButton("+");
         addNewSheetButton.addActionListener(new ActionListener() {
             public void actionPerformed(final ActionEvent e) {
-                String result = (String) JOptionPane.showInputDialog(
+                final String result = (String) JOptionPane.showInputDialog(
                         null,
                         "Set the name of the new Sheet",
                         "Input name",
@@ -54,7 +54,6 @@ public class TabsView extends JPanel {
                         "New Sheet"
                 );
                 model.addNewSheet(result);
-                //addNewSheetButton(result);
             }
         });
 
@@ -63,7 +62,7 @@ public class TabsView extends JPanel {
 
         model.addListener(new SpreadsheetListener() {
             @Override
-            public void spreadsheetChanged(Spreadsheet s, SpreadsheetEvent se) {
+            public void spreadsheetChanged(final Spreadsheet s,final SpreadsheetEvent se) {
                 if (se.getId() == SpreadsheetEventType.SHEET_ADDED) {
                     System.out.println(model.getCurrentSheetName());
                     addNewSheetButton(model.getCurrentSheetName());
@@ -75,19 +74,15 @@ public class TabsView extends JPanel {
         add(addNewSheetButton);
     }
 
-    private void addNewSheetButton() {
-        final String name = "Placeholder";
-        addNewSheetButton(name);
-    }
 
-    private void addNewSheetButton(String name) {
+    private void addNewSheetButton(final String name) {
         final JButton newSheetButton = new JButton();
         if (checkButtonNames(name)) {
             buttonList.add(buttonList.size() - 1, newSheetButton);
             newSheetButton.setText(name);
             newSheetButton.addActionListener(new ActionListener() {
                 @Override
-                public void actionPerformed(ActionEvent actionEvent) {
+                public void actionPerformed(final ActionEvent actionEvent) {
                     model.selectSheet(newSheetButton.getText());
                 }
             });
@@ -99,7 +94,7 @@ public class TabsView extends JPanel {
 
     }
 
-    private boolean checkButtonNames(String name) {
+    private boolean checkButtonNames(final String name) {
         for (final JButton j : buttonList) {
             if (j.getText().equals(name)) {
                 return false;

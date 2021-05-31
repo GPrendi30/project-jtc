@@ -16,6 +16,7 @@ public class ArrayNode extends Node {
      * @param arrayType the Type of the elements of the array.
      */
     public ArrayNode(final Type arrayType) {
+        super();
         this.arrayType = arrayType;
         contents = new ArrayList<>();
     }

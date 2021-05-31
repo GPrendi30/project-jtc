@@ -13,8 +13,8 @@ import javax.swing.JFrame;
 
 public final class SpreadsheetGui extends JFrame implements SpreadsheetView {
 
-    public static int DEFAULT_X = 800;
-    public static int DEFAULT_Y = 800;
+    public static final int DEFAULT_X = 800;
+    public static final int DEFAULT_Y = 800;
 
     /**
      * Create a spreadsheetInterface.

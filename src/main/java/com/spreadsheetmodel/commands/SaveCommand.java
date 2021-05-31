@@ -15,7 +15,7 @@ public class SaveCommand implements Command {
     }
 
     @Override
-    public void execute(Spreadsheet model) {
+    public void execute(final Spreadsheet model) {
         try {
             Spreadsheet.writeToFile(path, model);
         } catch (Exception exception) {

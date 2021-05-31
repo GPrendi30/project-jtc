@@ -5,18 +5,19 @@ import com.spreadsheetmodel.Spreadsheet;
 import java.io.IOException;
 
 public class ExportCommand implements Command {
-    String path;
+
+    private final String path;
 
     /**
      * Creates a new Export Command
      * @param path the path to export to.
      */
-    public ExportCommand(String path) {
+    public ExportCommand(final String path) {
         this.path = path;
     }
 
     @Override
-    public void execute(Spreadsheet model) {
+    public void execute(final Spreadsheet model) {
         try {
             model.exportCsv(path);
         } catch (IOException exception) {

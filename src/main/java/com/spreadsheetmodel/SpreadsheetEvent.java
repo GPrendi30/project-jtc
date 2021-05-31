@@ -13,7 +13,6 @@ public class SpreadsheetEvent implements Serializable {
      * @param eventType the type of the event.
      */
     public SpreadsheetEvent(final String message, final SpreadsheetEventType eventType) {
-
         this.message = message;
         this.eventType = eventType;
 
@@ -25,6 +24,14 @@ public class SpreadsheetEvent implements Serializable {
      */
     public SpreadsheetEventType getId() {
         return eventType;
+    }
+
+    /**
+     * Gets the event message.
+     * @return String the spreadsheet message.
+     */
+    public String getMessage() {
+        return message;
     }
 
 

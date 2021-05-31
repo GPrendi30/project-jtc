@@ -34,7 +34,7 @@ public class FileMenu extends Menu {
                 "jtc",
                 FileMenuActionListener.OPEN_DIALOG) {
             @Override
-            public void command(String path) {
+            public void command(final String path) {
                 final OpenCommand openCommand = new OpenCommand(path);
                 Invoker.getInstance().invoke(openCommand);
             }
@@ -46,7 +46,7 @@ public class FileMenu extends Menu {
                 "csv",
                 FileMenuActionListener.OPEN_DIALOG) {
             @Override
-            public void command(String path) {
+            public void command(final String path) {
                 final ImportCommand importCommand = new ImportCommand(path);
                 Invoker.getInstance().invoke(importCommand);
             }
@@ -58,7 +58,7 @@ public class FileMenu extends Menu {
                 "jtc",
                 FileMenuActionListener.SAVE_DIALOG) {
             @Override
-            public void command(String path) {
+            public void command(final String path) {
                 final SaveCommand saveCommand = new SaveCommand(path);
                 Invoker.getInstance().invoke(saveCommand);
             }
@@ -70,7 +70,7 @@ public class FileMenu extends Menu {
                 "csv",
                 FileMenuActionListener.SAVE_DIALOG) {
             @Override
-            public void command(String path) {
+            public void command(final String path) {
                 final ExportCommand exportCommand = new ExportCommand(path);
                 Invoker.getInstance().invoke(exportCommand);
             }

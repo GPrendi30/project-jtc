@@ -23,12 +23,12 @@ public class ToolBar extends JToolBar {
     public ToolBar() {
         super("Toolbar");
 
-        ImageIcon undoIcon = newIcon(getPath("undo32.png"), "undo action");
+        final ImageIcon undoIcon = newIcon(getPath("undo32.png"), "undo action");
         final ImageIcon redoIcon = newIcon(getPath("redo32.png"), "redo action");
-        ImageIcon copyIcon = newIcon(getPath("copy32.png"), "copy action");
-        ImageIcon pasteIcon = newIcon(getPath("paste32.png"), "paste action");
-        ImageIcon cutIcon = newIcon(getPath("cut32.png"), "cut action");
-        ImageIcon toggleIcon = newIcon(getPath("toggle_formulas32.png"), "toggle action");
+        final ImageIcon copyIcon = newIcon(getPath("copy32.png"), "copy action");
+        final ImageIcon pasteIcon = newIcon(getPath("paste32.png"), "paste action");
+        final ImageIcon cutIcon = newIcon(getPath("cut32.png"), "cut action");
+        final ImageIcon toggleIcon = newIcon(getPath("toggle_formulas32.png"), "toggle action");
 
         addButton(undoIcon,
                 new ToolBarActionListener() {
@@ -42,7 +42,7 @@ public class ToolBar extends JToolBar {
                 new ToolBarActionListener() {
                     @Override
                     public Command command() {
-                        return new OpenCommand("g");
+                        return new OpenCommand("");
                 }
             });
 
@@ -50,7 +50,7 @@ public class ToolBar extends JToolBar {
                 new ToolBarActionListener() {
                     @Override
                     public Command command() {
-                        return new SaveCommand("s");
+                        return new SaveCommand("");
                 }
             });
 
@@ -89,7 +89,7 @@ public class ToolBar extends JToolBar {
                 }
             });
 
-        FlowLayout layout = new FlowLayout();
+        final FlowLayout layout = new FlowLayout();
         layout.setAlignment(FlowLayout.LEFT);
         setLayout(layout);
 
@@ -118,13 +118,6 @@ public class ToolBar extends JToolBar {
         } catch (Exception ex) {
             System.out.println(name);
             return  null;
-        }
-    }
-
-    private class ToolBarButtonListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent actionEvent) {
-
         }
     }
 

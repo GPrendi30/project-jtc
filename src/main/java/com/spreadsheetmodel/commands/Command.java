@@ -8,5 +8,5 @@ public interface Command {
      * Executes a command
      * @param model the Spreadsheet were the commands will apply.
      */
-    public void execute(Spreadsheet model);
+    public void execute(final Spreadsheet model);
 }

@@ -26,7 +26,7 @@ public class SpreadsheetTui implements SpreadsheetView, Serializable {
         model = s;
         model.addListener(new SpreadsheetListener() {
             @Override
-            public void spreadsheetChanged(Spreadsheet s, SpreadsheetEvent se) {
+            public void spreadsheetChanged(final Spreadsheet s,final SpreadsheetEvent se) {
                 updateView();
             }
 

@@ -9,7 +9,6 @@ import javax.swing.UIManager;
 
 public class CustomButton extends JButton {
 
-    /* default */ final String description;
 
     /**
      * Create a customButton.
@@ -21,7 +20,6 @@ public class CustomButton extends JButton {
         // TODO implement hover
 
         super(i);
-        this.description = description;
         setBorder(null);
         setMargin(new Insets(10,0,10,0));
 

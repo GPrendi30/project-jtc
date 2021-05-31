@@ -4,18 +4,18 @@ import com.spreadsheetmodel.Spreadsheet;
 
 public class ImportCommand implements Command {
 
-    String path;
+    private final String path;
 
     /**
      * Creates a new ImportCommand.
      * @param path the path to import from.
      */
-    public ImportCommand(String path) {
+    public ImportCommand(final String path) {
         this.path = path;
     }
 
     @Override
-    public void execute(Spreadsheet model) {
+    public void execute(final Spreadsheet model) {
         model.importCsv(path);
     }
 }

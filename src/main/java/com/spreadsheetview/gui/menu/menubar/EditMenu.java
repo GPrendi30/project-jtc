@@ -13,8 +13,8 @@ public class EditMenu extends Menu {
 
         addMenu("undo", new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-
+            public void actionPerformed(final ActionEvent actionEvent) {
+                // fix undo command.
             }
         });
 
@@ -59,10 +59,6 @@ public class EditMenu extends Menu {
                 cut();
             }
         });
-    }
-
-    private static void undo() {
-        System.out.println("undo");
     }
 
     private static void redo() {

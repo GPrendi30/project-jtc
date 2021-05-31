@@ -61,7 +61,7 @@ public class SpreadsheetController {
                         ?   new SpreadsheetGui(s)
                         :   new SpreadsheetTui(s);
 
-        SpreadsheetController controller = new SpreadsheetController(s, view, guiBool);
+        final SpreadsheetController controller = new SpreadsheetController(s, view, guiBool);
         Invoker.setModel(s);
         controller.start();
     }

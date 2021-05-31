@@ -23,7 +23,7 @@ public class NumberRange extends Range {
         try {
             parseRange();
         } catch (Exception exception) {
-            throw new Exception("Range is unparasable");
+            throw new Exception("Range is unparasable", exception);
         }
     }
 
@@ -36,8 +36,8 @@ public class NumberRange extends Range {
     }
 
     private void parseRange() throws Exception {
-        int startIndex = Integer.parseInt(start.toString());
-        int endIndex = Integer.parseInt(end.toString());
+        final int startIndex = Integer.parseInt(start.toString());
+        final int endIndex = Integer.parseInt(end.toString());
         for (int i = startIndex; i <= endIndex; i++) {
             final Node tempNode = new IntLiteral(i);
             value.append(tempNode);

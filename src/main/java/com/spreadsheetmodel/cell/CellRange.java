@@ -1,8 +1,7 @@
 package com.spreadsheetmodel.cell;
 
-import com.spreadsheetmodel.Spreadsheet;
 import com.spreadsheetmodel.sheet.Sheet;
-import com.spreadsheetview.tui.SpreadsheetTui;
+
 
 public class CellRange {
 
@@ -22,23 +21,24 @@ public class CellRange {
         this.start = start;
         this.end = end;
         content = calcContent(sh);
+
         final int startX = start.getLocation().getRow();
         final int startY = start.getLocation().getIntColumn();
 
         final int endX = end.getLocation().getRow();
         final int endY = end.getLocation().getIntColumn();
+
         sizeX = (endX - startX) + 1;
         sizeY = (endY - startY) + 1;
     }
 
-    private String[][] calcContent(Sheet sh) {
+    private String[][] calcContent(final Sheet sh) {
         final int startX = start.getLocation().getRow();
         final int startY = start.getLocation().getIntColumn();
 
         final int endX = end.getLocation().getRow();
         final int endY = end.getLocation().getIntColumn();
-        System.out.println(startX + " " + endX);
-        System.out.println(startY + " " + endY);
+
         String[][] tempData = new String[endX - startX + 1][endY - startY + 1];
         int i = 0;
         int j = 0;
@@ -56,26 +56,6 @@ public class CellRange {
         return tempData;
     }
 
-    /**
-     * The main method.
-     * @param args a String[].
-     */
-    public static void main(String[] args ) {
-        Spreadsheet s = new Spreadsheet();
-        SpreadsheetTui t = new SpreadsheetTui(s);
-        s.importCsv("/home/geri/Desktop/test_folder/a.csv");
-        t.updateView();
-        s.selectCell("B2");
-        Cell b2 = s.getCurrentCell();
-        s.selectCell("C4");
-        Cell c4 = s.getCurrentCell();
-        CellRange r = new CellRange(s.getCurrentSheet(), b2, c4);
-
-        s.selectCell("G13");
-        r.copyDataTo(s.getCurrentSheet(), s.getCurrentCell());
-        t.updateView();
-
-    }
 
     /**
      * Copies data from one place to another.
@@ -83,8 +63,8 @@ public class CellRange {
      * @param target the target cell.
      */
     public void copyDataTo(final Sheet sh, final Cell target) {
-        int startX = target.getLocation().getRow();
-        int startY = target.getLocation().getIntColumn();
+        final int startX = target.getLocation().getRow();
+        final int startY = target.getLocation().getIntColumn();
 
         int i = 0;
         int j = 0;
@@ -110,11 +90,11 @@ public class CellRange {
                            final Cell targetStart,
                            final Cell targetEnd)
             throws Exception {
-        int startX = targetStart.getLocation().getRow();
-        int startY = targetStart.getLocation().getIntColumn();
+        final int startX = targetStart.getLocation().getRow();
+        final int startY = targetStart.getLocation().getIntColumn();
 
-        int endX = targetEnd.getLocation().getRow();
-        int endY = targetEnd.getLocation().getIntColumn();
+        final int endX = targetEnd.getLocation().getRow();
+        final int endY = targetEnd.getLocation().getIntColumn();
 
 
         if ((endX - startX) + 1 != sizeX || (endY - startY) + 1 != sizeY) {

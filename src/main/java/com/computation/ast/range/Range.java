@@ -17,9 +17,11 @@ public class Range extends Node {
      * @param end a Node.
      */
     public Range(final Node start, final Node end) {
+        super();
         this.start = start;
         this.end = end;
     }
+
 
     private void parseRange() {
         //to be overwritten.
@@ -45,6 +47,7 @@ public class Range extends Node {
 
     @Override
     public void compile(final Program p) throws Exception {
+        // to be overwritten.
     }
 
     @Override

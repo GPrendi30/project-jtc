@@ -11,7 +11,7 @@ public enum Type {
 
     private int state;
 
-    Type(int i) {
+    Type(final int i) {
         this.state = i;
     }
 
@@ -20,7 +20,7 @@ public enum Type {
      * @param t Type.
      * @return boolean.
      */
-    public boolean equals(final Type t) {
+    public boolean equalsType(final Type t) {
         return this.state == t.state;
     }
 }

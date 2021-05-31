@@ -46,7 +46,7 @@ public class Function extends Node implements FunctionPrototype {
         this.fop = fop;
         this.mode = mode;
         this.numArguments = argNum;
-        this.argumentTypes = argumentTypes;
+        this.argumentTypes = argumentTypes.clone(); // shallow copy, argumentTypes has simple data.
         this.returnType = returnType;
     }
 
@@ -85,9 +85,9 @@ public class Function extends Node implements FunctionPrototype {
         parameters.add(arg);
     }
 
-    private void checkType(Type type) throws Exception {
-        for (Type t : argumentTypes) {
-            if (t.equals(type)) {
+    private void checkType(final Type type) throws Exception {
+        for (final Type t : argumentTypes) {
+            if (t.equalsType(type)) {
                 return;
 
             }

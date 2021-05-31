@@ -142,7 +142,7 @@ public class Sheet implements Serializable {
      * Fills a formula.
      */
     public void fillFormulas() {
-        for (CellLocation c : formulas.keySet()) {
+        for (final CellLocation c : formulas.keySet()) {
             getCell(c.toString()).updateContent(getFormula(c));
         }
     }
@@ -194,21 +194,21 @@ public class Sheet implements Serializable {
     public void sortColumn(final String state, final int col) {
 
 
-        ArrayList<String> cellValues = new ArrayList<>();
+        final ArrayList<String> cellValues = new ArrayList<>();
 
         for (int i = 1; i < sizeX(); i++) {
             final Cell c = getCell(i, col);
             final String content = c.getText();
-            if (!content.equals("")) {
+            if (!"".equals(content)) {
                 cellValues.add(content);
             }
             c.updateContent("");
         }
 
-        String[] finalValues = cellValues.toArray(new String[cellValues.size()]);
+        final String[] finalValues = cellValues.toArray(new String[cellValues.size()]);
 
         Arrays.sort(finalValues);
-        if (state == "desc") {
+        if ("desc".equals(state)) {
             reverse(Arrays.asList(finalValues));
         }
         for (int i = 0; i < finalValues.length; i++) {
@@ -228,7 +228,7 @@ public class Sheet implements Serializable {
      * Re-evalutates a formula.
      */
     public void reEvalFormulas() {
-        for (CellLocation c : formulas.keySet()) {
+        for (final CellLocation c : formulas.keySet()) {
             updateCell(getCell(c.toString()), formulas.get(c));
         }
     }
@@ -296,8 +296,6 @@ public class Sheet implements Serializable {
             for (int j = 0; j < sizeY(); j++) {
 
                 tableData[i][j] = getCell(i + 1, j).getText();
-
-                //tableData[i][j] = getCell(i+1, j).getText();
             }
         } 
 

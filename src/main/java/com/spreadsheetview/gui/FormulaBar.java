@@ -5,9 +5,6 @@ import com.spreadsheetmodel.SpreadsheetEvent;
 import com.spreadsheetmodel.SpreadsheetListener;
 import com.spreadsheetmodel.cell.Cell;
 
-import com.spreadsheetview.tui.SpreadsheetTui;
-
-
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -35,11 +32,8 @@ public final class FormulaBar extends JPanel {
 
     private Cell currentCell;
     private Spreadsheet model;
-    private SpreadsheetTui tui;
     private JTextField cellName;
     private JTextField contentField;
-    private final Dimension preferredDimension = new Dimension(500, 100);
-    private final StringBuilder stringBuilder = new StringBuilder(50);
     private final ArrayList<FormulaBarListener> listeners;
 
     /**
@@ -50,10 +44,9 @@ public final class FormulaBar extends JPanel {
         super();
         currentCell = model.getCurrentCell();
         this.model = model;
-        tui = new SpreadsheetTui(model);
         listeners = new ArrayList<>();
 
-        FlowLayout layout = new FlowLayout();
+        final FlowLayout layout = new FlowLayout();
         layout.setAlignment(FlowLayout.LEFT);
         setLayout(layout);
 
@@ -96,7 +89,7 @@ public final class FormulaBar extends JPanel {
 
         model.addListener(new SpreadsheetListener() {
             @Override
-            public void spreadsheetChanged(Spreadsheet s, SpreadsheetEvent se) {
+            public void spreadsheetChanged(final Spreadsheet s, final SpreadsheetEvent se) {
                 updateCurrentCell(s.getCurrentCell());
             }
         });
@@ -120,7 +113,6 @@ public final class FormulaBar extends JPanel {
     private void updateCurrentCell(final Cell newCell) {
         currentCell = newCell;
         updateFormulaBar();
-        stringBuilder.setLength(0);
         fireFormulaBarChanged();
     }
 
@@ -169,9 +161,8 @@ public final class FormulaBar extends JPanel {
             this.setSize(new Dimension(getParent().getWidth(), 30));
         }
 
-
         cellName.setPreferredSize(new Dimension(40, 20));
-        contentField.setPreferredSize(new Dimension(getWidth() - 50, 20));
+        contentField.setPreferredSize(new Dimension(getWidth() - 60, 20));
         repaint();
     }
 
