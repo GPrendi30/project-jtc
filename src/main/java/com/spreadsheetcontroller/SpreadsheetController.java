@@ -3,6 +3,7 @@ package com.spreadsheetcontroller;
 
 import com.spreadsheetmodel.Spreadsheet;
 import com.spreadsheetmodel.cell.Cell;
+import com.spreadsheetmodel.commands.Invoker;
 import com.spreadsheetview.SpreadsheetView;
 import com.spreadsheetview.gui.SpreadsheetGui;
 import com.spreadsheetview.tui.SpreadsheetTui;
@@ -52,12 +53,16 @@ public class SpreadsheetController {
             System.out.println(args[0]);
         }
 
+
+
         final Spreadsheet s = new Spreadsheet();
+
         final SpreadsheetView view = guiBool
                         ?   new SpreadsheetGui(s)
                         :   new SpreadsheetTui(s);
 
-        final SpreadsheetController controller = new SpreadsheetController(s, view, guiBool);
+        SpreadsheetController controller = new SpreadsheetController(s, view, guiBool);
+        Invoker.setModel(s);
         controller.start();
     }
 
@@ -67,11 +72,6 @@ public class SpreadsheetController {
 
     private void start() {
         if (this.isGui) {
-            /*
-            System.out.println("Gui is not yet ready");
-            System.out.println("Come Back Later");
-            System.out.println("BYE");
-            //System.exit(0);*/
             view.init();
         } else {
             repl.init();
