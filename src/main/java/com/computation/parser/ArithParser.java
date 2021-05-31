@@ -57,7 +57,7 @@ public final class ArithParser implements Parser {
         final Node result = parseExpression();
 
         if (lexer.getCurrentToken().getType() != TokenType.END_OF_FILE) {
-            throw new Exception("Extra parenthesis at "
+            throw new ArithException("Extra parenthesis at "
                     + lexer.getCurrentToken().getStartPosition());
         }
         return result;
@@ -173,7 +173,7 @@ public final class ArithParser implements Parser {
             res = false;
             lexer.fetchNextToken();
         }  else {
-            throw new Exception("Was expecting a " + t1 + " or " + t2 + ", got "
+            throw new ArithException("Was expecting a " + t1 + " or " + t2 + ", got "
                     + lexer.getCurrentToken().getText());
         }
 
@@ -223,7 +223,7 @@ public final class ArithParser implements Parser {
                 res = parseExpression();
 
                 if (lexer.getCurrentToken().getType() != TokenType.CLOSED_PAREN) {
-                    throw new Exception("MISSING PARENTHESIS at "
+                    throw new ArithException("MISSING PARENTHESIS at "
                             + lexer.getCurrentToken().getStartPosition());
 
                 }
@@ -236,7 +236,7 @@ public final class ArithParser implements Parser {
                 break;
 
             default:
-                throw new Exception("Illegal Character");
+                throw new ArithException("Illegal Character");
         }
 
         return res;
@@ -286,11 +286,11 @@ public final class ArithParser implements Parser {
                 return f;
 
             } else {
-                throw new Exception("WAS EXPECTING A CLOSED PAREN got "
+                throw new ArithException("WAS EXPECTING A CLOSED PAREN got "
                         + lexer.getCurrentToken().getText());
             }
         }
-        throw new Exception("WAS EXPECTING AN OPEN PAREN got "
+        throw new ArithException("WAS EXPECTING AN OPEN PAREN got "
                 + lexer.getCurrentToken().getText());
     }
 
