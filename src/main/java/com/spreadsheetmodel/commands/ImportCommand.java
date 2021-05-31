@@ -6,11 +6,7 @@ public class ImportCommand implements Command {
 
     String path;
 
-    public void ImportCommand() {
-
-    }
-
-    public void setPath(String path) {
+    public ImportCommand(String path) {
         this.path = path;
     }
 
