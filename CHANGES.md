@@ -18,7 +18,7 @@
 * Added scripts to help build the project
 * Updated pom.xml to add a javadoc plugin
 * Created controller and view as tests
-* Fixed codeheckstyle warning
+* Fixed code checkstyle warning
 * Added javadoc comments
 * Fixed PMD errors
 * Created CHANGES.md
@@ -30,9 +30,20 @@
 * Added listeners
 * Have a working observer pattern
 * Updated SpreadsheetTUI with a new way to print and flush the terminal
-* Updated Parser + Added Support for multiple types + Added formulas (**)
+* Updated Parser + Added Support for multiple types + Added formulas
 * Started the skeleton for error handling
 
 
-** Not part of this commit, they still need some testing, will be added tonight after consulting the TA.
+## Milestone 4: May 28
+* Finished the GUI.
+* Fixed cpd, checkstyle errors.
+* Base of Exception Handling.
+* Added function + ranges.
+* Added Command Pattern(not complete yet).
+* Made the SpreadSheet Serializable, we can save our own format ".jtc"
+* Up for last milestone:
+  - fix some minor errors
+  - add test coverage
+  - last test of gui
+  - present
 
