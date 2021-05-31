@@ -16,13 +16,13 @@ public class Function extends Node implements FunctionPrototype {
     public static final int TERTIARY = 3;
 
 
-    private final String name;
-    private final Type[] argumentTypes;
-    private final ArrayList<Node> parameters;
-    private final FunctionOperation fop;
+    protected final String name;
+    protected final Type[] argumentTypes;
+    protected final ArrayList<Node> parameters;
+    protected final FunctionOperation fop;
     private final int mode;
     private final int numArguments;
-    private final Type returnType;
+    protected final Type returnType;
     //TODO add argument stack;
 
     /**
@@ -113,7 +113,7 @@ public class Function extends Node implements FunctionPrototype {
     @Override
     public void compile(final Program p) throws Exception {
         // TODO make FunctionException
-        if (parameters.size() - 1 != numArguments && parameters.size() < mode) {
+        if (parameters.size() != numArguments && parameters.size() < mode) {
             throw numArguments == Function.NO_LIMIT
                     ? new Exception("Mismatch of parameters, needed at least "
                             + mode + " parameters.")
@@ -128,10 +128,14 @@ public class Function extends Node implements FunctionPrototype {
             argNum++;
 
             if (argNum >= this.mode) {
-                p.append(functionOperation());
+                callInstrution(p);
             }
 
         }
+    }
+
+    private void callInstrution(Program p) {
+        p.append(functionOperation());
     }
 
     //to be overwritten
@@ -178,7 +182,6 @@ public class Function extends Node implements FunctionPrototype {
      * Removes all the arguments of a function.
      * Deprecated , but might be usefull.
      */
-    @Deprecated
     public void removeAllArguments() {
         parameters.removeAll(parameters);
     }

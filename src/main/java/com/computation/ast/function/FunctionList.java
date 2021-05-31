@@ -1,7 +1,9 @@
 package com.computation.ast.function;
 
 import com.computation.ast.Type;
+import com.computation.ast.range.ArrayNode;
 import com.computation.program.OperandStack;
+import com.computation.program.Program;
 import com.computation.program.Storage;
 
 public enum FunctionList {
@@ -130,6 +132,11 @@ public enum FunctionList {
         },
         Type.DOUBLE)),
 
+    ASUM("ASUM",
+            new SumRange("sum_range",
+                  SUM.function.getFunctionOperation(),
+                    Type.DOUBLE)),
+
 
 
     MOD("MOD",
@@ -196,6 +203,5 @@ public enum FunctionList {
         }
         throw new Exception("Function not defined");
     }
-
 
 }
