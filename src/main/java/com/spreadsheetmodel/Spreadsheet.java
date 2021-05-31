@@ -67,7 +67,7 @@ public class Spreadsheet implements Serializable {
         final ObjectOutputStream oos = new ObjectOutputStream(
                 new FileOutputStream(targetPath.toString()));
 
-        oos.writeObject(s);
+        oos. writeObject(s);
 
     }
 
@@ -116,11 +116,11 @@ public class Spreadsheet implements Serializable {
         if (checkSheetName(tableName)) {
             sheets.put(t.getTableName(), t);
             selectSheet(t.getTableName());
-            if (prevOpenSheets < getOpenSheets()) {
-                fireSpreadsheetChanged(
+
+            fireSpreadsheetChanged(
                         new SpreadsheetEvent("Sheet added", SpreadsheetEventType.SHEET_ADDED));
-                return true;
-            }
+
+            return true;
         }
         return false;
 
@@ -129,6 +129,7 @@ public class Spreadsheet implements Serializable {
     private boolean checkSheetName(final String tableName) {
         for (String sheetName : sheets.keySet()) {
             if (sheetName.equals(tableName)) {
+                System.out.println(sheetName);
                 return false;
             }
         }
@@ -146,13 +147,6 @@ public class Spreadsheet implements Serializable {
                 new SpreadsheetEvent("Sheet added", SpreadsheetEventType.CELL_SELECTED));
     }
 
-    public void updateCell(final int x, final int y, String content) {
-        currentCell = currentSheet.getCell(x, y);
-        currentCell.updateContent(content);
-        fireSpreadsheetChanged(
-                new SpreadsheetEvent("Sheet added", SpreadsheetEventType.CELL_CHANGED));
-    }
-
     /**
      * Selects cell at the given coordinates.
      * @param location the string location, ex: A1 B3
@@ -162,6 +156,15 @@ public class Spreadsheet implements Serializable {
         fireSpreadsheetChanged(
                 new SpreadsheetEvent("Sheet added", SpreadsheetEventType.CELL_CHANGED));
     }
+
+    public void updateCell(final int x, final int y, String content) {
+        currentCell = currentSheet.getCell(x, y);
+        currentCell.updateContent(content);
+        fireSpreadsheetChanged(
+                new SpreadsheetEvent("Sheet added", SpreadsheetEventType.CELL_CHANGED));
+    }
+
+
 
     /**
      * Updates content of the current Cell.

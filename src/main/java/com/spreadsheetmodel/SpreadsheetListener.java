@@ -1,6 +1,8 @@
 package com.spreadsheetmodel;
 
-public interface SpreadsheetListener {
+import java.io.Serializable;
+
+public interface SpreadsheetListener extends Serializable {
 
     /**
      * Listener notified that the spreadsheet's state has changed.

@@ -105,7 +105,10 @@ public class CellRange {
      * @param targetStart the cell where to start.
      * @param targetEnd the the cell where to end.
      */
-    public void copyDataTo(final Sheet sh, final Cell targetStart, final Cell targetEnd) throws Exception {
+    public void copyDataTo(final Sheet sh,
+                           final Cell targetStart,
+                           final Cell targetEnd)
+            throws Exception {
         int startX = targetStart.getLocation().getRow();
         int startY = targetStart.getLocation().getIntColumn();
 
@@ -113,7 +116,7 @@ public class CellRange {
         int endY = targetEnd.getLocation().getIntColumn();
 
 
-        if ((endX-startX) + 1 != sizeX || (endY - startY) + 1 != sizeY) {
+        if ((endX - startX) + 1 != sizeX || (endY - startY) + 1 != sizeY) {
             throw new Exception("Ranges should have the same dimension");
 
         }

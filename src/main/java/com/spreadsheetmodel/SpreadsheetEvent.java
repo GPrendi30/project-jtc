@@ -1,6 +1,8 @@
 package com.spreadsheetmodel;
 
-public class SpreadsheetEvent {
+import java.io.Serializable;
+
+public class SpreadsheetEvent implements Serializable {
 
     private String message;
     private SpreadsheetEventType eventType;
