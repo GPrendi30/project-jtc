@@ -6,13 +6,14 @@ public class LexerException extends Exception {
      * Creates a new LexerException.
      */
     public LexerException() {
+        super();
     }
 
     /**
      * Creates a LexerException with a message.
      * @param message a message thrown together with an Exception.
      */
-    public LexerException(String message) {
+    public LexerException(final String message) {
         super(message);
     }
 
@@ -21,7 +22,7 @@ public class LexerException extends Exception {
      * @param message a String message thrown with the exception.
      * @param cause the cause of the Exception.
      */
-    public LexerException(String message, Throwable cause) {
+    public LexerException(final String message, final Throwable cause) {
         super(message, cause);
     }
 }

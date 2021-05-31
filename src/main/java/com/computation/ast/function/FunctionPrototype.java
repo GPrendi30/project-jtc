@@ -4,7 +4,7 @@ import com.computation.ast.Node;
 
 interface FunctionPrototype {
 
-    public abstract void addParameter(final Node arg) throws Exception;
+    public abstract void addParameter(final Node arg) throws FunctionException;
 
     public abstract Function copy();
 

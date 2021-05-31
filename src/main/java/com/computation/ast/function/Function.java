@@ -1,6 +1,7 @@
 package com.computation.ast.function;
 
 import com.computation.ast.Node;
+import com.computation.ast.NodeException;
 import com.computation.ast.Type;
 import com.computation.program.Program;
 
@@ -74,25 +75,25 @@ public class Function extends Node implements FunctionPrototype {
     /**
      * Adds an argument to the function.
      * @param arg an argument node.
-     * @throws Exception a Function Exception.
+     * @throws FunctionException a Function Exception.
      */
-    public void addParameter(final Node arg) throws Exception {
+    public void addParameter(final Node arg) throws FunctionException {
         if (numArguments != Function.NO_LIMIT && parameters.size() >= numArguments) {
-            throw new Exception("Number of arguments exceeded");
+            throw new FunctionException("Number of arguments exceeded");
         }
 
         checkType(arg.getType());
         parameters.add(arg);
     }
 
-    private void checkType(final Type type) throws Exception {
+    private void checkType(final Type type) throws FunctionException {
         for (final Type t : argumentTypes) {
             if (t.equalsType(type)) {
                 return;
 
             }
         }
-        throw new Exception("Argument type mismatch");
+        throw new FunctionException("Argument type mismatch");
     }
 
     @Override
@@ -111,13 +112,13 @@ public class Function extends Node implements FunctionPrototype {
     }
 
     @Override
-    public void compile(final Program p) throws Exception {
+    public void compile(final Program p) throws NodeException {
         // TODO make FunctionException
         if (parameters.size() != numArguments && parameters.size() < mode) {
             throw numArguments == Function.NO_LIMIT
-                    ? new Exception("Mismatch of parameters, needed at least "
+                    ? new FunctionException("Mismatch of parameters, needed at least "
                             + mode + " parameters.")
-                    : new Exception("Mismatch of parameters, needed "
+                    : new FunctionException("Mismatch of parameters, needed "
                             + mode + " parameters.");
         }
 
@@ -128,13 +129,13 @@ public class Function extends Node implements FunctionPrototype {
             argNum++;
 
             if (argNum >= this.mode) {
-                callInstrution(p);
+                callInstruction(p);
             }
 
         }
     }
 
-    private void callInstrution(Program p) {
+    private void callInstruction(final Program p) {
         p.append(functionOperation());
     }
 

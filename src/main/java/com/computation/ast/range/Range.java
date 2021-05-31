@@ -29,9 +29,11 @@ public class Range extends Node {
     public Node getEnd() {
         return end;
     }
-    private void parseRange() {
+
+    // TODO is this method needed or to remove? (unused)
+    //private void parseRange() {
         //to be overwritten.
-    }
+    //}
 
     @Override
     public Type getType() {
@@ -52,7 +54,7 @@ public class Range extends Node {
     }
 
     @Override
-    public void compile(final Program p) throws Exception {
+    public void compile(final Program p) {
         // to be overwritten.
     }
 
