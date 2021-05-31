@@ -77,12 +77,11 @@ public class SheetView extends JScrollPane {
 
             public boolean isCellEditable(final int rowindex, final int colindex) {
 
-                return colindex == 0;
+                return !(colindex == 0);
             }
         };
         addTableModel();
         selectSheetModel();
-
 
         addMouseAdapter();
         addKeyListener();

@@ -162,7 +162,7 @@ public final class FormulaBar extends JPanel {
         }
 
         cellName.setPreferredSize(new Dimension(40, 20));
-        contentField.setPreferredSize(new Dimension(getWidth() - 60, 20));
+        contentField.setPreferredSize(new Dimension(getWidth() - cellName.getWidth() - 10, 20));
         repaint();
     }
 
