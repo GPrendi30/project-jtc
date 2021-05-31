@@ -3,11 +3,11 @@ package com.spreadsheetview.gui.menu.toolbar;
 import com.spreadsheetmodel.commands.Command;
 import com.spreadsheetmodel.commands.CopyCommand;
 import com.spreadsheetmodel.commands.CutCommand;
-import com.spreadsheetmodel.commands.Invoker;
 import com.spreadsheetmodel.commands.OpenCommand;
 import com.spreadsheetmodel.commands.PasteCommand;
 import com.spreadsheetmodel.commands.SaveCommand;
-import java.awt.*;
+
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.nio.file.Paths;
@@ -34,7 +34,7 @@ public class ToolBar extends JToolBar {
                 new ToolBarActionListener() {
                     @Override
                     public Command command() {
-                    return (Command) new CopyCommand();
+                        return (Command) new CopyCommand();
                 }
             });
 
@@ -42,7 +42,7 @@ public class ToolBar extends JToolBar {
                 new ToolBarActionListener() {
                     @Override
                     public Command command() {
-                    return new OpenCommand("g");
+                        return new OpenCommand("g");
                 }
             });
 
@@ -58,15 +58,15 @@ public class ToolBar extends JToolBar {
             new ToolBarActionListener() {
                 @Override
                 public Command command() {
-                return (Command) new PasteCommand();
-            }
+                    return (Command) new PasteCommand();
+                }
             });
 
         addButton(cutIcon,
             new ToolBarActionListener() {
                 @Override
                 public Command command() {
-                   return (Command) new CutCommand();
+                    return (Command) new CutCommand();
                 }
             });
 

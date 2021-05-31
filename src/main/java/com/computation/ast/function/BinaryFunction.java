@@ -4,6 +4,12 @@ import com.computation.ast.Type;
 
 public class BinaryFunction extends Function {
 
+    /**
+     * Creates a Binary Function, a function that takes 2 arguments.
+     * @param name the name of the function.
+     * @param fop the instruction of the function.
+     * @param returnType the return type, Type.INT, Type.DOUBLE
+     */
     public BinaryFunction(final String name,
                           final FunctionOperation fop,
                           final Type returnType) {
@@ -12,11 +18,18 @@ public class BinaryFunction extends Function {
                 Function.BINARY,
                 2,
                 new Type[]
-                        {Type.DOUBLE, Type.INT},
+                    {Type.DOUBLE, Type.INT},
                 returnType);
 
     }
 
+    /**
+     * Creates a Binary Function.
+     * @param name the name of the function.
+     * @param fop the instruction of the function.
+     * @param argNum the number of arguments.
+     * @param returnType the return type, Type.INT, Type.DOUBLE
+     */
     public BinaryFunction(final String name,
                           final FunctionOperation fop,
                           final int argNum,
@@ -26,7 +39,7 @@ public class BinaryFunction extends Function {
                 Function.BINARY,
                 argNum,
                 new Type[]
-                        {Type.DOUBLE, Type.INT},
+                    {Type.DOUBLE, Type.INT},
                 returnType);
 
     }

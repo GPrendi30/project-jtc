@@ -10,6 +10,12 @@ public class NumberRange extends Range {
     private final ArrayNode value;
 
 
+    /**
+     * A number range representation.
+     * @param start the start Node.
+     * @param end the end Node.
+     * @throws Exception throws Exception if the Range cannot be parsed.
+     */
     public NumberRange(final Node start, final Node end) throws Exception {
         super(start, end);
         value = new ArrayNode(Type.INT);
@@ -21,6 +27,10 @@ public class NumberRange extends Range {
         }
     }
 
+    /**
+     * Gets the ArrayNode values stored in the Range.
+     * @return the Array of values.
+     */
     public Node getValue() {
         return value;
     }

@@ -1,6 +1,7 @@
 package com.spreadsheetview.gui;
 
 import com.spreadsheetmodel.Spreadsheet;
+
 import java.io.Serializable;
 
 public interface SheetPanelListener extends Serializable {

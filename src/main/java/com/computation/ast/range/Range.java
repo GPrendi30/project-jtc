@@ -2,10 +2,8 @@ package com.computation.ast.range;
 
 import com.computation.ast.Node;
 import com.computation.ast.Type;
-import com.computation.ast.doublenodes.DoubleToInt;
 import com.computation.program.Program;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class Range extends Node {
 
@@ -13,6 +11,11 @@ public class Range extends Node {
     protected final Node end;
 
 
+    /**
+     * Creates a new Range based on a start Node and an end Node.
+     * @param start a Node.
+     * @param end a Node.
+     */
     public Range(final Node start, final Node end) {
         this.start = start;
         this.end = end;
@@ -32,6 +35,10 @@ public class Range extends Node {
         return false;
     }
 
+    /**
+     * Get the node Values stores in the Range.
+     * @return node value.
+     */
     public Node getValues() {
         return null;
     }

@@ -11,12 +11,21 @@ public class ArrayNode extends Node {
     private final Type arrayType;
     private final ArrayList<Node> contents;
 
+    /**
+     * Creates a new array Node.
+     * @param arrayType the Type of the elements of the array.
+     */
     public ArrayNode(final Type arrayType) {
         this.arrayType = arrayType;
         contents = new ArrayList<>();
     }
 
 
+    /**
+     * Appends a value to the Array.
+     * @param child a Node.
+     * @throws Exception throws an Exception if not matching types.
+     */
     public void append(final Node child) throws Exception {
         checkType(child);
         contents.add(child);

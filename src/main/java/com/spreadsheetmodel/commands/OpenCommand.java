@@ -6,6 +6,10 @@ public class OpenCommand implements Command {
 
     private final String path;
 
+    /**
+     * Creates a new OpenCommand from a path.
+     * @param path the path to open a saved File.
+     */
     public OpenCommand(final String path) {
         this.path = path;
     }

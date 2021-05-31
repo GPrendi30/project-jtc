@@ -104,6 +104,7 @@ public class CellRange {
      * @param sh a Sheet.
      * @param targetStart the cell where to start.
      * @param targetEnd the the cell where to end.
+     * @throws Exception throws exception if ranges dont match in dimension.
      */
     public void copyDataTo(final Sheet sh,
                            final Cell targetStart,

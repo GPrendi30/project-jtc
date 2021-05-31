@@ -6,6 +6,10 @@ public class ImportCommand implements Command {
 
     String path;
 
+    /**
+     * Creates a new ImportCommand.
+     * @param path the path to import from.
+     */
     public ImportCommand(String path) {
         this.path = path;
     }

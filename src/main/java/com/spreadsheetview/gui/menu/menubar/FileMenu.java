@@ -6,12 +6,10 @@ import com.spreadsheetmodel.commands.ImportCommand;
 import com.spreadsheetmodel.commands.Invoker;
 import com.spreadsheetmodel.commands.OpenCommand;
 import com.spreadsheetmodel.commands.SaveCommand;
-import com.spreadsheetview.gui.menu.FilePicker;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
+
 
 
 public class FileMenu extends Menu {
@@ -26,26 +24,27 @@ public class FileMenu extends Menu {
         addMenu("new", new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
-                SpreadsheetController.main(new String[]{"gui"}); }
+                SpreadsheetController.main(new String[]{"gui"});
+            }
         });
 
         // Add the menu "open"
-        addMenu("open", new MenuActionListener(
+        addMenu("open", new FileMenuActionListener(
                 "JTC Files",
                 "jtc",
-                MenuActionListener.OPEN_DIALOG) {
+                FileMenuActionListener.OPEN_DIALOG) {
             @Override
             public void command(String path) {
                 final OpenCommand openCommand = new OpenCommand(path);
                 Invoker.getInstance().invoke(openCommand);
             }
-    });
+        });
 
         // Add the menu "import"
-        addMenu("import", new MenuActionListener(
+        addMenu("import", new FileMenuActionListener(
                 "CSV files",
                 "csv",
-                MenuActionListener.OPEN_DIALOG) {
+                FileMenuActionListener.OPEN_DIALOG) {
             @Override
             public void command(String path) {
                 final ImportCommand importCommand = new ImportCommand(path);
@@ -54,10 +53,10 @@ public class FileMenu extends Menu {
         });
 
         // Add the menu "save"
-        addMenu("save", new MenuActionListener(
+        addMenu("save", new FileMenuActionListener(
                 "JTC Files",
                 "jtc",
-                MenuActionListener.SAVE_DIALOG) {
+                FileMenuActionListener.SAVE_DIALOG) {
             @Override
             public void command(String path) {
                 final SaveCommand saveCommand = new SaveCommand(path);
@@ -66,10 +65,10 @@ public class FileMenu extends Menu {
         });
 
         // Add the menu "export"
-        addMenu("export",new MenuActionListener(
+        addMenu("export",new FileMenuActionListener(
                 "CSV Files",
                 "csv",
-                MenuActionListener.SAVE_DIALOG) {
+                FileMenuActionListener.SAVE_DIALOG) {
             @Override
             public void command(String path) {
                 final ExportCommand exportCommand = new ExportCommand(path);

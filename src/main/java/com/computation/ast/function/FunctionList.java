@@ -43,7 +43,7 @@ public enum FunctionList {
         },
                 Function.UNARY,
                 new Type[]
-                        { Type.INT, Type.DOUBLE },
+                    { Type.INT, Type.DOUBLE },
                 Type.DOUBLE
         )),
 
@@ -142,6 +142,7 @@ public enum FunctionList {
                 // invert a and b because of the order those are popped
                 op.dpush(b % a);
             }
+
             @Override
             public String toString() {
                 return "mod";

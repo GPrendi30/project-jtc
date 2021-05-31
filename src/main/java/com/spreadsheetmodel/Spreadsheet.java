@@ -157,6 +157,12 @@ public class Spreadsheet implements Serializable {
                 new SpreadsheetEvent("Sheet added", SpreadsheetEventType.CELL_CHANGED));
     }
 
+    /**
+     * Update Cell at given coordinates.
+     * @param x the x coordinate
+     * @param y the y coordinate
+     * @param content the String content.
+     */
     public void updateCell(final int x, final int y, String content) {
         currentCell = currentSheet.getCell(x, y);
         currentCell.updateContent(content);
@@ -164,7 +170,17 @@ public class Spreadsheet implements Serializable {
                 new SpreadsheetEvent("Sheet added", SpreadsheetEventType.CELL_CHANGED));
     }
 
-
+    /**
+     * Updates the current Cell.
+     * @param c the cell
+     * @param content a String, new content of the cell.
+     */
+    private void updateCell(final Cell c, final String content) {
+        currentSheet.updateCell(c, content);
+        //currentSheet.reEvalFormulas();
+        fireSpreadsheetChanged(
+                new SpreadsheetEvent("Sheet added", SpreadsheetEventType.CELL_CHANGED));
+    }
 
     /**
      * Updates content of the current Cell.
@@ -173,6 +189,8 @@ public class Spreadsheet implements Serializable {
     public void updateCurrentCell(final String content) {
         updateCell(currentCell, content);
     }
+
+
 
     /**
      * Fills the formulas.
@@ -193,17 +211,6 @@ public class Spreadsheet implements Serializable {
                 new SpreadsheetEvent("Sheet added", SpreadsheetEventType.SHEET_CHANGED));
     }
 
-    /**
-     * Updates the current Cell.
-     * @param c the cell
-     * @param content a String, new content of the cell.
-     */
-    private void updateCell(final Cell c, final String content) {
-        currentSheet.updateCell(c, content);
-        //currentSheet.reEvalFormulas();
-        fireSpreadsheetChanged(
-                new SpreadsheetEvent("Sheet added", SpreadsheetEventType.CELL_CHANGED));
-    }
 
     /**
      * Returns current Cell.

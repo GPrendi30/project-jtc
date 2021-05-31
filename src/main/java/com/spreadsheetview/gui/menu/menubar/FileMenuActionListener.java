@@ -1,28 +1,34 @@
 package com.spreadsheetview.gui.menu.menubar;
 
-import com.spreadsheetmodel.commands.Invoker;
-import com.spreadsheetmodel.commands.OpenCommand;
 import com.spreadsheetview.gui.menu.FilePicker;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.Locale;
-import javax.swing.*;
 
-public abstract class MenuActionListener implements ActionListener {
+import javax.swing.JFileChooser;
 
-    public final static int OPEN_DIALOG = 1;
-    public final static int SAVE_DIALOG = 2;
+public abstract class FileMenuActionListener implements ActionListener {
+
+    public static final int OPEN_DIALOG = 1;
+    public static final  int SAVE_DIALOG = 2;
     private final FilePicker picker;
     private final int dialogType;
 
-    public MenuActionListener(final String generalFileNames,
-                              final String extension,
-                              final int dialogType) {
+    /**
+     * Creates a fileMenuActionListener based on the extension, and the dialog type.
+     * @param generalFileNames the General Name of the files to accept, i.e "CVS FILES"
+     * @param extension an extension to filter files.
+     * @param dialogType the dialog type, OPEN_DIALOG, SAVE_DIALOG.
+     */
+    public FileMenuActionListener(final String generalFileNames,
+                                  final String extension,
+                                  final int dialogType) {
         this.dialogType = dialogType;
         this.picker = new FilePicker(generalFileNames, extension);
 
     }
+
     /**
      * Listener.
      * @param actionEvent an ActionEvent.
@@ -40,6 +46,7 @@ public abstract class MenuActionListener implements ActionListener {
 
     /**
      * The command.
+     * @param path a path for FileMenuItems.
      */
     public abstract void command(final String path);
 }

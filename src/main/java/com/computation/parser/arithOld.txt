@@ -1,13 +1,28 @@
 package com.computation.parser;
 
-//node imports
-
-//import com.computation.ast.*;
-
 import com.computation.ast.Node;
+import com.computation.ast.Type;
+import com.computation.ast.doublenodes.DoubleLiteral;
+import com.computation.ast.doublenodes.DoubleVariable;
+
+import com.computation.ast.function.Function;
+import com.computation.ast.function.FunctionList;
+import com.computation.ast.intnodes.IntLiteral;
+
+import com.computation.ast.range.ArrayNode;
+import com.computation.ast.range.NumberRange;
+import com.computation.ast.range.Range;
+import com.computation.ast.wrappernodes.AdditionWrapper;
+import com.computation.ast.wrappernodes.DivisionWrapper;
+import com.computation.ast.wrappernodes.MultiplicationWrapper;
+import com.computation.ast.wrappernodes.NegationWrapper;
+import com.computation.ast.wrappernodes.SubtractionWrapper;
+
 import com.computation.lexer.LexicalAnalyzer;
 import com.computation.lexer.TokenType;
-import sun.tools.jstat.Literal;
+import com.computation.program.Program;
+import com.computation.program.VariableTable;
+
 
 /**
  * A Parser for our Arith language
@@ -18,13 +33,16 @@ import sun.tools.jstat.Literal;
  * TERM         ::= FACTOR { ( "*" | "/" ) FACTOR }
  * FACTOR       ::= Literal |
  *                  Identifier|
- *                  "(" EXPRESSION ")"
+ *                  "(" EXPRESSION ")" |
+ *                  FUNCTION
+ * FUNCTION     ::= SIN|COS|SUM (PARAMETER {, PARAMETER})
+ * PARAMETER    ::= RANGE | EXPRESSION
  * </code>
  */
-public final class ArithParser2 implements Parser {
-
+public final class ArithParser implements Parser {
+    //TODO fix parser
+    //TODO add tests
     private LexicalAnalyzer lexer;
-
 
     /**
      * Parse a program in the Arith language.
@@ -33,26 +51,19 @@ public final class ArithParser2 implements Parser {
      */
     @Override
     public Node parse(final String sourceCode) throws Exception {
-        this.lexer = new LexicalAnalyzer(sourceCode);
+        final String src = sourceCode.replace(" ", "");
+        this.lexer = new LexicalAnalyzer(src);
         // fetch first token
         lexer.fetchNextToken();
         // now parse the EXPRESSION
-        return parseExpression();
+        final Node result = parseExpression();
+
+        if (lexer.getCurrentToken().getType() != TokenType.END_OF_FILE) {
+            throw new Exception("Extra parenthesis at "
+                    + lexer.getCurrentToken().getStartPosition());
+        }
+        return result;
     }
-    /*
-    public static void main(String[] args) {
-        OperandStack op = new OperandStack();
-        VariableTable vt = new VariableTable();
-        Storage st = new Storage(op,vt);
-        Program pr = new Program();
-        Parser p = new ArithParser();
-        Node res = p.parse("-(-(2+3)+7*7*9)");
-        System.out.println(res.toString());
-        res.compile(pr);
-        int a = pr.execute();
-        System.out.println(a);
-    }
-    */
 
     /**
      * Parse an expression.
@@ -67,8 +78,9 @@ public final class ArithParser2 implements Parser {
      */
     private Node parseExpression() throws Exception {
         // parses an expression to an AST
+
         boolean negated = false;
-        boolean isAdd;
+        boolean isAdd = false;
 
         //checking the optional [+ | -]
         if (lexer.getCurrentToken().getType() == TokenType.MINUS) {
@@ -81,12 +93,11 @@ public final class ArithParser2 implements Parser {
         Node left = parseTerm();
         // negating if expression has a preceding -.
         if (negated) {
-            left = new Negation(left);
+            left = new NegationWrapper(left);
         }
 
         // parsing for n number of terms
         while (lexer.getCurrentToken().getType() != TokenType.END_OF_FILE) {
-
             //checking for + or - opcodes.
             if (lexer.getCurrentToken().getType() == TokenType.PLUS) {
                 isAdd = true;
@@ -102,12 +113,12 @@ public final class ArithParser2 implements Parser {
             final Node right = parseTerm();
 
             if (isAdd) {
-                left = new Addition(left, right);
+                left = new AdditionWrapper(left, right);
             } else {
-                left = new Subtraction(left, right);
+                left = new SubtractionWrapper(left, right);
             }
-
         }
+
         return left;
     }
 
@@ -122,35 +133,54 @@ public final class ArithParser2 implements Parser {
      *
      * @return a Node representing the term
      */
-    private Node parseTerm() {
+    private Node parseTerm() throws Exception {
+        boolean isMul = false;
+
         Node left = parseFactor();
-
-        lexer.fetchNextToken();
-        boolean isMul;
-
         while (lexer.getCurrentToken().getType() != TokenType.END_OF_FILE) {
 
             if (lexer.getCurrentToken().getType() == TokenType.STAR) {
                 isMul = true;
-            }  else if (lexer.getCurrentToken().getType() == TokenType.SLASH) {
+                lexer.fetchNextToken();
+
+            } else if (lexer.getCurrentToken().getType() == TokenType.SLASH) {
                 isMul = false;
-            }  else {
+                lexer.fetchNextToken();
+
+            } else {
                 break;
             }
-            lexer.fetchNextToken();
+
 
             final Node right = parseFactor();
             if (isMul) {
-                left = new Multiplication(left, right);
+                left = new MultiplicationWrapper(left, right);
             } else {
-                left = new Division(left, right);
+                left = new DivisionWrapper(left, right);
             }
 
-            lexer.fetchNextToken();
-
         }
+
         return left;
     }
+
+    //to fix cpd
+    /*
+    private boolean checkForOp(final TokenType t1, final TokenType t2) throws Exception {
+        boolean res;
+        if (lexer.getCurrentToken().getType() == t1) {
+            res = true;
+            lexer.fetchNextToken();
+        }  else if (lexer.getCurrentToken().getType() == t2) {
+            res = false;
+            lexer.fetchNextToken();
+        }  else {
+            throw new Exception("Was expecting a " + t1 + " or " + t2 + ", got "
+                    + lexer.getCurrentToken().getText());
+        }
+
+        return res;
+    }*/
 
     /**
      * Parse a factor.
@@ -166,18 +196,155 @@ public final class ArithParser2 implements Parser {
      *
      * @return a Node representing the factor
      */
-    private Node parseFactor() {
-        if (lexer.getCurrentToken().getType() == TokenType.LITERAL) {
-            return new Literal(Integer.parseInt(lexer.getCurrentToken().getText()));
-        } else if (lexer.getCurrentToken().getType() == TokenType.IDENTIFIER) {
-            return new Variable(lexer.getCurrentToken().getText());
-        } else if (lexer.getCurrentToken().getType() == TokenType.OPEN_PAREN) {
-            lexer.fetchNextToken();
-            return parseExpression();
+    private Node parseFactor() throws Exception {
+
+        Node res;
+        switch (lexer.getCurrentToken().getType()) {
+            case DOUBLELITERAL :
+                res = new DoubleLiteral(Double.parseDouble(lexer.getCurrentToken().getText()));
+
+                lexer.fetchNextToken();
+                break;
+
+            case INTLITERAL:
+                res = new IntLiteral(Integer.parseInt(lexer.getCurrentToken().getText()));
+
+                lexer.fetchNextToken();
+                break;
+
+            case IDENTIFIER:
+                res = new DoubleVariable(lexer.getCurrentToken().getText());
+
+                lexer.fetchNextToken();
+                break;
+
+            case OPEN_PAREN:
+
+                lexer.fetchNextToken();
+
+                res = parseExpression();
+
+                if (lexer.getCurrentToken().getType() != TokenType.CLOSED_PAREN) {
+                    throw new Exception("MISSING PARENTHESIS at "
+                            + lexer.getCurrentToken().getStartPosition());
+
+                }
+
+                lexer.fetchNextToken();
+                break;
+
+            case FUNCTION:
+                res = parseFunction();
+                break;
+
+            default:
+                throw new Exception("Illegal Character");
         }
-        return null;
+
+        return res;
+    }
+
+
+    /**
+     * Parse a function.
+     * This assumes the lexer already points to the first token of this function.
+     *
+     * <p>EBNF:
+     * <code>
+     * FUNCTION  ::= SIN|COS|SUM(ARGUMENT {, ARGUMENT})
+     * </code>
+     * @return a Node representing the function
+     */
+    private Node parseFunction() throws Exception {
+        final Function f = FunctionList.stringToFunction(lexer.getCurrentToken().getText());
+        lexer.fetchNextToken();
+
+        if (lexer.getCurrentToken().getType() == TokenType.OPEN_PAREN) {
+            lexer.fetchNextToken();
+
+            if (lexer.getCurrentToken().getType() != TokenType.CLOSED_PAREN) {
+                f.addParameter(parseParameters());
+
+
+                if (lexer.getCurrentToken().getType() == TokenType.COMMA) {
+                    lexer.fetchNextToken();
+
+                    while (lexer.getCurrentToken().getType() != TokenType.END_OF_FILE) {
+                        f.addParameter(parseParameters());
+                        //lexer.fetchNextToken();
+
+                        if (lexer.getCurrentToken().getType() == TokenType.COMMA) {
+                            lexer.fetchNextToken();
+                            continue;
+                        } else {
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (lexer.getCurrentToken().getType() == TokenType.CLOSED_PAREN) {
+                lexer.fetchNextToken();
+                return f;
+
+            } else {
+                throw new Exception("WAS EXPECTING A CLOSED PAREN got "
+                        + lexer.getCurrentToken().getText());
+            }
+        }
+        throw new Exception("WAS EXPECTING AN OPEN PAREN got "
+                + lexer.getCurrentToken().getText());
+    }
+
+
+
+    /**
+     * Parse an ARGUMENT.
+     * This assumes the lexer already points to the first token of this argument.
+     *
+     * <p>EBNF:
+     * <code>
+     * PARAMETER ::= RANGE | EXPRESSION
+     * </code>
+     *
+     * @return a Node representing the argument
+     */
+    private Node parseParameters() throws Exception {
+        // if (ranges)
+        Node left = parseExpression();
+        if (lexer.getCurrentToken().getType() == TokenType.COLON) {
+            lexer.fetchNextToken();
+            Node right = parseExpression();
+            left = parseRanges(left, right);
+        }
+
+        return left;
+    }
+
+    private Node parseRanges(Node start, Node end) throws Exception {
+        int startIndex = Integer.parseInt(start.toString());
+        int endIndex = Integer.parseInt(end.toString());
+        Node array = new ArrayNode(Type.INT);
+        for (int i = startIndex; i <= endIndex; i++) {
+            final Node tempNode = new IntLiteral(i);
+            ((ArrayNode) array).append(tempNode);
+        }
+        return array;
+    }
+
+    /**
+     * main.
+     * @param args args.
+     * @throws Exception exp.
+     */
+    public static void main(final String[] args) throws Exception {
+        final Parser p = new ArithParser();
+        final Node result = p.parse("ISUM(3:7)");
+
+        final Program pr = new Program();
+        final VariableTable vt = new VariableTable();
+        result.compile(pr);
+        System.out.println(pr.dexecute(vt));
     }
 
 }
-
-||+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++||

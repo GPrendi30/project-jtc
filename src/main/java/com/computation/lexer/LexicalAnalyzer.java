@@ -35,7 +35,7 @@ public final class LexicalAnalyzer {
      */
     public LexicalAnalyzer(final String expression) {
         this(expression, new TokenFactory[] {
-                new FunctionTokenFactory("ISUM"),
+            new FunctionTokenFactory("ISUM"),
             new FunctionTokenFactory("SIN"),
             new FunctionTokenFactory("COS"),
             new FunctionTokenFactory("SUM"),
@@ -74,8 +74,9 @@ public final class LexicalAnalyzer {
 
         try {
             token = scanToken();
-        } catch (Exception e) {
-            throw new LexerException("Unrecognized character at position " + (position + 1), e);
+        } catch (Exception exception) {
+            throw new LexerException("Unrecognized character at position "
+                    + (position + 1), exception);
         }
     }
 

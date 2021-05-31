@@ -2,11 +2,10 @@ package com.spreadsheetview.gui.menu.toolbar;
 
 import com.spreadsheetmodel.commands.Command;
 import com.spreadsheetmodel.commands.Invoker;
-import com.spreadsheetview.gui.menu.FilePicker;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import javax.swing.*;
+
 
 public abstract class ToolBarActionListener implements ActionListener {
 
@@ -20,6 +19,7 @@ public abstract class ToolBarActionListener implements ActionListener {
 
     /**
      * The command.
+     * @return returns a Command.
      */
     public abstract Command command();
 
