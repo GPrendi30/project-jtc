@@ -30,7 +30,7 @@ public class Node {
      * @param p The program to append this node to
      * @throws Exception a Node exception.
      */
-    public void compile(final Program p) throws Exception {
+    public void compile(final Program p) throws NodeException {
         // to be implemented in subclasses
     }
 

@@ -15,9 +15,6 @@ public class FunctionWithRanges extends Function {
                 returnType);
     }
 
-    private void callInstruction() {
-
-    }
 
     @Override
     public Function copy() {

@@ -1,6 +1,7 @@
 package com.computation.ast.intnodes;
 
 import com.computation.ast.Node;
+import com.computation.ast.NodeException;
 import com.computation.ast.Type;
 import com.computation.instruction.Instruction;
 import com.computation.program.Program;
@@ -29,7 +30,7 @@ public class IntUnaryNode extends Node {
     }
     
     @Override
-    public void compile(final Program p) throws Exception {
+    public void compile(final Program p) throws NodeException {
         child.compile(p);
         p.append(instruction());
     }

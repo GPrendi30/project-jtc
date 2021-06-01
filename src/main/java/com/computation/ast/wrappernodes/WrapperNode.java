@@ -1,6 +1,7 @@
 package com.computation.ast.wrappernodes;
 
 import com.computation.ast.Node;
+import com.computation.ast.NodeException;
 import com.computation.ast.Type;
 import com.computation.ast.doublenodes.DoubleToInt;
 import com.computation.ast.intnodes.IntToDouble;
@@ -32,8 +33,9 @@ public class WrapperNode extends Node {
     public void compile(final Program p) {
         try {
             child.compile(p);
-        } catch (Exception exception) {
-            exception.printStackTrace();
+        } catch (NodeException e) {
+            // TODO correct to leave printStackTrace ?
+            e.printStackTrace();
         }
     }
 

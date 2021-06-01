@@ -70,11 +70,11 @@ public final class LexicalAnalyzer {
      * Ask the analyzer to move to the next token in the text.
      * @throws Exception a LexicalAnalyzer exception
      */
-    public void fetchNextToken() throws Exception {
+    public void fetchNextToken() throws LexerException {
 
         try {
             token = scanToken();
-        } catch (Exception exception) {
+        } catch (LexerException exception) {
             throw new LexerException("Unrecognized character at position "
                     + (position + 1), exception);
         }
@@ -85,7 +85,7 @@ public final class LexicalAnalyzer {
      * @return the next token
      * @throws Exception;
      */
-    private Token scanToken() throws Exception {
+    private Token scanToken() throws LexerException {
         if (position == text.length()) {
             return new Token(TokenType.END_OF_FILE, "", position);
         } else {

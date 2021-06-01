@@ -1,6 +1,7 @@
 package com.computation.ast.range;
 
 import com.computation.ast.Node;
+import com.computation.ast.NodeException;
 import com.computation.ast.Type;
 import com.computation.program.Program;
 
@@ -21,7 +22,7 @@ public class ArrayNode extends Node {
         contents = new ArrayList<>();
     }
 
-    public Node getElement(int index) {
+    public Node getElement(final int index) {
         return contents.get(index);
     }
     /**
@@ -29,14 +30,14 @@ public class ArrayNode extends Node {
      * @param child a Node.
      * @throws Exception throws an Exception if not matching types.
      */
-    public void append(final Node child) throws Exception {
+    public void append(final Node child) throws NodeException {
         checkType(child);
         contents.add(child);
     }
 
-    private void checkType(final Node child) throws Exception {
+    private void checkType(final Node child) throws RangeException {
         if (child.getType() != arrayType) {
-            throw new Exception("Mismatching type, argument has different type than array");
+            throw new RangeException("Mismatching type, argument has different type than array");
         }
     }
 
@@ -60,7 +61,7 @@ public class ArrayNode extends Node {
     }
 
     @Override
-    public void compile(final Program p) throws Exception {
+    public void compile(final Program p) throws NodeException {
         for (final Node child : contents) {
             child.compile(p);
         }

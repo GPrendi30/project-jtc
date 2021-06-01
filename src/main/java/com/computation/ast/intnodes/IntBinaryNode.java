@@ -1,6 +1,7 @@
 package com.computation.ast.intnodes;
 
 import com.computation.ast.Node;
+import com.computation.ast.NodeException;
 import com.computation.ast.Type;
 import com.computation.instruction.Instruction;
 import com.computation.program.Program;
@@ -37,7 +38,8 @@ public class IntBinaryNode extends Node {
             leftChild.compile(p);
             rightChild.compile(p);
             p.append(instruction());
-        } catch (Exception exception) {
+        } catch (NodeException exception) {
+            // TODO correct this?
             exception.printStackTrace();
         }
 

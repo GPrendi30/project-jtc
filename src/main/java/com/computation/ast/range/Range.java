@@ -30,10 +30,6 @@ public class Range extends Node {
         return end;
     }
 
-    private void parseRange() {
-        //to be overwritten.
-    }
-
     @Override
     public Type getType() {
         return Type.INVALID;
@@ -53,7 +49,7 @@ public class Range extends Node {
     }
 
     @Override
-    public void compile(final Program p) throws Exception {
+    public void compile(final Program p) {
         // to be overwritten.
     }
 

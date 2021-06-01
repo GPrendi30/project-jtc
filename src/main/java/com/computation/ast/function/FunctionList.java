@@ -192,16 +192,16 @@ public enum FunctionList {
      * Returns a function if it find a match of name.
      * @param name a string name for a function.
      * @return a new Function, with the same name and functionOperation.
-     * @throws Exception throws a FunctionTypeException //TODO implement
+     * @throws FunctionException throws a FunctionException //TODO implement
      */
-    public static Function stringToFunction(final String name) throws Exception {
+    public static Function stringToFunction(final String name) throws FunctionException {
         for (final FunctionList func : FunctionList.values()) {
             if (name.equals(func.getName())) {
                 final Function f = func.getFunction();
                 return f.copy();
             }
         }
-        throw new Exception("Function not defined");
+        throw new FunctionException("Function not defined");
     }
 
 }

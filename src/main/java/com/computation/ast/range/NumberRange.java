@@ -1,6 +1,7 @@
 package com.computation.ast.range;
 
 import com.computation.ast.Node;
+import com.computation.ast.NodeException;
 import com.computation.ast.Type;
 import com.computation.ast.intnodes.IntLiteral;
 
@@ -16,14 +17,16 @@ public class NumberRange extends Range {
      * @param end the end Node.
      * @throws Exception throws Exception if the Range cannot be parsed.
      */
-    public NumberRange(final Node start, final Node end) throws Exception {
+    public NumberRange(final Node start, final Node end) {
         super(start, end);
         value = new ArrayNode(Type.INT);
 
         try {
             parseRange();
-        } catch (Exception exception) {
-            throw new Exception("Range is unparasable", exception);
+        } catch (NodeException exception) {
+            // TODO correct this?
+            exception.printStackTrace();
+            //throw new RangeException("Range is unparasable", exception);
         }
     }
 
@@ -35,7 +38,7 @@ public class NumberRange extends Range {
         return value;
     }
 
-    private void parseRange() throws Exception {
+    private void parseRange() throws NodeException {
         final int startIndex = Integer.parseInt(start.toString());
         final int endIndex = Integer.parseInt(end.toString());
         for (int i = startIndex; i <= endIndex; i++) {
