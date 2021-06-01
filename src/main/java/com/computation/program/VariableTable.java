@@ -37,7 +37,8 @@ public class VariableTable implements Serializable {
      * @return The Double value of the variable with the given name.
      */
     public Double getDouble(final String name) {
-        return variables.get(name);
+        final Double value = variables.get(name);
+        return value;
     }
     
     
@@ -59,6 +60,10 @@ public class VariableTable implements Serializable {
         variables.put(name, value);
     }
 
+    /**
+     * Removes an element from VariableTable.
+     * @param name the name of the variable.
+     */
     public void remove(final String name) {
         variables.remove(name);
     }
