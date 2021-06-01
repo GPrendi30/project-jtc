@@ -372,7 +372,7 @@ public final class ArithParser implements Parser {
      */
     public static void main(final String[] args) throws Exception {
         final Parser p = new ArithParser();
-        final Node result = p.parse("ASUM(1:10)");
+        final Node result = p.parse("ASUM(1:10000)");
 
         final Program pr = new Program();
         final VariableTable vt = new VariableTable();

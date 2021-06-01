@@ -80,6 +80,9 @@ public class Sheet implements Serializable {
         if (c.getType() == CellType.NUMBER && !c.getText().equals("!NIL")) {
             variableTable.iset(c.getLocation().toString(), Integer.parseInt(c.getText()));
         }
+        if ("!NIL".equals(c.getText())) {
+            variableTable.remove(c.getLocation().toString());
+        }
     }
 
     /**
@@ -183,6 +186,10 @@ public class Sheet implements Serializable {
     public void addFormula(final Cell c) {
         if (checkIfFormula(c)) {
             formulas.put(c.getLocation(), c.getText());
+        } else {
+            if (formulas.containsKey(c.getLocation())) {
+                formulas.remove(c.getLocation());
+            }
         }
     }
 

@@ -14,7 +14,7 @@ import java.util.Locale;
 
 public class SpreadsheetController {
 
-    //TODO update controller with command design pattern
+
     private final Spreadsheet model;
     private final SpreadsheetView view;
     private REPL repl;
@@ -45,12 +45,10 @@ public class SpreadsheetController {
      * @param args any args that you want.
      */
     public static void main(final String[] args) {
-        boolean guiBool = true;
+        boolean guiBool = false;
 
         if (args.length != 0) {
-            //args[0].replace(" ", "");
             guiBool = hasGui(args[0]);
-            System.out.println(args[0]);
         }
 
 
@@ -62,7 +60,7 @@ public class SpreadsheetController {
                         :   new SpreadsheetTui(s);
 
         final SpreadsheetController controller = new SpreadsheetController(s, view, guiBool);
-        Invoker.setModel(s);
+        Invoker.setReceiver(s);
         controller.start();
     }
 
@@ -96,6 +94,8 @@ public class SpreadsheetController {
             updateView();
         } else if (command.startsWith("sort column")) {
             model.sortCol(Integer.parseInt(arrCommands[arrCommands.length - 1]));
+        } else if (command.startsWith("formulas")) {
+            model.formulasOn();
         } else if (command.startsWith("help")) {
             helpCommand();
         } else {

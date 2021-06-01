@@ -32,9 +32,27 @@ public class CellLocation implements Serializable {
      * @return String the column.
      */
     public static String getColumnFromInt(final int col) {
-        return (col != 0)
-                ? CellLocation.ALPHA.substring(col - 1, col)
-                : null;
+
+        if (col <= 26) {
+            return (col != 0)
+                    ? CellLocation.ALPHA.substring(col - 1, col)
+                    : null;
+        } else {
+            int first_letter = (int) Math.floor(col / 26);
+            int second_letter =  (col % 26);
+            String firstLetter;
+            String secondLetter;
+
+            if (getColumnFromInt(second_letter) == null) {
+                firstLetter = getColumnFromInt(first_letter - 1);
+                secondLetter = getColumnFromInt(26);
+            } else {
+                firstLetter = getColumnFromInt(first_letter);
+                secondLetter = getColumnFromInt(second_letter);
+            }
+
+            return firstLetter+secondLetter;
+        }
     }
 
     /**

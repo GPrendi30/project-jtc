@@ -176,7 +176,7 @@ public class Spreadsheet implements Serializable {
      */
     private void updateCell(final Cell c, final String content) {
         currentSheet.updateCell(c, content);
-        //currentSheet.reEvalFormulas();
+        currentSheet.reEvalFormulas();
         fireSpreadsheetChanged(
                 new SpreadsheetEvent("Cell" + currentCell.getLocation().toString() + " updated",
                         SpreadsheetEventType.CELL_CHANGED));
@@ -403,7 +403,7 @@ public class Spreadsheet implements Serializable {
         listeners.remove(li);
     }
 
-    private void fireSpreadsheetChanged(final SpreadsheetEvent se) {
+    public void fireSpreadsheetChanged(final SpreadsheetEvent se) {
         for (final SpreadsheetListener li : listeners) {
             li.spreadsheetChanged(this, se);
         }

@@ -62,20 +62,11 @@ public class CellRange {
      * @param sh a Sheet.
      * @param target the target cell.
      */
-    public void copyDataTo(final Sheet sh, final Cell target) {
+    public void copyDataTo(final Sheet sh, final Cell target) throws Exception {
         final int startX = target.getLocation().getRow();
         final int startY = target.getLocation().getIntColumn();
-
-        int i = 0;
-        int j = 0;
-        for (int x = startX; x < startX + sizeX; x++) {
-            for (int y = startY; y < startY + sizeY; y++) {
-                sh.update(x,y, this.content[i][j]);
-                j++;
-            }
-            i++;
-            j = 0;
-        }
+        final Cell targetY = sh.getCell(startX + sizeX, startY + sizeY);
+        copyDataTo(sh, target, targetY);
     }
 
 
@@ -90,6 +81,7 @@ public class CellRange {
                            final Cell targetStart,
                            final Cell targetEnd)
             throws Exception {
+
         final int startX = targetStart.getLocation().getRow();
         final int startY = targetStart.getLocation().getIntColumn();
 
