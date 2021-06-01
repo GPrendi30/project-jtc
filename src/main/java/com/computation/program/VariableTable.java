@@ -59,6 +59,8 @@ public class VariableTable implements Serializable {
         variables.put(name, value);
     }
 
-
+    public void remove(final String name) {
+        variables.remove(name);
+    }
     
 }

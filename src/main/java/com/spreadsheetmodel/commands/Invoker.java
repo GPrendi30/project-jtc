@@ -4,16 +4,15 @@ import com.spreadsheetmodel.Spreadsheet;
 
 public class Invoker {
 
-    private static Spreadsheet model;
+    private static Spreadsheet receiver;
     private static Invoker instance = new Invoker();
-
 
     /**
      * Sets the model of the Invoker.
      * @param s a Spreadsheet Receiver.
      */
-    public static void setModel(final Spreadsheet s) {
-        model = s;
+    public static void setReceiver(final Spreadsheet s) {
+        receiver = s;
     }
 
     /**
@@ -29,6 +28,6 @@ public class Invoker {
      * @param d a command.
      */
     public void invoke(final Command d) {
-        d.execute(model);
+        d.execute(receiver);
     }
 }

@@ -17,9 +17,9 @@ public class ExportCommand implements Command {
     }
 
     @Override
-    public void execute(final Spreadsheet model) {
+    public void execute(final Spreadsheet receiver) {
         try {
-            model.exportCsv(path);
+            receiver.exportCsv(path);
         } catch (IOException exception) {
             exception.printStackTrace();
         }

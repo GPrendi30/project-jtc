@@ -6,7 +6,7 @@ public interface Command {
 
     /**
      * Executes a command
-     * @param model the Spreadsheet were the commands will apply.
+     * @param receiver the Spreadsheet were the commands will apply.
      */
-    public void execute(final Spreadsheet model);
+    public void execute(final Spreadsheet receiver);
 }

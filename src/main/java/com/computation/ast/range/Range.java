@@ -29,6 +29,7 @@ public class Range extends Node {
     public Node getEnd() {
         return end;
     }
+
     private void parseRange() {
         //to be overwritten.
     }

@@ -15,7 +15,7 @@ public class OpenCommand implements Command {
     }
 
     @Override
-    public void execute(final Spreadsheet model) {
+    public void execute(final Spreadsheet receiver) {
         try {
             Spreadsheet.readFromFile(this.path);
         } catch (Exception exception) {

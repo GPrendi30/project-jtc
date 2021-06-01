@@ -15,7 +15,7 @@ public class ImportCommand implements Command {
     }
 
     @Override
-    public void execute(final Spreadsheet model) {
-        model.importCsv(path);
+    public void execute(final Spreadsheet receiver) {
+        receiver.importCsv(path);
     }
 }
