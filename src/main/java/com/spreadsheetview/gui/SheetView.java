@@ -5,7 +5,6 @@ import com.spreadsheetmodel.Spreadsheet;
 import com.spreadsheetmodel.SpreadsheetEvent;
 import com.spreadsheetmodel.SpreadsheetEventType;
 import com.spreadsheetmodel.SpreadsheetListener;
-import com.spreadsheetmodel.sheet.Sheet;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -35,17 +34,18 @@ public class SheetView extends JScrollPane {
     private final ArrayList<SheetViewListener> listeners;
     private final HashMap<String, TableModel> tableModels;
     private final TableModelListener tableListener = new TableModelListener() {
+
         @Override
         public void tableChanged(final TableModelEvent e) {
             final int row = mainGrid.getSelectedRow() + 1;
             final int column = mainGrid.getSelectedColumn();
-            if (e.getSource().equals(mainGrid.getModel())) {
+
                 model.getCurrentSheet().update(
                         row,
                         column,
                         (String) mainGrid.getValueAt(row - 1, column));
-                }
             }
+
     };
 
     /**
@@ -57,7 +57,7 @@ public class SheetView extends JScrollPane {
         this.model = model;
         listeners = new ArrayList<>();
         tableModels = new HashMap<>();
-        model.grow("Horizontally", 25);
+        model.grow("Horizontally", 100);
         model.grow("Vertically", 100);
 
         mainGrid = new JTable() {
@@ -88,7 +88,7 @@ public class SheetView extends JScrollPane {
         addListenerToModel();
 
         mainGrid.getColumnModel().getColumn(0).setPreferredWidth(35);
-
+        mainGrid.setAutoCreateRowSorter(false);
         mainGrid.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         add(mainGrid);
         setViewportView(mainGrid);
@@ -159,9 +159,9 @@ public class SheetView extends JScrollPane {
 
                 if (se.getId() == SpreadsheetEventType.SHEET_SELECTED) {
                     mainGrid.changeSelection(1,1, true,true);
-                    mainGrid.clearSelection();
                     addTableModel();
                     selectSheetModel();
+                    mainGrid.clearSelection();
                 }
 
                 if (se.getId() == SpreadsheetEventType.SHEET_CHANGED) {
@@ -204,22 +204,25 @@ public class SheetView extends JScrollPane {
         columns[0] = "";
 
         final DefaultTableModel tableModel = new DefaultTableModel(tableData, columns);
+
         tableModels.put(model.getCurrentSheetName(), tableModel);
         mainGrid.setModel(tableModel);
 
-
+        mainGrid.getTableHeader().setReorderingAllowed(false);
         tableModel.addTableModelListener(tableListener);
     }
 
     private void redraw() {
-        final Sheet sh = model.getCurrentSheet();
-        for (int i = 1; i <= sh.sizeX(); i ++) {
-            for (int j = 1; j <= sh.sizeY(); j ++) {
-                final String content = sh.getCell(i, j).getText();
-                System.out.println(content);
-                mainGrid.setValueAt(content, i - 1, j);
-            }
-        }
+        final Object[][] tableData = model.getCurrentSheet().createDataTable();
+        String[] columns = model.getCurrentSheet().getColumns();
+        columns[0] = "";
+
+        final DefaultTableModel tableModel = new DefaultTableModel(tableData, columns);
+        tableModel.addTableModelListener(tableListener);
+        tableModels.put(model.getCurrentSheetName(), tableModel);
+        mainGrid.setModel(tableModel);
+        mainGrid.getColumnModel().getColumn(0).setPreferredWidth(35);
+        repaint();
     }
 
     private void selectSheetModel() {
@@ -253,16 +256,16 @@ public class SheetView extends JScrollPane {
 
         @Override
         public Component getTableCellRendererComponent(
-                final JTable table, final Object value,final boolean isSelected,
+                final JTable table,
+                final Object value, final boolean isSelected,
                 final boolean hasFocus,final int row,final int column) {
             //super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
             if (isSelected) {
                 setBackground(new Color(172, 225, 175));
             } else {
                 setBackground(table.getBackground());
             }
-
-
 
             return this;
         }

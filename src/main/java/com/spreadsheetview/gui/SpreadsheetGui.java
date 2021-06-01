@@ -7,7 +7,6 @@ import com.spreadsheetview.gui.menu.Menu;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
-
 import javax.swing.JFrame;
 
 
@@ -43,9 +42,7 @@ public final class SpreadsheetGui extends JFrame implements SpreadsheetView {
 
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-
         setJMenuBar(menu.getMenuBar());
-
         getContentPane().add(menu.getToolBar(), BorderLayout.NORTH);
 
         setSize(new Dimension(DEFAULT_X, DEFAULT_Y));
