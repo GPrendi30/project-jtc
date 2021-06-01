@@ -9,6 +9,7 @@ public class Cell implements Serializable {
 
     private final CellLocation location;
     private boolean selectable;
+    protected CellType type;
 
     /**
      * Creates a new Cell object.
@@ -18,6 +19,7 @@ public class Cell implements Serializable {
     public Cell(final int x,final int y) {
         location = new CellLocation(x, y);
         selectable = false;
+        type = CellType.INVALID;
     }
 
     /**
@@ -25,7 +27,7 @@ public class Cell implements Serializable {
      * @return CellType of the cell.
      */
     public CellType getType() {
-        return CellType.INVALID;
+        return type;
     }
 
     /**

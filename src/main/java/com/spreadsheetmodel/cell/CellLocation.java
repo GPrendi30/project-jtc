@@ -21,7 +21,6 @@ public class CellLocation implements Serializable {
      */
     public CellLocation(final int row,final int col) {
         this.column = getColumnFromInt(col);
-
         this.row = row;
         this.intColumn = col;
     }
@@ -38,10 +37,10 @@ public class CellLocation implements Serializable {
                     ? CellLocation.ALPHA.substring(col - 1, col)
                     : null;
         } else {
-            int first_letter = (int) Math.floor(col / 26);
-            int second_letter =  (col % 26);
-            String firstLetter;
-            String secondLetter;
+            final int first_letter = (int) Math.floor(col / 26);
+            final int second_letter =  col % 26;
+            final String firstLetter;
+            final String secondLetter;
 
             if (getColumnFromInt(second_letter) == null) {
                 firstLetter = getColumnFromInt(first_letter - 1);
@@ -51,7 +50,7 @@ public class CellLocation implements Serializable {
                 secondLetter = getColumnFromInt(second_letter);
             }
 
-            return firstLetter+secondLetter;
+            return firstLetter + secondLetter;
         }
     }
 

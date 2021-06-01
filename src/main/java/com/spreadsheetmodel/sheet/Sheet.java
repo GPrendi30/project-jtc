@@ -77,10 +77,10 @@ public class Sheet implements Serializable {
      * @param c a Cell.
      */
     public void addToVariableTable(final Cell c) {
-        if (c.getType() == CellType.NUMBER && !c.getText().equals("!NIL")) {
+        if (c.getType() == CellType.NUMBER) {
             variableTable.iset(c.getLocation().toString(), Integer.parseInt(c.getText()));
         }
-        if ("!NIL".equals(c.getText())) {
+        if (c.getType() == CellType.INVALID) {
             variableTable.remove(c.getLocation().toString());
         }
     }
