@@ -1,7 +1,5 @@
 package com.spreadsheetview.gui.menu.menubar;
 
-import com.spreadsheetview.gui.menu.FilePicker;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;

@@ -61,6 +61,7 @@ public class CellRange {
      * Copies data from one place to another.
      * @param sh a Sheet.
      * @param target the target cell.
+     * @throws Exception a general exception.
      */
     public void copyDataTo(final Sheet sh, final Cell target) throws Exception {
         final int startX = target.getLocation().getRow();

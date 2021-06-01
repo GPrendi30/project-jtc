@@ -1,6 +1,9 @@
 package com.spreadsheetmodel.cell;
 
 import com.computation.ast.Node;
+import com.computation.ast.NodeException;
+import com.computation.lexer.LexerException;
+import com.computation.parser.ArithException;
 import com.computation.parser.ArithParser;
 import com.computation.parser.Parser;
 import com.computation.program.Program;
@@ -38,14 +41,14 @@ public class TableCell extends Cell {
         this.content = "";
     }
 
-    @Override
-    public CellType getType() {
 
+    private void updateType() {
         if (content.startsWith("=")) {
-            return CellType.FORMULA;
+            type = CellType.FORMULA;
+            return;
         }
 
-        return isDigits(content)
+        type = isDigits(content)
                 ?   CellType.NUMBER
                 :   CellType.STRING;
     }
@@ -72,12 +75,16 @@ public class TableCell extends Cell {
             final Node result = PARSER.parse(getText());
             result.compile(pr);
             content = "" + pr.iexecute(vt);
-        } catch (Exception exception) {
-            content = "!NIL";
-            System.out.println(exception.getMessage());
-            //TODO throw CellException
-            //throw new Exception("Illegal Expression for Cell");
-            //throw exception;
+            updateType();
+        } catch (ArithException exception) {
+            content = "#EXP";
+            type = CellType.INVALID;
+        } catch (LexerException exception) {
+            content = "#KEY";
+            type = CellType.INVALID;
+        } catch (NodeException exception) {
+            content = "#VAL";
+            type = CellType.INVALID;
         }
     }
 
@@ -89,6 +96,7 @@ public class TableCell extends Cell {
     @Override
     public void updateContent(final String newContent) {
         this.content = newContent;
+        updateType();
     }
 
     @Override

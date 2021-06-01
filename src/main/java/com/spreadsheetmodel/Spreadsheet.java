@@ -403,7 +403,8 @@ public class Spreadsheet implements Serializable {
         listeners.remove(li);
     }
 
-    public void fireSpreadsheetChanged(final SpreadsheetEvent se) {
+
+    private void fireSpreadsheetChanged(final SpreadsheetEvent se) {
         for (final SpreadsheetListener li : listeners) {
             li.spreadsheetChanged(this, se);
         }

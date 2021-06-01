@@ -1,9 +1,7 @@
 package com.computation.ast.function;
 
 import com.computation.ast.Type;
-import com.computation.ast.range.ArrayNode;
 import com.computation.program.OperandStack;
-import com.computation.program.Program;
 import com.computation.program.Storage;
 
 public enum FunctionList {

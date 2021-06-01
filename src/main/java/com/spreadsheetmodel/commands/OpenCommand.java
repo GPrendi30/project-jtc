@@ -2,6 +2,8 @@ package com.spreadsheetmodel.commands;
 
 import com.spreadsheetmodel.Spreadsheet;
 
+import java.io.IOException;
+
 public class OpenCommand implements Command {
 
     private final String path;
@@ -18,7 +20,7 @@ public class OpenCommand implements Command {
     public void execute(final Spreadsheet receiver) {
         try {
             Spreadsheet.readFromFile(this.path);
-        } catch (Exception exception) {
+        } catch (IOException exception) {
             exception.printStackTrace();
         }
 

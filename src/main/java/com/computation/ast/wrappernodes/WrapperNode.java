@@ -30,13 +30,8 @@ public class WrapperNode extends Node {
     }
 
     @Override
-    public void compile(final Program p) {
-        try {
-            child.compile(p);
-        } catch (NodeException e) {
-            // TODO correct to leave printStackTrace ?
-            e.printStackTrace();
-        }
+    public void compile(final Program p) throws NodeException {
+        child.compile(p);
     }
 
     @Override

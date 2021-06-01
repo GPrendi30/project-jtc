@@ -22,10 +22,18 @@ public class Range extends Node {
         this.end = end;
     }
 
+    /**
+     * Get the start node.
+     * @return the start Node.
+     */
     public Node getStart() {
         return start;
     }
 
+    /**
+     * Get the end node.
+     * @return the end Node.
+     */
     public Node getEnd() {
         return end;
     }
