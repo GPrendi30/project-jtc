@@ -22,13 +22,19 @@ public class ArrayNode extends Node {
         contents = new ArrayList<>();
     }
 
+    /**
+     * Get element at a given index.
+     * @param index the int index.
+     * @return the node at that index.
+     */
     public Node getElement(final int index) {
         return contents.get(index);
     }
+
     /**
      * Appends a value to the Array.
      * @param child a Node.
-     * @throws Exception throws an Exception if not matching types.
+     * @throws NodeException throws an Exception if not matching types.
      */
     public void append(final Node child) throws NodeException {
         checkType(child);
@@ -41,6 +47,10 @@ public class ArrayNode extends Node {
         }
     }
 
+    /**
+     * Return the length of the array.
+     * @return the length of the array.
+     */
     public int getLength() {
         return contents.size();
     }

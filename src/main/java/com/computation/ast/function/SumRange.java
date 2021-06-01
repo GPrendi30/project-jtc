@@ -7,6 +7,12 @@ import com.computation.program.Program;
 
 public class SumRange extends FunctionWithRanges {
 
+    /**
+     * A function that sums a range.
+     * @param name the name
+     * @param fop the operation.
+     * @param returnType the return type.
+     */
     public SumRange(final String name,
                     final FunctionOperation fop,
                     final Type returnType) {

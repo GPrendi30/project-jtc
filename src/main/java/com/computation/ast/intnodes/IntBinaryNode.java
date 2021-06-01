@@ -33,17 +33,10 @@ public class IntBinaryNode extends Node {
     }
     
     @Override
-    public void compile(final Program p) {
-        try {
-            leftChild.compile(p);
-            rightChild.compile(p);
-            p.append(instruction());
-        } catch (NodeException exception) {
-            // TODO correct this?
-            exception.printStackTrace();
-        }
-
-
+    public void compile(final Program p) throws NodeException {
+        leftChild.compile(p);
+        rightChild.compile(p);
+        p.append(instruction());
     }
 
     /**
