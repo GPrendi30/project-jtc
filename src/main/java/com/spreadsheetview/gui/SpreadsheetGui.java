@@ -2,6 +2,8 @@ package com.spreadsheetview.gui;
 
 import com.spreadsheetmodel.Spreadsheet;
 import com.spreadsheetview.SpreadsheetView;
+import com.spreadsheetview.gui.center.SheetPanel;
+import com.spreadsheetview.gui.center.SheetPanelListener;
 import com.spreadsheetview.gui.menu.Menu;
 
 import java.awt.BorderLayout;

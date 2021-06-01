@@ -1,4 +1,4 @@
-package com.spreadsheetview.gui;
+package com.spreadsheetview.gui.center;
 
 import com.spreadsheetmodel.Spreadsheet;
 
