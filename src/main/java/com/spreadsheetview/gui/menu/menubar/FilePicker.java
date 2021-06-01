@@ -1,4 +1,4 @@
-package com.spreadsheetview.gui.menu;
+package com.spreadsheetview.gui.menu.menubar;
 
 
 import javax.swing.JFileChooser;

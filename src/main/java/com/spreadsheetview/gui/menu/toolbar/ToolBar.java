@@ -108,17 +108,12 @@ public class ToolBar extends JToolBar {
 
     /**
      * Create an Icon.
-     * @param name a String.
+     * @param path a String.
      * @param desc a String.
      * @return ImageIcon the Icon.
      */
-    public static ImageIcon newIcon(final String name, final String desc) {
-        try {
-            return new ImageIcon(name, desc);
-        } catch (Exception ex) {
-            System.out.println(name);
-            return  null;
-        }
+    public static ImageIcon newIcon(final String path, final String desc) {
+        return new ImageIcon(path, desc);
     }
 
 }
