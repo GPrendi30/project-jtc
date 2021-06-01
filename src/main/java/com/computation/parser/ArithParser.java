@@ -1,17 +1,18 @@
 package com.computation.parser;
 
 import com.computation.ast.Node;
+import com.computation.ast.NodeException;
 import com.computation.ast.Type;
 import com.computation.ast.doublenodes.DoubleLiteral;
 import com.computation.ast.doublenodes.DoubleVariable;
 
 import com.computation.ast.function.Function;
+import com.computation.ast.function.FunctionException;
 import com.computation.ast.function.FunctionList;
 import com.computation.ast.intnodes.IntLiteral;
 
 import com.computation.ast.intnodes.IntVariable;
 import com.computation.ast.range.ArrayNode;
-import com.computation.ast.range.NumberRange;
 import com.computation.ast.range.Range;
 import com.computation.ast.wrappernodes.AdditionWrapper;
 import com.computation.ast.wrappernodes.DivisionWrapper;
@@ -19,10 +20,9 @@ import com.computation.ast.wrappernodes.MultiplicationWrapper;
 import com.computation.ast.wrappernodes.NegationWrapper;
 import com.computation.ast.wrappernodes.SubtractionWrapper;
 
+import com.computation.lexer.LexerException;
 import com.computation.lexer.LexicalAnalyzer;
 import com.computation.lexer.TokenType;
-import com.computation.program.Program;
-import com.computation.program.VariableTable;
 import com.spreadsheetmodel.cell.CellLocation;
 
 
@@ -42,8 +42,6 @@ import com.spreadsheetmodel.cell.CellLocation;
  * </code>
  */
 public final class ArithParser implements Parser {
-    //TODO fix parser
-    //TODO add tests
     private LexicalAnalyzer lexer;
 
     /**
@@ -52,7 +50,7 @@ public final class ArithParser implements Parser {
      * @return an AST of the program
      */
     @Override
-    public Node parse(final String sourceCode) throws Exception {
+    public Node parse(final String sourceCode) throws ArithException, LexerException {
         final String src = sourceCode.replace(" ", "");
         this.lexer = new LexicalAnalyzer(src);
         // fetch first token
@@ -78,7 +76,7 @@ public final class ArithParser implements Parser {
      *
      * @return a Node representing the expression
      */
-    private Node parseExpression() throws Exception {
+    private Node parseExpression() throws ArithException, LexerException {
         // parses an expression to an AST
 
         boolean negated = false;
@@ -93,19 +91,16 @@ public final class ArithParser implements Parser {
         }
 
         Node left = parseTerm();
-        // negating if expression has a preceding -.
         if (negated) {
             left = new NegationWrapper(left);
         }
 
         // parsing for n number of terms
         while (lexer.getCurrentToken().getType() != TokenType.END_OF_FILE) {
-            //checking for + or - opcodes.
             if (lexer.getCurrentToken().getType() == TokenType.PLUS) {
                 isAdd = true;
                 lexer.fetchNextToken();
             } else if (lexer.getCurrentToken().getType() == TokenType.MINUS) {
-                isAdd = false;
                 lexer.fetchNextToken();
             } else {
                 break;
@@ -114,11 +109,9 @@ public final class ArithParser implements Parser {
             //parsing right node.
             final Node right = parseTerm();
 
-            if (isAdd) {
-                left = new AdditionWrapper(left, right);
-            } else {
-                left = new SubtractionWrapper(left, right);
-            }
+            left = isAdd
+                ? new AdditionWrapper(left, right)
+                : new SubtractionWrapper(left, right);
         }
 
         return left;
@@ -135,7 +128,7 @@ public final class ArithParser implements Parser {
      *
      * @return a Node representing the term
      */
-    private Node parseTerm() throws Exception {
+    private Node parseTerm() throws ArithException, LexerException {
         boolean isMul = false;
 
         Node left = parseFactor();
@@ -144,45 +137,20 @@ public final class ArithParser implements Parser {
             if (lexer.getCurrentToken().getType() == TokenType.STAR) {
                 isMul = true;
                 lexer.fetchNextToken();
-
             } else if (lexer.getCurrentToken().getType() == TokenType.SLASH) {
-                isMul = false;
                 lexer.fetchNextToken();
-
             } else {
                 break;
             }
 
-
             final Node right = parseFactor();
-            if (isMul) {
-                left = new MultiplicationWrapper(left, right);
-            } else {
-                left = new DivisionWrapper(left, right);
-            }
-
+            left =  isMul
+                ? new MultiplicationWrapper(left, right)
+                : new DivisionWrapper(left, right);
         }
 
         return left;
     }
-
-    //to fix cpd
-    /*
-    private boolean checkForOp(final TokenType t1, final TokenType t2) throws Exception {
-        boolean res;
-        if (lexer.getCurrentToken().getType() == t1) {
-            res = true;
-            lexer.fetchNextToken();
-        }  else if (lexer.getCurrentToken().getType() == t2) {
-            res = false;
-            lexer.fetchNextToken();
-        }  else {
-            throw new ArithException("Was expecting a " + t1 + " or " + t2 + ", got "
-                    + lexer.getCurrentToken().getText());
-        }
-
-        return res;
-    }*/
 
     /**
      * Parse a factor.
@@ -198,7 +166,7 @@ public final class ArithParser implements Parser {
      *
      * @return a Node representing the factor
      */
-    private Node parseFactor() throws Exception {
+    private Node parseFactor() throws ArithException, LexerException {
 
         Node res;
         switch (lexer.getCurrentToken().getType()) {
@@ -257,22 +225,37 @@ public final class ArithParser implements Parser {
      * </code>
      * @return a Node representing the function
      */
-    private Node parseFunction() throws Exception {
-        final Function f = FunctionList.stringToFunction(lexer.getCurrentToken().getText());
+    private Node parseFunction() throws ArithException, LexerException {
+        final Function f;
+        try {
+            f = FunctionList.stringToFunction(lexer.getCurrentToken().getText());
+        } catch (FunctionException exception) {
+            throw new ArithException("Keyword not found, "
+                    + lexer.getCurrentToken().getStartPosition(), exception);
+        }
         lexer.fetchNextToken();
 
         if (lexer.getCurrentToken().getType() == TokenType.OPEN_PAREN) {
             lexer.fetchNextToken();
 
             if (lexer.getCurrentToken().getType() != TokenType.CLOSED_PAREN) {
-                f.addParameter(parseParameters());
+                try {
+                    f.addParameter(parseParameters());
+                } catch (FunctionException exception) {
+                    throw new ArithException(exception.getMessage() + " at position "
+                            + lexer.getCurrentToken().getStartPosition(), exception);
+                }
 
 
                 if (lexer.getCurrentToken().getType() == TokenType.COMMA) {
                     lexer.fetchNextToken();
 
                     while (lexer.getCurrentToken().getType() != TokenType.END_OF_FILE) {
-                        f.addParameter(parseParameters());
+                        try {
+                            f.addParameter(parseParameters());
+                        } catch (FunctionException exception) {
+                            throw new ArithException(exception.getMessage(), exception);
+                        }
                         //lexer.fetchNextToken();
 
                         if (lexer.getCurrentToken().getType() == TokenType.COMMA) {
@@ -311,7 +294,7 @@ public final class ArithParser implements Parser {
      *
      * @return a Node representing the argument
      */
-    private Node parseParameters() throws Exception {
+    private Node parseParameters() throws ArithException, LexerException {
         // if (ranges)
         boolean numericRange = false;
         if (lexer.getCurrentToken().getType() == TokenType.INTLITERAL) {
@@ -322,8 +305,8 @@ public final class ArithParser implements Parser {
 
         if (lexer.getCurrentToken().getType() == TokenType.COLON) {
             lexer.fetchNextToken();
-            Node right = parseExpression();
-            Range range = new Range(left, right);
+            final Node right = parseExpression();
+            final Range range = new Range(left, right);
             left = numericRange
                     ? parseNumberRanges(range)
                     : parseVariableRanges(range);
@@ -332,7 +315,7 @@ public final class ArithParser implements Parser {
         return left;
     }
 
-    private Node parseVariableRanges(final Range rangeNode) throws Exception {
+    private Node parseVariableRanges(final Range rangeNode) throws ArithException {
         final int[] startCoordinates = CellLocation.parse(rangeNode.getStart().toString());
         final int[] endCoordinates = CellLocation.parse(rangeNode.getEnd().toString());
         final int startX = startCoordinates[0];
@@ -341,43 +324,37 @@ public final class ArithParser implements Parser {
         final int endY = endCoordinates[1];
         final ArrayNode arrayValues = new ArrayNode(Type.INT);
 
-        for (int i = startY; i <= endY; i++) {
-            for (int j = startX; j <= endX; j++) {
-                final CellLocation cl = new CellLocation(j, i);
-                System.out.println(cl.toString());
-                arrayValues.append(new IntVariable(cl.toString()));
+        try {
+            for (int i = startY; i <= endY; i++) {
+                for (int j = startX; j <= endX; j++) {
+                    final CellLocation cl = new CellLocation(j, i);
+                    arrayValues.append(new IntVariable(cl.toString()));
+                }
             }
+        } catch (NodeException exception) {
+            throw new ArithException(exception.getMessage(), exception);
         }
 
         return arrayValues;
     }
 
-    private Node parseNumberRanges(final Range rangeNode) throws Exception {
+    private Node parseNumberRanges(final Range rangeNode) throws ArithException {
         final int startIndex = Integer.parseInt(rangeNode.getStart().toString());
         final int endIndex = Integer.parseInt(rangeNode.getEnd().toString());
         final ArrayNode arrayValues = new ArrayNode(Type.INT);
 
-        for (int i = startIndex; i <= endIndex; i++) {
-            final Node tempNode = new IntLiteral(i);
-            arrayValues.append(tempNode);
+        try {
+            for (int i = startIndex; i <= endIndex; i++) {
+                final Node tempNode = new IntLiteral(i);
+                arrayValues.append(tempNode);
+            }
+        } catch (NodeException exception) {
+            throw new ArithException(exception.getMessage(), exception);
         }
 
         return arrayValues;
     }
 
-    /**
-     * main.
-     * @param args args.
-     * @throws Exception exp.
-     */
-    public static void main(final String[] args) throws Exception {
-        final Parser p = new ArithParser();
-        final Node result = p.parse("ASUM(1:10000)");
 
-        final Program pr = new Program();
-        final VariableTable vt = new VariableTable();
-        result.compile(pr);
-        System.out.println(pr.dexecute(vt));
-    }
 
 }

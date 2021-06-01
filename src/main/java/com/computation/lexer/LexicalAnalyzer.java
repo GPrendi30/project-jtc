@@ -68,7 +68,7 @@ public final class LexicalAnalyzer {
 
     /**
      * Ask the analyzer to move to the next token in the text.
-     * @throws Exception a LexicalAnalyzer exception
+     * @throws LexerException a LexicalAnalyzer exception
      */
     public void fetchNextToken() throws LexerException {
 
