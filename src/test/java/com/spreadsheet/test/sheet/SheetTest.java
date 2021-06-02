@@ -1,6 +1,8 @@
 package com.spreadsheet.test.sheet;
 
 import com.computation.program.VariableTable;
+import com.computation.program.VariableTableException;
+import com.spreadsheetmodel.SpreadsheetException;
 import com.spreadsheetmodel.cell.Cell;
 import com.spreadsheetmodel.cell.TableCell;
 import com.spreadsheetmodel.sheet.Sheet;
@@ -34,7 +36,7 @@ public class SheetTest {
 
     @Test
     // test for add: also tests addToVariableTable and addFormula because inside of add
-    public void testAdd() {
+    public void testAdd() throws VariableTableException {
         Sheet s = new Sheet(5, 6);
         Cell c = new TableCell(1, 1);
         c.updateContent("5");
@@ -43,7 +45,7 @@ public class SheetTest {
     }
 
     @Test 
-    public void testGrow() {
+    public void testGrow() throws SpreadsheetException {
         Sheet s = new Sheet(5, 6);
         assertEquals(s.sizeX(), 5);
         assertEquals(s.sizeY(), 6);

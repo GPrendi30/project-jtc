@@ -94,17 +94,18 @@ public class CellTest {
     }
 
     @Test
-    public void testTableCellEvaluationNil() {
+    public void testTableCellEvaluationInvalid() {
         final Program p = new Program();
         final VariableTable vt = new VariableTable();
-        Cell c = new TableCell(2,2, "B3+6");
-        assertEquals("B3+6", c.getText());
+        Cell c = new TableCell(2,2, "=B3+6");
+        assertEquals("=B3+6", c.getText());
         try {
             c.evaluate(p, vt);
         } catch (Exception ex) {
             assertTrue(ex instanceof Exception);
         }
-        assertEquals("!NIL", c.getText());
+        System.out.println(c.getText());
+        assertEquals(CellType.INVALID, c.getType());
     }
 
     @Test

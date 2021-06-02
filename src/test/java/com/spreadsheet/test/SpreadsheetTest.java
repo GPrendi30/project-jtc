@@ -2,6 +2,7 @@ package com.spreadsheet.test;
 
 import com.computation.ast.function.FunctionList;
 import com.spreadsheetmodel.Spreadsheet;
+import com.spreadsheetmodel.SpreadsheetException;
 import com.spreadsheetmodel.cell.Cell;
 import com.spreadsheetmodel.sheet.Sheet;
 import com.spreadsheetmodel.SpreadsheetListener;
@@ -81,7 +82,7 @@ public class SpreadsheetTest {
     }
 
     @Test
-    public void testGrow() {
+    public void testGrow() throws SpreadsheetException {
         // also test for getCurrentSheet
         Spreadsheet s = new Spreadsheet();
         s.addNewSheet("sheet2");
@@ -104,7 +105,7 @@ public class SpreadsheetTest {
     } 
 
     @Test
-    public void testImportCsv() {
+    public void testImportCsv() throws IOException, SpreadsheetException {
         Spreadsheet s = new Spreadsheet();
         String projectDir = System.getProperty("user.dir");
         Path csvPath = Paths.get(projectDir.toString(), "src/test/resources/a.csv");
@@ -119,14 +120,12 @@ public class SpreadsheetTest {
     public void testImportCsvNotFound() throws Exception{
         // TODO check that doesn't throw errors in the console
         Spreadsheet s = new Spreadsheet();
-        String projectDir = System.getProperty("user.dir");
         String path = "path/to/file/that/does/not/exist.69420";
-        Path csvPath = Paths.get(projectDir.toString(), path);
 
         boolean thrown = false;
 
         try {
-            s.importCsv(csvPath.toString());
+            s.importCsv(path);
         } catch (Exception e) {
             thrown = true;
         }

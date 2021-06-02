@@ -2,6 +2,7 @@ package com.computation.test.ast;
 
 import com.computation.ast.function.Function;
 import com.computation.ast.function.FunctionList;
+import com.computation.instruction.InstructionException;
 import com.computation.instruction.doubleinstruction.BDPUSH;
 import com.computation.instruction.intinstruction.BIPUSH;
 import com.computation.program.Program;
@@ -27,7 +28,7 @@ public class FunctionListTest {
     }
 
     @Test
-    public void testSUM() {
+    public void testSUM() throws InstructionException {
         Function SUM = FunctionList.SUM.getFunction();
 
         Program p = new Program();
@@ -42,7 +43,7 @@ public class FunctionListTest {
     }
 
     @Test
-    public void testSIN() {
+    public void testSIN() throws InstructionException {
         Function SIN = FunctionList.SIN.getFunction();
 
         Program p = new Program();
@@ -55,7 +56,7 @@ public class FunctionListTest {
     }
 
     @Test
-    public void testCOS() {
+    public void testCOS() throws InstructionException {
         Function COS = FunctionList.COS.getFunction();
 
         Program p = new Program();
@@ -68,7 +69,7 @@ public class FunctionListTest {
     }
 
     @Test
-    public void testABS() {
+    public void testABS() throws InstructionException {
         Function ABS = FunctionList.ABS.getFunction();
 
         Program p = new Program();
@@ -81,7 +82,7 @@ public class FunctionListTest {
     }
 
     @Test
-    public void testAVG() {
+    public void testAVG() throws InstructionException {
         Function AVG = FunctionList.AVG.getFunction();
 
         Program p = new Program();
@@ -96,7 +97,7 @@ public class FunctionListTest {
     }
 
     @Test
-    public void testMAX() {
+    public void testMAX() throws InstructionException {
         Function MAX = FunctionList.MAX.getFunction();
 
         Program p = new Program();
@@ -111,7 +112,7 @@ public class FunctionListTest {
     }
 
     @Test
-    public void testMIN() {
+    public void testMIN() throws InstructionException {
         Function MIN = FunctionList.MIN.getFunction();
 
         Program p = new Program();
@@ -126,7 +127,7 @@ public class FunctionListTest {
     }
 
     @Test
-    public void testMOD() {
+    public void testMOD() throws InstructionException {
         Function MOD = FunctionList.MOD.getFunction();
 
         Program p = new Program();
