@@ -66,7 +66,7 @@ public class CellRange {
     public void copyDataTo(final Sheet sh, final Cell target) throws Exception {
         final int startX = target.getLocation().getRow();
         final int startY = target.getLocation().getIntColumn();
-        final Cell targetY = sh.getCell(startX + sizeX, startY + sizeY);
+        final Cell targetY = sh.getCell(startX + sizeX - 1, startY + sizeY - 1);
         copyDataTo(sh, target, targetY);
     }
 

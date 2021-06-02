@@ -49,4 +49,15 @@ public class GridTest {
         g.growHorizontally(8);
         assertEquals(g.sizeY(), 8);
     }
+
+    @Test
+    public void testGetColumns() {
+        Grid g = new Grid(2, 2);
+        String[] columns = g.getColumns();
+        assertEquals(3 , columns.length);
+        assertEquals(null, columns[0]);
+        assertEquals("A", columns[1]);
+        assertEquals("B", columns[2]);
+    }
 }
+

@@ -6,8 +6,7 @@ import com.computation.instruction.intinstruction.BIPUSH;
 import com.computation.program.Program;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.Assert.*;
 
 
 /**
@@ -54,5 +53,14 @@ public class ProgramTest {
         Program p = new Program();
         p.append(new BIPUSH(2));
         assertEquals(2, p.iexecute());
+    }
+
+    @Test
+    public void testDexecute() {
+        Program p = new Program();
+        p.append(new BIPUSH(2));
+        p.append(new BIPUSH(4));
+        double save = p.dexecute();
+        assertTrue(save == 4.0);
     }
 }

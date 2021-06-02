@@ -221,4 +221,9 @@ public class SpreadsheetTest {
         // TODO is null but not correct, find why it returns null
         assertEquals(null, s.getFormula(s.getCurrentCell()));
     }
+
+    @Test
+    public void testReadFromFile() {
+        // TODO add the test
+    }
 }

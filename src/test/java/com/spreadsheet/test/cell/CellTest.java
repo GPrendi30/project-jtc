@@ -3,9 +3,12 @@ package com.spreadsheet.test.cell;
 
 import com.computation.program.Program;
 import com.computation.program.VariableTable;
+import com.spreadsheetmodel.Spreadsheet;
 import com.spreadsheetmodel.cell.*;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.io.IOException;
 
 import static org.junit.Assert.*;
 
@@ -115,6 +118,102 @@ public class CellTest {
         assertEquals("test", c.getText());
         c.remove();
         assertNull(c.getText());
+    }
+
+    @Test
+    public void testIntColumn() {
+        CellLocation cl = new CellLocation(1, 1);
+        assertEquals(1, cl.getIntColumn());
+    }
+
+    @Test
+    public void testGetColumnFromInt() {
+        CellLocation cl = new CellLocation(1, 1);
+        assertEquals("AA", cl.getColumnFromInt(27));
+        assertEquals("AB", cl.getColumnFromInt(28));
+        assertEquals("AZ", cl.getColumnFromInt(52));
+    }
+
+    @Test
+    public void testCellRange() throws Exception {
+        Spreadsheet s = new Spreadsheet();
+        s.updateCell(1,1,"1");
+        s.updateCell(1,2,"2");
+        s.updateCell(2,1,"3");
+        s.updateCell(2,2,"4");
+        CellRange cr = new CellRange(s.getCurrentSheet(),
+                s.getCurrentSheet().getCell(1,1),
+                s.getCurrentSheet().getCell(2,2));
+
+        cr.copyDataTo(s.getCurrentSheet(),
+                s.getCurrentSheet().getCell(3,3),
+                s.getCurrentSheet().getCell(4,4));
+        assertEquals("1", s.getCurrentSheet().getCell(3,3).getText());
+        assertEquals("2", s.getCurrentSheet().getCell(3,4).getText());
+        assertEquals("3", s.getCurrentSheet().getCell(4,3).getText());
+        assertEquals("4", s.getCurrentSheet().getCell(4,4).getText());
+    }
+
+    @Test
+    public void testCellRange2() throws Exception {
+        Spreadsheet s = new Spreadsheet();
+        s.updateCell(1,1,"1");
+        s.updateCell(1,2,"2");
+        s.updateCell(2,1,"3");
+        s.updateCell(2,2,"4");
+        CellRange cr = new CellRange(s.getCurrentSheet(),
+                s.getCurrentSheet().getCell(1,1),
+                s.getCurrentSheet().getCell(2,2));
+
+        cr.copyDataTo(s.getCurrentSheet(), s.getCurrentSheet().getCell(3,3));
+        assertEquals("1", s.getCurrentSheet().getCell(3,3).getText());
+        assertEquals("2", s.getCurrentSheet().getCell(3,4).getText());
+        assertEquals("3", s.getCurrentSheet().getCell(4,3).getText());
+        assertEquals("4", s.getCurrentSheet().getCell(4,4).getText());
+    }
+
+    @Test
+    public void testCellRangeThrowsException() {
+        Spreadsheet s = new Spreadsheet();
+        s.updateCell(1,1,"1");
+        s.updateCell(1,2,"2");
+        s.updateCell(2,1,"3");
+        s.updateCell(2,2,"4");
+        CellRange cr = new CellRange(s.getCurrentSheet(),
+                s.getCurrentSheet().getCell(1,1),
+                s.getCurrentSheet().getCell(2,2));
+
+        boolean thrown = false;
+        try {
+            cr.copyDataTo(s.getCurrentSheet(),
+                    s.getCurrentSheet().getCell(3,3),
+                    s.getCurrentSheet().getCell(4,56));
+        } catch (Exception e) {
+            thrown = true;
+        }
+        assertTrue(thrown);
+    }
+
+    @Test
+    public void testCellRangeThrowsException2() {
+        Spreadsheet s = new Spreadsheet();
+        s.updateCell(1,1,"1");
+        s.updateCell(1,2,"2");
+        s.updateCell(2,1,"3");
+        s.updateCell(2,2,"4");
+        CellRange cr = new CellRange(s.getCurrentSheet(),
+                s.getCurrentSheet().getCell(1,1),
+                s.getCurrentSheet().getCell(2,2));
+
+        boolean thrown = false;
+        try {
+            cr.copyDataTo(s.getCurrentSheet(),
+                    s.getCurrentSheet().getCell(3,3),
+                    s.getCurrentSheet().getCell(56,4));
+        } catch (Exception e) {
+            thrown = true;
+        }
+        assertTrue(thrown);
     }
 
 
