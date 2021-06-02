@@ -271,7 +271,7 @@ public class Spreadsheet implements Serializable {
      * @throws IOException throws error if path doesnt exist.
      */
     public void exportCsv(final String path) throws IOException {
-        final Path baseDir = Paths.get(path);
+        final Path baseDir = Paths.get(path).getParent();
         if (!Files.exists(baseDir)) {
             throw new IOException("Directory " + baseDir + " doesnt exist");
         }

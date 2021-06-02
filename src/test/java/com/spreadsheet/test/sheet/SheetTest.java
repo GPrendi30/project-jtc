@@ -62,11 +62,23 @@ public class SheetTest {
 
         s.grow("Horizontally", 10);
         assertEquals(s.sizeY(), 10);
-
-        s.grow("WRONG", 100);
-        assertEquals(s.sizeX(), 8);
-        assertEquals(s.sizeY(), 10);
     }
+
+    @Test
+    public void testGrowThrowsException() throws SpreadsheetException {
+        Sheet s = new Sheet(5, 6);
+        assertEquals(s.sizeX(), 5);
+        assertEquals(s.sizeY(), 6);
+
+        boolean thrown = false;
+        try {
+            s.grow("WRONG", 100);
+        } catch (SpreadsheetException exception) {
+            thrown = true;
+        }
+        assertTrue(thrown);
+}
+
 
     @Test
     public void testAddToVariableTable() {

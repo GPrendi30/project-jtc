@@ -82,7 +82,7 @@ public class FunctionListTest {
     }
 
     @Test
-    public void testABS2() {
+    public void testABS2() throws InstructionException {
         Function ABS = FunctionList.ABS.getFunction();
 
         Program p = new Program();

@@ -27,12 +27,17 @@ public class SpreadsheetTest {
         s.addNewSheet("sheet2");
         s.selectSheet("sheet2");
         assertEquals(s.getCurrentSheetName(), "sheet2");
-        s.addNewSheet(null);
-        s.addNewSheet("");
+    }
+
+    @Test
+    public void testAddNewSheet2() {
+        Spreadsheet s = new Spreadsheet(5,5);
         int i;
-        for (i = 4; i < 11; i++) {
+        for (i = 1; i < 11; i++) {
             s.addNewSheet("sheet" + i);
         }
+        s.selectSheet("sheet10");
+        assertEquals(s.getCurrentSheetName(), "sheet10");
     }
 
     @Test
@@ -86,8 +91,23 @@ public class SpreadsheetTest {
         // also test for getCurrentSheet
         Spreadsheet s = new Spreadsheet(5,5);
         s.addNewSheet("sheet2");
-        s.grow("Horizontally", 7);
-        assertEquals(s.getCurrentSheet().sizeY(), 7);
+        s.grow("Horizontally", 21);
+        assertEquals(s.getCurrentSheet().sizeY(), 21);
+    }
+
+    @Test
+    public void testGrowThrowsException() throws SpreadsheetException {
+        // also test for getCurrentSheet
+        Spreadsheet s = new Spreadsheet(5,5);
+        s.addNewSheet("sheet2");
+
+        boolean thrown = false;
+        try {
+            s.grow("Horizontally", 7);
+        } catch (SpreadsheetException exception) {
+            thrown = true;
+        }
+        assertTrue(thrown);
     }
 
     @Test
@@ -157,8 +177,7 @@ public class SpreadsheetTest {
         } catch (IOException e) {
             thrown = true;
         }
-        // TODO correct exportCSV to throw error
-        assertTrue(!thrown);
+        assertTrue(thrown);
     }
 
     @Test
