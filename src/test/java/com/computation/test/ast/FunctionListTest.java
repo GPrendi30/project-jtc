@@ -73,6 +73,19 @@ public class FunctionListTest {
         Function ABS = FunctionList.ABS.getFunction();
 
         Program p = new Program();
+        p.append(new BDPUSH(5.0));
+        p.append(ABS.getFunctionOperation());
+        p.iexecute();
+
+        assertEquals("  BDPUSH 5.0" + "\n" +
+                "  abs" + "\n", p.toString());
+    }
+
+    @Test
+    public void testABS2() {
+        Function ABS = FunctionList.ABS.getFunction();
+
+        Program p = new Program();
         p.append(new BDPUSH(-5.0));
         p.append(ABS.getFunctionOperation());
         p.iexecute();
