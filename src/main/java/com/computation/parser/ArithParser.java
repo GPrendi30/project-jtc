@@ -226,61 +226,49 @@ public final class ArithParser implements Parser {
      * @return a Node representing the function
      */
     private Node parseFunction() throws ArithException, LexerException {
+        final Function f = parseFunctionKeyword();
+
+        if (lexer.getCurrentToken().getType() != TokenType.OPEN_PAREN) {
+            throw new ArithException("WAS EXPECTING AN OPEN PAREN got "
+                + lexer.getCurrentToken().getText());
+        }
+
+        lexer.fetchNextToken();
+
+
+        while (lexer.getCurrentToken().getType() != TokenType.END_OF_FILE) {
+            try {
+                f.addParameter(parseParameters());
+            } catch (FunctionException exception) {
+                throw new ArithException(exception.getMessage(), exception);
+            }
+
+            if (lexer.getCurrentToken().getType() != TokenType.COMMA) {
+                break;
+            }
+            lexer.fetchNextToken();
+        }
+
+        if (lexer.getCurrentToken().getType() != TokenType.CLOSED_PAREN) {
+            throw new ArithException("WAS EXPECTING A CLOSED PAREN got "
+                    + lexer.getCurrentToken().getText());
+        }
+
+        lexer.fetchNextToken();
+        return f;
+    }
+
+    private Function parseFunctionKeyword() throws ArithException {
         final Function f;
         try {
             f = FunctionList.stringToFunction(lexer.getCurrentToken().getText());
-        } catch (FunctionException exception) {
+            lexer.fetchNextToken();
+        } catch (FunctionException | LexerException exception) {
             throw new ArithException("Keyword not found, "
                     + lexer.getCurrentToken().getStartPosition(), exception);
         }
-        lexer.fetchNextToken();
-
-        if (lexer.getCurrentToken().getType() == TokenType.OPEN_PAREN) {
-            lexer.fetchNextToken();
-
-            if (lexer.getCurrentToken().getType() != TokenType.CLOSED_PAREN) {
-                try {
-                    f.addParameter(parseParameters());
-                } catch (FunctionException exception) {
-                    throw new ArithException(exception.getMessage() + " at position "
-                            + lexer.getCurrentToken().getStartPosition(), exception);
-                }
-
-
-                if (lexer.getCurrentToken().getType() == TokenType.COMMA) {
-                    lexer.fetchNextToken();
-
-                    while (lexer.getCurrentToken().getType() != TokenType.END_OF_FILE) {
-                        try {
-                            f.addParameter(parseParameters());
-                        } catch (FunctionException exception) {
-                            throw new ArithException(exception.getMessage(), exception);
-                        }
-                        //lexer.fetchNextToken();
-
-                        if (lexer.getCurrentToken().getType() == TokenType.COMMA) {
-                            lexer.fetchNextToken();
-                            continue;
-                        } else {
-                            break;
-                        }
-                    }
-                }
-            }
-
-            if (lexer.getCurrentToken().getType() == TokenType.CLOSED_PAREN) {
-                lexer.fetchNextToken();
-                return f;
-
-            } else {
-                throw new ArithException("WAS EXPECTING A CLOSED PAREN got "
-                        + lexer.getCurrentToken().getText());
-            }
-        }
-        throw new ArithException("WAS EXPECTING AN OPEN PAREN got "
-                + lexer.getCurrentToken().getText());
+        return f;
     }
-
 
 
     /**
@@ -310,6 +298,7 @@ public final class ArithParser implements Parser {
             left = numericRange
                     ? parseNumberRanges(range)
                     : parseVariableRanges(range);
+            lexer.fetchNextToken();
         }
 
         return left;
