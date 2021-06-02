@@ -6,15 +6,16 @@ import com.spreadsheetview.gui.center.SheetPanel;
 import com.spreadsheetview.gui.center.SheetPanelListener;
 import com.spreadsheetview.gui.menu.Menu;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
+import java.awt.*;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
 
 
 public final class SpreadsheetGui extends JFrame implements SpreadsheetView {
 
-    public static final int DEFAULT_X = 800;
+    public static final int DEFAULT_X = 1000;
     public static final int DEFAULT_Y = 800;
 
     /**
@@ -34,11 +35,27 @@ public final class SpreadsheetGui extends JFrame implements SpreadsheetView {
             @Override
             public void spreadsheetFrameChanged(final Spreadsheet model) {
                 sf.repaint();
-                pack();
                 repaint();
+                pack();
             }
         });
 
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(final MouseEvent ev) {
+                super.mouseClicked(ev);
+                System.out.println(ev.getButton());
+                if (ev.getButton() == MouseEvent.BUTTON3) {
+                    final PopupMenu p = new PopupMenu();
+                    p.add(new MenuItem("copy"));
+                    p.add(new MenuItem("paste"));
+                    p.add(new MenuItem("sort column"));
+                    p.add(new MenuItem("undo"));
+                    p.add(new MenuItem("redo"));
+                    p.show(sf, ev.getX(), ev.getY());
+                }
+            }
+        });
         //add(menu, BorderLayout.NORTH);
         add(sf, BorderLayout.CENTER);
 
@@ -47,7 +64,7 @@ public final class SpreadsheetGui extends JFrame implements SpreadsheetView {
         setJMenuBar(menu.getMenuBar());
         getContentPane().add(menu.getToolBar(), BorderLayout.NORTH);
 
-        setSize(new Dimension(DEFAULT_X, DEFAULT_Y));
+        setPreferredSize(new Dimension(DEFAULT_X, DEFAULT_Y));
         pack();
     }
 
@@ -66,7 +83,7 @@ public final class SpreadsheetGui extends JFrame implements SpreadsheetView {
      * @param args a String[].
      */
     public static void main(final String[] args) {
-        final Spreadsheet m = new Spreadsheet();
+        final Spreadsheet m = new Spreadsheet(5,5);
         final SpreadsheetGui sv = new SpreadsheetGui(m);
         sv.init();
     }

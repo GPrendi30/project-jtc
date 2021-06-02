@@ -1,5 +1,6 @@
 package com.spreadsheetmodel.sheet;
 
+import com.spreadsheetmodel.SpreadsheetException;
 import static java.util.Collections.reverse;
 
 import com.computation.program.Program;
@@ -90,13 +91,22 @@ public class Sheet implements Serializable {
      * @param direction a String direction.
      * @param size  the new size of the table.
      */
-    public void grow(final String direction,final int size) {
+    public void grow(final String direction,final int size) throws SpreadsheetException {
         if ("Vertically".equals(direction)) {
+            if (size < sizeX()) {
+                throw new SpreadsheetException("Sheet of size "
+                        + sizeX() + "can't be resized to " + size);
+            }
             table.growVertically(size);
         } else if ("Horizontally".equals(direction)) {
+            if (size < sizeY()) {
+                throw new SpreadsheetException("Sheet of size "
+                        + sizeY() + "can't be resized to " + size);
+            }
             table.growHorizontally(size);
         } else {
-            // throw error
+            throw new SpreadsheetException("Unrecognized direction to grow the table,"
+                    + "expected Horizontally or Vertically, got" + direction);
         }
     }
 
@@ -121,7 +131,6 @@ public class Sheet implements Serializable {
      * @param c a Cell.
      */
     public void add(final Cell c) {
-        //c.updateContent(c.evaluate(PROGRAM, variableTable));
         addFormula(c);
         if (c.getType() == CellType.NUMBER) {
             c.evaluate(PROGRAM, variableTable);
@@ -228,7 +237,7 @@ public class Sheet implements Serializable {
      * @param col the int representing the column.
      */
     public void sortColumn(final int col) {
-        sortColumn("desc", col);
+        sortColumn("asc", col);
     }
 
     /**

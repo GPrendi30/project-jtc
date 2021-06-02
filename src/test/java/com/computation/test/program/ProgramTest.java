@@ -1,6 +1,7 @@
 package com.computation.test.program;
 
 import com.computation.instruction.Instruction;
+import com.computation.instruction.InstructionException;
 import com.computation.instruction.intinstruction.BIPUSH;
 import com.computation.program.Program;
 import org.junit.Test;
@@ -48,14 +49,14 @@ public class ProgramTest {
     }
     
     @Test
-    public void testExecute() {
+    public void testExecute() throws InstructionException {
         Program p = new Program();
         p.append(new BIPUSH(2));
         assertEquals(2, p.iexecute());
     }
 
     @Test
-    public void testDexecute() {
+    public void testDexecute() throws InstructionException {
         Program p = new Program();
         p.append(new BIPUSH(2));
         p.append(new BIPUSH(4));

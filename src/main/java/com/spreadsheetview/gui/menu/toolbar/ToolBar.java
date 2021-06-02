@@ -2,10 +2,11 @@ package com.spreadsheetview.gui.menu.toolbar;
 
 import com.spreadsheetmodel.commands.Command;
 import com.spreadsheetmodel.commands.CopyCommand;
+import com.spreadsheetmodel.commands.CopyPasteStack;
 import com.spreadsheetmodel.commands.CutCommand;
-import com.spreadsheetmodel.commands.OpenCommand;
+import com.spreadsheetmodel.commands.FormulasOnCommand;
+import com.spreadsheetmodel.commands.Invoker;
 import com.spreadsheetmodel.commands.PasteCommand;
-import com.spreadsheetmodel.commands.SaveCommand;
 
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -31,34 +32,34 @@ public class ToolBar extends JToolBar {
         final ImageIcon toggleIcon = newIcon(getPath("toggle_formulas32.png"), "toggle action");
 
         addButton(undoIcon,
-                new ToolBarActionListener() {
+                new ActionListener() {
                     @Override
-                    public Command command() {
-                        return (Command) new CopyCommand();
-                }
-            });
+                    public void actionPerformed(final ActionEvent actionEvent) {
+                        Invoker.getInstance().undo();
+                    }
+                });
 
         addButton(redoIcon,
-                new ToolBarActionListener() {
+                new ActionListener() {
                     @Override
-                    public Command command() {
-                        return new OpenCommand("");
-                }
-            });
+                    public void actionPerformed(final ActionEvent actionEvent) {
+                        Invoker.getInstance().redo();
+                    }
+                });
 
         addButton(copyIcon,
                 new ToolBarActionListener() {
                     @Override
                     public Command command() {
-                        return new SaveCommand("");
-                }
-            });
+                        return new CopyCommand(CopyPasteStack.getInstance());
+                    }
+                });
 
         addButton(pasteIcon,
             new ToolBarActionListener() {
                 @Override
                 public Command command() {
-                    return (Command) new PasteCommand();
+                    return new PasteCommand(CopyPasteStack.getInstance());
                 }
             });
 
@@ -66,7 +67,7 @@ public class ToolBar extends JToolBar {
             new ToolBarActionListener() {
                 @Override
                 public Command command() {
-                    return (Command) new CutCommand();
+                    return new CutCommand(CopyPasteStack.getInstance());
                 }
             });
 
@@ -77,7 +78,8 @@ public class ToolBar extends JToolBar {
                 @Override
                 public void actionPerformed(final ActionEvent actionEvent) {
                     if (toggled) {
-                        System.out.println("Formulas Toggled");
+                        final Command formulasOn = new FormulasOnCommand();
+                        Invoker.getInstance().invoke(formulasOn);
                     } else {
                         System.out.println("Formulas untoggled");
                     }
@@ -89,8 +91,8 @@ public class ToolBar extends JToolBar {
                 }
             });
 
-        final FlowLayout layout = new FlowLayout();
-        layout.setAlignment(FlowLayout.LEFT);
+
+        final FlowLayout layout = new FlowLayout(FlowLayout.LEFT);
         setLayout(layout);
 
     }

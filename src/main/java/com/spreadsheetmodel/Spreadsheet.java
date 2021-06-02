@@ -4,14 +4,11 @@ import com.spreadsheetmodel.cell.Cell;
 import com.spreadsheetmodel.sheet.Sheet;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -22,76 +19,39 @@ import java.util.Scanner;
 
 public class Spreadsheet implements Serializable {
 
-    private static final int DEFAULT_TABLE_X;
-    private static final int DEFAULT_TABLE_Y;
-
-
-    static {
-        DEFAULT_TABLE_X = 5;
-        DEFAULT_TABLE_Y = 5;
-    }
-
     private final ArrayList<SpreadsheetListener> listeners;
     private Sheet currentSheet;
     private Cell currentCell;
-    private int openSheets;
     private final LinkedHashMap<String, Sheet> sheets;
+
 
     /**
      * Creates a new Spreadsheet.
      */
-    public Spreadsheet() {
+    public Spreadsheet(final int x, final int y) {
         sheets = new LinkedHashMap<>();
-        final Sheet t = new Sheet(DEFAULT_TABLE_X, DEFAULT_TABLE_Y); // default values;
+        final Sheet t = new Sheet(x,y); // default values;
         listeners = new ArrayList<>();
 
         t.updateTableName("Sheet 1");
-        sheets.put(t.getTableName(), t); // first sheet;
-        openSheets = 1;
+        sheets.put(t.getTableName(), t); // first sheet
         selectSheet("Sheet 1");
 
     }
 
-    /**
-     * Writes a Spreadsheet object to a file.
-     * @param path a String path
-     * @param s a SpreadSheet object.
-     * @throws IOException in case the file doesn't exist.
-     */
-    public static void writeToFile(final String path,final Spreadsheet s) throws IOException  {
-
-        final Path targetPath = Paths.get(path);
-
-        final ObjectOutputStream oos = new ObjectOutputStream(
-                new FileOutputStream(targetPath.toString()));
-
-        oos. writeObject(s);
-
+    public void addSheet(final Sheet sheet) {
+        sheets.put(sheet.getTableName(), sheet);
+        selectSheet(sheet.getTableName());
     }
 
-    /**
-     * Reads from a file, and returns a Spreadsheet object.
-     * @param path the String path to a jtc file.
-     * @return a Spreadsheet.
-     * @throws IOException throws an error in case it
-     */
-    public static Spreadsheet readFromFile(final String path) throws IOException  {
-        final Path inputPath = Paths.get(path);
-
-        final ObjectInputStream ois = new ObjectInputStream(
-                new FileInputStream(inputPath.toString()));
-
-
-        Spreadsheet deserSpreadsheet = null;
-
-        try {
-            deserSpreadsheet = (Spreadsheet) ois.readObject();
-        } catch (ClassNotFoundException exception) {
-            // TODO Auto-generated catch block
-            exception.printStackTrace();
+    public void removeSheet(final Sheet sheet) {
+        if (sheets.size() <= 1) {
+            // throw error.
         }
-        return deserSpreadsheet;
+        sheets.remove(sheet.getTableName());
+        fireSpreadsheetChanged(new SpreadsheetEvent("Sheet removed", SpreadsheetEventType.SHEET_CHANGED));
     }
+
 
     /**
      * Adds a new Sheet with a given name.
@@ -99,16 +59,7 @@ public class Spreadsheet implements Serializable {
      * @return boolean a boolean.
      */
     public boolean addNewSheet(final String tableName) {
-        if (openSheets >= 10) {
-            setOpenSheets(10);
-            return false;
-        }
-
-        final Sheet t = new Sheet(DEFAULT_TABLE_X, DEFAULT_TABLE_Y, tableName);
-        incrementOpenSheets();
-        if (tableName == null || tableName.length() == 0) {
-            t.updateTableName("Sheet " + openSheets);
-        }
+        final Sheet t = new Sheet(20, 20, tableName);
 
         if (checkSheetName(tableName)) {
             sheets.put(t.getTableName(), t);
@@ -119,8 +70,8 @@ public class Spreadsheet implements Serializable {
 
             return true;
         }
-        return false;
 
+        return false;
     }
 
     private boolean checkSheetName(final String tableName) {
@@ -174,7 +125,7 @@ public class Spreadsheet implements Serializable {
      * @param c the cell
      * @param content a String, new content of the cell.
      */
-    private void updateCell(final Cell c, final String content) {
+    public void updateCell(final Cell c, final String content) {
         currentSheet.updateCell(c, content);
         currentSheet.reEvalFormulas();
         fireSpreadsheetChanged(
@@ -189,8 +140,6 @@ public class Spreadsheet implements Serializable {
     public void updateCurrentCell(final String content) {
         updateCell(currentCell, content);
     }
-
-
 
     /**
      * Fills the formulas.
@@ -262,14 +211,14 @@ public class Spreadsheet implements Serializable {
      * Imports the content of the csv file from a path.
      * @param path a String representation of a path.
      */
-    public void importCsv(final String path) {
+    public void importCsv(final String path) throws IOException, SpreadsheetException {
         Scanner sc = null;
         try {
             final File csvFile = new File(path);
             sc = new Scanner(csvFile);
             this.addNewSheet(csvFile.getName());
         } catch (FileNotFoundException exception) {
-            exception.printStackTrace();
+            throw new IOException("File at  the given path " + path + " doesnt exist", exception);
         }
 
         sc.useDelimiter(System.getProperty("line.separator"));
@@ -324,13 +273,12 @@ public class Spreadsheet implements Serializable {
     public void exportCsv(final String path) throws IOException {
         final Path baseDir = Paths.get(path);
         if (!Files.exists(baseDir)) {
-            // throw exception.
+            throw new IOException("Directory " + baseDir + " doesnt exist");
         }
 
         final File csvFile = new File(path);
         if (csvFile.exists()) {
-            //ask for
-            System.out.println("File exists, it will be overwritten.");
+            throw new FileAlreadyExistsException("File at given path " + path + "already exists. ");
         } else {
             // create new file.
             csvFile.createNewFile();
@@ -356,34 +304,11 @@ public class Spreadsheet implements Serializable {
      * @param dir String direction
      * @param size int size in that direction.
      */
-    public void grow(final String dir,final int size) {
+    public void grow(final String dir,final int size) throws SpreadsheetException {
         currentSheet.grow(dir, size);
         fireSpreadsheetChanged(
                 new SpreadsheetEvent("Sheet grow",
                         SpreadsheetEventType.TABLE_GROW));
-    }
-
-    /**
-     * Gets the number of the open sheets currently.
-     * @return current openSheets.
-     */
-    public int getOpenSheets() {
-        return openSheets;
-    }
-
-    /**
-     * Sets the number of openSheets.
-     * @param i the number of the openSheets.
-     */
-    private void setOpenSheets(final int i) {
-        openSheets = i;
-    }
-
-    /**
-     * Increments openSheets by 1.
-     */
-    public void incrementOpenSheets() {
-        openSheets++;
     }
 
 
@@ -393,14 +318,6 @@ public class Spreadsheet implements Serializable {
      */
     public void addListener(final SpreadsheetListener li) {
         listeners.add(li);
-    }
-
-    /**
-     * Removes a listener from the list of listeners.
-     * @param li a Spreadsheet listener that will be removed.
-     */
-    public void removeListener(final SpreadsheetListener li) {
-        listeners.remove(li);
     }
 
 

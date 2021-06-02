@@ -1,6 +1,8 @@
 package com.spreadsheet.test.sheet;
 
 import com.computation.program.VariableTable;
+import com.computation.program.VariableTableException;
+import com.spreadsheetmodel.SpreadsheetException;
 import com.spreadsheetmodel.cell.Cell;
 import com.spreadsheetmodel.cell.CellLocation;
 import com.spreadsheetmodel.cell.TableCell;
@@ -38,7 +40,7 @@ public class SheetTest {
 
     @Test
     // test for add: also tests addToVariableTable and addFormula because inside of add
-    public void testAdd() {
+    public void testAdd() throws VariableTableException {
         Sheet s = new Sheet(5, 6);
         Cell c = new TableCell(1, 1);
         c.updateContent("5");
@@ -46,18 +48,8 @@ public class SheetTest {
         assertEquals(s.getVariableTable().getInt(c.getLocation().toString()).toString(), "5");
     }
 
-    @Test
-    public void testAddToVariableTable() {
-        Sheet s = new Sheet(1,1);
-        Cell c = new Cell(1,1);
-
-        s.addToVariableTable(c);
-
-        assertEquals(null, s.getFormula(c.getLocation()));
-    }
-
-    @Test
-    public void testGrow() {
+    @Test 
+    public void testGrow() throws SpreadsheetException {
         Sheet s = new Sheet(5, 6);
         assertEquals(s.sizeX(), 5);
         assertEquals(s.sizeY(), 6);
@@ -75,6 +67,17 @@ public class SheetTest {
         assertEquals(s.sizeX(), 8);
         assertEquals(s.sizeY(), 10);
     }
+
+    @Test
+    public void testAddToVariableTable() {
+        Sheet s = new Sheet(1,1);
+        Cell c = new Cell(1,1);
+
+        s.addToVariableTable(c);
+
+        assertEquals(null, s.getFormula(c.getLocation()));
+    }
+
 
     @Test
     public void testGetVariableTable() {

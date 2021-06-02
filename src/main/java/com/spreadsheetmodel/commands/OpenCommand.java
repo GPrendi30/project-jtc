@@ -2,6 +2,8 @@ package com.spreadsheetmodel.commands;
 
 import com.spreadsheetmodel.Spreadsheet;
 
+import com.spreadsheetmodel.SpreadsheetException;
+import com.spreadsheetmodel.SpreadsheetIOEngine;
 import java.io.IOException;
 
 public class OpenCommand implements Command {
@@ -19,10 +21,24 @@ public class OpenCommand implements Command {
     @Override
     public void execute(final Spreadsheet receiver) {
         try {
-            Spreadsheet.readFromFile(this.path);
+            SpreadsheetIOEngine.readFromFile(this.path);
         } catch (IOException exception) {
             exception.printStackTrace();
+        } catch (SpreadsheetException exception) {
+            exception.printStackTrace();
         }
+
+    }
+
+    @Override
+    public void undo(final Spreadsheet receiver) {
+        // doesnt have undo
+
+    }
+
+    @Override
+    public void redo(final Spreadsheet receiver) {
+        //doesnt have redo
 
     }
 }

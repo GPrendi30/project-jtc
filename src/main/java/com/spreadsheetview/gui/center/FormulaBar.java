@@ -53,7 +53,7 @@ public final class FormulaBar extends JPanel {
 
         cellName = new JTextField(currentCell.getLocation().toString());
 
-        // TODO add action listener to button
+
         cellName.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(final KeyEvent e) {

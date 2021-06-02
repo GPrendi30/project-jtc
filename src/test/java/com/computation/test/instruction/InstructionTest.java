@@ -1,6 +1,7 @@
 package com.computation.test.instruction;
 
 import com.computation.instruction.Instruction;
+import com.computation.instruction.InstructionException;
 import com.computation.instruction.doubleinstruction.BDPUSH;
 import com.computation.instruction.doubleinstruction.D2I;
 import com.computation.instruction.doubleinstruction.DADD;
@@ -20,6 +21,7 @@ import com.computation.instruction.intinstruction.ISUB;
 import com.computation.program.OperandStack;
 import com.computation.program.Storage;
 import com.computation.program.VariableTable;
+import com.computation.program.VariableTableException;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -36,7 +38,7 @@ public class InstructionTest {
     }
 
     @Test
-    public void testExecuteBIPUSH() {
+    public void testExecuteBIPUSH() throws InstructionException {
         OperandStack os = new OperandStack();
         VariableTable vt = new VariableTable();
         Storage s = new Storage(os, vt);
@@ -53,7 +55,7 @@ public class InstructionTest {
     }
 
     @Test
-    public void testExecuteINEG() {
+    public void testExecuteINEG() throws InstructionException {
         OperandStack os = new OperandStack();
         VariableTable vt = new VariableTable();
         Storage s = new Storage(os, vt);
@@ -71,7 +73,7 @@ public class InstructionTest {
     }
 
     @Test
-    public void testExecuteIADD() {
+    public void testExecuteIADD() throws InstructionException {
         OperandStack os = new OperandStack();
         VariableTable vt = new VariableTable();
         Storage s = new Storage(os, vt);
@@ -90,7 +92,7 @@ public class InstructionTest {
     }
 
     @Test
-    public void testExecuteISUB() {
+    public void testExecuteISUB() throws InstructionException {
         OperandStack os = new OperandStack();
         VariableTable vt = new VariableTable();
         Storage s = new Storage(os, vt);
@@ -108,7 +110,7 @@ public class InstructionTest {
     }
 
     @Test
-    public void testExecuteIMUL() {
+    public void testExecuteIMUL() throws InstructionException {
         OperandStack os = new OperandStack();
         VariableTable vt = new VariableTable();
         Storage s = new Storage(os, vt);
@@ -126,7 +128,7 @@ public class InstructionTest {
     }
 
     @Test
-    public void testExecuteIDIV() {
+    public void testExecuteIDIV() throws InstructionException {
         OperandStack os = new OperandStack();
         VariableTable vt = new VariableTable();
         Storage s = new Storage(os, vt);
@@ -144,7 +146,7 @@ public class InstructionTest {
     }
 
     @Test
-    public void testExecuteILOAD() {
+    public void testExecuteILOAD() throws VariableTableException, InstructionException {
         OperandStack os = new OperandStack();
         VariableTable vt = new VariableTable();
         Storage s = new Storage(os, vt);
@@ -165,7 +167,7 @@ public class InstructionTest {
     }
 
     @Test
-    public void testExecuteBDPUSH() {
+    public void testExecuteBDPUSH() throws InstructionException {
         OperandStack os = new OperandStack();
         VariableTable vt = new VariableTable();
         Storage s = new Storage(os, vt);
@@ -182,7 +184,7 @@ public class InstructionTest {
     }
 
     @Test
-    public void testExecuteDNEG() {
+    public void testExecuteDNEG() throws InstructionException {
         OperandStack os = new OperandStack();
         VariableTable vt = new VariableTable();
         Storage s = new Storage(os, vt);
@@ -200,7 +202,7 @@ public class InstructionTest {
     }
 
     @Test
-    public void testExecuteDADD() {
+    public void testExecuteDADD() throws InstructionException {
         OperandStack os = new OperandStack();
         VariableTable vt = new VariableTable();
         Storage s = new Storage(os, vt);
@@ -219,7 +221,7 @@ public class InstructionTest {
     }
 
     @Test
-    public void testExecuteDSUB() {
+    public void testExecuteDSUB() throws InstructionException {
         OperandStack os = new OperandStack();
         VariableTable vt = new VariableTable();
         Storage s = new Storage(os, vt);
@@ -237,7 +239,7 @@ public class InstructionTest {
     }
 
     @Test
-    public void testExecuteDMUL() {
+    public void testExecuteDMUL() throws InstructionException {
         OperandStack os = new OperandStack();
         VariableTable vt = new VariableTable();
         Storage s = new Storage(os, vt);
@@ -255,7 +257,7 @@ public class InstructionTest {
     }
 
     @Test
-    public void testExecuteDDIV() {
+    public void testExecuteDDIV() throws InstructionException {
         OperandStack os = new OperandStack();
         VariableTable vt = new VariableTable();
         Storage s = new Storage(os, vt);
@@ -273,7 +275,7 @@ public class InstructionTest {
     }
 
     @Test
-    public void testExecuteDLOAD() {
+    public void testExecuteDLOAD() throws InstructionException, VariableTableException {
         OperandStack os = new OperandStack();
         VariableTable vt = new VariableTable();
         Storage s = new Storage(os, vt);
@@ -294,7 +296,7 @@ public class InstructionTest {
     }
 
     @Test
-    public void testExecuteD2I() {
+    public void testExecuteD2I() throws InstructionException {
         OperandStack os = new OperandStack();
         VariableTable vt = new VariableTable();
         Storage s = new Storage(os, vt);
@@ -312,7 +314,7 @@ public class InstructionTest {
     }
 
     @Test
-    public void testExecuteI2D() {
+    public void testExecuteI2D() throws InstructionException {
         OperandStack os = new OperandStack();
         VariableTable vt = new VariableTable();
         Storage s = new Storage(os, vt);

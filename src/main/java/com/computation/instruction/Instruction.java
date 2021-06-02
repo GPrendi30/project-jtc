@@ -11,7 +11,7 @@ public class Instruction {
      * Execute this Instruction.
      * @param storage The "memory" to use during the execution
      */
-    public void execute(final Storage storage) {
+    public void execute(final Storage storage) throws InstructionException {
         //to be overriden.
     }
     

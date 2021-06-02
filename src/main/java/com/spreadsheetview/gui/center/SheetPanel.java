@@ -91,7 +91,7 @@ public class SheetPanel extends JPanel {
      */
     public static void main(final String[] args) {
         final JFrame frame = new JFrame();
-        final Spreadsheet m = new Spreadsheet();
+        final Spreadsheet m = new Spreadsheet(5,5);
         final SheetPanel sv = new SheetPanel(m);
         frame.add(sv);
         frame.setSize(new Dimension(500, 500));
