@@ -1,6 +1,8 @@
 package com.computation.test.parser;
 
 import com.computation.ast.Node;
+import com.computation.ast.doublenodes.DoubleAddition;
+import com.computation.ast.doublenodes.DoubleLiteral;
 import com.computation.ast.function.Function;
 import com.computation.ast.function.FunctionList;
 import com.computation.ast.intnodes.IntAddition;
@@ -10,11 +12,14 @@ import com.computation.ast.intnodes.IntMultiplication;
 import com.computation.ast.intnodes.IntNegation;
 import com.computation.ast.intnodes.IntSubtraction;
 import com.computation.ast.intnodes.IntVariable;
+import com.computation.lexer.LexerException;
+import com.computation.parser.ArithException;
 import com.computation.parser.ArithParser;
 import com.computation.parser.Parser;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 
 /**
@@ -228,6 +233,56 @@ public class ArithParserTest {
         expectedRoot.addParameter(new IntLiteral(3));
         expectedRoot.addParameter(new IntLiteral(4));
         expectedRoot.addParameter(new IntLiteral(5));
+        // assertion
+        assertEquals(expectedRoot.toString(), actualRoot.toString());
+    }
+
+    @Test
+    public void testParseThrowException () {
+        // setup
+        final Parser parser = new ArithParser();
+        // test input
+        final String sourceCode = "(12+5)(";
+        // code under test
+
+        boolean thrown = false;
+        try {
+            parser.parse(sourceCode);
+            // expected tree
+        } catch (ArithException | LexerException e) {
+            thrown = true;
+        }
+        assertTrue(thrown);
+    }
+
+    @Test
+    public void testParseFactor() throws LexerException, ArithException {
+        // setup
+        final Parser parser = new ArithParser();
+        // test input
+        final String sourceCode = "(12.3+5.0)";
+        // code under test
+        final Node actualRoot = parser.parse(sourceCode);
+        // expected tree
+        final Node expectedRoot = new DoubleAddition(
+                new DoubleLiteral(12.3),
+                new DoubleLiteral(5.0));
+        // assertion
+        assertEquals(expectedRoot.toString(), actualRoot.toString());
+    }
+
+    @Test
+    public void testParseFactor2() throws LexerException, ArithException {
+        // setup
+        final Parser parser = new ArithParser();
+        // test input
+        final String sourceCode = "(12.3+5.0)";
+        // code under test
+        final Node actualRoot = parser.parse(sourceCode);
+        // expected tree
+        final Node expectedRoot = new DoubleAddition(
+                new DoubleLiteral(12.3),
+                new DoubleLiteral(5.0));
         // assertion
         assertEquals(expectedRoot.toString(), actualRoot.toString());
     }

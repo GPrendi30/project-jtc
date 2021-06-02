@@ -5,7 +5,9 @@ import com.computation.ast.NodeVariable;
 import com.computation.ast.Type;
 import com.computation.ast.doublenodes.DoubleLiteral;
 import com.computation.ast.function.Function;
+import com.computation.ast.function.FunctionList;
 import com.computation.ast.function.FunctionOperation;
+import com.computation.ast.function.FunctionWithRanges;
 import com.computation.ast.intnodes.IntLiteral;
 import com.computation.ast.intnodes.IntVariable;
 import com.computation.program.OperandStack;
@@ -13,6 +15,7 @@ import com.computation.program.Program;
 import com.computation.program.Storage;
 import org.junit.Test;
 
+import static com.computation.ast.function.FunctionList.SUM;
 import static org.junit.Assert.*;
 
 
@@ -161,9 +164,32 @@ public class FunctionTest {
         assertTrue(notThrown);
     }
 
+    @Test
+    public void testFunctionWithRanges() {
+
+        FunctionWithRanges fwr = new FunctionWithRanges(
+                "newFunction",
+                new FunctionOperation() {
+                    @Override
+                    public void execute(final Storage storage) {
+                        final OperandStack op = storage.getOperandStack();
+                        op.dpush(op.dpop() + op.dpop());
+                    }
+                    @Override
+                    public String toString() {
+                        return "sum";
+                    }
+                },
+                Type.DOUBLE);
+
+        Function copy_fwr = fwr.copy();
+
+        assertTrue(copy_fwr.getName() == fwr.getName());
+        assertTrue(copy_fwr.getType() == fwr.getType());
+    }
+
     // TODO add a throw exception with 'numArguments != Function.NO_LIMIT'
     //  (seems like the one before is already that case but coverage is not working 100%)
 
-    //TODO  FunctionOperation ---> PRIVATE
-    // maybe passes after calling the functions for testing (SIN,COS,...)
+    //TODO  checkType ---> PRIVATE
 }

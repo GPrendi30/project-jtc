@@ -34,6 +34,7 @@ import com.computation.instruction.intinstruction.IMUL;
 import com.computation.instruction.intinstruction.INEG;
 import com.computation.instruction.intinstruction.ISUB;
 import com.computation.program.Compiler;
+import com.computation.program.CompilerException;
 import com.computation.program.Program;
 import org.junit.Test;
 
@@ -237,5 +238,4 @@ public class CompilerTest {
         assertTrue(p.get(1) instanceof I2D);
         assertEquals(new I2D().toString(), p.get(1).toString());
     }
-
 }
