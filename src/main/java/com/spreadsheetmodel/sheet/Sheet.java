@@ -291,13 +291,11 @@ public class Sheet implements Serializable {
 
     /**
      * Creates the a data table.
-     * @return Object[][] the bidimensional Object array.
+     * @return Object[][] the bi-dimensional Object array.
      */
     public Object[][] createDataTable() {
 
         final Object[][] tableData = new Object[sizeX()][sizeY() + 1];
-        System.out.println(sizeX());
-        System.out.println(sizeY());
 
         for (int i = 0; i < sizeX(); i++) {
             for (int j = 0; j < sizeY(); j++) {
