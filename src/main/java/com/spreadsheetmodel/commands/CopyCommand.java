@@ -1,32 +1,35 @@
 package com.spreadsheetmodel.commands;
 
 import com.spreadsheetmodel.Spreadsheet;
-import com.spreadsheetmodel.cell.Cell;
 
 public class CopyCommand implements Command {
 
-    private static CopyPasteStack stack;
+    private CopyPasteStack stack;
     private String savedContent;
-    private Cell savedCell;
 
     public CopyCommand(final CopyPasteStack copyPasteStack) {
         stack = copyPasteStack;
+        savedContent = null;
     }
 
     @Override
-    public void execute(Spreadsheet receiver) {
-        savedContent = receiver.getCurrentCell().getText();
-        savedCell = receiver.getCurrentCell();
+    public void execute(final Spreadsheet receiver) {
+        updateContent(receiver.getCurrentCell().getText());
         stack.push(savedContent);
     }
 
     @Override
-    public void undo(Spreadsheet receiver) {
-        //stack.pop();
+    public void undo(final Spreadsheet receiver) {
+        stack.pop();
     }
 
     @Override
-    public void redo(Spreadsheet receiver) {
-        //stack.push(savedContent);
+    public void redo(final Spreadsheet receiver) {
+        stack.push(savedContent);
     }
+
+    private void updateContent(final String content) {
+        savedContent = content;
+    }
+
 }

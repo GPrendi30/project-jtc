@@ -2,6 +2,7 @@ package com.spreadsheetmodel.commands;
 
 import com.spreadsheetmodel.Spreadsheet;
 
+import com.spreadsheetmodel.SpreadsheetIOEngine;
 import java.io.IOException;
 
 public class SaveCommand implements Command {
@@ -19,20 +20,20 @@ public class SaveCommand implements Command {
     @Override
     public void execute(final Spreadsheet receiver) {
         try {
-            Spreadsheet.writeToFile(path, receiver);
+            SpreadsheetIOEngine.writeToFile(path, receiver);
         } catch (IOException exception) {
             exception.printStackTrace();
         }
     }
 
     @Override
-    public void undo(Spreadsheet receiver) {
+    public void undo(final Spreadsheet receiver) {
         //empty
         // throw you cannot undo this operation.
     }
 
     @Override
-    public void redo(Spreadsheet receiver) {
+    public void redo(final Spreadsheet receiver) {
         //empty
     }
 }

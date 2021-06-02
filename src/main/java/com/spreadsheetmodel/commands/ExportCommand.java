@@ -26,12 +26,12 @@ public class ExportCommand implements Command {
     }
 
     @Override
-    public void undo(Spreadsheet receiver) {
+    public void undo(final Spreadsheet receiver) {
         //
     }
 
     @Override
-    public void redo(Spreadsheet receiver) {
+    public void redo(final Spreadsheet receiver) {
         //
     }
 }

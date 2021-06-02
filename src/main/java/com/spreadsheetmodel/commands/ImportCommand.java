@@ -4,8 +4,6 @@ import com.spreadsheetmodel.Spreadsheet;
 import com.spreadsheetmodel.SpreadsheetException;
 import com.spreadsheetmodel.sheet.Sheet;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class ImportCommand implements Command {
 
@@ -33,12 +31,12 @@ public class ImportCommand implements Command {
     }
 
     @Override
-    public void undo(Spreadsheet receiver) {
+    public void undo(final Spreadsheet receiver) {
         receiver.removeSheet(savedSheet);
     }
 
     @Override
-    public void redo(Spreadsheet receiver) {
+    public void redo(final Spreadsheet receiver) {
         receiver.addSheet(savedSheet);
     }
 }

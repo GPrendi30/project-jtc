@@ -5,7 +5,7 @@ import com.spreadsheetmodel.cell.Cell;
 
 public class PasteCommand implements Command {
 
-    private static CopyPasteStack stack;
+    private CopyPasteStack stack;
     private String oldContent;
     private Cell targetCell;
 

@@ -2,6 +2,7 @@ package com.spreadsheetmodel.cell;
 
 import com.computation.ast.Node;
 import com.computation.ast.NodeException;
+import com.computation.instruction.InstructionException;
 import com.computation.lexer.LexerException;
 import com.computation.parser.ArithException;
 import com.computation.parser.ArithParser;
@@ -43,6 +44,11 @@ public class TableCell extends Cell {
 
 
     private void updateType() {
+        if (content == null || content.startsWith("#")) {
+            type = CellType.INVALID;
+            return;
+        }
+
         if (content.startsWith("=")) {
             type = CellType.FORMULA;
             return;
@@ -54,7 +60,7 @@ public class TableCell extends Cell {
     }
 
     private boolean isDigits(final String content) {
-        if (content.length() == 0) {
+        if (content == null || content.length() == 0) {
             return false;
         }
         for (int i = 0; i < content.length(); i++) {
@@ -76,6 +82,7 @@ public class TableCell extends Cell {
             result.compile(pr);
             content = "" + pr.iexecute(vt);
             updateType();
+
         } catch (ArithException exception) {
             content = "#EXP";
             type = CellType.INVALID;
@@ -83,6 +90,9 @@ public class TableCell extends Cell {
             content = "#KEY";
             type = CellType.INVALID;
         } catch (NodeException exception) {
+            content = "#VAL";
+            type = CellType.INVALID;
+        } catch (InstructionException exception ) {
             content = "#VAL";
             type = CellType.INVALID;
         }
