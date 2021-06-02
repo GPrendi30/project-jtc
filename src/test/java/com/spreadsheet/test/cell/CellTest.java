@@ -107,7 +107,6 @@ public class CellTest {
         } catch (Exception ex) {
             assertTrue(ex instanceof Exception);
         }
-        System.out.println(c.getText());
         assertEquals(CellType.INVALID, c.getType());
     }
 
