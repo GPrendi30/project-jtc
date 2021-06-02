@@ -4,10 +4,11 @@ import com.spreadsheetmodel.Spreadsheet;
 
 import com.spreadsheetmodel.SpreadsheetEvent;
 import com.spreadsheetmodel.SpreadsheetEventType;
+import com.spreadsheetmodel.SpreadsheetException;
 import com.spreadsheetmodel.SpreadsheetListener;
 
-import java.awt.Color;
-import java.awt.Component;
+
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -16,9 +17,9 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.swing.BorderFactory;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
+import java.util.Timer;
+import java.util.TimerTask;
+import javax.swing.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -44,7 +45,7 @@ public class SheetView extends JScrollPane {
                         row,
                         column,
                         (String) mainGrid.getValueAt(row - 1, column));
-            }
+        }
 
     };
 
@@ -57,8 +58,6 @@ public class SheetView extends JScrollPane {
         this.model = model;
         listeners = new ArrayList<>();
         tableModels = new HashMap<>();
-        model.grow("Horizontally", 100);
-        model.grow("Vertically", 100);
 
         mainGrid = new JTable() {
 
@@ -80,6 +79,14 @@ public class SheetView extends JScrollPane {
                 return colindex != 0;
             }
         };
+
+        try {
+            model.grow("Horizontally", 20);
+            model.grow("Vertically", 100);
+        } catch (SpreadsheetException exception) {
+            JOptionPane.showMessageDialog(null, exception.getMessage());
+        }
+
         addTableModel();
         selectSheetModel();
 
@@ -92,7 +99,6 @@ public class SheetView extends JScrollPane {
         mainGrid.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         add(mainGrid);
         setViewportView(mainGrid);
-
     }
 
     private void addMouseAdapter() {
@@ -104,9 +110,27 @@ public class SheetView extends JScrollPane {
                 final int row = mainGrid.getSelectedRow();
                 final int column = mainGrid.getSelectedColumn();
                 if (row >= 0 && column >= 0) {
-                    System.out.println(row + " " + column);
                     model.selectCell(row + 1, column);
                 }
+
+                final PopupFactory p = new PopupFactory();
+                final JPanel jp = new JPanel();
+                jp.setSize(new Dimension(100, 100));
+                jp.add(new Button("hello"));
+
+                final Point pointer = MouseInfo.getPointerInfo().getLocation();
+                final Popup pop = p.getPopup(null, jp, pointer.x, pointer.y);
+                if (e.getButton() == MouseEvent.BUTTON3) {
+                    final Timer t = new Timer();
+                    t.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            pop.hide();
+                        }
+                    }, 500, 600);
+                    pop.show();
+                }
+
             }
         });
     }

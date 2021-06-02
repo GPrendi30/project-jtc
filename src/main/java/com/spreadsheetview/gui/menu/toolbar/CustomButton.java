@@ -16,8 +16,6 @@ public class CustomButton extends JButton {
      * @param description a String that describes the button.
      */
     public CustomButton(final ImageIcon i, final String description) {
-    
-        // TODO implement hover
 
         super(i);
         setBorder(null);
@@ -25,7 +23,7 @@ public class CustomButton extends JButton {
 
         setMaximumSize(new Dimension(100, 100));
         setMinimumSize(new Dimension(64, 64));
-
+        setBackground(new Color(255,255,255));
         setToolTipText(description);
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(final java.awt.event.MouseEvent evt) {
