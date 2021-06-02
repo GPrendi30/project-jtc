@@ -2,6 +2,7 @@ package com.spreadsheetcontroller;
 
 
 import com.spreadsheetmodel.Spreadsheet;
+import com.spreadsheetmodel.SpreadsheetException;
 import com.spreadsheetmodel.cell.Cell;
 import com.spreadsheetmodel.commands.Invoker;
 import com.spreadsheetview.SpreadsheetView;
@@ -45,7 +46,7 @@ public class SpreadsheetController {
      * @param args any args that you want.
      */
     public static void main(final String[] args) {
-        boolean guiBool = false;
+        boolean guiBool = true;
 
         if (args.length != 0) {
             guiBool = hasGui(args[0]);
@@ -53,7 +54,7 @@ public class SpreadsheetController {
 
 
 
-        final Spreadsheet s = new Spreadsheet();
+        final Spreadsheet s = new Spreadsheet(5,5);
 
         final SpreadsheetView view = guiBool
                         ?   new SpreadsheetGui(s)
@@ -130,10 +131,18 @@ public class SpreadsheetController {
             model.selectSheet(arrCommands[arrCommands.length - 1]);
             found = true;
         } else if (command.startsWith("grow sheet h")) {
-            model.grow("Horizontally", Integer.parseInt(arrCommands[arrCommands.length - 1]));
+            try {
+                model.grow("Horizontally", Integer.parseInt(arrCommands[arrCommands.length - 1]));
+            } catch (SpreadsheetException exception) {
+                System.out.println(exception.getMessage());
+            }
             found = true;
         } else if (command.startsWith("grow sheet v")) {
-            model.grow("Vertically", Integer.parseInt(arrCommands[arrCommands.length - 1]));
+            try {
+                model.grow("Vertically", Integer.parseInt(arrCommands[arrCommands.length - 1]));
+            } catch (SpreadsheetException exception) {
+                System.out.println(exception.getMessage());
+            }
             found = true;
         }
         return found;
@@ -142,14 +151,19 @@ public class SpreadsheetController {
     private boolean importExportCommands(final String command, final String[] arrCommands) {
         boolean found = false;
         if (command.startsWith("import")) {
-            model.importCsv(arrCommands[arrCommands.length - 1]);
+            try {
+                model.importCsv(arrCommands[arrCommands.length - 1]);
+            } catch (SpreadsheetException exception) {
+                System.out.println(exception.getMessage());
+            } catch (IOException exception) {
+                System.out.println(exception.getMessage());
+            }
             found = true;
         } else if (command.startsWith("save")) {
             try {
                 model.exportCsv(arrCommands[arrCommands.length - 1]);
             } catch (IOException exception) {
-                System.out.println("Path doesnt exist");
-                exception.printStackTrace();
+                System.out.println(exception.getMessage());
             }
             found = true;
         }

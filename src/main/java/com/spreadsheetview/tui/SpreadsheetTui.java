@@ -15,8 +15,6 @@ import java.util.Iterator;
 public class SpreadsheetTui implements SpreadsheetView, Serializable {
 
     private final Spreadsheet model;
-    //private int selectedCellX;
-    //private int selectedCellY;
 
     /**
      * Creates a new TUI.
