@@ -136,7 +136,7 @@ public class CellTest {
 
     @Test
     public void testCellRange() throws Exception {
-        Spreadsheet s = new Spreadsheet();
+        Spreadsheet s = new Spreadsheet(5,5);
         s.updateCell(1,1,"1");
         s.updateCell(1,2,"2");
         s.updateCell(2,1,"3");
@@ -156,7 +156,7 @@ public class CellTest {
 
     @Test
     public void testCellRange2() throws Exception {
-        Spreadsheet s = new Spreadsheet();
+        Spreadsheet s = new Spreadsheet(5,5);
         s.updateCell(1,1,"1");
         s.updateCell(1,2,"2");
         s.updateCell(2,1,"3");
@@ -174,7 +174,7 @@ public class CellTest {
 
     @Test
     public void testCellRangeThrowsException() {
-        Spreadsheet s = new Spreadsheet();
+        Spreadsheet s = new Spreadsheet(5,5);
         s.updateCell(1,1,"1");
         s.updateCell(1,2,"2");
         s.updateCell(2,1,"3");
@@ -196,7 +196,7 @@ public class CellTest {
 
     @Test
     public void testCellRangeThrowsException2() {
-        Spreadsheet s = new Spreadsheet();
+        Spreadsheet s = new Spreadsheet(5,5);
         s.updateCell(1,1,"1");
         s.updateCell(1,2,"2");
         s.updateCell(2,1,"3");

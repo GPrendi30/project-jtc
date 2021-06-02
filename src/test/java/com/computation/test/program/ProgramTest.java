@@ -56,7 +56,7 @@ public class ProgramTest {
     }
 
     @Test
-    public void testDexecute() {
+    public void testDexecute() throws InstructionException {
         Program p = new Program();
         p.append(new BIPUSH(2));
         p.append(new BIPUSH(4));

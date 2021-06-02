@@ -23,7 +23,7 @@ public class SpreadsheetTest {
     @Test
     // also test for selectSheet and getCurrentSheetName methods
         public void testAddNewSheet() {
-        Spreadsheet s = new Spreadsheet();
+        Spreadsheet s = new Spreadsheet(5,5);
         s.addNewSheet("sheet2");
         s.selectSheet("sheet2");
         assertEquals(s.getCurrentSheetName(), "sheet2");
@@ -37,21 +37,21 @@ public class SpreadsheetTest {
 
     @Test
     public void testSelectCell() {
-        Spreadsheet s = new Spreadsheet();
+        Spreadsheet s = new Spreadsheet(5,5);
         s.selectCell(1, 1);
         assertTrue(s.getCurrentCell() instanceof Cell);
     }
 
     @Test
     public void testSelectCell2() {
-        Spreadsheet s = new Spreadsheet();
+        Spreadsheet s = new Spreadsheet(5,5);
         s.selectCell("A1");
         assertTrue(s.getCurrentCell() instanceof Cell);
     }
 
     @Test
     public void testUpdateCurrentCell() {
-        Spreadsheet s = new Spreadsheet();
+        Spreadsheet s = new Spreadsheet(5,5);
         s.selectCell(1,2);
         s.updateCurrentCell("4");
         assertEquals(s.getCurrentCell().getText(), "4");
@@ -59,7 +59,7 @@ public class SpreadsheetTest {
 
     @Test
     public void testGetCurrentCell() {
-        Spreadsheet s = new Spreadsheet();
+        Spreadsheet s = new Spreadsheet(5,5);
         s.selectCell(1, 1);
         assertTrue(s.getCurrentCell() instanceof Cell);
     }
@@ -67,7 +67,7 @@ public class SpreadsheetTest {
     @Test
     // also test for selectSheet
     public void testGetCurrentSheet() {
-        Spreadsheet s = new Spreadsheet();
+        Spreadsheet s = new Spreadsheet(5,5);
         s.addNewSheet("sheet2");
         s.selectSheet("sheet2");
         assertTrue(s.getCurrentSheet() instanceof Sheet);
@@ -75,7 +75,7 @@ public class SpreadsheetTest {
 
     @Test
     public void testGetCurrentSheetName() {
-        Spreadsheet s = new Spreadsheet();
+        Spreadsheet s = new Spreadsheet(5,5);
         s.addNewSheet("sheet2");
         s.selectSheet("sheet2");
         assertEquals(s.getCurrentSheetName(), "sheet2");
@@ -84,29 +84,15 @@ public class SpreadsheetTest {
     @Test
     public void testGrow() throws SpreadsheetException {
         // also test for getCurrentSheet
-        Spreadsheet s = new Spreadsheet();
+        Spreadsheet s = new Spreadsheet(5,5);
         s.addNewSheet("sheet2");
         s.grow("Horizontally", 7);
         assertEquals(s.getCurrentSheet().sizeY(), 7);
     }
 
     @Test
-    public void testGetOpenSheets() {
-        Spreadsheet s = new Spreadsheet();
-        assertEquals(s.getOpenSheets(), 1);
-    }
-    
-    @Test
-    public void testIncrementOpenSheets() {
-        Spreadsheet s = new Spreadsheet();
-        assertEquals(s.getOpenSheets(), 1);
-        s.incrementOpenSheets();
-        assertEquals(s.getOpenSheets(), 2);
-    } 
-
-    @Test
     public void testImportCsv() throws IOException, SpreadsheetException {
-        Spreadsheet s = new Spreadsheet();
+        Spreadsheet s = new Spreadsheet(5,5);
         String projectDir = System.getProperty("user.dir");
         Path csvPath = Paths.get(projectDir.toString(), "src/test/resources/a.csv");
         s.importCsv(csvPath.toString());
@@ -119,7 +105,7 @@ public class SpreadsheetTest {
     @Test
     public void testImportCsvNotFound() throws Exception{
         // TODO check that doesn't throw errors in the console
-        Spreadsheet s = new Spreadsheet();
+        Spreadsheet s = new Spreadsheet(5,5);
         String path = "path/to/file/that/does/not/exist.69420";
 
         boolean thrown = false;
@@ -141,7 +127,7 @@ public class SpreadsheetTest {
         if (csv.exists()) {
             csv.delete();
         }
-        Spreadsheet s = new Spreadsheet();
+        Spreadsheet s = new Spreadsheet(5,5);
         s.selectCell(3,3);
         s.updateCurrentCell("test");
         s.selectCell(2,2);
@@ -156,7 +142,7 @@ public class SpreadsheetTest {
         String projectDir = System.getProperty("user.dir");
         Path csvPath = Paths.get(projectDir, "src/test/resources/b.csv");
 
-        Spreadsheet s = new Spreadsheet();
+        Spreadsheet s = new Spreadsheet(5,5);
         s.selectCell(3,3);
         s.updateCurrentCell("test");
         s.selectCell(2,2);
@@ -177,20 +163,20 @@ public class SpreadsheetTest {
 
     @Test
     public void testGetSheet() {
-        Spreadsheet s = new Spreadsheet();
+        Spreadsheet s = new Spreadsheet(5,5);
         assertTrue(s.getSheets() instanceof Sheet[]);
     }
 
     @Test
     public void testCheckSheetName() {
-        Spreadsheet s = new Spreadsheet();
+        Spreadsheet s = new Spreadsheet(5,5);
         s.addNewSheet("sheet2");
         assertEquals(false, s.addNewSheet("sheet2"));
     }
 
     @Test
     public void testUpdateCell() {
-        Spreadsheet s = new Spreadsheet();
+        Spreadsheet s = new Spreadsheet(5,5);
         s.updateCell(1,1, "69420");
         s.selectCell(1,1);
         assertEquals("69420", s.getCurrentCell().getText());
@@ -198,13 +184,13 @@ public class SpreadsheetTest {
 
     @Test
     public void testFormulasOn() {
-        Spreadsheet s = new Spreadsheet();
+        Spreadsheet s = new Spreadsheet(5,5);
         s.formulasOn();
     }
 
     @Test
     public void testSortCol() {
-        Spreadsheet s = new Spreadsheet();
+        Spreadsheet s = new Spreadsheet(5,5);
         s.updateCell(1,1, "420");
         s.updateCell(1,2, "69");
         s.sortCol(1);
@@ -213,7 +199,7 @@ public class SpreadsheetTest {
 
     @Test
     public void testGetFormula() {
-        Spreadsheet s = new Spreadsheet();
+        Spreadsheet s = new Spreadsheet(5,5);
         s.updateCell(2,1, "1");
         s.updateCell(1,1,"=A2+A2");
         s.selectCell("A1");
