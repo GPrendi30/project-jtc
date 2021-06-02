@@ -8,7 +8,11 @@ import com.spreadsheetmodel.SpreadsheetException;
 import com.spreadsheetmodel.SpreadsheetListener;
 
 
-import java.awt.*;
+import java.awt.Button;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.MouseInfo;
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -19,12 +23,16 @@ import java.util.HashMap;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import javax.swing.*;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.Popup;
+import javax.swing.PopupFactory;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 
 
@@ -59,26 +67,7 @@ public class SheetView extends JScrollPane {
         listeners = new ArrayList<>();
         tableModels = new HashMap<>();
 
-        mainGrid = new JTable() {
-
-            public TableCellRenderer getCellRenderer(final int row, final int column) {
-                if (isRowSelected(row) && column == 0) {
-                    return new ColumnSelector();
-                }
-                if (isRowSelected(row) && isColumnSelected(column)) {
-                    return new ColorRenderer();
-                }
-                if (column == 0) {
-                    return mainGrid.getTableHeader().getDefaultRenderer();
-                }
-                return super.getCellRenderer(row, column);
-            }
-
-            public boolean isCellEditable(final int rowindex, final int colindex) {
-
-                return colindex != 0;
-            }
-        };
+        mainGrid = new CustomTable();
 
         try {
             model.grow("Horizontally", 20);
@@ -271,48 +260,6 @@ public class SheetView extends JScrollPane {
      */
     public void addListener(final SheetViewListener li) {
         listeners.add(li);
-    }
-
-
-    private class ColorRenderer extends DefaultTableCellRenderer {
-
-        private static final long serialVersionUID = 1L;
-
-        @Override
-        public Component getTableCellRendererComponent(
-                final JTable table,
-                final Object value, final boolean isSelected,
-                final boolean hasFocus,final int row,final int column) {
-            //super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
-            if (isSelected) {
-                setBackground(new Color(172, 225, 175));
-            } else {
-                setBackground(table.getBackground());
-            }
-
-            return this;
-        }
-    }
-
-    private class ColumnSelector extends DefaultTableCellRenderer {
-
-        private static final long serialVersionUID = 1L;
-
-        @Override
-        public Component getTableCellRendererComponent(
-                final JTable table,final Object value,final boolean isSelected,
-                final boolean hasFocus,final int row,final int column) {
-            super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
-            if (isSelected) {
-                setBackground(new Color(60, 179, 113));
-            }
-            setBorder(BorderFactory.createLineBorder(new Color(60, 179, 113)));
-
-
-            return this;
-        }
     }
 
 }

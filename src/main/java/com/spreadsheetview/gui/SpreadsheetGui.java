@@ -6,8 +6,10 @@ import com.spreadsheetview.gui.center.SheetPanel;
 import com.spreadsheetview.gui.center.SheetPanelListener;
 import com.spreadsheetview.gui.menu.Menu;
 
-import java.awt.*;
-
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.MenuItem;
+import java.awt.PopupMenu;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JFrame;

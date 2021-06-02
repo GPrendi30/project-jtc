@@ -3,7 +3,8 @@ package com.spreadsheetmodel.commands;
 import com.spreadsheetmodel.Spreadsheet;
 
 import com.spreadsheetmodel.SpreadsheetException;
-import com.spreadsheetmodel.SpreadsheetIOEngine;
+import com.spreadsheetmodel.SpreadsheetIO;
+
 import java.io.IOException;
 
 public class OpenCommand implements Command {
@@ -21,7 +22,7 @@ public class OpenCommand implements Command {
     @Override
     public void execute(final Spreadsheet receiver) {
         try {
-            SpreadsheetIOEngine.readFromFile(this.path);
+            SpreadsheetIO.readFromFile(this.path);
         } catch (IOException exception) {
             exception.printStackTrace();
         } catch (SpreadsheetException exception) {

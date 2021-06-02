@@ -9,6 +9,10 @@ public class PasteCommand implements Command {
     private String oldContent;
     private Cell targetCell;
 
+    /**
+     * Creates a new PasteCommand.
+     * @param copyPasteStack the stack where it stores the value.
+     */
     public PasteCommand(final CopyPasteStack copyPasteStack) {
         stack = copyPasteStack;
     }

@@ -25,6 +25,7 @@ public class VariableTable implements Serializable {
      * Get the value of the variable with the given name.
      * @param name The name of the variable.
      * @return The Integer value of the variable with the given name.
+     * @throws VariableTableException if it can't find the variable.
      */
     public Integer getInt(final String name) throws VariableTableException {
         final Integer value = variables.get(name).intValue();
@@ -39,6 +40,7 @@ public class VariableTable implements Serializable {
      * Get the value of the variable with the given name.
      * @param name The name of the variable.
      * @return The Double value of the variable with the given name.
+     * @throws VariableTableException if it can't find the variable.
      */
     public Double getDouble(final String name) throws VariableTableException {
         final Double value = variables.get(name);
