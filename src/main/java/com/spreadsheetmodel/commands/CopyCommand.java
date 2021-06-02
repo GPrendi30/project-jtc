@@ -7,6 +7,10 @@ public class CopyCommand implements Command {
     private CopyPasteStack stack;
     private String savedContent;
 
+    /**
+     * Creates a new CopyCommand
+     * @param copyPasteStack the stack where it stores the value temporarily.
+     */
     public CopyCommand(final CopyPasteStack copyPasteStack) {
         stack = copyPasteStack;
         savedContent = null;

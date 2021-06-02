@@ -9,6 +9,10 @@ public class CutCommand implements Command {
     private String savedContent;
     private Cell savedCell;
 
+    /**
+     * Creates a new CutCommand.
+     * @param copyPasteStack the stack where it stores the value temporarily.
+     */
     public CutCommand(final CopyPasteStack copyPasteStack) {
         stack = copyPasteStack;
         savedContent = null;

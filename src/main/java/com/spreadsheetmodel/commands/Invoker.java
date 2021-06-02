@@ -1,6 +1,7 @@
 package com.spreadsheetmodel.commands;
 
 import com.spreadsheetmodel.Spreadsheet;
+
 import java.util.ArrayList;
 
 public class Invoker {
@@ -32,7 +33,7 @@ public class Invoker {
     }
 
     /**
-     * Invoke(execute) a Command
+     * Invoke(execute) a Command.
      * @param d a command.
      */
     public void invoke(final Command d) {
@@ -44,7 +45,7 @@ public class Invoker {
 
 
     /**
-     * Invoke(execute) a Command
+     * Undo a Command.
      */
     public void undo() {
         final Command undoCommand = commands.get(pointer--);
@@ -54,7 +55,7 @@ public class Invoker {
 
 
     /**
-     * Invoke(execute) a Command
+     * Redo a Command.
      */
     public void redo() {
         final Command redoCommand = commands.get(pointer++);

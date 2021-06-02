@@ -1,5 +1,6 @@
 package com.spreadsheetmodel.cell;
 
+import com.spreadsheetmodel.SpreadsheetException;
 import com.spreadsheetmodel.sheet.Sheet;
 
 
@@ -61,9 +62,9 @@ public class CellRange {
      * Copies data from one place to another.
      * @param sh a Sheet.
      * @param target the target cell.
-     * @throws Exception a general exception.
+     * @throws SpreadsheetException a general exception.
      */
-    public void copyDataTo(final Sheet sh, final Cell target) throws Exception {
+    public void copyDataTo(final Sheet sh, final Cell target) throws SpreadsheetException {
         final int startX = target.getLocation().getRow();
         final int startY = target.getLocation().getIntColumn();
         final Cell targetY = sh.getCell(startX + sizeX - 1, startY + sizeY - 1);
@@ -76,12 +77,12 @@ public class CellRange {
      * @param sh a Sheet.
      * @param targetStart the cell where to start.
      * @param targetEnd the the cell where to end.
-     * @throws Exception throws exception if ranges dont match in dimension.
+     * @throws SpreadsheetException throws exception if ranges dont match in dimension.
      */
     public void copyDataTo(final Sheet sh,
                            final Cell targetStart,
                            final Cell targetEnd)
-            throws Exception {
+            throws SpreadsheetException {
 
         final int startX = targetStart.getLocation().getRow();
         final int startY = targetStart.getLocation().getIntColumn();
@@ -91,7 +92,7 @@ public class CellRange {
 
 
         if ((endX - startX) + 1 != sizeX || (endY - startY) + 1 != sizeY) {
-            throw new Exception("Ranges should have the same dimension");
+            throw new SpreadsheetException("Ranges should have the same dimension");
 
         }
 

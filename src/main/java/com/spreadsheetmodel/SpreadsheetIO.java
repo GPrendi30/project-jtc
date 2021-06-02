@@ -8,8 +8,11 @@ import java.io.ObjectOutputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public abstract class SpreadsheetIOEngine {
+public abstract class SpreadsheetIO {
 
+    /**
+     * Dummy abstract method.
+     */
     public abstract void spreadsheetEngine();
 
     /**
@@ -34,23 +37,25 @@ public abstract class SpreadsheetIOEngine {
      * @param path the String path to a jtc file.
      * @return a Spreadsheet.
      * @throws IOException throws an error in case it
+     * @throws SpreadsheetException if it can't deserialize a spreadsheet.
      */
-    public static Spreadsheet readFromFile(final String path) throws IOException, SpreadsheetException {
+    public static Spreadsheet readFromFile(final String path)
+            throws IOException, SpreadsheetException {
         final Path inputPath = Paths.get(path);
 
         final ObjectInputStream ois = new ObjectInputStream(
                 new FileInputStream(inputPath.toString()));
 
 
-        Spreadsheet deserSpreadsheet = null;
+        Spreadsheet deserializedSpreadsheet = null;
 
         try {
-            deserSpreadsheet = (Spreadsheet) ois.readObject();
+            deserializedSpreadsheet = (Spreadsheet) ois.readObject();
         } catch (ClassNotFoundException exception) {
             throw new SpreadsheetException("Spreadsheet at the given path "
                     + path + "cannot be imported", exception);
         }
-        return deserSpreadsheet;
+        return deserializedSpreadsheet;
     }
 
 }

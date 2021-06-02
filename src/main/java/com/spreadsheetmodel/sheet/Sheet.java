@@ -1,10 +1,10 @@
 package com.spreadsheetmodel.sheet;
 
-import com.spreadsheetmodel.SpreadsheetException;
 import static java.util.Collections.reverse;
 
 import com.computation.program.Program;
 import com.computation.program.VariableTable;
+import com.spreadsheetmodel.SpreadsheetException;
 import com.spreadsheetmodel.cell.Cell;
 import com.spreadsheetmodel.cell.CellLocation;
 import com.spreadsheetmodel.cell.CellType;
@@ -90,6 +90,7 @@ public class Sheet implements Serializable {
      * Dynamically grows the array, to a direction and a given size.
      * @param direction a String direction.
      * @param size  the new size of the table.
+     * @throws SpreadsheetException throws an exception if the spreadsheet can't grow the sheet.
      */
     public void grow(final String direction,final int size) throws SpreadsheetException {
         if ("Vertically".equals(direction)) {

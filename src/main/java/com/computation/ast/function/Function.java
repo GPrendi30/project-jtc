@@ -24,7 +24,6 @@ public class Function extends Node implements FunctionPrototype {
     private final int mode;
     private final int numArguments;
     protected final Type returnType;
-    //TODO add argument stack;
 
     /**
      * Creates a new Function based on the name and Operation.
@@ -113,7 +112,6 @@ public class Function extends Node implements FunctionPrototype {
 
     @Override
     public void compile(final Program p) throws NodeException {
-        // TODO make FunctionException
         if (parameters.size() != numArguments && parameters.size() < mode) {
             throw numArguments == Function.NO_LIMIT
                     ? new FunctionException("Mismatch of parameters, needed at least "

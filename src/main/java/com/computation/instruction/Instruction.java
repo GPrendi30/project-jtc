@@ -10,6 +10,7 @@ public class Instruction {
     /**
      * Execute this Instruction.
      * @param storage The "memory" to use during the execution
+     * @throws InstructionException if it can't execute the instruction.
      */
     public void execute(final Storage storage) throws InstructionException {
         //to be overriden.

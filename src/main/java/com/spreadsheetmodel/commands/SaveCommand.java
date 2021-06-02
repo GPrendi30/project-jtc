@@ -2,7 +2,8 @@ package com.spreadsheetmodel.commands;
 
 import com.spreadsheetmodel.Spreadsheet;
 
-import com.spreadsheetmodel.SpreadsheetIOEngine;
+import com.spreadsheetmodel.SpreadsheetIO;
+
 import java.io.IOException;
 
 public class SaveCommand implements Command {
@@ -20,7 +21,7 @@ public class SaveCommand implements Command {
     @Override
     public void execute(final Spreadsheet receiver) {
         try {
-            SpreadsheetIOEngine.writeToFile(path, receiver);
+            SpreadsheetIO.writeToFile(path, receiver);
         } catch (IOException exception) {
             exception.printStackTrace();
         }

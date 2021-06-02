@@ -3,6 +3,7 @@ package com.computation.program;
 import com.computation.instruction.Instruction;
 
 import com.computation.instruction.InstructionException;
+
 import java.util.ArrayList;
 
 /**
@@ -53,6 +54,8 @@ public class Program {
      * The result is the top element of the operand stack,
      * after executing all Instructions.
      * @return The result of the execution.
+     * @throws InstructionException throws InstructionException,
+     *      if the instructions can't be executed;
      */
     public int iexecute() throws InstructionException {
         final VariableTable variables = new VariableTable();
@@ -66,6 +69,8 @@ public class Program {
      * @param variables The variables with their values
      *        (accessed by ILOAD Instructions)
      * @return The result of the execution.
+     * @throws InstructionException throws InstructionException,
+     *            if the instructions can't be executed;
      */
     public int iexecute(final VariableTable variables) throws InstructionException {
         final OperandStack stack = new OperandStack();
@@ -81,6 +86,8 @@ public class Program {
      * The result is the top element of the operand stack,
      * after executing all Instructions.
      * @return The result of the execution.
+     * @throws InstructionException throws InstructionException,
+     *            if the instructions can't be executed;
      */
     public double dexecute() throws InstructionException {
         final VariableTable variables = new VariableTable();
@@ -94,6 +101,8 @@ public class Program {
      * @param variables The variables with their values 
      *        (accessed by ILOAD Instructions)
      * @return The result of the execution.
+     * @throws InstructionException throws InstructionException,
+     *           if the instructions can't be executed;
      */
     public double dexecute(final VariableTable variables) throws InstructionException {
         final OperandStack stack = new OperandStack();

@@ -27,6 +27,8 @@ public class Spreadsheet implements Serializable {
 
     /**
      * Creates a new Spreadsheet.
+     * @param x the x coordinate
+     * @param y the y coordinate
      */
     public Spreadsheet(final int x, final int y) {
         sheets = new LinkedHashMap<>();
@@ -39,17 +41,26 @@ public class Spreadsheet implements Serializable {
 
     }
 
+    /**
+     * Adds a new sheet.
+     * @param sheet a Sheet to be added.
+     */
     public void addSheet(final Sheet sheet) {
         sheets.put(sheet.getTableName(), sheet);
         selectSheet(sheet.getTableName());
     }
 
+    /**
+     * Removes a sheet from the sheets.
+     * @param sheet a Sheet to be removed.
+     */
     public void removeSheet(final Sheet sheet) {
         if (sheets.size() <= 1) {
             // throw error.
         }
         sheets.remove(sheet.getTableName());
-        fireSpreadsheetChanged(new SpreadsheetEvent("Sheet removed", SpreadsheetEventType.SHEET_CHANGED));
+        fireSpreadsheetChanged(new SpreadsheetEvent("Sheet removed",
+                SpreadsheetEventType.SHEET_CHANGED));
     }
 
 
@@ -210,6 +221,8 @@ public class Spreadsheet implements Serializable {
     /**
      * Imports the content of the csv file from a path.
      * @param path a String representation of a path.
+     * @throws IOException if it can't find the file to import.
+     * @throws SpreadsheetException if it can't import the file.
      */
     public void importCsv(final String path) throws IOException, SpreadsheetException {
         Scanner sc = null;
@@ -303,6 +316,7 @@ public class Spreadsheet implements Serializable {
      * Dynamically grow the sheet.
      * @param dir String direction
      * @param size int size in that direction.
+     * @throws SpreadsheetException if it can't grow the Spreadsheet.
      */
     public void grow(final String dir,final int size) throws SpreadsheetException {
         currentSheet.grow(dir, size);

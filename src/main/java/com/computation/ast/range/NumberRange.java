@@ -15,18 +15,16 @@ public class NumberRange extends Range {
      * A number range representation.
      * @param start the start Node.
      * @param end the end Node.
-     * @throws Exception throws Exception if the Range cannot be parsed.
+     * @throws RangeException throws Exception if the Range cannot be parsed.
      */
-    public NumberRange(final Node start, final Node end) {
+    public NumberRange(final Node start, final Node end) throws RangeException {
         super(start, end);
         value = new ArrayNode(Type.INT);
 
         try {
             parseRange();
         } catch (NodeException exception) {
-            // TODO correct this?
-            exception.printStackTrace();
-            //throw new RangeException("Range is unparasable", exception);
+            throw new RangeException("Range is unparasable", exception);
         }
     }
 
