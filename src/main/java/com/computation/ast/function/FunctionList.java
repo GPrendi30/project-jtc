@@ -70,7 +70,7 @@ public enum FunctionList {
             public void execute(final Storage storage) {
                 final OperandStack op = storage.getOperandStack();
                 final double a = op.dpop();
-                op.dpush(a > 0 ? a : -a);
+                op.dpush(a < 0 ? -a : a);
             }
 
             @Override
@@ -190,7 +190,7 @@ public enum FunctionList {
      * Returns a function if it find a match of name.
      * @param name a string name for a function.
      * @return a new Function, with the same name and functionOperation.
-     * @throws FunctionException throws a FunctionException //TODO implement
+     * @throws FunctionException throws a FunctionException
      */
     public static Function stringToFunction(final String name) throws FunctionException {
         for (final FunctionList func : FunctionList.values()) {
