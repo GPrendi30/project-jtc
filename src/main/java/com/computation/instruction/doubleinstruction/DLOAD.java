@@ -1,9 +1,11 @@
 package com.computation.instruction.doubleinstruction;
 
 import com.computation.instruction.Instruction;
+import com.computation.instruction.InstructionException;
 import com.computation.program.OperandStack;
 import com.computation.program.Storage;
 import com.computation.program.VariableTable;
+import com.computation.program.VariableTableException;
 
 public class DLOAD extends Instruction {
 
@@ -19,10 +21,15 @@ public class DLOAD extends Instruction {
     }
     
     @Override
-    public void execute(final Storage storage) {
+    public void execute(final Storage storage) throws InstructionException {
         final OperandStack stack = storage.getOperandStack();
         final VariableTable variableTable = storage.getVariableTable();
-        final double xValue = variableTable.getDouble(var);
+        final double xValue;
+        try {
+            xValue = variableTable.getDouble(var);
+        } catch (VariableTableException exception) {
+            throw new InstructionException(exception.getMessage(), exception);
+        }
         stack.dpush(xValue);
     }
 
