@@ -24,4 +24,14 @@ public class ExportCommand implements Command {
             exception.printStackTrace();
         }
     }
+
+    @Override
+    public void undo(Spreadsheet receiver) {
+        //
+    }
+
+    @Override
+    public void redo(Spreadsheet receiver) {
+        //
+    }
 }

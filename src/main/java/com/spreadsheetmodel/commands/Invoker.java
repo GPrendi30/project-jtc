@@ -1,11 +1,19 @@
 package com.spreadsheetmodel.commands;
 
 import com.spreadsheetmodel.Spreadsheet;
+import java.util.ArrayList;
 
 public class Invoker {
 
+    private ArrayList<Command> commands;
+    private int pointer;
     private static Spreadsheet receiver;
     private static Invoker instance = new Invoker();
+
+    private Invoker() {
+        commands = new ArrayList<>();
+        pointer = -1;
+    }
 
     /**
      * Sets the model of the Invoker.
@@ -28,6 +36,27 @@ public class Invoker {
      * @param d a command.
      */
     public void invoke(final Command d) {
+        commands.add(d);
+        pointer++;
         d.execute(receiver);
     }
+
+
+    /**
+     * Invoke(execute) a Command
+     */
+    public void undo() {
+        final Command undoCommand = commands.get(pointer--);
+        undoCommand.undo(receiver);
+    }
+
+
+    /**
+     * Invoke(execute) a Command
+     */
+    public void redo() {
+        final Command redoCommand = commands.get(pointer++);
+        redoCommand.redo(receiver);
+    }
+
 }

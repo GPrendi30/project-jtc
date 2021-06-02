@@ -25,4 +25,14 @@ public class OpenCommand implements Command {
         }
 
     }
+
+    @Override
+    public void undo(Spreadsheet receiver) {
+
+    }
+
+    @Override
+    public void redo(Spreadsheet receiver) {
+
+    }
 }

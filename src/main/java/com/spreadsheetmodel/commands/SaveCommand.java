@@ -24,4 +24,15 @@ public class SaveCommand implements Command {
             exception.printStackTrace();
         }
     }
+
+    @Override
+    public void undo(Spreadsheet receiver) {
+        //empty
+        // throw you cannot undo this operation.
+    }
+
+    @Override
+    public void redo(Spreadsheet receiver) {
+        //empty
+    }
 }
