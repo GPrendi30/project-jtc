@@ -54,9 +54,9 @@ public class Spreadsheet implements Serializable {
      * Removes a sheet from the sheets.
      * @param sheetName a Sheet to be removed.
      */
-    public void removeSheet(final String sheetName) {
+    public void removeSheet(final String sheetName) throws SpreadsheetException {
         if (sheets.size() <= 1) {
-            // throw error.
+            throw new SpreadsheetException("Is not possible to remove the last sheet");
         }
         sheets.remove(sheetName);
         fireSpreadsheetChanged(new SpreadsheetEvent("Sheet removed",

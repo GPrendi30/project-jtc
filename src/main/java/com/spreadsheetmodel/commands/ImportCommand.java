@@ -38,7 +38,11 @@ public class ImportCommand implements Command {
     @Override
     public void undo(final Spreadsheet receiver) {
         final String importSheet = Paths.get(path).getFileName().toString();
-        receiver.removeSheet(importSheet);
+        try {
+            receiver.removeSheet(importSheet);
+        } catch (SpreadsheetException exception) {
+            exception.printStackTrace();
+        }
         receiver.selectSheet(prevSheet);
     }
 

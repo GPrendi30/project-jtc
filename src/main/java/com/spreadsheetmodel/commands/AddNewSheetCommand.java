@@ -1,6 +1,7 @@
 package com.spreadsheetmodel.commands;
 
 import com.spreadsheetmodel.Spreadsheet;
+import com.spreadsheetmodel.SpreadsheetException;
 
 public class AddNewSheetCommand implements Command {
 
@@ -23,7 +24,11 @@ public class AddNewSheetCommand implements Command {
 
     @Override
     public void undo(final Spreadsheet receiver) {
-        receiver.removeSheet(addedSheet);
+        try {
+            receiver.removeSheet(addedSheet);
+        } catch (SpreadsheetException e) {
+            e.printStackTrace();
+        }
         receiver.selectSheet(prevSheet);
     }
 

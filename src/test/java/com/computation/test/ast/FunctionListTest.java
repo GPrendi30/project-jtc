@@ -1,7 +1,11 @@
 package com.computation.test.ast;
 
+import com.computation.ast.NodeException;
+import com.computation.ast.Type;
+import com.computation.ast.doublenodes.DoubleLiteral;
 import com.computation.ast.function.Function;
 import com.computation.ast.function.FunctionList;
+import com.computation.ast.range.ArrayNode;
 import com.computation.instruction.InstructionException;
 import com.computation.instruction.doubleinstruction.BDPUSH;
 import com.computation.instruction.intinstruction.BIPUSH;
@@ -155,4 +159,39 @@ public class FunctionListTest {
     }
 
 
+
+    @Test
+    public void testASUM() throws InstructionException {
+        Function ASUM = FunctionList.ASUM.getFunction();
+
+        Program p = new Program();
+        p.append(new BDPUSH(5.0));
+        p.append(new BIPUSH(4));
+        p.append(ASUM.getFunctionOperation());
+        p.iexecute();
+
+        assertEquals("  BDPUSH 5.0" + "\n" +
+                "  BIPUSH 4" + "\n" +
+                "  sum" + "\n", p.toString());
+    }
+
+    @Test
+    public void testASUM2() throws NodeException {
+        Function ASUM = FunctionList.ASUM.getFunction();
+
+        Program p = new Program();
+        ArrayNode an = new ArrayNode(Type.DOUBLE);
+        an.append(new DoubleLiteral(5.0));
+        an.append(new DoubleLiteral(2.0));
+        an.append(new DoubleLiteral(3.0));
+
+        ASUM.addParameter(an);
+        ASUM.compile(p);
+
+        assertEquals("  BDPUSH 5.0\n" +
+                "  BDPUSH 2.0\n" +
+                "  sum\n" +
+                "  BDPUSH 3.0\n" +
+                "  sum\n", p.toString());
+    }
 }
