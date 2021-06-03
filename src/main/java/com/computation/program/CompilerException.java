@@ -3,14 +3,14 @@ package com.computation.program;
 public class CompilerException extends Exception {
 
     /**
-     * Creates an ArithException.
+     * Creates an CompilerException.
      */
     public CompilerException() {
         super();
     }
 
     /**
-     * Creates an ArithException with a message.
+     * Creates an CompilerException with a message.
      *
      * @param message a String message associated with the Exception.
      */
@@ -19,7 +19,7 @@ public class CompilerException extends Exception {
     }
 
     /**
-     * Creates an ArithException with a message and a cause.
+     * Creates an CompilerException with a message and a cause.
      *
      * @param message a String message associated with the Exception.
      * @param cause   a Throwable cause associated with the Exception.

@@ -4,14 +4,14 @@ package com.computation.instruction;
 public class InstructionException extends Exception {
 
     /**
-     * Creates an ArithException.
+     * Creates an InstructionException.
      */
     public InstructionException() {
         super();
     }
 
     /**
-     * Creates an ArithException with a message.
+     * Creates an InstructionException with a message.
      *
      * @param message a String message associated with the Exception.
      */
@@ -20,7 +20,7 @@ public class InstructionException extends Exception {
     }
 
     /**
-     * Creates an ArithException with a message and a cause.
+     * Creates an InstructionException with a message and a cause.
      *
      * @param message a String message associated with the Exception.
      * @param cause   a Throwable cause associated with the Exception.

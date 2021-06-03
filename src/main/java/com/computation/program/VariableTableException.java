@@ -2,14 +2,14 @@ package com.computation.program;
 
 public class VariableTableException extends Exception {
     /**
-     * Creates an ArithException.
+     * Creates an VariableTableException.
      */
     public VariableTableException() {
         super();
     }
 
     /**
-     * Creates an ArithException with a message.
+     * Creates an VariableTableException with a message.
      *
      * @param message a String message associated with the Exception.
      */
@@ -18,7 +18,7 @@ public class VariableTableException extends Exception {
     }
 
     /**
-     * Creates an ArithException with a message and a cause.
+     * Creates an VariableTableException with a message and a cause.
      *
      * @param message a String message associated with the Exception.
      * @param cause   a Throwable cause associated with the Exception.
