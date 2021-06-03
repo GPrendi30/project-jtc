@@ -6,6 +6,10 @@ import com.spreadsheetmodel.SpreadsheetEvent;
 import com.spreadsheetmodel.SpreadsheetEventType;
 import com.spreadsheetmodel.SpreadsheetListener;
 
+import com.spreadsheetmodel.commands.AddNewSheetCommand;
+import com.spreadsheetmodel.commands.Invoker;
+import com.spreadsheetmodel.commands.SelectSheetCommand;
+
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -53,7 +57,7 @@ public class TabsView extends JPanel {
                         null,
                         "New Sheet"
                 );
-                model.addNewSheet(result);
+                Invoker.getInstance().invoke(new AddNewSheetCommand(result));
             }
         });
 
@@ -64,8 +68,10 @@ public class TabsView extends JPanel {
             @Override
             public void spreadsheetChanged(final Spreadsheet s,final SpreadsheetEvent se) {
                 if (se.getId() == SpreadsheetEventType.SHEET_ADDED) {
-                    System.out.println(model.getCurrentSheetName());
                     addNewSheetButton(model.getCurrentSheetName());
+                } else if (se.getId() == SpreadsheetEventType.SHEET_REMOVED) {
+                    removeAllButtons();
+                    addAllButtons();
                 }
             }
         });
@@ -83,7 +89,7 @@ public class TabsView extends JPanel {
             newSheetButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(final ActionEvent actionEvent) {
-                    model.selectSheet(newSheetButton.getText());
+                    Invoker.getInstance().invoke(new SelectSheetCommand(newSheetButton.getText()));
                 }
             });
             add(newSheetButton);

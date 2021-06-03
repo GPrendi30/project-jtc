@@ -8,10 +8,6 @@ import com.spreadsheetview.gui.menu.Menu;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.MenuItem;
-import java.awt.PopupMenu;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
 
 
@@ -30,7 +26,7 @@ public final class SpreadsheetGui extends JFrame implements SpreadsheetView {
         setLayout(new BorderLayout());
 
 
-        final Menu menu = new Menu();
+        final Menu menu = new Menu(this);
         final SheetPanel sf = new SheetPanel(model);
         // add the listener for FormulaBar
         sf.addListener(new SheetPanelListener() {
@@ -42,22 +38,6 @@ public final class SpreadsheetGui extends JFrame implements SpreadsheetView {
             }
         });
 
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(final MouseEvent ev) {
-                super.mouseClicked(ev);
-                System.out.println(ev.getButton());
-                if (ev.getButton() == MouseEvent.BUTTON3) {
-                    final PopupMenu p = new PopupMenu();
-                    p.add(new MenuItem("copy"));
-                    p.add(new MenuItem("paste"));
-                    p.add(new MenuItem("sort column"));
-                    p.add(new MenuItem("undo"));
-                    p.add(new MenuItem("redo"));
-                    p.show(sf, ev.getX(), ev.getY());
-                }
-            }
-        });
         //add(menu, BorderLayout.NORTH);
         add(sf, BorderLayout.CENTER);
 
@@ -78,6 +58,12 @@ public final class SpreadsheetGui extends JFrame implements SpreadsheetView {
     @Override
     public void updateView() {
         // empty
+    }
+
+    @Override
+    public void updateModel(final Spreadsheet newModel) {
+        final SpreadsheetGui gui = new SpreadsheetGui(newModel);
+        gui.init();
     }
 
     /**

@@ -7,6 +7,7 @@ import com.spreadsheetmodel.commands.Invoker;
 import com.spreadsheetmodel.commands.OpenCommand;
 import com.spreadsheetmodel.commands.SaveCommand;
 
+import com.spreadsheetview.SpreadsheetView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -17,7 +18,7 @@ public class FileMenu extends Menu {
     /**
      * Edit the menu.
      */
-    public FileMenu() {
+    public FileMenu(final SpreadsheetView view) {
         super("File");
 
         // Add the menu "new"
@@ -35,7 +36,7 @@ public class FileMenu extends Menu {
                 FileMenuActionListener.OPEN_DIALOG) {
             @Override
             public void command(final String path) {
-                final OpenCommand openCommand = new OpenCommand(path);
+                final OpenCommand openCommand = new OpenCommand(path, view);
                 Invoker.getInstance().invoke(openCommand);
             }
         });

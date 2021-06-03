@@ -61,6 +61,7 @@ public class SheetView extends JScrollPane {
                         row,
                         column,
                         (String) mainGrid.getValueAt(row - 1, column));
+                redraw();
         }
 
     };
@@ -125,7 +126,7 @@ public class SheetView extends JScrollPane {
                         public void run() {
                             pop.hide();
                         }
-                    }, 500, 2000);
+                    }, 500, 3500);
                     pop.show();
                 }
 
@@ -162,9 +163,6 @@ public class SheetView extends JScrollPane {
                         case KeyEvent.VK_RIGHT:
                             column = column + 1;
                             model.selectCell(row + 1, column);
-                            break;
-                        case KeyEvent.VK_ENTER:
-                            fireSheetViewChanged();
                             break;
                         default:
                             break;
@@ -216,6 +214,7 @@ public class SheetView extends JScrollPane {
                     final int row = model.getCurrentCell().getLocation().getRow();
                     final int col = model.getCurrentCell().getLocation().getIntColumn();
                     mainGrid.setValueAt(model.getCurrentCell().getText(), row - 1, col);
+                    fireSheetViewChanged();
                 }
             }
         });
@@ -249,6 +248,7 @@ public class SheetView extends JScrollPane {
         mainGrid.setModel(tableModels.get(model.getCurrentSheetName()));
         mainGrid.getColumnModel().getColumn(0).setPreferredWidth(35);
         repaint(0, 0, mainGrid.getWidth(), mainGrid.getHeight());
+        fireSheetViewChanged();
     }
 
 

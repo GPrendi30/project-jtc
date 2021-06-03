@@ -1,5 +1,6 @@
 package com.spreadsheetview.gui.menu;
 
+import com.spreadsheetview.SpreadsheetView;
 import com.spreadsheetview.gui.menu.menubar.MenuBar;
 import com.spreadsheetview.gui.menu.toolbar.ToolBar;
 
@@ -11,9 +12,9 @@ public class Menu {
     /**
      * Create a menu.
      */
-    public Menu() {
+    public Menu(final SpreadsheetView parent) {
 
-        menuBar = new MenuBar();
+        menuBar = new MenuBar(parent);
         toolBar = new ToolBar();
     }
 
