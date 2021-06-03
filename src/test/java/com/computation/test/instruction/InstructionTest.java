@@ -180,6 +180,28 @@ public class InstructionTest {
     }
 
     @Test
+    public void testExecuteILOADThrowsException() throws VariableTableException, InstructionException {
+        OperandStack os = new OperandStack();
+        VariableTable vt = new VariableTable();
+        Storage s = new Storage(os, vt);
+
+        // init Instruction: ILOAD x
+        Instruction i = new ILOAD("prollywrongname");
+        vt.iset("x", 10); // set x to 10
+
+        os.ipush(vt.getInt("x")); // push the value of x in the stack
+
+        boolean thrown = false;
+        try {
+            i.execute(s);
+        } catch (InstructionException exception) {
+            thrown = true;
+        }
+        assertTrue(thrown);
+
+    }
+
+    @Test
     public void testToStringBDPUSH() {
         Instruction i = new BDPUSH(1);
         assertEquals("BDPUSH 1.0", i.toString());
