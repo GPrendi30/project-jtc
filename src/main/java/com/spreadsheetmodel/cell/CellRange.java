@@ -47,10 +47,8 @@ public class CellRange {
             for (int y = startY; y <= endY; y++) {
 
                 tempData[i][j] = sh.getCell(x,y).getText();
-                System.out.print(tempData[i][j] + " ");
                 j++;
             }
-            System.out.println();
             i++;
             j = 0;
         }

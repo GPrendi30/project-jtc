@@ -60,7 +60,6 @@ public class Invoker {
     public void redo() {
         final Command redoCommand = commands.get(pointer++);
         redoCommand.redo(receiver);
-        System.out.println();
         System.out.println("redo command");
     }
 
