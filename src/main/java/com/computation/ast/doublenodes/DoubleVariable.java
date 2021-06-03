@@ -5,6 +5,13 @@ import com.computation.ast.Type;
 import com.computation.instruction.Instruction;
 import com.computation.instruction.doubleinstruction.DLOAD;
 
+/**
+ * A variable of type Double.
+ *
+ * @author Prendi Gerald.
+ *
+ */
+
 public class DoubleVariable extends NodeVariable {
 
     /**

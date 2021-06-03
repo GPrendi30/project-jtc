@@ -7,6 +7,12 @@ import com.computation.program.Storage;
 import com.computation.program.VariableTable;
 import com.computation.program.VariableTableException;
 
+/**
+ * DLOAD pushes a Double Variable to the Operand Stack.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class DLOAD extends Instruction {
 
     private final String var;

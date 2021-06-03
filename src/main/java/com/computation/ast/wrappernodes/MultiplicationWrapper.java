@@ -5,6 +5,14 @@ import com.computation.ast.Type;
 import com.computation.ast.doublenodes.DoubleMultiplication;
 import com.computation.ast.intnodes.IntMultiplication;
 
+/**
+ * The wrapper of a multiplication, the result is going
+ * to be of type Double.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
+
 public class MultiplicationWrapper extends BinaryWrapperNode {
 
     /**

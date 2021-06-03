@@ -4,7 +4,11 @@ import com.computation.program.Program;
 
 /**
  * An abstract syntax tree (AST) node.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
  */
+
 public class Node {
     
     /**

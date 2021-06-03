@@ -9,6 +9,9 @@ import com.computation.instruction.doubleinstruction.BDPUSH;
  * A Literal is an AST node that 
  * corresponds to a literal integer doubleValue
  * (a number in the source code).
+ *
+ * @author Prendi Gerald.
+ *
  */
 public class DoubleLiteral extends NodeLiteral {
     

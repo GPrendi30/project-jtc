@@ -7,6 +7,13 @@ import com.computation.program.Program;
 
 import java.util.ArrayList;
 
+/**
+ * A function.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
+
 public class Function extends Node implements FunctionPrototype {
 
     public static final int NO_LIMIT = -99;

@@ -1,5 +1,11 @@
 package com.computation.parser;
 
+/**
+ * The exceptions for the class Arith.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class ArithException extends Exception {
 
     /**

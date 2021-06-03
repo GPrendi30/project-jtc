@@ -4,6 +4,12 @@ import com.computation.instruction.Instruction;
 import com.computation.program.OperandStack;
 import com.computation.program.Storage;
 
+/**
+ * DMUL is a multiplication of Doubles.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class DMUL extends Instruction {
 
 

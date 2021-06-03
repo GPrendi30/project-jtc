@@ -3,6 +3,13 @@ package com.computation.ast.wrappernodes;
 import com.computation.ast.Node;
 import com.computation.ast.Type;
 
+/**
+ * The wrapper of a Binary Node.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
+
 public class BinaryWrapperNode extends WrapperNode {
 
     protected Node leftChild;

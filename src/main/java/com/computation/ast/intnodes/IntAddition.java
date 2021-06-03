@@ -5,7 +5,10 @@ import com.computation.instruction.Instruction;
 import com.computation.instruction.intinstruction.IADD;
 
 /**
- * An integer IntAddition.
+ * An addition of two nodes containing numbers of type Integer.
+ *
+ * @author Prendi Gerald.
+ *
  */
 public class IntAddition extends IntBinaryNode {
     

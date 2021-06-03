@@ -7,6 +7,13 @@ import com.computation.program.Storage;
 import com.computation.program.VariableTable;
 import com.computation.program.VariableTableException;
 
+/**
+ * IDIV pushes an Integer Variable to the Operand Stack.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
+
 public class ILOAD extends Instruction {
 
     private final String var;

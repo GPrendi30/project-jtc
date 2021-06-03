@@ -5,6 +5,13 @@ import com.computation.instruction.InstructionException;
 import com.computation.program.OperandStack;
 import com.computation.program.Storage;
 
+/**
+ * IDIV is a division of Integers.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
+
 public class IDIV extends Instruction {
     
     @Override

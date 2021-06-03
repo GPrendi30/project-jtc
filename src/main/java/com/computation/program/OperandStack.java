@@ -5,6 +5,9 @@ package com.computation.program;
  * the temporary values during execution.
  * (If you took Computer Architecture at USI,
  * you should remember this).
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
  */
 public class OperandStack {
     

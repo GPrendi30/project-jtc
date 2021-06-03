@@ -5,6 +5,14 @@ import com.computation.ast.Type;
 import com.computation.ast.doublenodes.DoubleDivision;
 import com.computation.ast.intnodes.IntDivision;
 
+/**
+ * The wrapper of a division, the result is going
+ * to be of type Double.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
+
 public class DivisionWrapper extends BinaryWrapperNode {
 
     /**

@@ -3,6 +3,9 @@ package com.computation.lexer;
 /**
  * A special kind of StringTokenFactory,
  * which produces tokens that represent operators.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
  */
 public class OperatorTokenFactory extends StringTokenFactory {
 

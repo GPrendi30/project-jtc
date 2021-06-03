@@ -1,5 +1,11 @@
 package com.computation.program;
 
+/**
+ * The exceptions for the class VariableTable.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class VariableTableException extends Exception {
     /**
      * Creates an VariableTableException.

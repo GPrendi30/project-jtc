@@ -18,12 +18,12 @@ If mvn site fails to build, run: <br>
 ### Milestones
 * [X] Implement the labs
 * [X] Have a table with cells
-* [ ] Complete the Model
+* [X] Complete the Model
 * [X] Have a working CLI
-* [ ] Have a working GUI
-* [ ] _Add new features (optional)_
-  * [ ] repl
-  * [ ] CSV with formulas
+* [X] Have a working GUI
+* [X] _Add new features (optional)_
+  * [X] repl
+  * [X] CSV with formulas
 
 ### Architecture
 MVC (Model View Controller)
@@ -34,7 +34,8 @@ We will try to divide the logic of the program from the graphical interface as d
 ##### _Factory pattern_  
 We try to separate the logic from what the user sees so that everything is independent and easily improvable. The user follows a pattern (that we decide) to interact with the program.
 
-<!-- _Singleton_  -->
+##### _Singleton_
+We rely on this pattern to make our commands run.
 
 ##### _Observer pattern_  
 We'll use the observer pattern for the GUI.
@@ -48,7 +49,7 @@ _main_ is the working branch where everything is correct, tested and cleaned up.
 _dev_ is the development branch were we work on adding new stuff.
 
 ##### _issue_
-_issue_ is a temporary branch that we create to fix an issue. When, the issue is fixed this branch is merged to _main_.
+_issue_ is a temporary branch that we create to fix an issue. When the issue is fixed this branch is merged to _main_.
 
  ### Coding conventions
  We are going to develop our project following the [Google Java Style Guide](https://google.github.io/styleguide/javaguide.html).
@@ -68,7 +69,6 @@ Use our script to run without building <br>
 <code> bash script/run.sh </code>  <br>
 
 ### TODO
-Implement Error Handling (Work-in-progress) <br>
-Fix ArithParser (work-in-progress) <br>
-test coverage++ <br>
-
+  * [X] Implement Error Handling  <br>
+  * [X] Fix ArithParser  <br>
+  * [X] test coverage++ <br>

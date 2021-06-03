@@ -4,6 +4,9 @@ package com.computation.lexer;
  * A program in a programming language is made up 
  * of different kinds of tokens.
  * This enumeration represents these different kinds.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
  */
 public enum TokenType {
 

@@ -5,7 +5,11 @@ import com.computation.instruction.Instruction;
 import com.computation.instruction.intinstruction.INEG;
 
 /**
- * An integer IntNegation (e.g., -5, or -x).
+ * A negation of a node.
+ * IntNegation class (e.g., -5, or -x).
+ *
+ * @author Prendi Gerald.
+ *
  */
 public class IntNegation extends IntUnaryNode {
         

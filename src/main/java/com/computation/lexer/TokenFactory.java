@@ -2,6 +2,9 @@ package com.computation.lexer;
 
 /**
  * A TokenFactory can produce Tokens.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
  */
 public class TokenFactory {
 

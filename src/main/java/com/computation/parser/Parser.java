@@ -6,6 +6,9 @@ import com.computation.lexer.LexerException;
 /**
  * A Parser can convert source code into an AST
  * consisting of Node objects.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
  */
 public interface Parser {
 

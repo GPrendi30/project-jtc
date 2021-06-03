@@ -4,6 +4,13 @@ import com.computation.ast.Type;
 import com.computation.program.OperandStack;
 import com.computation.program.Storage;
 
+/**
+ * A list of already defined functions.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
+
 public enum FunctionList {
 
     SIN("SIN",
@@ -155,9 +162,6 @@ public enum FunctionList {
         },
         Type.DOUBLE));
 
-
-
-    //TODO add more functions
 
     private final String name;
     private final Function function;

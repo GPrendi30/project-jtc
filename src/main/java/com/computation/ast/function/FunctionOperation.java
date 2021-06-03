@@ -3,6 +3,13 @@ package com.computation.ast.function;
 import com.computation.instruction.Instruction;
 import com.computation.program.Storage;
 
+/**
+ * The fundamentals operations of a function.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
+
 public abstract class FunctionOperation extends Instruction {
 
     /**

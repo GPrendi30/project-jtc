@@ -4,6 +4,12 @@ import com.computation.instruction.Instruction;
 import com.computation.program.OperandStack;
 import com.computation.program.Storage;
 
+/**
+ * DADD is an addition of Doubles.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class DADD extends Instruction {
     
     @Override

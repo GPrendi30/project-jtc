@@ -5,6 +5,13 @@ import com.computation.ast.intnodes.IntUnaryNode;
 import com.computation.instruction.Instruction;
 import com.computation.instruction.doubleinstruction.D2I;
 
+/**
+ * Cast a Double into an Int.
+ *
+ * @author Prendi Gerald.
+ *
+ */
+
 public class DoubleToInt extends IntUnaryNode {
 
     /**

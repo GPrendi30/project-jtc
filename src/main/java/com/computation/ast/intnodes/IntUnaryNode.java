@@ -6,6 +6,13 @@ import com.computation.ast.Type;
 import com.computation.instruction.Instruction;
 import com.computation.program.Program;
 
+/**
+ * A unary node of an Int.
+ *
+ * @author Prendi Gerald.
+ *
+ */
+
 public class IntUnaryNode extends Node {
 
     protected final Node child;

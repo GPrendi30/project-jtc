@@ -2,6 +2,13 @@ package com.computation.ast.function;
 
 import com.computation.ast.Type;
 
+/**
+ * A function working with ranges.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
+
 public class FunctionWithRanges extends Function {
 
     /**

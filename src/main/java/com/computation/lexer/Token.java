@@ -3,6 +3,9 @@ package com.computation.lexer;
 /**
  * A token is a contiguous sequence of characters in a text,
  * such as an identifier, an operator, or a literal.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
  */
 public final class Token {
 

@@ -2,6 +2,14 @@ package com.computation.ast.function;
 
 import com.computation.ast.Type;
 
+/**
+ * A binary function is a function that takes
+ * 2 arguments.
+ *
+ * @author Prendi Gerald.
+ *
+ */
+
 public class BinaryFunction extends Function {
 
     /**

@@ -1,5 +1,11 @@
 package com.computation.program;
 
+/**
+ * The exceptions for the class Compiler.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class CompilerException extends Exception {
 
     /**

@@ -7,6 +7,14 @@ import com.computation.program.Program;
 
 import java.util.ArrayList;
 
+/**
+ * An array of nodes that is used by functions
+ * that uses ranges.
+ *
+ * @author Prendi Gerald.
+ *
+ */
+
 public class ArrayNode extends Node {
 
     private final Type arrayType;

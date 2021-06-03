@@ -1,6 +1,11 @@
 package com.computation.instruction;
 
-
+/**
+ * The exceptions for the class Instruction.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class InstructionException extends Exception {
 
     /**

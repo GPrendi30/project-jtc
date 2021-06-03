@@ -3,6 +3,13 @@ package com.computation.ast;
 import com.computation.instruction.Instruction;
 import com.computation.program.Program;
 
+/**
+ * A node that contains a literal.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
+
 public class NodeLiteral extends Node {
     
     protected final Number value;

@@ -4,6 +4,12 @@ import com.computation.instruction.Instruction;
 import com.computation.program.OperandStack;
 import com.computation.program.Storage;
 
+/**
+ * D2I casts a Double to an Integer.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class D2I extends Instruction {
 
     @Override

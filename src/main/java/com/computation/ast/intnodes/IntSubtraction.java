@@ -5,8 +5,12 @@ import com.computation.instruction.Instruction;
 import com.computation.instruction.intinstruction.ISUB;
 
 /**
- * An integer IntSubtraction.
+ * A subtraction of two nodes containing numbers of type Integer.
+ *
+ * @author Prendi Gerald.
+ *
  */
+
 public class IntSubtraction extends IntBinaryNode {
     
     /**

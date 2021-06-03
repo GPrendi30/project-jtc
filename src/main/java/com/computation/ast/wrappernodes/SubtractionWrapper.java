@@ -5,6 +5,14 @@ import com.computation.ast.Type;
 import com.computation.ast.doublenodes.DoubleSubtraction;
 import com.computation.ast.intnodes.IntSubtraction;
 
+/**
+ * The wrapper of a subtraction, the result is going
+ * to be of type Double.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
+
 public class SubtractionWrapper extends BinaryWrapperNode {
 
     /**

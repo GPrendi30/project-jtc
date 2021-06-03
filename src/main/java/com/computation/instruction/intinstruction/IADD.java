@@ -7,6 +7,9 @@ import com.computation.program.Storage;
 /**
  * IADD adds the top two values from the OperandStack
  * and ipushes the result back to the OperandStack.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
  */
 public class IADD extends Instruction {
     

@@ -5,6 +5,9 @@ import com.computation.ast.NodeException;
 
 /**
  * A Compiler converts an AST into a compiled Program.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
  */
 public class Compiler {
     

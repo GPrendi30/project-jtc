@@ -8,7 +8,10 @@ import java.util.Arrays;
  * <pre>
  * lexer.fetchNextToken();
  * Token t1 = lexer.getCurrentToken();
- * </pre> 
+ * </pre>
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
  */
 public final class LexicalAnalyzer {
 
