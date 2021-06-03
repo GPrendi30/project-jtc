@@ -48,14 +48,6 @@ public class Range extends Node {
         return false;
     }
 
-    /**
-     * Get the node Values stores in the Range.
-     * @return node value.
-     */
-    public Node getValues() {
-        return null;
-    }
-
     @Override
     public void compile(final Program p) {
         // to be overwritten.

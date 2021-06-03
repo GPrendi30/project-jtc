@@ -52,15 +52,15 @@ public class Spreadsheet implements Serializable {
 
     /**
      * Removes a sheet from the sheets.
-     * @param sheet a Sheet to be removed.
+     * @param sheetName a Sheet to be removed.
      */
-    public void removeSheet(final Sheet sheet) {
+    public void removeSheet(final String sheetName) {
         if (sheets.size() <= 1) {
             // throw error.
         }
-        sheets.remove(sheet.getTableName());
+        sheets.remove(sheetName);
         fireSpreadsheetChanged(new SpreadsheetEvent("Sheet removed",
-                SpreadsheetEventType.SHEET_CHANGED));
+                SpreadsheetEventType.SHEET_REMOVED));
     }
 
 
@@ -259,7 +259,7 @@ public class Spreadsheet implements Serializable {
                     currentSheet.grow("Horizontally", 2 * currentSheet.sizeY());
                 }
 
-                currentSheet.updateCell(c, v);
+                currentSheet.updateCell(c, v.replace(";",","));
 
             }
         }
@@ -296,12 +296,13 @@ public class Spreadsheet implements Serializable {
             // create new file.
             csvFile.createNewFile();
         }
-
+        formulasOn();
         final StringBuilder sb = new StringBuilder();
         for (int x = 1; x <= currentSheet.sizeX(); x++) {
             for (int y = 1; y <= currentSheet.sizeY(); y++) {
                 final Cell c = currentSheet.getCell(x,y);
-                sb.append(c.getText());
+                final String content = c.getText();
+                sb.append(content.replace(",", ";"));
                 sb.append(",");
             }
             sb.append(System.getProperty("line.separator"));

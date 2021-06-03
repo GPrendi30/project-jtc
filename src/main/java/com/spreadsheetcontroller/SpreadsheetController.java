@@ -3,6 +3,7 @@ package com.spreadsheetcontroller;
 
 import com.spreadsheetmodel.Spreadsheet;
 import com.spreadsheetmodel.SpreadsheetException;
+import com.spreadsheetmodel.SpreadsheetIO;
 import com.spreadsheetmodel.cell.Cell;
 import com.spreadsheetmodel.commands.Invoker;
 import com.spreadsheetview.SpreadsheetView;
@@ -16,10 +17,10 @@ import java.util.Locale;
 public class SpreadsheetController {
 
 
-    private final Spreadsheet model;
-    private final SpreadsheetView view;
-    private REPL repl;
-    private final boolean isGui;
+    private final transient  Spreadsheet model;
+    private final transient SpreadsheetView view;
+    private transient  REPL repl;
+    private final transient boolean isGui;
 
     /**
      * Creates a new SpreadsheetController.
@@ -95,6 +96,14 @@ public class SpreadsheetController {
             updateView();
         } else if (command.startsWith("sort column")) {
             model.sortCol(Integer.parseInt(arrCommands[arrCommands.length - 1]));
+        } else if (command.startsWith("open")) {
+            try {
+                view.updateModel(SpreadsheetIO.readFromFile(arrCommands[arrCommands.length - 1]));
+            } catch (IOException exception) {
+                System.out.println(exception.getMessage());
+            } catch (SpreadsheetException exception) {
+                System.out.println(exception.getMessage());
+            }
         } else if (command.startsWith("formulas")) {
             model.formulasOn();
         } else if (command.startsWith("help")) {
