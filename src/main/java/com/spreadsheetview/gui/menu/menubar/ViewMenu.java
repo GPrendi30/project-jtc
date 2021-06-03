@@ -1,5 +1,7 @@
 package com.spreadsheetview.gui.menu.menubar;
 
+import com.spreadsheetmodel.commands.FormulasOnCommand;
+import com.spreadsheetview.gui.GuiHandlerUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -17,26 +19,14 @@ public class ViewMenu extends Menu {
     public ViewMenu() {
         super("View");
 
-        addMenu("Formula Bar", new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent actionEvent) {
-                System.out.println("Show bar");
-            }
-        });
 
         addMenu("Show/Hide formulae", new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
-                System.out.println("Show formulae");
+                GuiHandlerUtil.handleCommand(new FormulasOnCommand());
             }
         });
 
-        addMenu("Fullscreen", new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent actionEvent) {
-                System.out.println("Fullscreen");
-            }
-        });
     }
 
 

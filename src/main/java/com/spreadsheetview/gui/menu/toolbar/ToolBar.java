@@ -80,8 +80,10 @@ public class ToolBar extends JToolBar {
                 }
             });
 
+
         addButton(cutIcon,
             new ActionListener() {
+
                 @Override
                 public void actionPerformed(final ActionEvent actionEvent) {
                     GuiHandlerUtil.handleCommand(new CutCommand(CopyPasteStack.getInstance()));
@@ -90,10 +92,12 @@ public class ToolBar extends JToolBar {
 
         addButton(toggleIcon,
             new ActionListener() {
-
+                private boolean toggled = false;
                 @Override
                 public void actionPerformed(final ActionEvent actionEvent) {
-                    GuiHandlerUtil.handleCommand(new FormulasOnCommand());
+                    if (!toggled) {
+                        GuiHandlerUtil.handleCommand(new FormulasOnCommand());
+                    }
                 }
             });
 
