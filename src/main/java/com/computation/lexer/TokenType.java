@@ -35,4 +35,8 @@ public enum TokenType {
     private TokenType(final String name) {
         this.name = name;
     }
+
+    private String getName() {
+        return name;
+    }
 }

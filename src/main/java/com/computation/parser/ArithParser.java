@@ -99,12 +99,12 @@ public final class ArithParser implements Parser {
         while (lexer.getCurrentToken().getType() != TokenType.END_OF_FILE) {
             if (lexer.getCurrentToken().getType() == TokenType.PLUS) {
                 isAdd = true;
-                lexer.fetchNextToken();
             } else if (lexer.getCurrentToken().getType() == TokenType.MINUS) {
-                lexer.fetchNextToken();
+                isAdd = false;
             } else {
                 break;
             }
+            lexer.fetchNextToken();
 
             //parsing right node.
             final Node right = parseTerm();
