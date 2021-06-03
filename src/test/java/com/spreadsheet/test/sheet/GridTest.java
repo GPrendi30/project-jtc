@@ -7,6 +7,12 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
+/**
+ * The tests for the Grid Class.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class GridTest {
 
     @Test

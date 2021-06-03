@@ -6,6 +6,12 @@ import com.spreadsheetmodel.SpreadsheetIO;
 
 import java.io.IOException;
 
+/**
+ * The save command.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class SaveCommand implements Command {
 
     private final String path;

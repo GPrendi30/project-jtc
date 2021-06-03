@@ -5,6 +5,12 @@ import com.spreadsheetview.SpreadsheetView;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 
+/**
+ * The menu bar.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class MenuBar extends JMenuBar {
 
     /**

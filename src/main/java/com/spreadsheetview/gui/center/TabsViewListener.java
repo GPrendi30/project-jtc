@@ -2,6 +2,12 @@ package com.spreadsheetview.gui.center;
 
 import com.spreadsheetmodel.Spreadsheet;
 
+/**
+ * The tabs view listener.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public interface TabsViewListener {
 
     /**

@@ -7,6 +7,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.UIManager;
 
+/**
+ * A custom button.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class CustomButton extends JButton {
 
 

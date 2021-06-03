@@ -9,6 +9,12 @@ import com.spreadsheetview.SpreadsheetView;
 
 import java.io.IOException;
 
+/**
+ * The open command.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class OpenCommand implements Command {
 
     private final String path;

@@ -13,6 +13,12 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
 
+/**
+ * The Spreadsheet Tui.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class SpreadsheetTui implements SpreadsheetView, Serializable {
 
     private Spreadsheet model;

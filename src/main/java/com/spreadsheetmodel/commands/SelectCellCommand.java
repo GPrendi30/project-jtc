@@ -4,6 +4,12 @@ import com.spreadsheetmodel.Spreadsheet;
 import com.spreadsheetmodel.SpreadsheetException;
 import com.spreadsheetmodel.cell.CellLocation;
 
+/**
+ * The select cell command.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class SelectCellCommand implements Command {
 
 

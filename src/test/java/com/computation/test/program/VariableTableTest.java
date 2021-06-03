@@ -10,6 +10,12 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertSame;
 
+/**
+ * The tests for the VariableTable Classes.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class VariableTableTest {
 
     @Test

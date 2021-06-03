@@ -48,6 +48,9 @@ import static org.junit.Assert.assertTrue;
  * (and toString() of Instruction subclasses).
  * This tests that the compile() methods generate the correct
  * sequence of Instructions.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
  */
 public class CompilerTest {
 

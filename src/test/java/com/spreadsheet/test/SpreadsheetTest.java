@@ -21,6 +21,12 @@ import java.nio.file.Paths;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * The tests for the Spreadsheet Classes.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class SpreadsheetTest {
 
     @Test

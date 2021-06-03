@@ -2,6 +2,12 @@ package com.spreadsheetview.gui.center;
 
 import com.spreadsheetmodel.Spreadsheet;
 
+/**
+ * The formula bar listeners.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public interface FormulaBarListener {
 
     /**

@@ -8,6 +8,12 @@ import java.io.ObjectOutputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+/**
+ * The input/output for the Spreadsheet.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public abstract class SpreadsheetIO {
 
     /**

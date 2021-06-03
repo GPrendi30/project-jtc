@@ -6,6 +6,12 @@ import com.spreadsheetmodel.sheet.Sheet;
 
 import java.util.ArrayList;
 
+/**
+ * The sort column command.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class SortColumnCommand implements Command, UndoableCommand {
 
     private final ArrayList<String> columnValues;

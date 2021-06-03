@@ -1,5 +1,11 @@
 package com.spreadsheetview.gui.center;
 
+/**
+ * The sheet view listener.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public interface SheetViewListener {
 
     /**

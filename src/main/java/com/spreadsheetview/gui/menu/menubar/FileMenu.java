@@ -12,8 +12,12 @@ import com.spreadsheetview.gui.GuiHandlerUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
-
+/**
+ * The file menu.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class FileMenu extends Menu {
 
     /**

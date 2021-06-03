@@ -3,7 +3,12 @@ package com.spreadsheetmodel.cell;
 import com.spreadsheetmodel.SpreadsheetException;
 import com.spreadsheetmodel.sheet.Sheet;
 
-
+/**
+ * A range of cells.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class CellRange {
 
     private final Cell start;

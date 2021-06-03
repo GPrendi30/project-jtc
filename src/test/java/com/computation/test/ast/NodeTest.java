@@ -29,7 +29,10 @@ import static org.junit.Assert.*;
 
 
 /**
- * Tests toString(), isConstant(), and getType() of Node subclasses.
+ * The tests for Node classes.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
  */
 public class NodeTest {
 

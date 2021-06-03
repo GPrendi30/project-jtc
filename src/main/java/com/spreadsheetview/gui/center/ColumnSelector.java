@@ -6,6 +6,12 @@ import javax.swing.BorderFactory;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
+/**
+ * The column selector.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class ColumnSelector extends DefaultTableCellRenderer {
 
     @Override

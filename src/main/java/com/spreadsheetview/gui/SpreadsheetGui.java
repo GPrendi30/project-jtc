@@ -10,7 +10,12 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 
-
+/**
+ * The SpreadsheetGui.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public final class SpreadsheetGui extends JFrame implements SpreadsheetView {
 
     public static final int DEFAULT_X = 1000;

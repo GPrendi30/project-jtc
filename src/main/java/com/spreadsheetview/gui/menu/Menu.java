@@ -4,6 +4,12 @@ import com.spreadsheetview.SpreadsheetView;
 import com.spreadsheetview.gui.menu.menubar.MenuBar;
 import com.spreadsheetview.gui.menu.toolbar.ToolBar;
 
+/**
+ * The menu.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class Menu {
 
     private final MenuBar menuBar;

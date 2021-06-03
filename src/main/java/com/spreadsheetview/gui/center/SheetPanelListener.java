@@ -4,6 +4,12 @@ import com.spreadsheetmodel.Spreadsheet;
 
 import java.io.Serializable;
 
+/**
+ * The sheet panel listener.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public interface SheetPanelListener extends Serializable {
 
     /**

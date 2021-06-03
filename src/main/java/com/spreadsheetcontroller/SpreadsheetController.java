@@ -1,6 +1,5 @@
 package com.spreadsheetcontroller;
 
-
 import com.spreadsheetmodel.Spreadsheet;
 import com.spreadsheetmodel.SpreadsheetException;
 import com.spreadsheetmodel.commands.Invoker;
@@ -8,6 +7,12 @@ import com.spreadsheetview.SpreadsheetView;
 import com.spreadsheetview.gui.SpreadsheetGui;
 import com.spreadsheetview.tui.SpreadsheetTui;
 
+/**
+ * The controller of the Spreadsheet.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class SpreadsheetController {
 
 

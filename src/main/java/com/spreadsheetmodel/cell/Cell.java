@@ -5,6 +5,13 @@ import com.computation.program.VariableTable;
 
 import java.io.Serializable;
 
+/**
+ * The basic Cell, it contains a location wheter or not
+ * is selectable and the type.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class Cell implements Serializable {
 
     private final CellLocation location;

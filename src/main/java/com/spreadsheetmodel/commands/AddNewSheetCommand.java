@@ -3,6 +3,12 @@ package com.spreadsheetmodel.commands;
 import com.spreadsheetmodel.Spreadsheet;
 import com.spreadsheetmodel.SpreadsheetException;
 
+/**
+ * The Command for adding a new sheet.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class AddNewSheetCommand implements Command {
 
     private String prevSheet;

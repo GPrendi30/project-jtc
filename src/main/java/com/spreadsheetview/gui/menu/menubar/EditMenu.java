@@ -12,6 +12,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
+/**
+ * The edit menu.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class EditMenu extends Menu {
 
     /**

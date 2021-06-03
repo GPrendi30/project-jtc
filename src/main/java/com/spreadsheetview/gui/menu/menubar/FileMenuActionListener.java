@@ -6,6 +6,12 @@ import java.io.File;
 
 import javax.swing.JFileChooser;
 
+/**
+ * The file menu action listener.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public abstract class FileMenuActionListener implements ActionListener {
 
     public static final int OPEN_DIALOG = 1;

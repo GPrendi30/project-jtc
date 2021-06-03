@@ -16,6 +16,12 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
+/**
+ * The tests for the Command Classes.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class CommandTest {
 
     @Test

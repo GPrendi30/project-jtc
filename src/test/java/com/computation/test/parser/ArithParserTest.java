@@ -33,6 +33,9 @@ import static org.junit.Assert.assertTrue;
  *                  Identifier| 
  *                  "(" EXPRESSION ")"
  * </code>
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
  */
 public class ArithParserTest {
 

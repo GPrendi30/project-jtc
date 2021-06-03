@@ -16,6 +16,12 @@ import com.spreadsheetview.SpreadsheetView;
 
 import java.util.Locale;
 
+/**
+ * The Tui commands.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class TuiCommand {
 
     private Spreadsheet model;

@@ -6,7 +6,12 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-
+/**
+ * The tests for the OperatorToken Classes.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class OperatorTokenFactoryTest {
 
     @Test

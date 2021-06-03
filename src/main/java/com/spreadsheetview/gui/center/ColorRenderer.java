@@ -5,6 +5,12 @@ import java.awt.Component;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
+/**
+ * The color renderer.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 class ColorRenderer extends DefaultTableCellRenderer {
 
     private final Color selectionColor = new Color(172, 225, 175);
