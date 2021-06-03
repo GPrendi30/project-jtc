@@ -67,7 +67,7 @@ public class TableCell extends Cell {
     }
 
     private boolean isDigits(final String content) {
-        if (content == null || content.length() == 0) {
+        if (content.length() == 0) {
             return false;
         }
         for (int i = 0; i < content.length(); i++) {
@@ -96,10 +96,7 @@ public class TableCell extends Cell {
         } catch (LexerException exception) {
             content = "#KEY";
             type = CellType.INVALID;
-        } catch (NodeException exception) {
-            content = "#VAL";
-            type = CellType.INVALID;
-        } catch (InstructionException exception ) {
+        } catch (InstructionException | NodeException exception ) {
             content = "#VAL";
             type = CellType.INVALID;
         }

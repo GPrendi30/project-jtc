@@ -5,6 +5,7 @@ import com.spreadsheetmodel.SpreadsheetEvent;
 import com.spreadsheetmodel.SpreadsheetEventType;
 import com.spreadsheetmodel.SpreadsheetException;
 import com.spreadsheetmodel.SpreadsheetIO;
+import com.spreadsheetmodel.SpreadsheetListener;
 import com.spreadsheetmodel.cell.Cell;
 import com.spreadsheetmodel.sheet.Sheet;
 
@@ -114,6 +115,18 @@ public class SpreadsheetTest {
 
     @Test
     public void testImportCsv() throws IOException, SpreadsheetException {
+        Spreadsheet s = new Spreadsheet(5,5);
+        String projectDir = System.getProperty("user.dir");
+        Path csvPath = Paths.get(projectDir.toString(), "src/test/resources/a.csv");
+        s.importCsv(csvPath.toString());
+        s.selectCell(1,1);
+        assertEquals(s.getCurrentCell().getText(), "2");
+        s.selectCell(2,2);
+        assertEquals(s.getCurrentCell().getText(), "4");
+    }
+
+    @Test
+    public void testGrowImportCsv() throws IOException, SpreadsheetException {
         Spreadsheet s = new Spreadsheet(5,5);
         String projectDir = System.getProperty("user.dir");
         Path csvPath = Paths.get(projectDir.toString(), "src/test/resources/a.csv");
@@ -317,7 +330,7 @@ public class SpreadsheetTest {
     }
 
     @Test
-    public void testSpreadsheetIO2() {
+    public void testSpreadsheetIOFIleDoesntExist() {
 
 //        String projectDir = System.getProperty("user.dir");
 //        Path csvPath = Paths.get(projectDir, "src/test/resources/no_file.jtc");
@@ -330,4 +343,46 @@ public class SpreadsheetTest {
         }
         assertTrue(thrown);
     }
+
+    @Test
+    public void testRemoveLastSheet() {
+        boolean thrown = false;
+        try {
+            Spreadsheet s = new Spreadsheet(5,5);
+            s.removeSheet(s.getCurrentSheetName());
+        } catch (SpreadsheetException exception) {
+            thrown = true;
+        }
+        assertTrue(thrown);
+    }
+
+    @Test
+    public void testAddFirstSheet() {
+        boolean thrown = false;
+        try {
+            Spreadsheet s = new Spreadsheet(5,5);
+            s.addNewSheet("Sheet 1");
+        } catch (SpreadsheetException exception) {
+            thrown = true;
+        }
+        assertTrue(thrown);
+    }
+
+    @Test
+    public void testAddListener() throws SpreadsheetException {
+        final boolean notified = false;
+        Spreadsheet s = new Spreadsheet(5,5);
+        s.addListener(new SpreadsheetListener() {
+            @Override
+            public void spreadsheetChanged(Spreadsheet s, SpreadsheetEvent se) {
+                //void
+            }
+        });
+        s.selectCell(1,1);
+        s.updateCurrentCell("g");
+
+
+    }
+
+
 }
