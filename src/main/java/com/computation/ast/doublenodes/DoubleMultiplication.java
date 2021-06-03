@@ -4,6 +4,12 @@ import com.computation.ast.Node;
 import com.computation.instruction.Instruction;
 import com.computation.instruction.doubleinstruction.DMUL;
 
+/**
+ * A multiplication of two nodes containing numbers of type Double.
+ *
+ * @author Prendi Gerald.
+ *
+ */
 public class DoubleMultiplication extends DoubleBinaryNode {
 
     /**

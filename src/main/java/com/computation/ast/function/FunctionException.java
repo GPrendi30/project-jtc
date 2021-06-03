@@ -2,6 +2,13 @@ package com.computation.ast.function;
 
 import com.computation.ast.NodeException;
 
+/**
+ * The exceptions for the class function.
+ *
+ * @author Di Pietro Enrico.
+ *
+ */
+
 public class FunctionException extends NodeException {
 
     /**

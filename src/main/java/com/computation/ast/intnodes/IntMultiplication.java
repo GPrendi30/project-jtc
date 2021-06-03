@@ -4,6 +4,13 @@ import com.computation.ast.Node;
 import com.computation.instruction.Instruction;
 import com.computation.instruction.intinstruction.IMUL;
 
+/**
+ * A multiplication of two nodes containing numbers of type Integer.
+ *
+ * @author Prendi Gerald.
+ *
+ */
+
 public class IntMultiplication extends IntBinaryNode {
 
     /**

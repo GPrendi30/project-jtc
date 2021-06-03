@@ -6,6 +6,13 @@ import com.computation.ast.Type;
 import com.computation.instruction.Instruction;
 import com.computation.program.Program;
 
+/**
+ * A node of two nodes containing numbers of type Integer.
+ *
+ * @author Prendi Gerald.
+ *
+ */
+
 public class IntBinaryNode extends Node {
 
     private final Node leftChild;

@@ -3,6 +3,13 @@ package com.computation.ast;
 import com.computation.instruction.Instruction;
 import com.computation.program.Program;
 
+/**
+ * A node that contains a variable.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
+
 public class NodeVariable extends Node {
 
     protected final String varName;

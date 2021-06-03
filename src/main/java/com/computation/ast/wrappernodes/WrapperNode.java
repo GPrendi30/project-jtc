@@ -6,6 +6,14 @@ import com.computation.ast.Type;
 import com.computation.ast.intnodes.IntToDouble;
 import com.computation.program.Program;
 
+/**
+ * The wrapper node is a node, that contains
+ * something of type Double.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
+
 public class WrapperNode extends Node {
 
     private Node child;

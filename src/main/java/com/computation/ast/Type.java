@@ -2,7 +2,11 @@ package com.computation.ast;
 
 /**
  * An enum that types supported by our little expression language.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
  */
+
 public enum Type {
     INT(0),
     INVALID(1),

@@ -5,7 +5,11 @@ import com.computation.instruction.Instruction;
 import com.computation.instruction.doubleinstruction.DNEG;
 
 /**
- * A DoubleNegation class (e.g., -5, or -x).
+ * A negation of a node.
+ * DoubleNegation class (e.g., -5.0, or -x).
+ *
+ * @author Prendi Gerald.
+ *
  */
 public class DoubleNegation extends DoubleUnaryNode {
         

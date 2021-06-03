@@ -10,6 +10,9 @@ import com.computation.instruction.intinstruction.BIPUSH;
  * A Literal is an AST node that 
  * corresponds to a literal integer intValue
  * (a number in the source code).
+ *
+ * @author Prendi Gerald.
+ *
  */
 public class IntLiteral extends NodeLiteral {
     

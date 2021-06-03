@@ -1,5 +1,12 @@
 package com.computation.ast;
 
+/**
+ * The exceptions for the class Range.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
+
 public class NodeException extends Exception {
 
     /**

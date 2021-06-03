@@ -2,6 +2,13 @@ package com.computation.ast.wrappernodes;
 
 import com.computation.ast.NodeException;
 
+/**
+ * The exceptions of the class WrapperNode.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
+
 public class WrapperNodeException extends NodeException {
 
     /**

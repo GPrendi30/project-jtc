@@ -4,6 +4,13 @@ import com.computation.ast.Node;
 import com.computation.ast.Type;
 import com.computation.ast.intnodes.IntUnaryNode;
 
+/**
+ * A unary node of a Double.
+ *
+ * @author Prendi Gerald.
+ *
+ */
+
 public class DoubleUnaryNode extends IntUnaryNode {
     /**
      * Create a new DoubleUnaryNode node.

@@ -5,6 +5,13 @@ import com.computation.ast.Type;
 import com.computation.ast.range.ArrayNode;
 import com.computation.program.Program;
 
+/**
+ * A function that sums a range.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
+
 public class SumRange extends FunctionWithRanges {
 
     /**

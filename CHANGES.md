@@ -39,11 +39,13 @@
 * Fixed cpd, checkstyle errors.
 * Base of Exception Handling.
 * Added function + ranges.
-* Added Command Pattern(not complete yet).
+* Started adding Command Pattern.
 * Made the SpreadSheet Serializable, we can save our own format ".jtc"
-* Up for last milestone:
-  - fix some minor errors
-  - add test coverage
-  - last test of gui
-  - present
 
+## Final milestone: June 3
+* Exception handling.
+* Fixed minor errors.
+* Added final command pattern.
+* Increased test coverage.
+* Final version of GUI.
+* Prepared presentation.

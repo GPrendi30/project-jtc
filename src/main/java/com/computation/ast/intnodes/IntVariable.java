@@ -5,6 +5,13 @@ import com.computation.ast.Type;
 import com.computation.instruction.Instruction;
 import com.computation.instruction.intinstruction.ILOAD;
 
+/**
+ * A variable of type Int.
+ *
+ * @author Prendi Gerald.
+ *
+ */
+
 public class IntVariable extends NodeVariable {
 
     /**

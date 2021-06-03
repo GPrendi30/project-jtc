@@ -4,6 +4,12 @@ import com.computation.ast.Node;
 import com.computation.instruction.Instruction;
 import com.computation.instruction.doubleinstruction.DDIV;
 
+/**
+ * A division of two nodes containing numbers of type Double.
+ *
+ * @author Prendi Gerald.
+ *
+ */
 public class DoubleDivision extends DoubleBinaryNode {
     /**
      * Creates a new IntDivision Node.

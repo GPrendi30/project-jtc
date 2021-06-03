@@ -4,6 +4,12 @@ import com.computation.ast.Node;
 import com.computation.ast.Type;
 import com.computation.program.Program;
 
+/**
+ * Create a range relying on starting and ending nodes.
+ *
+ * @author Prendi Gerald.
+ *
+ */
 
 public class Range extends Node {
 

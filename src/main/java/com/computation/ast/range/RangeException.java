@@ -2,6 +2,13 @@ package com.computation.ast.range;
 
 import com.computation.ast.NodeException;
 
+/**
+ * The exceptions for the class Range.
+ *
+ * @author Prendi Gerald.
+ *
+ */
+
 public class RangeException extends NodeException {
 
     /**
