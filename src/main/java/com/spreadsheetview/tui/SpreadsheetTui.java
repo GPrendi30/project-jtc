@@ -14,7 +14,7 @@ import java.util.Iterator;
 
 public class SpreadsheetTui implements SpreadsheetView, Serializable {
 
-    private final Spreadsheet model;
+    private Spreadsheet model;
 
     /**
      * Creates a new TUI.
@@ -29,6 +29,15 @@ public class SpreadsheetTui implements SpreadsheetView, Serializable {
             }
 
         });
+    }
+
+
+    /**
+     * Updates the model (used for loading after deserialization).
+     * @param newModel the new Spreadsheetmodel.
+     */
+    public void updateModel(final Spreadsheet newModel) {
+        this.model = newModel;
     }
 
     @Override
@@ -128,5 +137,5 @@ public class SpreadsheetTui implements SpreadsheetView, Serializable {
         }
     }
 
-    // testing keyListener;
+
 }

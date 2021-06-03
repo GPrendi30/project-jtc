@@ -6,6 +6,7 @@ public enum SpreadsheetEventType {
     CELL_SELECTED,
     SHEET_ADDED,
     SHEET_SELECTED,
+    SHEET_REMOVED,
     TABLE_GROW,
     SHEET_CHANGED
 }
