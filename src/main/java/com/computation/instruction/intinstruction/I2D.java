@@ -4,6 +4,12 @@ import com.computation.instruction.Instruction;
 import com.computation.program.OperandStack;
 import com.computation.program.Storage;
 
+/**
+ * I2D casts an Integer into a Double.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class I2D extends Instruction {
     
     @Override

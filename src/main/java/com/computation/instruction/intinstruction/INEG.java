@@ -7,6 +7,9 @@ import com.computation.program.Storage;
 /**
  * INEG negates the top value from the OperandStack
  * and ipushes the result back to the OperandStack.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
  */
 public class INEG extends Instruction {
 

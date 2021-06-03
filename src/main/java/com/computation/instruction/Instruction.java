@@ -4,6 +4,9 @@ import com.computation.program.Storage;
 
 /**
  * An IJVM-like Instruction.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
  */
 public class Instruction {
     

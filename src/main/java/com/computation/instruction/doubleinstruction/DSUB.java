@@ -4,6 +4,12 @@ import com.computation.instruction.Instruction;
 import com.computation.program.OperandStack;
 import com.computation.program.Storage;
 
+/**
+ * DSUB is a subtraction of Doubles.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class DSUB extends Instruction {
 
     @Override

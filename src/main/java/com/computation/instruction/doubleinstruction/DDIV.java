@@ -5,6 +5,12 @@ import com.computation.instruction.InstructionException;
 import com.computation.program.OperandStack;
 import com.computation.program.Storage;
 
+/**
+ * DDIV is a division of Doubles.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class DDIV extends Instruction {
 
     @Override
