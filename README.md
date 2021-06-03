@@ -67,8 +67,3 @@ To run: <br>
 ### Run
 Use our script to run without building <br>
 <code> bash script/run.sh </code>  <br>
-
-### TODO
-  * [X] Implement Error Handling  <br>
-  * [X] Fix ArithParser  <br>
-  * [X] test coverage++ <br>
