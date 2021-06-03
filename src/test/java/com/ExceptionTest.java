@@ -21,7 +21,12 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-
+/**
+ * The tests for the Exception Classes.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class ExceptionTest {
 
     Throwable exceptionCause = new Throwable();

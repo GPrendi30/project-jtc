@@ -6,6 +6,12 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * The tests for the FunctionTokenFactory Classes.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class FunctionTokenFactoryTest {
     
     @Test

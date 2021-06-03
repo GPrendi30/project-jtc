@@ -12,6 +12,9 @@ import static org.junit.Assert.*;
 /**
  * Test append(), getLength(), get(), toString(), and execute() of Program
  * (and toString() and execute() of Instruction subclasses).
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
  */
 public class ProgramTest {
 

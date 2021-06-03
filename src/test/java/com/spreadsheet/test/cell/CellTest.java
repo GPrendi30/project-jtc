@@ -18,7 +18,12 @@ import java.io.IOException;
 
 import static org.junit.Assert.*;
 
-
+/**
+ * The tests for the Cell Classes.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class CellTest {
 
     @Test

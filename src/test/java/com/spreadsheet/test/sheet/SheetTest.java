@@ -16,6 +16,12 @@ import java.util.HashMap;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * The tests for the Sheet Class.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class SheetTest {
 
     @Test

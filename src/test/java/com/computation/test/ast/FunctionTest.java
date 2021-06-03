@@ -27,7 +27,12 @@ import org.junit.Test;
 import static com.computation.ast.function.FunctionList.SUM;
 import static org.junit.Assert.*;
 
-
+/**
+ * The tests for the Function Classes.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class FunctionTest {
 
     Function func1 = new Function("sum",
