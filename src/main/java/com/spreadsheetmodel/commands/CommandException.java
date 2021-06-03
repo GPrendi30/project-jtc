@@ -1,5 +1,11 @@
 package com.spreadsheetmodel.commands;
 
+/**
+ * The exceptions for the class Command.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class CommandException extends Exception {
 
     /**

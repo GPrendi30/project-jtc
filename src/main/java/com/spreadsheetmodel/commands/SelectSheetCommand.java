@@ -3,6 +3,12 @@ package com.spreadsheetmodel.commands;
 import com.spreadsheetmodel.Spreadsheet;
 import com.spreadsheetmodel.SpreadsheetException;
 
+/**
+ * The select sheet command.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class SelectSheetCommand implements Command, UndoableCommand {
 
     private String prevSheet;

@@ -10,6 +10,13 @@ import com.computation.parser.Parser;
 import com.computation.program.Program;
 import com.computation.program.VariableTable;
 
+/**
+ * A TableCell is a Cell and is the actual thing that
+ * the user interacts with when using the Spreadsheet.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class TableCell extends Cell {
 
     private static final Parser PARSER;

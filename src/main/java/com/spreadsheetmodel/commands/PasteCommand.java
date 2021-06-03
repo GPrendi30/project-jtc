@@ -4,6 +4,12 @@ import com.spreadsheetmodel.Spreadsheet;
 import com.spreadsheetmodel.SpreadsheetException;
 import com.spreadsheetmodel.cell.Cell;
 
+/**
+ * The paste command.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class PasteCommand implements Command, UndoableCommand {
 
     private CopyPasteStack stack;

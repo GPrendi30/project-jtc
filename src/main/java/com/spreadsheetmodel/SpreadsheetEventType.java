@@ -1,5 +1,11 @@
 package com.spreadsheetmodel;
 
+/**
+ * The types of the events of the Spreadsheet.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public enum SpreadsheetEventType {
 
     CELL_CHANGED,

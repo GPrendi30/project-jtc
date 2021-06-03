@@ -8,6 +8,12 @@ import com.spreadsheetmodel.sheet.Sheet;
 import java.io.IOException;
 import java.nio.file.Paths;
 
+/**
+ * The import command.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class ImportCommand implements Command, UndoableCommand {
 
     private final String path;

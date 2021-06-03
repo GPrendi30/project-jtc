@@ -6,6 +6,12 @@ import com.spreadsheetmodel.SpreadsheetException;
 
 import java.util.ArrayList;
 
+/**
+ * The invoke command.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class Invoker {
 
     private ArrayList<Command> commands;

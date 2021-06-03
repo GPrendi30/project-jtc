@@ -14,6 +14,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
+/**
+ * The Sheet that contains the cells.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class Sheet implements Serializable {
     private static final Program PROGRAM = new Program();
 

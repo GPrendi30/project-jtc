@@ -1,5 +1,11 @@
 package com.spreadsheetmodel;
 
+/**
+ * The exceptions for the class Spreadsheet.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class SpreadsheetException extends Exception {
 
     /**

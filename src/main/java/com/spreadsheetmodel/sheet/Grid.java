@@ -9,6 +9,12 @@ import com.spreadsheetmodel.cell.TopCell;
 import java.io.Serializable;
 import java.util.HashMap;
 
+/**
+ * The Grid where the Cells are contained.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class Grid implements Serializable {
     private final HashMap<String, HashMap<Integer, Cell>> matrix;
     private int xDim;

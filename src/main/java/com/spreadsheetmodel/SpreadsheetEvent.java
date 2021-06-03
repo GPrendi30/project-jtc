@@ -2,6 +2,12 @@ package com.spreadsheetmodel;
 
 import java.io.Serializable;
 
+/**
+ * Events of a Spreadsheet.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class SpreadsheetEvent implements Serializable {
 
     private String message;

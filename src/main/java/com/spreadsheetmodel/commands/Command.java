@@ -3,6 +3,13 @@ package com.spreadsheetmodel.commands;
 import com.spreadsheetmodel.Spreadsheet;
 import com.spreadsheetmodel.SpreadsheetException;
 
+/**
+ * The Command class that contains the basic methods
+ * for the commands.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public interface Command {
 
     /**

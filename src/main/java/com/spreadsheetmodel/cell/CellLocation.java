@@ -6,6 +6,14 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The location of the Cell represented by a
+ * letter and a number.
+ * For example: A1 or AZ98.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class CellLocation implements Serializable {
 
     private static final String ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";

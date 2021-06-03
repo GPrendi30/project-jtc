@@ -2,6 +2,13 @@ package com.spreadsheetmodel.commands;
 
 import java.util.ArrayList;
 
+/**
+ * The stack used to store the values
+ * when you copy and paste.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class CopyPasteStack {
 
     private final ArrayList<String> stack;

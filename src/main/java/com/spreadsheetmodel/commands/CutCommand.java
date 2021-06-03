@@ -4,6 +4,12 @@ import com.spreadsheetmodel.Spreadsheet;
 import com.spreadsheetmodel.SpreadsheetException;
 import com.spreadsheetmodel.cell.Cell;
 
+/**
+ * The cut command.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class CutCommand implements Command, UndoableCommand {
 
     private CopyPasteStack stack;

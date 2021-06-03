@@ -2,6 +2,12 @@ package com.spreadsheetmodel;
 
 import java.io.Serializable;
 
+/**
+ * The listeners for the class Spreadsheet.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public interface SpreadsheetListener extends Serializable {
 
     /**

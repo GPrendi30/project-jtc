@@ -6,6 +6,12 @@ import com.spreadsheetmodel.SpreadsheetException;
 
 import java.io.IOException;
 
+/**
+ * The export command.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class ExportCommand implements Command {
 
     private final String path;

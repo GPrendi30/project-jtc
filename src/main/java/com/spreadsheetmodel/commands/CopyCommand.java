@@ -2,6 +2,12 @@ package com.spreadsheetmodel.commands;
 
 import com.spreadsheetmodel.Spreadsheet;
 
+/**
+ * The copy command.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class CopyCommand implements Command {
 
     private CopyPasteStack stack;

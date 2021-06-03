@@ -16,7 +16,12 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Scanner;
 
-
+/**
+ * The Spreadsheet, it contains sheets and cells.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class Spreadsheet implements Serializable {
 
     private final ArrayList<SpreadsheetListener> listeners;

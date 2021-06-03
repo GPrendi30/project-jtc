@@ -3,6 +3,12 @@ package com.spreadsheetmodel.commands;
 import com.spreadsheetmodel.Spreadsheet;
 import com.spreadsheetmodel.SpreadsheetException;
 
+/**
+ * The command to grow the sheet.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class GrowSheetCommand implements Command {
 
     private String direction;
