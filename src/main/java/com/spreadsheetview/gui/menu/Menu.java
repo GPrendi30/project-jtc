@@ -11,6 +11,7 @@ public class Menu {
 
     /**
      * Create a menu.
+     * @param parent the parent of the Menu.
      */
     public Menu(final SpreadsheetView parent) {
 

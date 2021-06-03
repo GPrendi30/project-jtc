@@ -6,6 +6,7 @@ import com.spreadsheetmodel.SpreadsheetException;
 import com.spreadsheetmodel.SpreadsheetIO;
 
 import com.spreadsheetview.SpreadsheetView;
+
 import java.io.IOException;
 
 public class OpenCommand implements Command {
@@ -16,6 +17,7 @@ public class OpenCommand implements Command {
     /**
      * Creates a new OpenCommand from a path.
      * @param path the path to open a saved File.
+     * @param target a SpreadsheetView that will update a model.
      */
     public OpenCommand(final String path, final SpreadsheetView target) {
         this.target = target;

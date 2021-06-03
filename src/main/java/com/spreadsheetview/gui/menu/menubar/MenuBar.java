@@ -1,6 +1,7 @@
 package com.spreadsheetview.gui.menu.menubar;
 
 import com.spreadsheetview.SpreadsheetView;
+
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 
@@ -8,6 +9,7 @@ public class MenuBar extends JMenuBar {
 
     /**
      * Create a menuBar.
+     * @param topFrame the topFrame of the menu.
      */
     public MenuBar(final SpreadsheetView topFrame) {
         super();

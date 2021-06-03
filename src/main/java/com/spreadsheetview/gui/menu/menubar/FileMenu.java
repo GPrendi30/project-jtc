@@ -8,6 +8,7 @@ import com.spreadsheetmodel.commands.OpenCommand;
 import com.spreadsheetmodel.commands.SaveCommand;
 
 import com.spreadsheetview.SpreadsheetView;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -17,6 +18,7 @@ public class FileMenu extends Menu {
 
     /**
      * Edit the menu.
+     * @param view a SpreadsheetView
      */
     public FileMenu(final SpreadsheetView view) {
         super("File");
@@ -41,15 +43,14 @@ public class FileMenu extends Menu {
             }
         });
 
-        // Add the menu "import"
+
         addMenu("import", new FileMenuActionListener(
                 "CSV files",
                 "csv",
                 FileMenuActionListener.OPEN_DIALOG) {
             @Override
             public void command(final String path) {
-                final ImportCommand importCommand = new ImportCommand(path);
-                Invoker.getInstance().invoke(importCommand);
+                Invoker.getInstance().invoke(new ImportCommand(path));
             }
         });
 
