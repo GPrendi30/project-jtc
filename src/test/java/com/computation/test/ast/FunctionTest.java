@@ -1,15 +1,20 @@
 package com.computation.test.ast;
 
+import com.computation.ast.NodeException;
 import com.computation.ast.NodeLiteral;
 import com.computation.ast.NodeVariable;
 import com.computation.ast.Type;
 import com.computation.ast.doublenodes.DoubleLiteral;
+import com.computation.ast.doublenodes.DoubleVariable;
 import com.computation.ast.function.Function;
+import com.computation.ast.function.FunctionException;
 import com.computation.ast.function.FunctionList;
 import com.computation.ast.function.FunctionOperation;
 import com.computation.ast.function.FunctionWithRanges;
 import com.computation.ast.intnodes.IntLiteral;
 import com.computation.ast.intnodes.IntVariable;
+import com.computation.instruction.doubleinstruction.DADD;
+import com.computation.instruction.intinstruction.IADD;
 import com.computation.program.OperandStack;
 import com.computation.program.Program;
 import com.computation.program.Storage;
@@ -188,8 +193,54 @@ public class FunctionTest {
         assertTrue(copy_fwr.getType() == fwr.getType());
     }
 
-    // TODO add a throw exception with 'numArguments != Function.NO_LIMIT'
-    //  (seems like the one before is already that case but coverage is not working 100%)
+    @Test
+    public void testCompileThrowsException() throws FunctionException {
+        boolean thrown = false;
+        Function sum = FunctionList.SUM.getFunction();
+        Program p = new Program();
+        sum.addParameter(new DoubleLiteral(5.0));
 
-    //TODO  checkType ---> PRIVATE
+        try {
+            sum.compile(p);
+        } catch (NodeException e) {
+            thrown = true;
+        }
+
+        assertTrue(thrown);
+    }
+
+    @Test
+    public void testCheckType() throws FunctionException {
+
+        Function funcReturnInt = new Function("sum",
+                new FunctionOperation() {
+                    @Override
+                    public void execute(final Storage storage) {
+                        final OperandStack op = storage.getOperandStack();
+                        final double a = op.dpop();
+                        final double b = op.dpop();
+                        op.dpush(a + b);
+                    }
+
+                    @Override
+                    public String toString() {
+                        return "sum";
+                    }
+                },
+                Function.BINARY,
+                new Type[]{Type.INT},
+                Type.INT);
+
+        boolean thrown = false;
+        Program p = new Program();
+
+        try {
+            funcReturnInt.addParameter(new DoubleVariable("ciao"));
+            funcReturnInt.compile(p);
+        } catch (NodeException e) {
+            thrown = true;
+        }
+
+        assertTrue(thrown);
+    }
 }
