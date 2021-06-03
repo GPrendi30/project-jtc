@@ -4,6 +4,7 @@ package com.spreadsheet.test.cell;
 import com.computation.program.Program;
 import com.computation.program.VariableTable;
 import com.spreadsheetmodel.Spreadsheet;
+import com.spreadsheetmodel.SpreadsheetException;
 import com.spreadsheetmodel.cell.*;
 import org.junit.Assert;
 import org.junit.Test;
@@ -186,8 +187,8 @@ public class CellTest {
         boolean thrown = false;
         try {
             cr.copyDataTo(s.getCurrentSheet(),
-                    s.getCurrentSheet().getCell(3,3),
-                    s.getCurrentSheet().getCell(4,56));
+                    s.getCurrentSheet().getCell(1,1),
+                    s.getCurrentSheet().getCell(2,3));
         } catch (Exception e) {
             thrown = true;
         }
@@ -208,14 +209,11 @@ public class CellTest {
         boolean thrown = false;
         try {
             cr.copyDataTo(s.getCurrentSheet(),
-                    s.getCurrentSheet().getCell(3,3),
-                    s.getCurrentSheet().getCell(56,4));
-        } catch (Exception e) {
+                    s.getCurrentSheet().getCell(1,1),
+                    s.getCurrentSheet().getCell(3,3));
+        } catch (SpreadsheetException e) {
             thrown = true;
         }
         assertTrue(thrown);
     }
-
-
-
 }

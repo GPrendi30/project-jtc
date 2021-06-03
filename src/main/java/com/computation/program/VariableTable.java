@@ -28,11 +28,11 @@ public class VariableTable implements Serializable {
      * @throws VariableTableException if it can't find the variable.
      */
     public Integer getInt(final String name) throws VariableTableException {
-        final Integer value = variables.get(name).intValue();
+        final Double value = variables.get(name);
         if (value == null) {
             throw new VariableTableException("Variable " + name + " not found");
         }
-        return value;
+        return value.intValue();
     }
 
 

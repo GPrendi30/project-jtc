@@ -25,6 +25,7 @@ import com.computation.program.VariableTableException;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tests toString() and execute() of Instruction subclasses.
@@ -137,6 +138,24 @@ public class InstructionTest {
         Instruction i = new IDIV();
         i.execute(s);
         assertEquals(3, os.ipop());
+    }
+
+    @Test
+    public void testExecuteIDIVThrowsException() throws InstructionException {
+        OperandStack os = new OperandStack();
+        VariableTable vt = new VariableTable();
+        Storage s = new Storage(os, vt);
+        os.dpush(2);
+        os.dpush(0);
+        Instruction i = new IDIV();
+
+        boolean thrown = false;
+        try {
+            i.execute(s);
+        } catch (InstructionException exception) {
+            thrown = true;
+        }
+        assertTrue(thrown);
     }
 
     @Test
@@ -266,6 +285,24 @@ public class InstructionTest {
         Instruction i = new DDIV();
         i.execute(s);
         assertEquals(2, os.dpop(), 0.1);
+    }
+
+    @Test
+    public void testExecuteDDIVThrowsException() throws InstructionException {
+        OperandStack os = new OperandStack();
+        VariableTable vt = new VariableTable();
+        Storage s = new Storage(os, vt);
+        os.dpush(2);
+        os.dpush(0);
+        Instruction i = new DDIV();
+
+        boolean thrown = false;
+        try {
+            i.execute(s);
+        } catch (InstructionException exception) {
+            thrown = true;
+        }
+        assertTrue(thrown);
     }
 
     @Test

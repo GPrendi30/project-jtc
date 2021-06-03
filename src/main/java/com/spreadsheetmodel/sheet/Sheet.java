@@ -196,10 +196,6 @@ public class Sheet implements Serializable {
     public void addFormula(final Cell c) {
         if (checkIfFormula(c)) {
             formulas.put(c.getLocation(), c.getText());
-        } else {
-            if (formulas.containsKey(c.getLocation())) {
-                formulas.remove(c.getLocation());
-            }
         }
     }
 

@@ -7,40 +7,32 @@ package com.computation.lexer;
  */
 public enum TokenType {
 
-    IDENTIFIER("identifier"), 
+    IDENTIFIER("identifier"),
 
     INTLITERAL("intLiteral"),
     DOUBLELITERAL("doubleLiteral"),
-    PLUS("plus"), 
-    MINUS("minus"), 
+    PLUS("plus"),
+    MINUS("minus"),
     STAR("star"),
     SLASH("slash"),
     PERCENT("percent"),
     COLON("colon"),
     FUNCTION("function"),
-    OPEN_PAREN("open parenthesis"), 
+    OPEN_PAREN("open parenthesis"),
     CLOSED_PAREN("closed parenthesis"),
     COMMA(","),
-    END_OF_FILE("end of file"); 
+    END_OF_FILE("end of file");
 
-    
+
     private final String name;
-    
-    
+
+
     /**
      * Initialize a TokenType.
+     *
      * @param name The human-readable name of this TokenType.
      */
     private TokenType(final String name) {
         this.name = name;
     }
-
-    /**
-     * Get the human-readable name.
-     * @return the name of this TokenType.
-     */
-    public String getName() {
-        return name;
-    }
-
 }

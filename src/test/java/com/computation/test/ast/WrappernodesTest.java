@@ -3,12 +3,14 @@ package com.computation.test.ast;
 import com.computation.ast.Node;
 import com.computation.ast.NodeLiteral;
 import com.computation.ast.NodeVariable;
+import com.computation.ast.doublenodes.DoubleLiteral;
 import com.computation.ast.wrappernodes.AdditionWrapper;
 import com.computation.ast.wrappernodes.BinaryWrapperNode;
 import com.computation.ast.wrappernodes.DivisionWrapper;
 import com.computation.ast.wrappernodes.MultiplicationWrapper;
 import com.computation.ast.wrappernodes.NegationWrapper;
 import com.computation.ast.wrappernodes.SubtractionWrapper;
+import com.computation.ast.wrappernodes.WrapperNode;
 import com.computation.instruction.Instruction;
 import com.computation.instruction.intinstruction.BIPUSH;
 import com.computation.program.OperandStack;
@@ -46,6 +48,11 @@ public class WrappernodesTest {
         Node f = new NodeLiteral(3);
         BinaryWrapperNode node3 = new BinaryWrapperNode(e, f);
         assertEquals("DOUBLE", node3.getChildrenType().toString());
+
+        Node g = new NodeLiteral(3.5);
+        Node h = new NodeLiteral(3.5);
+        BinaryWrapperNode node4 = new BinaryWrapperNode(g, h);
+        assertEquals("DOUBLE", node4.getChildrenType().toString());
     }
 
 
@@ -114,6 +121,4 @@ public class WrappernodesTest {
 
         assertTrue(!(node2.isConstant()));
     }
-
-    // TODO testCastToInt --> try to call it in WrapperNode
 }
