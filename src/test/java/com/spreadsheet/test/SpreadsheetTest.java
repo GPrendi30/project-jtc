@@ -8,6 +8,7 @@ import com.spreadsheetmodel.SpreadsheetException;
 import com.spreadsheetmodel.cell.Cell;
 import com.spreadsheetmodel.sheet.Sheet;
 import com.spreadsheetmodel.SpreadsheetListener;
+import static org.junit.Assert.assertFalse;
 import org.junit.Test;
 
 import java.io.File;
@@ -24,7 +25,7 @@ public class SpreadsheetTest {
 
     @Test
     // also test for selectSheet and getCurrentSheetName methods
-        public void testAddNewSheet() {
+        public void testAddNewSheet() throws SpreadsheetException {
         Spreadsheet s = new Spreadsheet(5,5);
         s.addNewSheet("sheet2");
         s.selectSheet("sheet2");
@@ -32,7 +33,7 @@ public class SpreadsheetTest {
     }
 
     @Test
-    public void testAddNewSheet2() {
+    public void testAddNewSheet2() throws SpreadsheetException {
         Spreadsheet s = new Spreadsheet(5,5);
         int i;
         for (i = 1; i < 11; i++) {
@@ -43,21 +44,21 @@ public class SpreadsheetTest {
     }
 
     @Test
-    public void testSelectCell() {
+    public void testSelectCell() throws SpreadsheetException {
         Spreadsheet s = new Spreadsheet(5,5);
         s.selectCell(1, 1);
         assertTrue(s.getCurrentCell() instanceof Cell);
     }
 
     @Test
-    public void testSelectCell2() {
+    public void testSelectCell2() throws SpreadsheetException {
         Spreadsheet s = new Spreadsheet(5,5);
         s.selectCell("A1");
         assertTrue(s.getCurrentCell() instanceof Cell);
     }
 
     @Test
-    public void testUpdateCurrentCell() {
+    public void testUpdateCurrentCell() throws SpreadsheetException {
         Spreadsheet s = new Spreadsheet(5,5);
         s.selectCell(1,2);
         s.updateCurrentCell("4");
@@ -65,7 +66,7 @@ public class SpreadsheetTest {
     }
 
     @Test
-    public void testGetCurrentCell() {
+    public void testGetCurrentCell() throws SpreadsheetException {
         Spreadsheet s = new Spreadsheet(5,5);
         s.selectCell(1, 1);
         assertTrue(s.getCurrentCell() instanceof Cell);
@@ -73,7 +74,7 @@ public class SpreadsheetTest {
 
     @Test
     // also test for selectSheet
-    public void testGetCurrentSheet() {
+    public void testGetCurrentSheet() throws SpreadsheetException {
         Spreadsheet s = new Spreadsheet(5,5);
         s.addNewSheet("sheet2");
         s.selectSheet("sheet2");
@@ -81,7 +82,7 @@ public class SpreadsheetTest {
     }
 
     @Test
-    public void testGetCurrentSheetName() {
+    public void testGetCurrentSheetName() throws SpreadsheetException {
         Spreadsheet s = new Spreadsheet(5,5);
         s.addNewSheet("sheet2");
         s.selectSheet("sheet2");
@@ -142,7 +143,7 @@ public class SpreadsheetTest {
     }
 
     @Test
-    public void testExportCsv() throws IOException {
+    public void testExportCsv() throws IOException, SpreadsheetException {
         String projectDir = System.getProperty("user.dir");
         Path csvPath = Paths.get(projectDir.toString(), "src/test/resources/b.csv");
         File csv = new File(csvPath.toString());
@@ -160,7 +161,7 @@ public class SpreadsheetTest {
     }
 
     @Test
-    public void testExportCsvThrowsException() throws IOException {
+    public void testExportCsvThrowsException() throws IOException, SpreadsheetException {
         String projectDir = System.getProperty("user.dir");
         Path csvPath = Paths.get(projectDir.toString(), "src/test/resources/b.csv");
         File csv = new File(csvPath.toString());
@@ -182,7 +183,7 @@ public class SpreadsheetTest {
     }
 
     @Test
-    public void testExportCsvOverwrites() throws IOException {
+    public void testExportCsvOverwrites() throws IOException, SpreadsheetException {
         String projectDir = System.getProperty("user.dir");
         Path csvPath = Paths.get(projectDir, "src/test/resources/wrong_path/df.csv");
 
@@ -204,20 +205,26 @@ public class SpreadsheetTest {
     }
 
     @Test
-    public void testGetSheet() {
+    public void testGetSheet() throws SpreadsheetException {
         Spreadsheet s = new Spreadsheet(5,5);
         assertTrue(s.getSheets() instanceof Sheet[]);
     }
 
     @Test
-    public void testCheckSheetName() {
+    public void testCheckSheetName() throws SpreadsheetException {
         Spreadsheet s = new Spreadsheet(5,5);
-        s.addNewSheet("sheet2");
-        assertEquals(false, s.addNewSheet("sheet2"));
+        boolean thrown = false;
+        try {
+            s.addNewSheet("sheet2");
+        } catch (SpreadsheetException exception) {
+            thrown = true;
+        }
+
+        assertFalse(thrown);
     }
 
     @Test
-    public void testUpdateCell() {
+    public void testUpdateCell() throws SpreadsheetException {
         Spreadsheet s = new Spreadsheet(5,5);
         s.updateCell(1,1, "69420");
         s.selectCell(1,1);
@@ -225,13 +232,13 @@ public class SpreadsheetTest {
     }
 
     @Test
-    public void testFormulasOn() {
+    public void testFormulasOn() throws SpreadsheetException {
         Spreadsheet s = new Spreadsheet(5,5);
         s.formulasOn();
     }
 
     @Test
-    public void testSortCol() {
+    public void testSortCol() throws SpreadsheetException {
         Spreadsheet s = new Spreadsheet(5,5);
         s.updateCell(1,1, "420");
         s.updateCell(1,2, "69");
@@ -240,7 +247,7 @@ public class SpreadsheetTest {
     }
 
     @Test
-    public void testGetFormula() {
+    public void testGetFormula() throws SpreadsheetException {
         Spreadsheet s = new Spreadsheet(5,5);
         s.updateCell(2,1, "1");
         s.updateCell(1,1,"=A2+A2");
@@ -265,7 +272,7 @@ public class SpreadsheetTest {
     }
 
     @Test
-    public void testAddSheet() {
+    public void testAddSheet() throws SpreadsheetException {
         Spreadsheet s = new Spreadsheet(5, 5);
         s.addSheet(new Sheet(10, 8));
         assertEquals(10, s.getCurrentSheet().sizeX());
@@ -273,7 +280,7 @@ public class SpreadsheetTest {
     }
 
     @Test
-    public void testRemoveSheet() {
+    public void testRemoveSheet() throws SpreadsheetException {
         Spreadsheet s = new Spreadsheet(5, 5);
         s.updateCell(1, 1, "smth");
         s.addNewSheet("sheet2");
@@ -289,7 +296,7 @@ public class SpreadsheetTest {
     }
 
     @Test
-    public void testSpreadsheetIO() {
+    public void testSpreadsheetIO() throws SpreadsheetException {
         Spreadsheet s = new Spreadsheet(5, 5);
 
     }

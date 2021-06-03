@@ -106,7 +106,7 @@ public class SheetTest {
     }
 
     @Test
-    public void testUpdate() {
+    public void testUpdate() throws SpreadsheetException {
         Sheet s = new Sheet(5, 6);
         Cell c = new TableCell(3, 3, "g");
         s.add(c);
@@ -116,7 +116,7 @@ public class SheetTest {
     }
 
     @Test
-    public void testUpdateCell() {
+    public void testUpdateCell() throws SpreadsheetException {
         Sheet s = new Sheet(5, 6);
         Cell c = new TableCell(3, 3, "5");
         assertEquals(c.getText(), "5");
@@ -146,7 +146,7 @@ public class SheetTest {
     }
 
     @Test
-    public void testReEvalFormulas() {
+    public void testReEvalFormulas() throws SpreadsheetException {
 
     Sheet s = new Sheet(5, 6);
     Cell c = new TableCell(3, 3, "=8+0");
@@ -177,7 +177,7 @@ public class SheetTest {
     }
 
     @Test
-    public void testCreateDataTable() {
+    public void testCreateDataTable() throws SpreadsheetException {
         Sheet s = new Sheet(3, 3);
         Cell a = new TableCell(0, 0, "1");
         s.add(a);
@@ -197,7 +197,7 @@ public class SheetTest {
     }
 
     @Test
-    public void testFillFormulas() {
+    public void testFillFormulas() throws SpreadsheetException {
         Sheet s = new Sheet(2, 2);
         Cell c = new TableCell(1, 1, "=1+2");
         s.add(c);
