@@ -66,15 +66,5 @@ public final class SpreadsheetGui extends JFrame implements SpreadsheetView {
         gui.init();
     }
 
-    /**
-     * The main method.
-     * @param args a String[].
-     */
-    public static void main(final String[] args) {
-        final Spreadsheet m = new Spreadsheet(5,5);
-        final SpreadsheetGui sv = new SpreadsheetGui(m);
-        sv.init();
-    }
-
 
 }

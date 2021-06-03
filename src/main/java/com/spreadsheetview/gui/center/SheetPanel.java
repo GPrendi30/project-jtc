@@ -3,10 +3,8 @@ package com.spreadsheetview.gui.center;
 import com.spreadsheetmodel.Spreadsheet;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 
 import java.util.ArrayList;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 
@@ -38,7 +36,7 @@ public class SheetPanel extends JPanel {
 
         final FormulaBar formulaBar = new FormulaBar(model);
         add(formulaBar, BorderLayout.NORTH);
-        // add the listener for FormulaBar
+
         formulaBar.addListener(new FormulaBarListener() {
             @Override
             public void formulaBarChanged(final Spreadsheet model) {
@@ -48,7 +46,6 @@ public class SheetPanel extends JPanel {
 
         final TabsView tabsBar = new TabsView(model);
         add(tabsBar, BorderLayout.SOUTH);
-        // add the listener for TabsView
         tabsBar.addListener(new TabsViewListener() {
             @Override
             public void tabsViewChanged(final Spreadsheet model) {
@@ -61,7 +58,6 @@ public class SheetPanel extends JPanel {
 
     }
 
-    // adding listeners
     /**
      * Adds a SheetViewListener to the list of listener objects.
      * @param li a SheetViewListener that will be added.
@@ -85,17 +81,4 @@ public class SheetPanel extends JPanel {
 
     }
 
-    /**
-     * The main method.
-     * @param args a String[].
-     */
-    public static void main(final String[] args) {
-        final JFrame frame = new JFrame();
-        final Spreadsheet m = new Spreadsheet(5,5);
-        final SheetPanel sv = new SheetPanel(m);
-        frame.add(sv);
-        frame.setSize(new Dimension(500, 500));
-        frame.pack();
-        frame.setVisible(true);
-    }
 }

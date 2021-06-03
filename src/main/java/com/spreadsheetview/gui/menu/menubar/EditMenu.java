@@ -1,5 +1,11 @@
 package com.spreadsheetview.gui.menu.menubar;
 
+import com.spreadsheetmodel.commands.CopyCommand;
+import com.spreadsheetmodel.commands.CopyPasteStack;
+import com.spreadsheetmodel.commands.CutCommand;
+import com.spreadsheetmodel.commands.PasteCommand;
+import com.spreadsheetview.gui.GuiCommandHandler;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -28,14 +34,14 @@ public class EditMenu extends Menu {
         addMenu("copy", new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
-                copy();
+                GuiCommandHandler.handleCommand(new CopyCommand(CopyPasteStack.getInstance()));
             }
         });
 
         addMenu("paste", new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
-                paste();
+                GuiCommandHandler.handleCommand(new PasteCommand(CopyPasteStack.getInstance()));
             }
         });
 
@@ -56,25 +62,13 @@ public class EditMenu extends Menu {
         addMenu("cut", new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
-                cut();
+                GuiCommandHandler.handleCommand(new CutCommand(CopyPasteStack.getInstance()));
             }
         });
     }
 
     private static void redo() {
         System.out.println("redo");
-    }
-
-    private static void copy() {
-        System.out.println("copy");
-    }
-
-    private static void paste() {
-        System.out.println("paste");
-    }
-
-    private static void cut() {
-        System.out.println("cut");
     }
 
     private static void find() {

@@ -2,6 +2,7 @@ package com.spreadsheetview.tui;
 
 import com.spreadsheetmodel.Spreadsheet;
 import com.spreadsheetmodel.SpreadsheetEvent;
+import com.spreadsheetmodel.SpreadsheetException;
 import com.spreadsheetmodel.SpreadsheetListener;
 import com.spreadsheetmodel.cell.Cell;
 import com.spreadsheetmodel.cell.CellLocation;
@@ -87,7 +88,12 @@ public class SpreadsheetTui implements SpreadsheetView, Serializable {
                     space = 3;
                 }
                 // printing the cell
-                final Cell g = s.getCell(x, y);
+                Cell g = null;
+                try {
+                    g = s.getCell(x, y);
+                } catch (SpreadsheetException exception) {
+                    System.out.println(exception.getMessage());
+                }
                 final String thisCellLocation = g.getLocation().toString();
 
                 if (currentLocation.equals(thisCellLocation)) {

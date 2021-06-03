@@ -1,13 +1,13 @@
 package com.spreadsheetview.gui.menu.menubar;
 
 import com.spreadsheetcontroller.SpreadsheetController;
+import com.spreadsheetmodel.SpreadsheetException;
 import com.spreadsheetmodel.commands.ExportCommand;
 import com.spreadsheetmodel.commands.ImportCommand;
-import com.spreadsheetmodel.commands.Invoker;
 import com.spreadsheetmodel.commands.OpenCommand;
 import com.spreadsheetmodel.commands.SaveCommand;
-
 import com.spreadsheetview.SpreadsheetView;
+import com.spreadsheetview.gui.GuiCommandHandler;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,7 +27,11 @@ public class FileMenu extends Menu {
         addMenu("new", new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
-                SpreadsheetController.main(new String[]{"gui"});
+                try {
+                    SpreadsheetController.main(new String[]{"gui"});
+                } catch (SpreadsheetException exception) {
+                    exception.printStackTrace();
+                }
             }
         });
 
@@ -38,8 +42,7 @@ public class FileMenu extends Menu {
                 FileMenuActionListener.OPEN_DIALOG) {
             @Override
             public void command(final String path) {
-                final OpenCommand openCommand = new OpenCommand(path, view);
-                Invoker.getInstance().invoke(openCommand);
+                GuiCommandHandler.handleCommand(new OpenCommand(path, view));
             }
         });
 
@@ -50,7 +53,7 @@ public class FileMenu extends Menu {
                 FileMenuActionListener.OPEN_DIALOG) {
             @Override
             public void command(final String path) {
-                Invoker.getInstance().invoke(new ImportCommand(path));
+                GuiCommandHandler.handleCommand(new ImportCommand(path));
             }
         });
 
@@ -61,8 +64,7 @@ public class FileMenu extends Menu {
                 FileMenuActionListener.SAVE_DIALOG) {
             @Override
             public void command(final String path) {
-                final SaveCommand saveCommand = new SaveCommand(path);
-                Invoker.getInstance().invoke(saveCommand);
+                GuiCommandHandler.handleCommand(new SaveCommand(path));
             }
         });
 
@@ -73,8 +75,7 @@ public class FileMenu extends Menu {
                 FileMenuActionListener.SAVE_DIALOG) {
             @Override
             public void command(final String path) {
-                final ExportCommand exportCommand = new ExportCommand(path);
-                Invoker.getInstance().invoke(exportCommand);
+                GuiCommandHandler.handleCommand(new ExportCommand(path));
             }
         });
 

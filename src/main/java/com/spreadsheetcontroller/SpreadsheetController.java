@@ -3,16 +3,24 @@ package com.spreadsheetcontroller;
 
 import com.spreadsheetmodel.Spreadsheet;
 import com.spreadsheetmodel.SpreadsheetException;
-import com.spreadsheetmodel.SpreadsheetIO;
 import com.spreadsheetmodel.cell.Cell;
+import com.spreadsheetmodel.commands.AddNewSheetCommand;
+import com.spreadsheetmodel.commands.ExportCommand;
+import com.spreadsheetmodel.commands.FormulasOnCommand;
+import com.spreadsheetmodel.commands.ImportCommand;
 import com.spreadsheetmodel.commands.Invoker;
+import com.spreadsheetmodel.commands.OpenCommand;
+import com.spreadsheetmodel.commands.SelectCellCommand;
+import com.spreadsheetmodel.commands.SelectSheetCommand;
+import com.spreadsheetmodel.commands.SortColumnCommand;
+import com.spreadsheetmodel.commands.UpdateCellCommand;
 import com.spreadsheetview.SpreadsheetView;
 import com.spreadsheetview.gui.SpreadsheetGui;
 import com.spreadsheetview.tui.SpreadsheetTui;
 
-import java.io.IOException;
-import java.util.Locale;
+import com.spreadsheetview.tui.TuiCommandHandler;
 
+import java.util.Locale;
 
 public class SpreadsheetController {
 
@@ -45,8 +53,9 @@ public class SpreadsheetController {
     /**
      * Main function.
      * @param args any args that you want.
+     * @throws SpreadsheetException throws
      */
-    public static void main(final String[] args) {
+    public static void main(final String[] args) throws SpreadsheetException {
         boolean guiBool = true;
 
         if (args.length != 0) {
@@ -54,15 +63,16 @@ public class SpreadsheetController {
         }
 
 
+        Spreadsheet s = null;
+        s = new Spreadsheet(5,5);
 
-        final Spreadsheet s = new Spreadsheet(5,5);
-
+        Invoker.setReceiver(s);
         final SpreadsheetView view = guiBool
                         ?   new SpreadsheetGui(s)
                         :   new SpreadsheetTui(s);
 
         final SpreadsheetController controller = new SpreadsheetController(s, view, guiBool);
-        Invoker.setReceiver(s);
+
         controller.start();
     }
 
@@ -95,17 +105,10 @@ public class SpreadsheetController {
         } else if (command.startsWith("print")) {
             updateView();
         } else if (command.startsWith("sort column")) {
-            model.sortCol(Integer.parseInt(arrCommands[arrCommands.length - 1]));
-        } else if (command.startsWith("open")) {
-            try {
-                view.updateModel(SpreadsheetIO.readFromFile(arrCommands[arrCommands.length - 1]));
-            } catch (IOException exception) {
-                System.out.println(exception.getMessage());
-            } catch (SpreadsheetException exception) {
-                System.out.println(exception.getMessage());
-            }
-        } else if (command.startsWith("formulas")) {
-            model.formulasOn();
+            TuiCommandHandler.handleCommand(
+                    new SortColumnCommand(Integer.parseInt(arrCommands[arrCommands.length - 1])));
+        }  else if (command.startsWith("formulas")) {
+            TuiCommandHandler.handleCommand(new FormulasOnCommand());
         } else if (command.startsWith("help")) {
             helpCommand();
         } else {
@@ -124,7 +127,7 @@ public class SpreadsheetController {
 
             found = true;
         } else if (command.startsWith("update cell")) {
-            model.updateCurrentCell(arrCommands[arrCommands.length - 1]);
+            updateCurrentCell(arrCommands[arrCommands.length - 1]);
             found = true;
         }
         return found;
@@ -134,10 +137,10 @@ public class SpreadsheetController {
         boolean found = false;
         if (command.startsWith("add new sheet")) {
             final String sheetName = arrCommands[arrCommands.length - 1];
-            model.addNewSheet(sheetName);
+            addNewSheet(sheetName);
             found = true;
         } else if (command.startsWith("select sheet")) {
-            model.selectSheet(arrCommands[arrCommands.length - 1]);
+            selectSheet(arrCommands[arrCommands.length - 1]);
             found = true;
         } else if (command.startsWith("grow sheet h")) {
             try {
@@ -160,20 +163,14 @@ public class SpreadsheetController {
     private boolean importExportCommands(final String command, final String[] arrCommands) {
         boolean found = false;
         if (command.startsWith("import")) {
-            try {
-                model.importCsv(arrCommands[arrCommands.length - 1]);
-            } catch (SpreadsheetException exception) {
-                System.out.println(exception.getMessage());
-            } catch (IOException exception) {
-                System.out.println(exception.getMessage());
-            }
+            TuiCommandHandler.handleCommand(new ImportCommand(arrCommands[arrCommands.length - 1]));
             found = true;
-        } else if (command.startsWith("save")) {
-            try {
-                model.exportCsv(arrCommands[arrCommands.length - 1]);
-            } catch (IOException exception) {
-                System.out.println(exception.getMessage());
-            }
+        } else if (command.startsWith("open")) {
+            TuiCommandHandler.handleCommand(
+                    new OpenCommand(arrCommands[arrCommands.length - 1], view));
+            found = true;
+        } else if (command.startsWith("export")) {
+            TuiCommandHandler.handleCommand(new ExportCommand(arrCommands[arrCommands.length - 1]));
             found = true;
         }
         return found;
@@ -212,7 +209,7 @@ public class SpreadsheetController {
         final int[] loc = Cell.parseLocation(location);
         x = loc[0];
         y = loc[1];
-        model.selectCell(x,y);
+        TuiCommandHandler.handleCommand(new SelectCellCommand(x,y));
     }
 
     /**
@@ -230,7 +227,7 @@ public class SpreadsheetController {
      * @param newTableName a String.
      */
     public void addNewSheet(final String newTableName) {
-        model.addNewSheet(newTableName);
+        TuiCommandHandler.handleCommand(new AddNewSheetCommand(newTableName));
     }
 
     /**
@@ -238,7 +235,7 @@ public class SpreadsheetController {
      * @param sheetName the String name of a sheet.
      */
     public void selectSheet(final String sheetName) {
-        model.selectSheet(sheetName);
+        TuiCommandHandler.handleCommand(new SelectSheetCommand(sheetName));
     }
 
     /**
@@ -246,7 +243,7 @@ public class SpreadsheetController {
      * @param content a String, new content.
      */
     public void updateCurrentCell(final String content) {
-        model.updateCurrentCell(content);
+        TuiCommandHandler.handleCommand(new UpdateCellCommand(model.getCurrentCell(), content));
     }
 
     /**

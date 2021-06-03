@@ -22,4 +22,6 @@ public interface SpreadsheetView extends Serializable {
      */
     public void updateModel(final Spreadsheet newModel);
 
+
+
 }
