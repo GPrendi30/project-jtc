@@ -11,9 +11,11 @@ import com.computation.ast.function.FunctionException;
 import com.computation.ast.function.FunctionList;
 import com.computation.ast.function.FunctionOperation;
 import com.computation.ast.function.FunctionWithRanges;
+import com.computation.ast.function.SumRange;
 import com.computation.ast.intnodes.IntLiteral;
 import com.computation.ast.intnodes.IntVariable;
 import com.computation.instruction.doubleinstruction.DADD;
+import com.computation.instruction.intinstruction.BIPUSH;
 import com.computation.instruction.intinstruction.IADD;
 import com.computation.program.OperandStack;
 import com.computation.program.Program;
@@ -242,5 +244,21 @@ public class FunctionTest {
         }
 
         assertTrue(thrown);
+    }
+
+    @Test
+    public void testSumRange() throws NodeException {
+        SumRange sr = new SumRange("sum_range",
+                        FunctionList.SUM.getFunction().getFunctionOperation(),
+                        Type.DOUBLE);
+
+        Program p = new Program();
+        p.append(new BIPUSH(5));
+        p.append(new BIPUSH(5));
+
+
+        Function sameFunc = sr.copy();
+
+        sameFunc.compile(p);
     }
 }

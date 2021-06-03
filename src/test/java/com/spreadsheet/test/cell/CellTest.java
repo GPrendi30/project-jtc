@@ -1,6 +1,9 @@
 package com.spreadsheet.test.cell;
 
 
+import com.computation.ast.NodeException;
+import com.computation.ast.intnodes.IntLiteral;
+import com.computation.parser.ArithException;
 import com.computation.program.Program;
 import com.computation.program.VariableTable;
 import com.spreadsheetmodel.Spreadsheet;
@@ -214,5 +217,41 @@ public class CellTest {
             thrown = true;
         }
         assertTrue(thrown);
+    }
+
+    @Test
+    public void testTableCellThrowsLexerException() {
+        Program p = new Program();
+        VariableTable vt = new VariableTable();
+        TableCell c = new TableCell(1,1, "!3e9025");
+
+        c.evaluate(p, vt);
+
+        assertEquals("#KEY", c.getText());
+    }
+
+    @Test
+    public void testTableCellThrowsArithException() {
+        Program p = new Program();
+        VariableTable vt = new VariableTable();
+        TableCell c = new TableCell(1,1, "=53*-(12)");
+
+        c.evaluate(p, vt);
+
+        assertEquals("#EXP", c.getText());
+    }
+
+    @Test
+    public void testTableCellThrowsNodeException() {
+        Spreadsheet s = new Spreadsheet(5, 5);
+        Program p = new Program();
+        VariableTable vt = new VariableTable();
+        TableCell c = new TableCell(1,1, "=SUM(A1:A3)");
+
+        s.updateCell(1, 1, "=SUM(A1:A3)");
+        s.getCurrentCell().evaluate(p, vt);
+        s.selectCell(1, 1);
+
+        assertEquals("#VAL", s.getCurrentCell().getText());
     }
 }

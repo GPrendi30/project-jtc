@@ -17,6 +17,7 @@ import com.computation.ast.intnodes.IntNegation;
 import com.computation.ast.intnodes.IntSubtraction;
 import com.computation.ast.intnodes.IntToDouble;
 import com.computation.ast.intnodes.IntVariable;
+import com.computation.instruction.Instruction;
 import com.computation.instruction.doubleinstruction.BDPUSH;
 import com.computation.instruction.doubleinstruction.D2I;
 import com.computation.instruction.doubleinstruction.DADD;
