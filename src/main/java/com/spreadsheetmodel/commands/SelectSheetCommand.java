@@ -3,7 +3,7 @@ package com.spreadsheetmodel.commands;
 import com.spreadsheetmodel.Spreadsheet;
 import com.spreadsheetmodel.SpreadsheetException;
 
-public class SelectSheetCommand implements Command {
+public class SelectSheetCommand implements Command, UndoableCommand {
 
     private String prevSheet;
     private String selectedSheet;
@@ -18,30 +18,19 @@ public class SelectSheetCommand implements Command {
 
 
     @Override
-    public void execute(final Spreadsheet receiver) throws CommandException {
-        try {
-            prevSheet = receiver.getCurrentSheetName();
-            receiver.selectSheet(selectedSheet);
-        } catch (SpreadsheetException exception) {
-            throw new CommandException(exception.getMessage(), exception);
-        }
+    public void execute(final Spreadsheet receiver) throws SpreadsheetException {
+        prevSheet = receiver.getCurrentSheetName();
+        receiver.selectSheet(selectedSheet);
     }
 
     @Override
-    public void undo(final Spreadsheet receiver) throws CommandException {
-        try {
-            receiver.selectSheet(prevSheet);
-        } catch (SpreadsheetException exception) {
-            throw new CommandException(exception.getMessage(), exception);
-        }
+    public void undo(final Spreadsheet receiver) throws SpreadsheetException {
+        receiver.selectSheet(prevSheet);
     }
 
     @Override
-    public void redo(final Spreadsheet receiver) throws CommandException {
-        try {
-            receiver.selectSheet(selectedSheet);
-        } catch (SpreadsheetException exception) {
-            throw new CommandException(exception.getMessage(), exception);
-        }
+    public void redo(final Spreadsheet receiver) throws SpreadsheetException {
+        receiver.selectSheet(selectedSheet);
+
     }
 }

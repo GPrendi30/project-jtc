@@ -9,7 +9,7 @@ import com.spreadsheetmodel.SpreadsheetListener;
 import com.spreadsheetmodel.commands.AddNewSheetCommand;
 import com.spreadsheetmodel.commands.SelectSheetCommand;
 
-import com.spreadsheetview.gui.GuiHandler;
+import com.spreadsheetview.gui.GuiHandlerUtil;
 
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -42,7 +42,7 @@ public class TabsView extends JPanel {
         firstSheet.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
-                GuiHandler.handleCommand(new SelectSheetCommand(firstSheet.getText()));
+                GuiHandlerUtil.handleCommand(new SelectSheetCommand(firstSheet.getText()));
             }
         });
 
@@ -58,7 +58,7 @@ public class TabsView extends JPanel {
                         null,
                         "New Sheet"
                 );
-                GuiHandler.handleCommand(new AddNewSheetCommand(result));
+                GuiHandlerUtil.handleCommand(new AddNewSheetCommand(result));
             }
         });
 
@@ -90,7 +90,7 @@ public class TabsView extends JPanel {
             newSheetButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(final ActionEvent actionEvent) {
-                    GuiHandler.handleCommand(
+                    GuiHandlerUtil.handleCommand(
                             new SelectSheetCommand(newSheetButton.getText()));
                 }
             });

@@ -48,10 +48,10 @@ public class TuiCommand {
         } else if (command.startsWith("print")) {
             updateView();
         } else if (command.startsWith("sort column")) {
-            TuiHandler.handleCommand(
+            TuiHandlerUtil.handleCommand(
                     new SortColumnCommand(Integer.parseInt(arrCommands[arrCommands.length - 1])));
         }  else if (command.startsWith("formulas")) {
-            TuiHandler.handleCommand(new FormulasOnCommand());
+            TuiHandlerUtil.handleCommand(new FormulasOnCommand());
         } else if (command.startsWith("help")) {
             helpCommand();
         } else {
@@ -106,14 +106,14 @@ public class TuiCommand {
     private boolean importExportCommands(final String command, final String[] arrCommands) {
         boolean found = false;
         if (command.startsWith("import")) {
-            TuiHandler.handleCommand(new ImportCommand(arrCommands[arrCommands.length - 1]));
+            TuiHandlerUtil.handleCommand(new ImportCommand(arrCommands[arrCommands.length - 1]));
             found = true;
         } else if (command.startsWith("open")) {
-            TuiHandler.handleCommand(
+            TuiHandlerUtil.handleCommand(
                     new OpenCommand(arrCommands[arrCommands.length - 1], view));
             found = true;
         } else if (command.startsWith("export")) {
-            TuiHandler.handleCommand(new ExportCommand(arrCommands[arrCommands.length - 1]));
+            TuiHandlerUtil.handleCommand(new ExportCommand(arrCommands[arrCommands.length - 1]));
             found = true;
         }
         return found;
@@ -152,7 +152,7 @@ public class TuiCommand {
         final int[] loc = Cell.parseLocation(location);
         x = loc[0];
         y = loc[1];
-        TuiHandler.handleCommand(new SelectCellCommand(x,y));
+        TuiHandlerUtil.handleCommand(new SelectCellCommand(x,y));
     }
 
     /**
@@ -170,7 +170,7 @@ public class TuiCommand {
      * @param newTableName a String.
      */
     public void addNewSheet(final String newTableName) {
-        TuiHandler.handleCommand(new AddNewSheetCommand(newTableName));
+        TuiHandlerUtil.handleCommand(new AddNewSheetCommand(newTableName));
     }
 
     /**
@@ -178,7 +178,7 @@ public class TuiCommand {
      * @param sheetName the String name of a sheet.
      */
     public void selectSheet(final String sheetName) {
-        TuiHandler.handleCommand(new SelectSheetCommand(sheetName));
+        TuiHandlerUtil.handleCommand(new SelectSheetCommand(sheetName));
     }
 
     /**
@@ -186,7 +186,7 @@ public class TuiCommand {
      * @param content a String, new content.
      */
     public void updateCurrentCell(final String content) {
-        TuiHandler.handleCommand(new UpdateCellCommand(model.getCurrentCell(), content));
+        TuiHandlerUtil.handleCommand(new UpdateCellCommand(model.getCurrentCell(), content));
     }
 
     /**

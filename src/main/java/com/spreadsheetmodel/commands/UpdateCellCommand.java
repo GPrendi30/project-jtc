@@ -4,7 +4,7 @@ import com.spreadsheetmodel.Spreadsheet;
 import com.spreadsheetmodel.SpreadsheetException;
 import com.spreadsheetmodel.cell.Cell;
 
-public class UpdateCellCommand implements Command {
+public class UpdateCellCommand implements Command, UndoableCommand {
 
     private Cell cell;
     private String prevContent;
@@ -21,26 +21,18 @@ public class UpdateCellCommand implements Command {
     }
 
     @Override
-    public void execute(final Spreadsheet receiver) throws CommandException {
-        try {
-            this.prevContent = cell.getText();
-            receiver.updateCell(cell, content);
-        } catch (SpreadsheetException exception) {
-            throw new CommandException(exception.getMessage(), exception);
-        }
+    public void execute(final Spreadsheet receiver) throws SpreadsheetException {
+        this.prevContent = cell.getText();
+        receiver.updateCell(cell, content);
     }
 
     @Override
-    public void undo(final Spreadsheet receiver) throws CommandException {
-        try {
-            receiver.updateCell(cell, prevContent);
-        } catch (SpreadsheetException exception) {
-            throw new CommandException(exception.getMessage(), exception);
-        }
+    public void undo(final Spreadsheet receiver) throws SpreadsheetException {
+        receiver.updateCell(cell, prevContent);
     }
 
     @Override
-    public void redo(final Spreadsheet receiver) throws CommandException {
+    public void redo(final Spreadsheet receiver) throws SpreadsheetException {
         execute(receiver);
     }
 }

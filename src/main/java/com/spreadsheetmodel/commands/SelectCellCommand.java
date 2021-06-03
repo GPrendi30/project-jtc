@@ -6,7 +6,6 @@ import com.spreadsheetmodel.cell.CellLocation;
 
 public class SelectCellCommand implements Command {
 
-    private CellLocation prevCellLocation;
 
     private int x;
     private int y;
@@ -32,26 +31,17 @@ public class SelectCellCommand implements Command {
     }
 
     @Override
-    public void execute(final Spreadsheet receiver) throws CommandException {
-        prevCellLocation = receiver.getCurrentCell().getLocation();
-        try {
-            receiver.selectCell(x,y);
-        } catch (SpreadsheetException exception) {
-            throw new CommandException(exception.getMessage(), exception);
-        }
+    public void execute(final Spreadsheet receiver) throws SpreadsheetException {
+        receiver.selectCell(x,y);
     }
 
     @Override
-    public void undo(final Spreadsheet receiver) throws CommandException {
-        try {
-            receiver.selectCell(prevCellLocation.toString());
-        } catch (SpreadsheetException exception) {
-            throw new CommandException(exception.getMessage(), exception);
-        }
+    public void undo(final Spreadsheet receiver) throws SpreadsheetException {
+        // no undo
     }
 
     @Override
-    public void redo(final Spreadsheet receiver) throws CommandException {
-        execute(receiver);
+    public void redo(final Spreadsheet receiver) throws SpreadsheetException {
+        // no undo
     }
 }

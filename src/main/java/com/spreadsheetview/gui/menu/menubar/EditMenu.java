@@ -4,7 +4,7 @@ import com.spreadsheetmodel.commands.CopyCommand;
 import com.spreadsheetmodel.commands.CopyPasteStack;
 import com.spreadsheetmodel.commands.CutCommand;
 import com.spreadsheetmodel.commands.PasteCommand;
-import com.spreadsheetview.gui.GuiHandler;
+import com.spreadsheetview.gui.GuiHandlerUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,35 +34,22 @@ public class EditMenu extends Menu {
         addMenu("copy", new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
-                GuiHandler.handleCommand(new CopyCommand(CopyPasteStack.getInstance()));
+                GuiHandlerUtil.handleCommand(new CopyCommand(CopyPasteStack.getInstance()));
             }
         });
 
         addMenu("paste", new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
-                GuiHandler.handleCommand(new PasteCommand(CopyPasteStack.getInstance()));
+                GuiHandlerUtil.handleCommand(new PasteCommand(CopyPasteStack.getInstance()));
             }
         });
 
-        addMenu("find", new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent actionEvent) {
-                find();
-            }
-        });
-
-        addMenu("replace", new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent actionEvent) {
-                replace();
-            }
-        });
 
         addMenu("cut", new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
-                GuiHandler.handleCommand(new CutCommand(CopyPasteStack.getInstance()));
+                GuiHandlerUtil.handleCommand(new CutCommand(CopyPasteStack.getInstance()));
             }
         });
     }
@@ -70,13 +57,4 @@ public class EditMenu extends Menu {
     private static void redo() {
         System.out.println("redo");
     }
-
-    private static void find() {
-        System.out.println("find");
-    }
-
-    private static void replace() {
-        System.out.println("replace");
-    }
-
 }

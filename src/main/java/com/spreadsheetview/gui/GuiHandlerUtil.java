@@ -1,25 +1,24 @@
-package com.spreadsheetview.tui;
+package com.spreadsheetview.gui;
 
 import com.spreadsheetmodel.commands.Command;
 import com.spreadsheetmodel.commands.CommandException;
 import com.spreadsheetmodel.commands.Invoker;
 
-public class TuiHandler {
+import javax.swing.JOptionPane;
+
+public final class GuiHandlerUtil {
+
+    private GuiHandlerUtil() {}
 
     /**
-     * Dummy constructor.
-     */
-    private TuiHandler() {}
-
-    /**
-     * Handles a command for the TUI.
+     * Handle a command for the GUI.
      * @param command a Command to be executed.
      */
     public static void handleCommand(final Command command) {
         try {
             Invoker.getInstance().invoke(command);
         } catch (CommandException exception) {
-            System.out.println(exception.getMessage());
+            JOptionPane.showMessageDialog(null, exception.getMessage());
         }
     }
 

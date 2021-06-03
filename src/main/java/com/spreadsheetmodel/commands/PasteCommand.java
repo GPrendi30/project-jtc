@@ -4,7 +4,7 @@ import com.spreadsheetmodel.Spreadsheet;
 import com.spreadsheetmodel.SpreadsheetException;
 import com.spreadsheetmodel.cell.Cell;
 
-public class PasteCommand implements Command {
+public class PasteCommand implements Command, UndoableCommand {
 
     private CopyPasteStack stack;
     private String oldContent;
@@ -19,34 +19,21 @@ public class PasteCommand implements Command {
     }
 
     @Override
-    public void execute(final Spreadsheet receiver) throws CommandException {
-        try {
-            oldContent = receiver.getCurrentCell().getText();
-            targetCell = receiver.getCurrentCell();
-            receiver.updateCurrentCell(stack.peek());
-        } catch (SpreadsheetException exception) {
-            throw new CommandException(exception.getMessage(), exception);
-        }
+    public void execute(final Spreadsheet receiver) throws SpreadsheetException {
+        oldContent = receiver.getCurrentCell().getText();
+        targetCell = receiver.getCurrentCell();
+        receiver.updateCell(targetCell, stack.peek());
     }
 
     @Override
-    public void redo(final Spreadsheet receiver) throws CommandException {
-
-        try {
-            oldContent = targetCell.getText();
-            receiver.updateCurrentCell(stack.peek());
-        } catch (SpreadsheetException exception) {
-            throw new CommandException(exception.getMessage(), exception);
-        }
+    public void redo(final Spreadsheet receiver) throws SpreadsheetException {
+        oldContent = targetCell.getText();
+        receiver.updateCurrentCell(stack.peek());
     }
 
     @Override
-    public void undo(final Spreadsheet receiver) throws CommandException {
-        try {
-            receiver.updateCell(targetCell, oldContent);
-        } catch (SpreadsheetException exception) {
-            throw new CommandException(exception.getMessage(), exception);
-        }
+    public void undo(final Spreadsheet receiver) throws SpreadsheetException {
+        receiver.updateCell(targetCell, oldContent);
     }
 
 }

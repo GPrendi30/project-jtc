@@ -17,31 +17,19 @@ public class AddNewSheetCommand implements Command {
     }
 
     @Override
-    public void execute(final Spreadsheet receiver) throws CommandException {
-        try {
-            receiver.addNewSheet(addedSheet);
-            prevSheet = receiver.getCurrentSheetName();
-        } catch (SpreadsheetException exception) {
-            throw new CommandException(exception.getMessage(), exception);
-        }
+    public void execute(final Spreadsheet receiver) throws SpreadsheetException {
+        receiver.addNewSheet(addedSheet);
+        prevSheet = receiver.getCurrentSheetName();
     }
 
     @Override
-    public void undo(final Spreadsheet receiver) throws CommandException {
-        try {
-            receiver.removeSheet(addedSheet);
-            receiver.selectSheet(prevSheet);
-        } catch (SpreadsheetException exception) {
-            throw new CommandException(exception.getMessage(), exception);
-        }
+    public void undo(final Spreadsheet receiver) throws SpreadsheetException {
+        receiver.removeSheet(addedSheet);
+        receiver.selectSheet(prevSheet);
     }
 
     @Override
-    public void redo(final Spreadsheet receiver) throws CommandException {
-        try {
-            receiver.addNewSheet(addedSheet);
-        } catch (SpreadsheetException exception) {
-            throw new CommandException(exception.getMessage(), exception);
-        }
+    public void redo(final Spreadsheet receiver) throws SpreadsheetException {
+        receiver.addNewSheet(addedSheet);
     }
 }

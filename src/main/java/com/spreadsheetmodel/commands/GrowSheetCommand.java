@@ -19,21 +19,17 @@ public class GrowSheetCommand implements Command {
     }
 
     @Override
-    public void execute(final Spreadsheet receiver) throws CommandException {
-        try {
-            receiver.grow(this.direction, this.size);
-        } catch (SpreadsheetException exception) {
-            throw new CommandException(exception.getMessage(), exception);
-        }
+    public void execute(final Spreadsheet receiver) throws SpreadsheetException {
+        receiver.grow(this.direction, this.size);
     }
 
     @Override
-    public void undo(final Spreadsheet receiver) throws CommandException {
+    public void undo(final Spreadsheet receiver) throws SpreadsheetException {
         //
     }
 
     @Override
-    public void redo(final Spreadsheet receiver) throws CommandException {
+    public void redo(final Spreadsheet receiver) throws SpreadsheetException {
         //
     }
 }

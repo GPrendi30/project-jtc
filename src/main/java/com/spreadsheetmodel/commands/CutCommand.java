@@ -4,7 +4,7 @@ import com.spreadsheetmodel.Spreadsheet;
 import com.spreadsheetmodel.SpreadsheetException;
 import com.spreadsheetmodel.cell.Cell;
 
-public class CutCommand implements Command {
+public class CutCommand implements Command, UndoableCommand {
 
     private CopyPasteStack stack;
     private String savedContent;
@@ -21,35 +21,22 @@ public class CutCommand implements Command {
     }
 
     @Override
-    public void execute(final Spreadsheet receiver) throws CommandException {
+    public void execute(final Spreadsheet receiver) throws SpreadsheetException {
         savedContent = receiver.getCurrentCell().getText();
         savedCell = receiver.getCurrentCell();
-        try {
-            receiver.updateCurrentCell("");
-        } catch (SpreadsheetException exception) {
-            throw new CommandException(exception.getMessage(), exception);
-        }
+        receiver.updateCurrentCell("");
         stack.push(savedContent);
     }
 
     @Override
-    public void undo(final Spreadsheet receiver) throws CommandException {
-        try {
-            receiver.updateCell(savedCell, stack.peek());
-        } catch (SpreadsheetException exception) {
-            throw new CommandException(exception.getMessage(), exception);
-        }
-
+    public void undo(final Spreadsheet receiver) throws SpreadsheetException {
+        receiver.updateCell(savedCell, stack.peek());
     }
 
     @Override
-    public void redo(final Spreadsheet receiver) throws CommandException {
+    public void redo(final Spreadsheet receiver) throws SpreadsheetException {
         savedContent = savedCell.getText();
-        try {
-            receiver.updateCell(savedCell, "");
-        } catch (SpreadsheetException exception) {
-            throw new CommandException(exception.getMessage(), exception);
-        }
+        receiver.updateCell(savedCell, "");
         stack.push(savedContent);
     }
 }

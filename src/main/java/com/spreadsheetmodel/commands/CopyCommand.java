@@ -29,7 +29,7 @@ public class CopyCommand implements Command {
 
     @Override
     public void redo(final Spreadsheet receiver) {
-        stack.push(savedContent);
+        // no redo
     }
 
     private void updateContent(final String content) {

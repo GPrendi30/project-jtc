@@ -6,7 +6,7 @@ import com.spreadsheetmodel.sheet.Sheet;
 
 import java.util.ArrayList;
 
-public class SortColumnCommand implements Command {
+public class SortColumnCommand implements Command, UndoableCommand {
 
     private final ArrayList<String> columnValues;
     private final int column;
@@ -21,43 +21,28 @@ public class SortColumnCommand implements Command {
     }
 
     @Override
-    public void execute(final Spreadsheet receiver) throws CommandException {
-        try {
-            final Sheet s = receiver.getCurrentSheet();
-            final int size = s.sizeX();
-
-            for (int i = 0; i < size; i++) {
-                columnValues.add(s.getCell(i, column).getText());
-            }
-
-            receiver.sortCol(column);
-        } catch (SpreadsheetException exception) {
-            throw new CommandException(exception.getMessage(), exception);
-        }
-
-    }
-
-    @Override
-    public void undo(final Spreadsheet receiver) throws CommandException {
+    public void execute(final Spreadsheet receiver) throws SpreadsheetException {
         final Sheet s = receiver.getCurrentSheet();
         final int size = s.sizeX();
 
-        try {
-            for (int i = 0; i < size; i++) {
-                receiver.updateCell(i, column, columnValues.get(i));
-            }
-        } catch (SpreadsheetException exception) {
-            throw new CommandException(exception.getMessage(), exception);
+        for (int i = 0; i < size; i++) {
+            columnValues.add(s.getCell(i, column).getText());
         }
-
+        receiver.sortCol(column);
     }
 
     @Override
-    public void redo(final Spreadsheet receiver) throws CommandException {
-        try {
-            receiver.sortCol(column);
-        } catch (SpreadsheetException exception) {
-            throw new CommandException(exception.getMessage(), exception);
+    public void undo(final Spreadsheet receiver) throws SpreadsheetException {
+        final Sheet s = receiver.getCurrentSheet();
+        final int size = s.sizeX();
+
+        for (int i = 0; i < size; i++) {
+            receiver.updateCell(i, column, columnValues.get(i));
         }
+    }
+
+    @Override
+    public void redo(final Spreadsheet receiver) throws SpreadsheetException {
+        receiver.sortCol(column);
     }
 }

@@ -19,11 +19,11 @@ public class ExportCommand implements Command {
     }
 
     @Override
-    public void execute(final Spreadsheet receiver) throws CommandException {
+    public void execute(final Spreadsheet receiver) throws SpreadsheetException {
         try {
             receiver.exportCsv(path);
-        } catch (IOException | SpreadsheetException exception) {
-            throw new CommandException(exception.getMessage(), exception);
+        } catch (IOException exception) {
+            throw new SpreadsheetException(exception.getMessage(), exception);
         }
     }
 

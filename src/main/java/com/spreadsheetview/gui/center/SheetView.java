@@ -13,7 +13,7 @@ import com.spreadsheetmodel.commands.GrowSheetCommand;
 import com.spreadsheetmodel.commands.PasteCommand;
 import com.spreadsheetmodel.commands.SelectCellCommand;
 import com.spreadsheetmodel.commands.SortColumnCommand;
-import com.spreadsheetview.gui.GuiHandler;
+import com.spreadsheetview.gui.GuiHandlerUtil;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -76,8 +76,8 @@ public class SheetView extends JScrollPane {
 
         mainGrid = new CustomTable();
 
-        GuiHandler.handleCommand(new GrowSheetCommand("Horizontally", 20));
-        GuiHandler.handleCommand(new GrowSheetCommand("Vertically", 100));
+        GuiHandlerUtil.handleCommand(new GrowSheetCommand("Horizontally", 20));
+        GuiHandlerUtil.handleCommand(new GrowSheetCommand("Vertically", 100));
 
         addTableModel();
         selectSheetModel();
@@ -102,7 +102,7 @@ public class SheetView extends JScrollPane {
                 final int row = mainGrid.getSelectedRow();
                 final int column = mainGrid.getSelectedColumn();
                 if (row >= 0 && column > 0) {
-                    GuiHandler.handleCommand(new SelectCellCommand(row + 1, column));
+                    GuiHandlerUtil.handleCommand(new SelectCellCommand(row + 1, column));
                 }
 
                 final javax.swing.PopupFactory p = new javax.swing.PopupFactory();
@@ -113,6 +113,7 @@ public class SheetView extends JScrollPane {
                         new MouseRightClickPanel(),
                         pointer.x,
                         pointer.y);
+
                 if (e.getButton() == MouseEvent.BUTTON3) {
                     final java.util.Timer t = new java.util.Timer();
                     t.schedule(new java.util.TimerTask() {
@@ -157,7 +158,7 @@ public class SheetView extends JScrollPane {
                         default:
                             break;
                     }
-                    GuiHandler.handleCommand(new SelectCellCommand(row + 1, column));
+                    GuiHandlerUtil.handleCommand(new SelectCellCommand(row + 1, column));
                 }
             }
 
@@ -178,7 +179,6 @@ public class SheetView extends JScrollPane {
                     mainGrid.changeSelection(1,1, true,true);
                     addTableModel();
                     selectSheetModel();
-                    mainGrid.clearSelection();
                 }
 
                 if (se.getId() == SpreadsheetEventType.SHEET_CHANGED) {
@@ -274,7 +274,7 @@ public class SheetView extends JScrollPane {
             copy.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(final ActionEvent actionEvent) {
-                    GuiHandler.handleCommand(new CopyCommand(CopyPasteStack.getInstance()));
+                    GuiHandlerUtil.handleCommand(new CopyCommand(CopyPasteStack.getInstance()));
                 }
             });
 
@@ -282,7 +282,7 @@ public class SheetView extends JScrollPane {
             paste.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(final ActionEvent actionEvent) {
-                    GuiHandler.handleCommand(new PasteCommand(CopyPasteStack.getInstance()));
+                    GuiHandlerUtil.handleCommand(new PasteCommand(CopyPasteStack.getInstance()));
                 }
             });
 
@@ -290,7 +290,7 @@ public class SheetView extends JScrollPane {
             cut.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(final ActionEvent actionEvent) {
-                    GuiHandler.handleCommand(new CutCommand(CopyPasteStack.getInstance()));
+                    GuiHandlerUtil.handleCommand(new CutCommand(CopyPasteStack.getInstance()));
                 }
             });
 
@@ -298,7 +298,7 @@ public class SheetView extends JScrollPane {
             sort.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(final ActionEvent actionEvent) {
-                    GuiHandler.handleCommand(
+                    GuiHandlerUtil.handleCommand(
                             new SortColumnCommand(mainGrid.getSelectedColumn()));
                 }
             });

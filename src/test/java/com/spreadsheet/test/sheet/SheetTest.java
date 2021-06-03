@@ -8,6 +8,7 @@ import com.spreadsheetmodel.cell.CellLocation;
 import com.spreadsheetmodel.cell.TableCell;
 import com.spreadsheetmodel.sheet.Grid;
 import com.spreadsheetmodel.sheet.Sheet;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -45,7 +46,7 @@ public class SheetTest {
         Cell c = new TableCell(1, 1);
         c.updateContent("5");
         s.add(c);
-        assertEquals(s.getVariableTable().getInt(c.getLocation().toString()).toString(), "5");
+        assertEquals(c.getText(), "5");
     }
 
     @Test 
@@ -90,12 +91,6 @@ public class SheetTest {
         assertEquals(null, s.getFormula(c.getLocation()));
     }
 
-
-    @Test
-    public void testGetVariableTable() {
-        Sheet s = new Sheet(5, 6);
-        assertTrue(s.getVariableTable() instanceof VariableTable);
-    }
 
     @Test
     public void testUpdateTableName() {
