@@ -2,6 +2,8 @@ package com.spreadsheetmodel.commands;
 
 import com.spreadsheetmodel.Spreadsheet;
 
+import com.spreadsheetmodel.SpreadsheetException;
+
 import java.util.ArrayList;
 
 public class Invoker {
@@ -35,32 +37,65 @@ public class Invoker {
     /**
      * Invoke(execute) a Command.
      * @param d a command.
+     * @throws CommandException if the command has an exception.
      */
-    public void invoke(final Command d) {
-        commands.add(d);
-        pointer++;
-        d.execute(receiver);
+    public void invoke(final Command d) throws CommandException {
+        if (d instanceof UndoableCommand) {
+            commands.add(d);
+            pointer++;
+        }
+        executeCommand(d);
         System.out.println("execute command");
     }
 
 
     /**
      * Undo a Command.
+     * @throws CommandException if the command has an exception.
      */
-    public void undo() {
-        final Command undoCommand = commands.get(pointer--);
-        undoCommand.undo(receiver);
-        System.out.println("undo command");
+    public void undo() throws CommandException {
+        if (pointer > 1) {
+            final Command undoCommand = commands.get(pointer--);
+            undoCommand(undoCommand);
+            System.out.println("undo command");
+        }
     }
-
 
     /**
      * Redo a Command.
+     * @throws CommandException if the command has an exception.
      */
-    public void redo() {
-        final Command redoCommand = commands.get(pointer++);
-        redoCommand.redo(receiver);
-        System.out.println("redo command");
+    public void redo() throws CommandException {
+        if (pointer < commands.size() - 1 ) {
+            final Command redoCommand = commands.get(pointer++);
+            redoCommand(redoCommand);
+            pointer++;
+            System.out.println("redo command");
+        }
     }
 
+    // private helper methods.
+    private void executeCommand(final Command c) throws CommandException {
+        try {
+            c.execute(receiver);
+        } catch (SpreadsheetException exception) {
+            throw new CommandException(exception.getMessage(), exception);
+        }
+    }
+
+    private void undoCommand(final Command c) throws CommandException {
+        try {
+            c.undo(receiver);
+        } catch (SpreadsheetException exception) {
+            throw new CommandException(exception.getMessage(), exception);
+        }
+    }
+
+    private void redoCommand(final Command c) throws CommandException {
+        try {
+            c.redo(receiver);
+        } catch (SpreadsheetException exception) {
+            throw new CommandException(exception.getMessage(), exception);
+        }
+    }
 }

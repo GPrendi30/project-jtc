@@ -1,11 +1,12 @@
 package com.spreadsheetmodel.commands;
 
 import com.spreadsheetmodel.Spreadsheet;
+import com.spreadsheetmodel.SpreadsheetException;
 import com.spreadsheetmodel.sheet.Sheet;
 
 import java.util.ArrayList;
 
-public class SortColumnCommand implements Command {
+public class SortColumnCommand implements Command, UndoableCommand {
 
     private final ArrayList<String> columnValues;
     private final int column;
@@ -20,21 +21,18 @@ public class SortColumnCommand implements Command {
     }
 
     @Override
-    public void execute(final Spreadsheet receiver) {
+    public void execute(final Spreadsheet receiver) throws SpreadsheetException {
         final Sheet s = receiver.getCurrentSheet();
         final int size = s.sizeX();
 
         for (int i = 0; i < size; i++) {
             columnValues.add(s.getCell(i, column).getText());
         }
-
-        System.out.println("c");
         receiver.sortCol(column);
-
     }
 
     @Override
-    public void undo(final Spreadsheet receiver) {
+    public void undo(final Spreadsheet receiver) throws SpreadsheetException {
         final Sheet s = receiver.getCurrentSheet();
         final int size = s.sizeX();
 
@@ -44,7 +42,7 @@ public class SortColumnCommand implements Command {
     }
 
     @Override
-    public void redo(final Spreadsheet receiver) {
+    public void redo(final Spreadsheet receiver) throws SpreadsheetException {
         receiver.sortCol(column);
     }
 }

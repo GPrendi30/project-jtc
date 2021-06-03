@@ -2,6 +2,8 @@ package com.spreadsheetmodel.commands;
 
 import com.spreadsheetmodel.Spreadsheet;
 
+import com.spreadsheetmodel.SpreadsheetException;
+
 import java.io.IOException;
 
 public class ExportCommand implements Command {
@@ -17,11 +19,11 @@ public class ExportCommand implements Command {
     }
 
     @Override
-    public void execute(final Spreadsheet receiver) {
+    public void execute(final Spreadsheet receiver) throws SpreadsheetException {
         try {
             receiver.exportCsv(path);
         } catch (IOException exception) {
-            exception.printStackTrace();
+            throw new SpreadsheetException(exception.getMessage(), exception);
         }
     }
 

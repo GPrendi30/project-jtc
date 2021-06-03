@@ -1,5 +1,11 @@
 package com.spreadsheetview.gui.menu.menubar;
 
+import com.spreadsheetmodel.commands.CopyCommand;
+import com.spreadsheetmodel.commands.CopyPasteStack;
+import com.spreadsheetmodel.commands.CutCommand;
+import com.spreadsheetmodel.commands.PasteCommand;
+import com.spreadsheetview.gui.GuiHandlerUtil;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -28,35 +34,22 @@ public class EditMenu extends Menu {
         addMenu("copy", new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
-                copy();
+                GuiHandlerUtil.handleCommand(new CopyCommand(CopyPasteStack.getInstance()));
             }
         });
 
         addMenu("paste", new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
-                paste();
+                GuiHandlerUtil.handleCommand(new PasteCommand(CopyPasteStack.getInstance()));
             }
         });
 
-        addMenu("find", new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent actionEvent) {
-                find();
-            }
-        });
-
-        addMenu("replace", new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent actionEvent) {
-                replace();
-            }
-        });
 
         addMenu("cut", new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
-                cut();
+                GuiHandlerUtil.handleCommand(new CutCommand(CopyPasteStack.getInstance()));
             }
         });
     }
@@ -64,25 +57,4 @@ public class EditMenu extends Menu {
     private static void redo() {
         System.out.println("redo");
     }
-
-    private static void copy() {
-        System.out.println("copy");
-    }
-
-    private static void paste() {
-        System.out.println("paste");
-    }
-
-    private static void cut() {
-        System.out.println("cut");
-    }
-
-    private static void find() {
-        System.out.println("find");
-    }
-
-    private static void replace() {
-        System.out.println("replace");
-    }
-
 }

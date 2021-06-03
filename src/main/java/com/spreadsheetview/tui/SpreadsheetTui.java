@@ -2,6 +2,7 @@ package com.spreadsheetview.tui;
 
 import com.spreadsheetmodel.Spreadsheet;
 import com.spreadsheetmodel.SpreadsheetEvent;
+import com.spreadsheetmodel.SpreadsheetException;
 import com.spreadsheetmodel.SpreadsheetListener;
 import com.spreadsheetmodel.cell.Cell;
 import com.spreadsheetmodel.cell.CellLocation;
@@ -15,6 +16,7 @@ import java.util.Iterator;
 public class SpreadsheetTui implements SpreadsheetView, Serializable {
 
     private Spreadsheet model;
+    private final REPL repl;
 
     /**
      * Creates a new TUI.
@@ -22,6 +24,8 @@ public class SpreadsheetTui implements SpreadsheetView, Serializable {
      */
     public SpreadsheetTui(final Spreadsheet s) {
         model = s;
+        final TuiCommand t = new TuiCommand(s, this);
+        repl = new REPL(t);
         model.addListener(new SpreadsheetListener() {
             @Override
             public void spreadsheetChanged(final Spreadsheet s,final SpreadsheetEvent se) {
@@ -42,7 +46,7 @@ public class SpreadsheetTui implements SpreadsheetView, Serializable {
 
     @Override
     public void init() {
-        //do nothing.
+        repl.init();
     }
 
     /**
@@ -87,7 +91,12 @@ public class SpreadsheetTui implements SpreadsheetView, Serializable {
                     space = 3;
                 }
                 // printing the cell
-                final Cell g = s.getCell(x, y);
+                Cell g = null;
+                try {
+                    g = s.getCell(x, y);
+                } catch (SpreadsheetException exception) {
+                    System.out.println(exception.getMessage());
+                }
                 final String thisCellLocation = g.getLocation().toString();
 
                 if (currentLocation.equals(thisCellLocation)) {

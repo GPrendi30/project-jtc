@@ -24,12 +24,12 @@ public class CopyCommand implements Command {
 
     @Override
     public void undo(final Spreadsheet receiver) {
-        stack.pop();
+        // no undo.
     }
 
     @Override
     public void redo(final Spreadsheet receiver) {
-        stack.push(savedContent);
+        // no redo
     }
 
     private void updateContent(final String content) {

@@ -9,7 +9,7 @@ public class AddNewSheetCommand implements Command {
     private String addedSheet;
 
     /**
-     * Add new SHeet command.
+     * Add new Sheet command.
      * @param addedSheet a String path.
      */
     public AddNewSheetCommand(final String addedSheet) {
@@ -17,23 +17,19 @@ public class AddNewSheetCommand implements Command {
     }
 
     @Override
-    public void execute(final Spreadsheet receiver) {
-        prevSheet = receiver.getCurrentSheetName();
+    public void execute(final Spreadsheet receiver) throws SpreadsheetException {
         receiver.addNewSheet(addedSheet);
+        prevSheet = receiver.getCurrentSheetName();
     }
 
     @Override
-    public void undo(final Spreadsheet receiver) {
-        try {
-            receiver.removeSheet(addedSheet);
-        } catch (SpreadsheetException e) {
-            e.printStackTrace();
-        }
+    public void undo(final Spreadsheet receiver) throws SpreadsheetException {
+        receiver.removeSheet(addedSheet);
         receiver.selectSheet(prevSheet);
     }
 
     @Override
-    public void redo(final Spreadsheet receiver) {
+    public void redo(final Spreadsheet receiver) throws SpreadsheetException {
         receiver.addNewSheet(addedSheet);
     }
 }

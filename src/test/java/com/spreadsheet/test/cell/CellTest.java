@@ -176,7 +176,7 @@ public class CellTest {
     }
 
     @Test
-    public void testCellRangeThrowsException() {
+    public void testCellRangeThrowsException() throws SpreadsheetException {
         Spreadsheet s = new Spreadsheet(5,5);
         s.updateCell(1,1,"1");
         s.updateCell(1,2,"2");
@@ -198,7 +198,7 @@ public class CellTest {
     }
 
     @Test
-    public void testCellRangeThrowsException2() {
+    public void testCellRangeThrowsException2() throws SpreadsheetException {
         Spreadsheet s = new Spreadsheet(5,5);
         s.updateCell(1,1,"1");
         s.updateCell(1,2,"2");
@@ -242,16 +242,15 @@ public class CellTest {
     }
 
     @Test
-    public void testTableCellThrowsNodeException() {
+    public void testTableCellThrowsNodeException() throws SpreadsheetException {
         Spreadsheet s = new Spreadsheet(5, 5);
         Program p = new Program();
         VariableTable vt = new VariableTable();
-        TableCell c = new TableCell(1,1, "=SUM(A1:A3)");
 
         s.updateCell(1, 1, "=SUM(A1:A3)");
         s.getCurrentCell().evaluate(p, vt);
         s.selectCell(1, 1);
 
-        assertEquals("#VAL", s.getCurrentCell().getText());
+        assertEquals("#EXP", s.getCurrentCell().getText());
     }
 }

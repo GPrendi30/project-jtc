@@ -1,21 +1,22 @@
 package com.spreadsheetmodel.commands;
 
 import com.spreadsheetmodel.Spreadsheet;
+import com.spreadsheetmodel.SpreadsheetException;
 
-public class FormulasOnCommand implements Command {
+public class FormulasOnCommand implements Command, UndoableCommand {
 
     @Override
-    public void execute(final Spreadsheet receiver) {
+    public void execute(final Spreadsheet receiver) throws SpreadsheetException {
         receiver.formulasOn();
     }
 
     @Override
-    public void undo(final Spreadsheet receiver) {
-        receiver.updateCurrentCell("");
+    public void undo(final Spreadsheet receiver) throws SpreadsheetException {
+        receiver.getCurrentSheet().reEvalFormulas();
     }
 
     @Override
-    public void redo(final Spreadsheet receiver) {
+    public void redo(final Spreadsheet receiver) throws SpreadsheetException {
         execute(receiver);
     }
 }

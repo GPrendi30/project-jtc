@@ -1,17 +1,17 @@
-package com.spreadsheetcontroller;
+package com.spreadsheetview.tui;
 
 import java.util.Scanner;
 
 public class REPL {
 
-    private final SpreadsheetController controller;
+    private final TuiCommand tuiCommand;
 
     /**
-     * Creates a new repl for a Spreadsheet controller.
-     * @param controller a SpreadsheetController.
+     * Creates a new repl for a SpreadsheetTui.
+     * @param tuiCommand a tuiCommand that the repl uses to execute.
      */
-    public REPL(final SpreadsheetController controller) {
-        this.controller = controller;
+    public REPL(final TuiCommand tuiCommand) {
+        this.tuiCommand = tuiCommand;
     }
 
     /**
@@ -31,7 +31,7 @@ public class REPL {
                     System.out.println("BYE");
                     break;
                 }
-                controller.executeCommand(command);
+                tuiCommand.executeCommand(command);
             } else {
                 System.out.println("Type something");
             }

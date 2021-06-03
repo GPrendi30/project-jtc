@@ -1,9 +1,10 @@
 package com.spreadsheetmodel.commands;
 
 import com.spreadsheetmodel.Spreadsheet;
+import com.spreadsheetmodel.SpreadsheetException;
 import com.spreadsheetmodel.cell.Cell;
 
-public class CutCommand implements Command {
+public class CutCommand implements Command, UndoableCommand {
 
     private CopyPasteStack stack;
     private String savedContent;
@@ -20,7 +21,7 @@ public class CutCommand implements Command {
     }
 
     @Override
-    public void execute(final Spreadsheet receiver) {
+    public void execute(final Spreadsheet receiver) throws SpreadsheetException {
         savedContent = receiver.getCurrentCell().getText();
         savedCell = receiver.getCurrentCell();
         receiver.updateCurrentCell("");
@@ -28,13 +29,12 @@ public class CutCommand implements Command {
     }
 
     @Override
-    public void undo(final Spreadsheet receiver) {
-        receiver.updateCell(savedCell, stack.pop());
-
+    public void undo(final Spreadsheet receiver) throws SpreadsheetException {
+        receiver.updateCell(savedCell, stack.peek());
     }
 
     @Override
-    public void redo(final Spreadsheet receiver) {
+    public void redo(final Spreadsheet receiver) throws SpreadsheetException {
         savedContent = savedCell.getText();
         receiver.updateCell(savedCell, "");
         stack.push(savedContent);

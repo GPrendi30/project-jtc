@@ -8,7 +8,7 @@ import com.spreadsheetmodel.sheet.Sheet;
 import java.io.IOException;
 import java.nio.file.Paths;
 
-public class ImportCommand implements Command {
+public class ImportCommand implements Command, UndoableCommand {
 
     private final String path;
     private Sheet importedSheet;
@@ -23,31 +23,24 @@ public class ImportCommand implements Command {
     }
 
     @Override
-    public void execute(final Spreadsheet receiver) {
+    public void execute(final Spreadsheet receiver) throws SpreadsheetException {
+        prevSheet = receiver.getCurrentSheetName();
         try {
-            prevSheet = receiver.getCurrentSheetName();
             receiver.importCsv(path);
-            importedSheet = receiver.getCurrentSheet();
         } catch (IOException exception) {
-            exception.printStackTrace();
-        } catch (SpreadsheetException exception) {
-            exception.printStackTrace();
+            throw new SpreadsheetException(exception.getMessage(),exception);
         }
+        importedSheet = receiver.getCurrentSheet();
     }
 
     @Override
-    public void undo(final Spreadsheet receiver) {
-        final String importSheet = Paths.get(path).getFileName().toString();
-        try {
-            receiver.removeSheet(importSheet);
-        } catch (SpreadsheetException exception) {
-            exception.printStackTrace();
-        }
+    public void undo(final Spreadsheet receiver) throws SpreadsheetException {
+        receiver.removeSheet(Paths.get(path).getFileName().toString());
         receiver.selectSheet(prevSheet);
     }
 
     @Override
-    public void redo(final Spreadsheet receiver) {
+    public void redo(final Spreadsheet receiver) throws SpreadsheetException {
         receiver.addSheet(importedSheet);
     }
 }
