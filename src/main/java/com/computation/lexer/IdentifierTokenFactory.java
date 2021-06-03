@@ -2,6 +2,9 @@ package com.computation.lexer;
 
 /**
  * A factory for tokens of type identifier.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
  */
 
 public class IdentifierTokenFactory extends RegExTokenFactory {

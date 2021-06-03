@@ -1,5 +1,11 @@
 package com.computation.lexer;
 
+/**
+ * The exceptions for the class Lexer.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class LexerException extends Exception {
 
     /**

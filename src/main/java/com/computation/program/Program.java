@@ -9,6 +9,9 @@ import java.util.ArrayList;
 /**
  * A compiled program,
  * consisting of a list of IJVM-like Instructions.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
  */
 public class Program {
     

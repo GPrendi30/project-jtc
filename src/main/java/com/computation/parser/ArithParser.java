@@ -40,6 +40,9 @@ import com.spreadsheetmodel.cell.CellLocation;
  * FUNCTION     ::= SIN|COS|SUM (PARAMETER {, PARAMETER})
  * PARAMETER    ::= RANGE | EXPRESSION
  * </code>
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
  */
 public final class ArithParser implements Parser {
     private LexicalAnalyzer lexer;

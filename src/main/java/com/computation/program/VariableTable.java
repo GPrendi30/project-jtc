@@ -8,6 +8,9 @@ import java.util.Map;
 /**
  * A table of variables
  * (a map from variable names to variable values).
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
  */
 public class VariableTable implements Serializable {
     

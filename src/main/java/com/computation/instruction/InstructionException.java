@@ -6,7 +6,6 @@ package com.computation.instruction;
  * @author Di Pietro Enrico, Prendi Gerald.
  *
  */
-
 public class InstructionException extends Exception {
 
     /**

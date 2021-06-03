@@ -3,6 +3,9 @@ package com.computation.lexer;
 /**
  * A special kind of RegExTokenFactory that produces tokens
  * that are integer literals.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
  */
 public class LiteralTokenFactory extends RegExTokenFactory {
 

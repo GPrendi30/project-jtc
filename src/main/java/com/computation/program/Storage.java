@@ -5,6 +5,9 @@ package com.computation.program;
  * In our little language, the memory consists
  * of a table of variables and 
  * an operand stack to hold intermediate values.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
  */
 public class Storage {
     

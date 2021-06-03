@@ -1,12 +1,18 @@
 package com.computation.lexer;
 
+/**
+ * A factory for functions.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class FunctionTokenFactory extends StringTokenFactory {
 
     private final TokenType tokenType;
 
 
     /**
-     * A Factory for fuctions
+     * A Factory for functions.
      * @param function a String representing a function keyword.
      */
     public FunctionTokenFactory(final String function) {
