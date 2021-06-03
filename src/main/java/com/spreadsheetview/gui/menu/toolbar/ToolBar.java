@@ -84,20 +84,10 @@ public class ToolBar extends JToolBar {
 
         addButton(toggleIcon,
             new ActionListener() {
-                private boolean toggled = false;
 
                 @Override
                 public void actionPerformed(final ActionEvent actionEvent) {
-                    if (toggled) {
-                        GuiHandlerUtil.handleCommand(new FormulasOnCommand());
-                    } else {
-                        System.out.println("Formulas untoggled");
-                    }
-                    changeState();
-                }
-
-                private void changeState() {
-                    toggled = !toggled;
+                    GuiHandlerUtil.handleCommand(new FormulasOnCommand());
                 }
             });
 

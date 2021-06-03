@@ -38,7 +38,7 @@ public class CopyPasteStack {
      * @return the value on top of the stack
      */
     public String peek() {
-        if (stack.size() > 1) {
+        if (!stack.isEmpty()) {
             return stack.get(stack.size() - 1);
         } else {
             return null;

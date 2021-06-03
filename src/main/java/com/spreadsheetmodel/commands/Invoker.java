@@ -45,7 +45,6 @@ public class Invoker {
             pointer++;
         }
         executeCommand(d);
-        System.out.println("execute command");
     }
 
 
@@ -57,7 +56,6 @@ public class Invoker {
         if (pointer > 1) {
             final Command undoCommand = commands.get(pointer--);
             undoCommand(undoCommand);
-            System.out.println("undo command");
         }
     }
 
@@ -70,7 +68,6 @@ public class Invoker {
             final Command redoCommand = commands.get(pointer++);
             redoCommand(redoCommand);
             pointer++;
-            System.out.println("redo command");
         }
     }
 
