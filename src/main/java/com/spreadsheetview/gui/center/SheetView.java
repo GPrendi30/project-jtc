@@ -13,7 +13,7 @@ import com.spreadsheetmodel.commands.GrowSheetCommand;
 import com.spreadsheetmodel.commands.PasteCommand;
 import com.spreadsheetmodel.commands.SelectCellCommand;
 import com.spreadsheetmodel.commands.SortColumnCommand;
-import com.spreadsheetview.gui.GuiCommandHandler;
+import com.spreadsheetview.gui.GuiHandler;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -76,8 +76,8 @@ public class SheetView extends JScrollPane {
 
         mainGrid = new CustomTable();
 
-        GuiCommandHandler.handleCommand(new GrowSheetCommand("Horizontally", 20));
-        GuiCommandHandler.handleCommand(new GrowSheetCommand("Vertically", 100));
+        GuiHandler.handleCommand(new GrowSheetCommand("Horizontally", 20));
+        GuiHandler.handleCommand(new GrowSheetCommand("Vertically", 100));
 
         addTableModel();
         selectSheetModel();
@@ -102,7 +102,7 @@ public class SheetView extends JScrollPane {
                 final int row = mainGrid.getSelectedRow();
                 final int column = mainGrid.getSelectedColumn();
                 if (row >= 0 && column > 0) {
-                    GuiCommandHandler.handleCommand(new SelectCellCommand(row + 1, column));
+                    GuiHandler.handleCommand(new SelectCellCommand(row + 1, column));
                 }
 
                 final javax.swing.PopupFactory p = new javax.swing.PopupFactory();
@@ -157,7 +157,7 @@ public class SheetView extends JScrollPane {
                         default:
                             break;
                     }
-                    GuiCommandHandler.handleCommand(new SelectCellCommand(row + 1, column));
+                    GuiHandler.handleCommand(new SelectCellCommand(row + 1, column));
                 }
             }
 
@@ -274,7 +274,7 @@ public class SheetView extends JScrollPane {
             copy.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(final ActionEvent actionEvent) {
-                    GuiCommandHandler.handleCommand(new CopyCommand(CopyPasteStack.getInstance()));
+                    GuiHandler.handleCommand(new CopyCommand(CopyPasteStack.getInstance()));
                 }
             });
 
@@ -282,7 +282,7 @@ public class SheetView extends JScrollPane {
             paste.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(final ActionEvent actionEvent) {
-                    GuiCommandHandler.handleCommand(new PasteCommand(CopyPasteStack.getInstance()));
+                    GuiHandler.handleCommand(new PasteCommand(CopyPasteStack.getInstance()));
                 }
             });
 
@@ -290,7 +290,7 @@ public class SheetView extends JScrollPane {
             cut.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(final ActionEvent actionEvent) {
-                    GuiCommandHandler.handleCommand(new CutCommand(CopyPasteStack.getInstance()));
+                    GuiHandler.handleCommand(new CutCommand(CopyPasteStack.getInstance()));
                 }
             });
 
@@ -298,7 +298,7 @@ public class SheetView extends JScrollPane {
             sort.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(final ActionEvent actionEvent) {
-                    GuiCommandHandler.handleCommand(
+                    GuiHandler.handleCommand(
                             new SortColumnCommand(mainGrid.getSelectedColumn()));
                 }
             });

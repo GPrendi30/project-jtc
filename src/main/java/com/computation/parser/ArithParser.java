@@ -298,7 +298,6 @@ public final class ArithParser implements Parser {
             left = numericRange
                     ? parseNumberRanges(range)
                     : parseVariableRanges(range);
-            lexer.fetchNextToken();
         }
 
         return left;

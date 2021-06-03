@@ -14,12 +14,14 @@ import com.computation.ast.function.FunctionWithRanges;
 import com.computation.ast.function.SumRange;
 import com.computation.ast.intnodes.IntLiteral;
 import com.computation.ast.intnodes.IntVariable;
+import com.computation.instruction.InstructionException;
 import com.computation.instruction.doubleinstruction.DADD;
 import com.computation.instruction.intinstruction.BIPUSH;
 import com.computation.instruction.intinstruction.IADD;
 import com.computation.program.OperandStack;
 import com.computation.program.Program;
 import com.computation.program.Storage;
+import com.computation.program.VariableTable;
 import org.junit.Test;
 
 import static com.computation.ast.function.FunctionList.SUM;
@@ -247,18 +249,14 @@ public class FunctionTest {
     }
 
     @Test
-    public void testSumRange() throws NodeException {
+    public void testSumRangeCopy() {
+
         SumRange sr = new SumRange("sum_range",
-                        FunctionList.SUM.getFunction().getFunctionOperation(),
-                        Type.DOUBLE);
-
-        Program p = new Program();
-        p.append(new BIPUSH(5));
-        p.append(new BIPUSH(5));
-
+                FunctionList.SUM.getFunction().getFunctionOperation(),
+                Type.DOUBLE);
 
         Function sameFunc = sr.copy();
 
-        sameFunc.compile(p);
+        assertTrue(sameFunc instanceof SumRange);
     }
 }

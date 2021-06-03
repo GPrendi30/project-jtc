@@ -34,7 +34,6 @@ public class AddNewSheetCommand implements Command {
         } catch (SpreadsheetException exception) {
             throw new CommandException(exception.getMessage(), exception);
         }
-
     }
 
     @Override

@@ -7,7 +7,7 @@ import com.spreadsheetmodel.commands.CutCommand;
 import com.spreadsheetmodel.commands.FormulasOnCommand;
 import com.spreadsheetmodel.commands.Invoker;
 import com.spreadsheetmodel.commands.PasteCommand;
-import com.spreadsheetview.gui.GuiCommandHandler;
+import com.spreadsheetview.gui.GuiHandler;
 
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -61,7 +61,7 @@ public class ToolBar extends JToolBar {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(final ActionEvent actionEvent) {
-                        GuiCommandHandler.handleCommand(
+                        GuiHandler.handleCommand(
                                 new CopyCommand(CopyPasteStack.getInstance()));
                     }
                 });
@@ -70,7 +70,7 @@ public class ToolBar extends JToolBar {
             new ActionListener() {
                 @Override
                 public void actionPerformed(final ActionEvent actionEvent) {
-                    GuiCommandHandler.handleCommand(new PasteCommand(CopyPasteStack.getInstance()));
+                    GuiHandler.handleCommand(new PasteCommand(CopyPasteStack.getInstance()));
                 }
             });
 
@@ -78,7 +78,7 @@ public class ToolBar extends JToolBar {
             new ActionListener() {
                 @Override
                 public void actionPerformed(final ActionEvent actionEvent) {
-                    GuiCommandHandler.handleCommand(new CutCommand(CopyPasteStack.getInstance()));
+                    GuiHandler.handleCommand(new CutCommand(CopyPasteStack.getInstance()));
                 }
             });
 
@@ -89,7 +89,7 @@ public class ToolBar extends JToolBar {
                 @Override
                 public void actionPerformed(final ActionEvent actionEvent) {
                     if (toggled) {
-                        GuiCommandHandler.handleCommand(new FormulasOnCommand());
+                        GuiHandler.handleCommand(new FormulasOnCommand());
                     } else {
                         System.out.println("Formulas untoggled");
                     }

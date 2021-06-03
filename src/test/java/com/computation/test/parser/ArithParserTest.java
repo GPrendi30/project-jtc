@@ -288,17 +288,13 @@ public class ArithParserTest {
     }
 
     @Test
-    public void testParseFactor3() throws LexerException, ArithException {
+    public void testParseFactor3() throws LexerException {
         // setup
         final Parser parser = new ArithParser();
         // test input
         final String sourceCode = "(12.3+5.0";
-        // expected tree
-        final Node expectedRoot = new DoubleAddition(
-                new DoubleLiteral(12.3),
-                new DoubleLiteral(5.0));
 
-        boolean thrown = true;
+        boolean thrown = false;
         try {
             parser.parse(sourceCode);
         } catch (ArithException exception) {
@@ -308,20 +304,75 @@ public class ArithParserTest {
     }
 
     @Test
-    public void testParseFunction() throws LexerException, ArithException {
+    public void testParse() throws LexerException {
         // setup
         final Parser parser = new ArithParser();
         // test input
         final String sourceCode = "(12.3+5.0";
-        // expected tree
-        final Node expectedRoot = new DoubleAddition(
-                new DoubleLiteral(12.3),
-                new DoubleLiteral(5.0));
 
-        boolean thrown = true;
+        boolean thrown = false;
         try {
             parser.parse(sourceCode);
         } catch (ArithException exception) {
+            thrown = true;
+        }
+        assertTrue(thrown);
+    }
+
+    @Test
+    public void testParse2() throws LexerException {
+        // setup
+        final Parser parser = new ArithParser();
+        // test input
+        final String sourceCode = "12.3+5.0)";
+
+        boolean thrown = false;
+        try {
+            parser.parse(sourceCode);
+        } catch (ArithException exception) {
+            thrown = true;
+        }
+        assertTrue(thrown);
+    }
+
+    @Test
+    public void testParseFunction() throws LexerException {
+
+        Parser ap = new ArithParser();
+        boolean thrown = false;
+        try {
+            ap.parse("ASUM(1:5");
+        } catch (ArithException exception) {
+            thrown = true;
+        }
+        assertTrue(thrown);
+    }
+
+    @Test
+    public void testParseFunction2() throws LexerException {
+
+        // recognize missing OPEN_PAREN
+        Parser ap = new ArithParser();
+        boolean thrown = false;
+        try {
+            ap.parse("SUM");
+        } catch (ArithException exception) {
+            thrown = true;
+        }
+        assertTrue(thrown);
+    }
+
+    @Test
+    public void testParseFunction3() {
+
+        // to test throw exception as function not recognized
+
+        Parser ap = new ArithParser();
+        boolean thrown = false;
+        try {
+            ap.parse("SM(5, 8)");
+        } catch (ArithException | LexerException exception) {
+            System.out.println(exception);
             thrown = true;
         }
         assertTrue(thrown);

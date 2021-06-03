@@ -7,7 +7,7 @@ import com.spreadsheetmodel.commands.ImportCommand;
 import com.spreadsheetmodel.commands.OpenCommand;
 import com.spreadsheetmodel.commands.SaveCommand;
 import com.spreadsheetview.SpreadsheetView;
-import com.spreadsheetview.gui.GuiCommandHandler;
+import com.spreadsheetview.gui.GuiHandler;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -42,7 +42,7 @@ public class FileMenu extends Menu {
                 FileMenuActionListener.OPEN_DIALOG) {
             @Override
             public void command(final String path) {
-                GuiCommandHandler.handleCommand(new OpenCommand(path, view));
+                GuiHandler.handleCommand(new OpenCommand(path, view));
             }
         });
 
@@ -53,7 +53,7 @@ public class FileMenu extends Menu {
                 FileMenuActionListener.OPEN_DIALOG) {
             @Override
             public void command(final String path) {
-                GuiCommandHandler.handleCommand(new ImportCommand(path));
+                GuiHandler.handleCommand(new ImportCommand(path));
             }
         });
 
@@ -64,7 +64,7 @@ public class FileMenu extends Menu {
                 FileMenuActionListener.SAVE_DIALOG) {
             @Override
             public void command(final String path) {
-                GuiCommandHandler.handleCommand(new SaveCommand(path));
+                GuiHandler.handleCommand(new SaveCommand(path));
             }
         });
 
@@ -75,7 +75,7 @@ public class FileMenu extends Menu {
                 FileMenuActionListener.SAVE_DIALOG) {
             @Override
             public void command(final String path) {
-                GuiCommandHandler.handleCommand(new ExportCommand(path));
+                GuiHandler.handleCommand(new ExportCommand(path));
             }
         });
 

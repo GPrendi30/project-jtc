@@ -1,22 +1,21 @@
 package com.spreadsheet.test;
 
-import com.computation.ast.function.FunctionList;
 import com.spreadsheetmodel.Spreadsheet;
 import com.spreadsheetmodel.SpreadsheetEvent;
 import com.spreadsheetmodel.SpreadsheetEventType;
 import com.spreadsheetmodel.SpreadsheetException;
+import com.spreadsheetmodel.SpreadsheetIO;
 import com.spreadsheetmodel.cell.Cell;
 import com.spreadsheetmodel.sheet.Sheet;
-import com.spreadsheetmodel.SpreadsheetListener;
+
 import static org.junit.Assert.assertFalse;
+
 import org.junit.Test;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -296,8 +295,39 @@ public class SpreadsheetTest {
     }
 
     @Test
-    public void testSpreadsheetIO() throws SpreadsheetException {
-        Spreadsheet s = new Spreadsheet(5, 5);
+    public void testSpreadsheetIO() throws IOException, SpreadsheetException {
 
+        String projectDir = System.getProperty("user.dir");
+        Path csvPath = Paths.get(projectDir, "src/test/resources/test_file.jtc");
+
+        Spreadsheet s = new Spreadsheet(5,5);
+        s.selectCell(3,3);
+        s.updateCurrentCell("test");
+        s.selectCell(2,2);
+        s.updateCurrentCell("test2");
+        s.selectCell(1,1);
+        s.updateCurrentCell("test3");
+
+        SpreadsheetIO.writeToFile(csvPath.toString(), s);
+
+        SpreadsheetIO.readFromFile(csvPath.toString());
+
+        s.selectCell(1, 1);
+        assertEquals("test3", s.getCurrentCell().getText());
+    }
+
+    @Test
+    public void testSpreadsheetIO2() {
+
+//        String projectDir = System.getProperty("user.dir");
+//        Path csvPath = Paths.get(projectDir, "src/test/resources/no_file.jtc");
+
+        boolean thrown = false;
+        try {
+            SpreadsheetIO.readFromFile("src/test/resources/no_file.jtc");
+        } catch (IOException | SpreadsheetException exception) {
+            thrown = true;
+        }
+        assertTrue(thrown);
     }
 }

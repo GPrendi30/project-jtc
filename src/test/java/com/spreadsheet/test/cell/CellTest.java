@@ -246,12 +246,11 @@ public class CellTest {
         Spreadsheet s = new Spreadsheet(5, 5);
         Program p = new Program();
         VariableTable vt = new VariableTable();
-        TableCell c = new TableCell(1,1, "=SUM(A1:A3)");
 
         s.updateCell(1, 1, "=SUM(A1:A3)");
         s.getCurrentCell().evaluate(p, vt);
         s.selectCell(1, 1);
 
-        assertEquals("#VAL", s.getCurrentCell().getText());
+        assertEquals("#EXP", s.getCurrentCell().getText());
     }
 }

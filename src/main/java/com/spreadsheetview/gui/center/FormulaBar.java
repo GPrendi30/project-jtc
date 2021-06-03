@@ -7,7 +7,7 @@ import com.spreadsheetmodel.cell.Cell;
 
 import com.spreadsheetmodel.commands.SelectCellCommand;
 import com.spreadsheetmodel.commands.UpdateCellCommand;
-import com.spreadsheetview.gui.GuiCommandHandler;
+import com.spreadsheetview.gui.GuiHandler;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -109,7 +109,7 @@ public final class FormulaBar extends JPanel {
     }
 
     private void selectCell(final String location) {
-        GuiCommandHandler.handleCommand(new SelectCellCommand(location));
+        GuiHandler.handleCommand(new SelectCellCommand(location));
         fireFormulaBarChanged();
     }
 
@@ -120,7 +120,7 @@ public final class FormulaBar extends JPanel {
     }
 
     private void updateCurrentContent(final String text) {
-        GuiCommandHandler.handleCommand(new UpdateCellCommand(model.getCurrentCell(), text));
+        GuiHandler.handleCommand(new UpdateCellCommand(model.getCurrentCell(), text));
     }
 
     private void updateFormulaBar() {

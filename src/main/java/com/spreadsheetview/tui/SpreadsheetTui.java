@@ -16,6 +16,7 @@ import java.util.Iterator;
 public class SpreadsheetTui implements SpreadsheetView, Serializable {
 
     private Spreadsheet model;
+    private final REPL repl;
 
     /**
      * Creates a new TUI.
@@ -23,6 +24,8 @@ public class SpreadsheetTui implements SpreadsheetView, Serializable {
      */
     public SpreadsheetTui(final Spreadsheet s) {
         model = s;
+        final TuiCommand t = new TuiCommand(s, this);
+        repl = new REPL(t);
         model.addListener(new SpreadsheetListener() {
             @Override
             public void spreadsheetChanged(final Spreadsheet s,final SpreadsheetEvent se) {
@@ -43,7 +46,7 @@ public class SpreadsheetTui implements SpreadsheetView, Serializable {
 
     @Override
     public void init() {
-        //do nothing.
+        repl.init();
     }
 
     /**
