@@ -2,14 +2,17 @@ package com.spreadsheetmodel.commands;
 
 import com.spreadsheetmodel.Spreadsheet;
 import com.spreadsheetmodel.SpreadsheetException;
+
 import com.spreadsheetmodel.sheet.Sheet;
 
 import java.io.IOException;
+import java.nio.file.Paths;
 
 public class ImportCommand implements Command {
 
     private final String path;
-    private Sheet savedSheet;
+    private Sheet importedSheet;
+    private String prevSheet;
 
     /**
      * Creates a new ImportCommand.
@@ -22,8 +25,9 @@ public class ImportCommand implements Command {
     @Override
     public void execute(final Spreadsheet receiver) {
         try {
+            prevSheet = receiver.getCurrentSheetName();
             receiver.importCsv(path);
-            savedSheet = receiver.getCurrentSheet();
+            importedSheet = receiver.getCurrentSheet();
         } catch (IOException exception) {
             exception.printStackTrace();
         } catch (SpreadsheetException exception) {
@@ -33,11 +37,13 @@ public class ImportCommand implements Command {
 
     @Override
     public void undo(final Spreadsheet receiver) {
-        receiver.removeSheet(savedSheet);
+        final String importSheet = Paths.get(path).getFileName().toString();
+        receiver.removeSheet(importSheet);
+        receiver.selectSheet(prevSheet);
     }
 
     @Override
     public void redo(final Spreadsheet receiver) {
-        receiver.addSheet(savedSheet);
+        receiver.addSheet(importedSheet);
     }
 }

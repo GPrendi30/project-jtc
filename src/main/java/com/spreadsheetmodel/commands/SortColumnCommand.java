@@ -27,6 +27,7 @@ public class SortColumnCommand implements Command {
         for (int i = 0; i < size; i++) {
             columnValues.add(s.getCell(i, column).getText());
         }
+
         System.out.println("c");
         receiver.sortCol(column);
 
@@ -38,7 +39,7 @@ public class SortColumnCommand implements Command {
         final int size = s.sizeX();
 
         for (int i = 0; i < size; i++) {
-            s.update(i, column, columnValues.get(i));
+            receiver.updateCell(i, column, columnValues.get(i));
         }
     }
 
