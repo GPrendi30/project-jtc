@@ -31,7 +31,7 @@ public class SheetPanel extends JPanel {
         // add the listener for SheetView
         sv.addListener(new SheetViewListener() {
             @Override
-            public void sheetViewChanged(final Spreadsheet model) {
+            public void sheetViewChanged(final SheetView s) {
                 fireSpreadsheetFrameChanged();
             }
         });
