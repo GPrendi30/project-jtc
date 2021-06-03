@@ -2,6 +2,7 @@ package com.spreadsheet.test.cell;
 
 
 import com.computation.ast.NodeException;
+import com.computation.ast.Type;
 import com.computation.ast.intnodes.IntLiteral;
 import com.computation.parser.ArithException;
 import com.computation.program.Program;
@@ -9,6 +10,7 @@ import com.computation.program.VariableTable;
 import com.spreadsheetmodel.Spreadsheet;
 import com.spreadsheetmodel.SpreadsheetException;
 import com.spreadsheetmodel.cell.*;
+import javax.management.DescriptorKey;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -252,5 +254,19 @@ public class CellTest {
         s.selectCell(1, 1);
 
         assertEquals("#EXP", s.getCurrentCell().getText());
+    }
+
+    @Test
+    public void testCellUpdateNull() {
+        Cell c = new TableCell(3,3);
+        c.updateContent("#");
+        assertEquals(CellType.INVALID, c.getType());
+    }
+
+    @Test
+    public void testCellUpdateEmptyString() {
+        Cell c = new TableCell(3,3);
+        c.updateContent("");
+        assertEquals(CellType.STRING, c.getType());
     }
 }

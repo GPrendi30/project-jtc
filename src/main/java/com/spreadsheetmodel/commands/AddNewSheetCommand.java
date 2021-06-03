@@ -18,8 +18,8 @@ public class AddNewSheetCommand implements Command {
 
     @Override
     public void execute(final Spreadsheet receiver) throws SpreadsheetException {
-        receiver.addNewSheet(addedSheet);
         prevSheet = receiver.getCurrentSheetName();
+        receiver.addNewSheet(addedSheet);
     }
 
     @Override

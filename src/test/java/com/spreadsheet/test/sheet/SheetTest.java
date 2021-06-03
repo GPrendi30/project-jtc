@@ -91,6 +91,81 @@ public class SheetTest {
         assertEquals(null, s.getFormula(c.getLocation()));
     }
 
+    @Test
+    public void testGetOutOfRange() {
+        Sheet s = new Sheet(1,1);
+        boolean thrown = false;
+
+        try {
+            s.getCell(4,4);
+        } catch (SpreadsheetException exception) {
+            thrown = true;
+        }
+        assertEquals(thrown, true);
+
+
+    }
+
+    @Test
+    public void tesColumOutOfRange() {
+        Sheet s = new Sheet(1,1);
+        boolean thrown = false;
+
+        try {
+            s.sortColumn("desc", 10);
+        } catch (SpreadsheetException exception) {
+            thrown = true;
+        }
+        assertEquals(thrown, true);
+
+
+    }
+
+    @Test
+    public void tesGetOutOfRange() {
+        Sheet s = new Sheet(1,1);
+        boolean thrown = false;
+
+        try {
+            s.getCell(0, 3);
+        } catch (SpreadsheetException exception) {
+            thrown = true;
+        }
+        assertEquals(thrown, true);
+
+
+    }
+
+    @Test
+    public void tesGrowSmallerThanSizeY() {
+        Sheet s = new Sheet(10,10);
+        boolean thrown = false;
+
+        try {
+            s.grow("Vertically", 2);
+        } catch (SpreadsheetException exception) {
+            thrown = true;
+        }
+        assertEquals(thrown, true);
+
+
+    }
+
+    @Test
+    public void tesSortColumnDesc() {
+        Sheet s = new Sheet(1,1);
+        boolean thrown = false;
+
+        try {
+            s.sortColumn("desc", 0);
+        } catch (SpreadsheetException exception) {
+            thrown = true;
+        }
+        assertEquals(thrown, false);
+
+
+    }
+
 
     @Test
     public void testUpdateTableName() {
