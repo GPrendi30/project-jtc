@@ -33,7 +33,7 @@ public class SpreadsheetController {
      * @throws SpreadsheetException throws
      */
     public static void main(final String[] args) throws SpreadsheetException {
-        boolean guiBool = true;
+        boolean guiBool = false;
 
         if (args.length != 0) {
             guiBool = hasGui(args[0]);
