@@ -30,12 +30,6 @@ public class RangeTest {
     }
 
     @Test
-    public void testGetValues() {
-        Range r = new Range(new IntLiteral(1), new IntLiteral(2));
-        assertEquals(null, r.getValues());
-    }
-
-    @Test
     public void testToString() {
         Range r = new Range(new IntLiteral(1), new IntLiteral(2));
         assertEquals("1:2", r.toString());
