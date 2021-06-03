@@ -145,16 +145,18 @@ public class Sheet implements Serializable {
      * @param x the x coordinate.
      * @param y the y coordinate.
      * @param content the content.
+     * @throws SpreadsheetException if x or y are outside of the dimensions.
      */
-    public void update(final int x,final int y,final String content) {
+    public void update(final int x,final int y,final String content) throws SpreadsheetException {
         final Cell c = getCell(x,y);
         updateCell(c, content);
     }
 
     /**
-     * Fills a formula.
+     * Fills formulas in the spreadsheet.
+     * @throws SpreadsheetException if it can't get the formulas.
      */
-    public void fillFormulas() {
+    public void fillFormulas() throws SpreadsheetException {
         for (final CellLocation c : formulas.keySet()) {
             getCell(c.toString()).updateContent(getFormula(c));
         }
@@ -203,9 +205,12 @@ public class Sheet implements Serializable {
      * Sort a column.
      * @param state a String.
      * @param col the int representing a column.
+     * @throws SpreadsheetException if the column is outside the sheet.
      */
-    public void sortColumn(final String state, final int col) {
-
+    public void sortColumn(final String state, final int col) throws SpreadsheetException {
+        if (col >= sizeY()) {
+            throw new SpreadsheetException("Column is outside of the dimension of the sheet");
+        }
 
         final ArrayList<String> cellValues = new ArrayList<>();
 
@@ -232,15 +237,17 @@ public class Sheet implements Serializable {
     /**
      * Sort a column.
      * @param col the int representing the column.
+     * @throws SpreadsheetException if the column is beyond the dimensions of the Sheet.
      */
-    public void sortColumn(final int col) {
+    public void sortColumn(final int col) throws SpreadsheetException {
         sortColumn("asc", col);
     }
 
     /**
      * Re-evalutates a formula.
+     * @throws SpreadsheetException if the cell can't be evaluate.
      */
-    public void reEvalFormulas() {
+    public void reEvalFormulas() throws SpreadsheetException {
         for (final CellLocation c : formulas.keySet()) {
             updateCell(getCell(c.toString()), formulas.get(c));
         }
@@ -251,8 +258,13 @@ public class Sheet implements Serializable {
      * @param x the x coordinate.
      * @param y the y coordinate.
      * @return Cell the cell at the x,y location.
+     * @throws SpreadsheetException if the dimensions of the location are beyond the sheet's.
      */
-    public Cell getCell(final int x, final int y) {
+    public Cell getCell(final int x, final int y) throws SpreadsheetException {
+        if (x > sizeX() || y > sizeY()) {
+            throw new SpreadsheetException("Cell at coordinates "
+                    + x + "," + y + "is not in the dimensions of the sheet");
+        }
         return table.get(x,y);
     }
 
@@ -260,8 +272,9 @@ public class Sheet implements Serializable {
      * Gets the cell from a location.
      * @param location the location.
      * @return Cell a cell.
+     * @throws SpreadsheetException if the dimensions of the location are beyond the sheet's.
      */
-    public Cell getCell(final String location) {
+    public Cell getCell(final String location) throws SpreadsheetException {
         int x;
         int y;
         final int[] loc = Cell.parseLocation(location);
@@ -298,8 +311,9 @@ public class Sheet implements Serializable {
     /**
      * Creates the a data table.
      * @return Object[][] the bi-dimensional Object array.
+     * @throws SpreadsheetException if it can't get the cell at x,y.
      */
-    public Object[][] createDataTable() {
+    public Object[][] createDataTable() throws SpreadsheetException {
 
         final Object[][] tableData = new Object[sizeX()][sizeY() + 1];
 

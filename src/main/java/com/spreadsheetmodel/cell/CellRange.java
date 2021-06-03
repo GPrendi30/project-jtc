@@ -46,7 +46,11 @@ public class CellRange {
         for (int x = startX;  x <= endX; x++) {
             for (int y = startY; y <= endY; y++) {
 
-                tempData[i][j] = sh.getCell(x,y).getText();
+                try {
+                    tempData[i][j] = sh.getCell(x,y).getText();
+                } catch (SpreadsheetException exception) {
+                    exception.printStackTrace();
+                }
                 j++;
             }
             i++;
