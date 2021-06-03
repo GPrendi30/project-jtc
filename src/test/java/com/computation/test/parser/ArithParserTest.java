@@ -286,4 +286,44 @@ public class ArithParserTest {
         // assertion
         assertEquals(expectedRoot.toString(), actualRoot.toString());
     }
+
+    @Test
+    public void testParseFactor3() throws LexerException, ArithException {
+        // setup
+        final Parser parser = new ArithParser();
+        // test input
+        final String sourceCode = "(12.3+5.0";
+        // expected tree
+        final Node expectedRoot = new DoubleAddition(
+                new DoubleLiteral(12.3),
+                new DoubleLiteral(5.0));
+
+        boolean thrown = true;
+        try {
+            parser.parse(sourceCode);
+        } catch (ArithException exception) {
+            thrown = true;
+        }
+        assertTrue(thrown);
+    }
+
+    @Test
+    public void testParseFunction() throws LexerException, ArithException {
+        // setup
+        final Parser parser = new ArithParser();
+        // test input
+        final String sourceCode = "(12.3+5.0";
+        // expected tree
+        final Node expectedRoot = new DoubleAddition(
+                new DoubleLiteral(12.3),
+                new DoubleLiteral(5.0));
+
+        boolean thrown = true;
+        try {
+            parser.parse(sourceCode);
+        } catch (ArithException exception) {
+            thrown = true;
+        }
+        assertTrue(thrown);
+    }
 }
