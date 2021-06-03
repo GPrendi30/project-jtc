@@ -19,7 +19,12 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-
+/**
+ * The tabs view.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class TabsView extends JPanel {
 
     private Spreadsheet model;

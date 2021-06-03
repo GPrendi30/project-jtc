@@ -37,7 +37,12 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-
+/**
+ * The view of the sheet.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class SheetView extends JScrollPane {
 
     private CustomTable mainGrid;

@@ -4,6 +4,12 @@ import com.spreadsheetmodel.commands.Command;
 import com.spreadsheetmodel.commands.CommandException;
 import com.spreadsheetmodel.commands.Invoker;
 
+/**
+ * The TuiHandlerUtil.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class TuiHandlerUtil {
 
 

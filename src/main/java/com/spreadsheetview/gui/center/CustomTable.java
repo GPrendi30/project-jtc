@@ -3,6 +3,12 @@ package com.spreadsheetview.gui.center;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
+/**
+ * The custom table.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class CustomTable extends JTable {
 
     @Override

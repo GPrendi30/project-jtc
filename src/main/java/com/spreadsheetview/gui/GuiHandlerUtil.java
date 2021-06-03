@@ -6,6 +6,12 @@ import com.spreadsheetmodel.commands.Invoker;
 
 import javax.swing.JOptionPane;
 
+/**
+ * The GuiHandlerUtil.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public final class GuiHandlerUtil {
 
     private GuiHandlerUtil() {}

@@ -2,6 +2,12 @@ package com.spreadsheetview.tui;
 
 import java.util.Scanner;
 
+/**
+ * The REPL.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class REPL {
 
     private final TuiCommand tuiCommand;

@@ -7,7 +7,12 @@ import java.awt.BorderLayout;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 
-
+/**
+ * The sheet panel.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class SheetPanel extends JPanel {
 
     private Spreadsheet model;

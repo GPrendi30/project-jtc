@@ -5,6 +5,12 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
+/**
+ * The menu.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public abstract class Menu extends JMenu {
 
     /**

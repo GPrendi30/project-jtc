@@ -3,6 +3,12 @@ package com.spreadsheetview.gui.menu.menubar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * The menu view.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class ViewMenu extends Menu {
 
     /**

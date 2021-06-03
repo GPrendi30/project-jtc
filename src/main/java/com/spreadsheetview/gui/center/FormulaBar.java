@@ -21,15 +21,15 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-
-
-
 /**
  * The main frame of the Function Plotter application.
  * The "GUI".
  * The "GUI" knows the "model", it depends on the "model",
  * and it cannot exist without the "model".
  * The "model" of a SheetPanelSheetPanelSheetPanelListner is a Plot.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
  */
 
 public final class FormulaBar extends JPanel {

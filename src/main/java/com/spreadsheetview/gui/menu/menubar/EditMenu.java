@@ -9,6 +9,12 @@ import com.spreadsheetview.gui.GuiHandlerUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * The edit menu.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class EditMenu extends Menu {
 
     /**

@@ -4,6 +4,12 @@ package com.spreadsheetview.gui.menu.menubar;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+/**
+ * The file picker.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class FilePicker extends JFileChooser {
 
     /**

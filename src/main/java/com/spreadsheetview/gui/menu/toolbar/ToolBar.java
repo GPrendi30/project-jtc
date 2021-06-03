@@ -18,6 +18,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
 
+/**
+ * The toolbar.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public class ToolBar extends JToolBar {
 
     /**

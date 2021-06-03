@@ -4,6 +4,12 @@ import com.spreadsheetmodel.Spreadsheet;
 
 import java.io.Serializable;
 
+/**
+ * The Spreadsheet view.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public interface SpreadsheetView extends Serializable {
 
     /**

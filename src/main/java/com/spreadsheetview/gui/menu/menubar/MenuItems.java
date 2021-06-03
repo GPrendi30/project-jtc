@@ -2,6 +2,12 @@ package com.spreadsheetview.gui.menu.menubar;
 
 import java.awt.event.ActionListener;
 
+/**
+ * The menu items.
+ *
+ * @author Di Pietro Enrico, Prendi Gerald.
+ *
+ */
 public interface MenuItems {
 
     /**
