@@ -24,7 +24,7 @@ public class CopyCommand implements Command {
 
     @Override
     public void undo(final Spreadsheet receiver) {
-        stack.pop();
+        // no undo.
     }
 
     @Override

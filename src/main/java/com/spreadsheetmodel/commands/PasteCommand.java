@@ -1,6 +1,7 @@
 package com.spreadsheetmodel.commands;
 
 import com.spreadsheetmodel.Spreadsheet;
+import com.spreadsheetmodel.SpreadsheetException;
 import com.spreadsheetmodel.cell.Cell;
 
 public class PasteCommand implements Command {
@@ -18,22 +19,34 @@ public class PasteCommand implements Command {
     }
 
     @Override
-    public void execute(final Spreadsheet receiver) {
-        oldContent = receiver.getCurrentCell().getText();
-        targetCell = receiver.getCurrentCell();
-        receiver.updateCurrentCell(stack.peek());
+    public void execute(final Spreadsheet receiver) throws CommandException {
+        try {
+            oldContent = receiver.getCurrentCell().getText();
+            targetCell = receiver.getCurrentCell();
+            receiver.updateCurrentCell(stack.peek());
+        } catch (SpreadsheetException exception) {
+            throw new CommandException(exception.getMessage(), exception);
+        }
     }
 
     @Override
-    public void undo(final Spreadsheet receiver) {
-        receiver.updateCell(targetCell, oldContent);
-        stack.pop();
+    public void redo(final Spreadsheet receiver) throws CommandException {
+
+        try {
+            oldContent = targetCell.getText();
+            receiver.updateCurrentCell(stack.peek());
+        } catch (SpreadsheetException exception) {
+            throw new CommandException(exception.getMessage(), exception);
+        }
     }
 
     @Override
-    public void redo(final Spreadsheet receiver) {
-        oldContent = targetCell.getText();
-        receiver.updateCurrentCell(stack.peek());
+    public void undo(final Spreadsheet receiver) throws CommandException {
+        try {
+            receiver.updateCell(targetCell, oldContent);
+        } catch (SpreadsheetException exception) {
+            throw new CommandException(exception.getMessage(), exception);
+        }
     }
 
 }

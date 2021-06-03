@@ -25,16 +25,13 @@ public class OpenCommand implements Command {
     }
 
     @Override
-    public void execute(final Spreadsheet receiver) {
+    public void execute(final Spreadsheet receiver) throws CommandException {
         try {
             final Spreadsheet temp = SpreadsheetIO.readFromFile(this.path);
             target.updateModel(temp);
-        } catch (IOException exception) {
-            exception.printStackTrace();
-        } catch (SpreadsheetException exception) {
-            exception.printStackTrace();
+        } catch (IOException | SpreadsheetException exception) {
+            throw new CommandException(exception.getMessage(), exception);
         }
-
     }
 
     @Override

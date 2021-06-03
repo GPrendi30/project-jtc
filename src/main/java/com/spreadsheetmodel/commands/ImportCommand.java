@@ -23,27 +23,34 @@ public class ImportCommand implements Command {
     }
 
     @Override
-    public void execute(final Spreadsheet receiver) {
+    public void execute(final Spreadsheet receiver) throws CommandException {
         try {
             prevSheet = receiver.getCurrentSheetName();
             receiver.importCsv(path);
             importedSheet = receiver.getCurrentSheet();
-        } catch (IOException exception) {
-            exception.printStackTrace();
-        } catch (SpreadsheetException exception) {
-            exception.printStackTrace();
+        } catch (IOException | SpreadsheetException exception) {
+            throw new CommandException(exception.getMessage(), exception);
         }
     }
 
     @Override
-    public void undo(final Spreadsheet receiver) {
+    public void undo(final Spreadsheet receiver) throws CommandException {
         final String importSheet = Paths.get(path).getFileName().toString();
-        receiver.removeSheet(importSheet);
-        receiver.selectSheet(prevSheet);
+        try {
+            receiver.removeSheet(importSheet);
+            receiver.selectSheet(prevSheet);
+        } catch (SpreadsheetException exception) {
+            throw new CommandException(exception.getMessage(), exception);
+        }
+
     }
 
     @Override
-    public void redo(final Spreadsheet receiver) {
-        receiver.addSheet(importedSheet);
+    public void redo(final Spreadsheet receiver) throws CommandException {
+        try {
+            receiver.addSheet(importedSheet);
+        } catch (SpreadsheetException exception) {
+            throw new CommandException(exception.getMessage(), exception);
+        }
     }
 }

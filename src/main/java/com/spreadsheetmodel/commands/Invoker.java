@@ -35,8 +35,9 @@ public class Invoker {
     /**
      * Invoke(execute) a Command.
      * @param d a command.
+     * @throws CommandException if the command has an exception.
      */
-    public void invoke(final Command d) {
+    public void invoke(final Command d) throws CommandException {
         commands.add(d);
         pointer++;
         d.execute(receiver);
@@ -46,8 +47,9 @@ public class Invoker {
 
     /**
      * Undo a Command.
+     * @throws CommandException if the command has an exception.
      */
-    public void undo() {
+    public void undo() throws CommandException {
         final Command undoCommand = commands.get(pointer--);
         undoCommand.undo(receiver);
         System.out.println("undo command");
@@ -56,8 +58,9 @@ public class Invoker {
 
     /**
      * Redo a Command.
+     * @throws CommandException if the command has an exception.
      */
-    public void redo() {
+    public void redo() throws CommandException {
         final Command redoCommand = commands.get(pointer++);
         redoCommand.redo(receiver);
         System.out.println("redo command");

@@ -1,6 +1,7 @@
 package com.spreadsheetmodel.commands;
 
 import com.spreadsheetmodel.Spreadsheet;
+import com.spreadsheetmodel.SpreadsheetException;
 import com.spreadsheetmodel.cell.Cell;
 
 public class CutCommand implements Command {
@@ -20,23 +21,35 @@ public class CutCommand implements Command {
     }
 
     @Override
-    public void execute(final Spreadsheet receiver) {
+    public void execute(final Spreadsheet receiver) throws CommandException {
         savedContent = receiver.getCurrentCell().getText();
         savedCell = receiver.getCurrentCell();
-        receiver.updateCurrentCell("");
+        try {
+            receiver.updateCurrentCell("");
+        } catch (SpreadsheetException exception) {
+            throw new CommandException(exception.getMessage(), exception);
+        }
         stack.push(savedContent);
     }
 
     @Override
-    public void undo(final Spreadsheet receiver) {
-        receiver.updateCell(savedCell, stack.pop());
+    public void undo(final Spreadsheet receiver) throws CommandException {
+        try {
+            receiver.updateCell(savedCell, stack.peek());
+        } catch (SpreadsheetException exception) {
+            throw new CommandException(exception.getMessage(), exception);
+        }
 
     }
 
     @Override
-    public void redo(final Spreadsheet receiver) {
+    public void redo(final Spreadsheet receiver) throws CommandException {
         savedContent = savedCell.getText();
-        receiver.updateCell(savedCell, "");
+        try {
+            receiver.updateCell(savedCell, "");
+        } catch (SpreadsheetException exception) {
+            throw new CommandException(exception.getMessage(), exception);
+        }
         stack.push(savedContent);
     }
 }
